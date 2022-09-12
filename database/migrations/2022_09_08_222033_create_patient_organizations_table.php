@@ -24,7 +24,7 @@ class CreatePatientOrganizationsTable extends Migration
             $table->foreign('organization_id')->references('id')->on('organizations');
             $table->foreign('user_id')->references('id')->on('users');
         });
-    }
+    }   
 
     /**
      * Reverse the migrations.

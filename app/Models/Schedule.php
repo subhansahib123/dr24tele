@@ -20,5 +20,9 @@ class Schedule extends Model
     {
        return $this->hasMany(Slot::class,'schedule_id');
     }
+    public function doctor()
+    {
+        return $this->belongsTo(Doctor::class,'doctor_id');
+    }
     
 }
