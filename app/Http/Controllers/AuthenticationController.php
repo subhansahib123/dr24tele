@@ -19,7 +19,7 @@ class AuthenticationController extends Controller
 
         $data=['username'=>$request->username,'password'=>$request->password];
         curl_setopt_array($curl, array(
-            CURLOPT_URL => $baseUrl,
+            CURLOPT_URL => $baseUrl.'rest/admin/v1/login?orgName=dr-tele&tenantId=ehrn',
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
