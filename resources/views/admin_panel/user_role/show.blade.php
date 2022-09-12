@@ -35,7 +35,8 @@
                                         {{-- <p>Use <code class="highlighter-rouge">.table-striped</code>to add zebra-striping to any table row within the <code class="highlighter-rouge">.tbody</code>.</p> --}}
                                         <div class="table-responsive">
                                             <div class="bg-light p-4 rounded">
-                                                <h1>{{ ucfirst($role->name) }} Role</h1>
+                                            @foreach($roles as $role)
+                                            <h1>{{ $role->authority }} Role</h1>
                                                 <div class="lead">
 
                                                 </div>
@@ -50,19 +51,29 @@
                                                             <th scope="col" width="1%">Guard</th>
                                                         </thead>
 
-                                                        @foreach($rolePermissions as $permission)
+                                                        @if($role->authPermissions)
+                                                                @foreach($role->authPermissions as $permission)
                                                             <tr>
-                                                                <td>{{ $permission->name }}</td>
-                                                                <td>{{ $permission->guard_name }}</td>
+                                                                <td>{{$permission->string}}</td>
+                                                               
+                                                                <td>
+
+                                                                {{$permission->authCRUD}}
+
+                                                                </td>
+                                                               
+                                                               
                                                             </tr>
-                                                        @endforeach
+                                                            @endforeach
+                                                                @endif
+                                                      
                                                     </table>
                                                 </div>
-
+                                                @endforeach
                                             </div>
                                             <div class="mt-4">
-                                                <a href="{{ route('roles.edit', $role->id) }}" class="btn btn-info">Edit</a>
-                                                <a href="{{ route('roles.index') }}" class="btn btn-default">Back</a>
+                                                <a href="" class="btn btn-info">Edit</a>
+                                                <a href="" class="btn btn-default">Back</a>
                                             </div>
                                         </div>
                                     </div>

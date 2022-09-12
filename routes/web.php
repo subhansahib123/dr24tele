@@ -43,7 +43,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::post('/login', [AuthenticationController::class,'login'])->name('login.perform');
         //temp Dashboard
         Route::get('/dashboard',[AuthenticationController::class,'dashboard'])->name('dashboard');
-
+        Route::get('/roles',[AuthenticationController::class,'roles'])->name('roles');
         //Forget Password Routes
         // Route::get('forget-password', [SocialAuthenticationController::class, 'showForgetPasswordForm'])->name('forget.password.get');
         // Route::post('forget-password', [SocialAuthenticationController::class, 'submitForgetPasswordForm'])->name('forget.password.post');
