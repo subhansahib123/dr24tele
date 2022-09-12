@@ -15,4 +15,12 @@ class Appointment extends Model
         'description',
 
     ];
+    public function user()
+    {
+        return $this->belongsTo(User::class,'doctor_id');
+    }
+    public function slot()
+    {
+        return $this->belongsTo(Slot::class,'slot_id');
+    }
 }

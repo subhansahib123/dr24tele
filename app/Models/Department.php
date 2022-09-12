@@ -13,4 +13,12 @@ class Department extends Model
         'name',
         'slug',
     ];
+    public function organization()
+    {
+        return $this->belongsTo(Organization::class,'organization_id');
+    }
+    public function doctor()
+    {
+       return $this->hasOne(Doctor::class,'department_id');
+    }
 }

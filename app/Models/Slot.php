@@ -14,4 +14,12 @@ class Slot extends Model
         'end',
         'status',
     ];
+    public function schedule()
+    {
+        return $this->belongsTo(Schedule::class,'schedule_id');
+    }
+    public function appointment()
+    {
+       return $this->hasOne(Appointment::class,'slot_id');
+    }
 }

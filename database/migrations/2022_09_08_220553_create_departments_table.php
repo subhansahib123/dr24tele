@@ -17,10 +17,11 @@ class CreateDepartmentsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug');
-            $table->json('ehr_request_data')->nullable();
-            $table->json('ehr_response_data')->nullable();
-            $table->json('ehr_request_status')->nullable();
             $table->timestamps();
+            $table->unsignedBigInteger('department_id')->nullable();            
+            $table->unsignedBigInteger('organization_id');
+            $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('cascade');
+            $table->foreign('department_id')->references('id')->on('departments')->onDelete('cascade');
         });
     }
 

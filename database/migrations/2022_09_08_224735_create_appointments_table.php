@@ -19,9 +19,6 @@ class CreateAppointmentsTable extends Migration
             $table->string('description')->nullable();
             $table->dateTime('start');
             $table->dateTime('end');
-            $table->json('ehr_request_data')->nullable();
-            $table->json('ehr_response_data')->nullable();
-            $table->json('ehr_request_status')->nullable();
             $table->unsignedBigInteger('doctor_id');
             $table->unsignedBigInteger('patient_id');
             $table->unsignedBigInteger('slot_id');

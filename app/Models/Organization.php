@@ -13,5 +13,13 @@ class Organization extends Model
         'name',
         'slug',
     ];
+    public function department()
+    {
+        return $this->hasMany(Department::class,'organization_id');
+    }
+    public function patient_organization()
+    {
+        return $this->hasOne(Patient_Organization::class,'organization_id');
+    }
 
 }

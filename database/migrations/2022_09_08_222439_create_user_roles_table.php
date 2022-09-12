@@ -16,9 +16,6 @@ class CreateUserRolesTable extends Migration
     {
         Schema::create('user_roles', function (Blueprint $table) {
             $table->id();
-            $table->json('ehr_request_data')->nullable();
-            $table->json('ehr_response_data')->nullable();
-            $table->json('ehr_request_status')->nullable();
             $table->timestamps();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('role_id');

@@ -17,9 +17,6 @@ class CreateRolesTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug');
-            $table->json('ehr_request_data')->nullable();
-            $table->json('ehr_response_data')->nullable();
-            $table->json('ehr_request_status')->nullable();
             $table->timestamps();
             });
     }

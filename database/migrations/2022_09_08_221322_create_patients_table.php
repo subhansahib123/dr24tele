@@ -16,9 +16,6 @@ class CreatePatientsTable extends Migration
         Schema::create('patients', function (Blueprint $table) {
             $table->id();
             $table->boolean('status');
-            $table->json('ehr_request_data')->nullable();
-            $table->json('ehr_response_data')->nullable();
-            $table->json('ehr_request_status')->nullable();
             $table->timestamps();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

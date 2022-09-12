@@ -13,4 +13,12 @@ class Patient_Organization extends Model
         "registration_code",
         "status",
     ];
+    public function organization()
+    {
+       return $this->belongsTo(Organization::class,'organization_id');
+    }
+    public function user()
+    {
+       return $this->belongsTo(User::class,'user_id');
+    }
 }

@@ -18,9 +18,6 @@ class CreatePatientOrganizationsTable extends Migration
             $table->id();
             $table->string('registration_code');
             $table->boolean('status');
-            $table->json('ehr_request_data')->nullable();
-            $table->json('ehr_response_data')->nullable();
-            $table->json('ehr_request_status')->nullable();
             $table->timestamps();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('organization_id');

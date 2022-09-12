@@ -16,4 +16,9 @@ class Schedule extends Model
         'comment',
 
     ];
+    public function slot()
+    {
+       return $this->hasMany(Slot::class,'schedule_id');
+    }
+    
 }

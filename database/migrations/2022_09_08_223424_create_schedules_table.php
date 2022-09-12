@@ -19,9 +19,6 @@ class CreateSchedulesTable extends Migration
             $table->dateTime('start');
             $table->dateTime('end');
             $table->string('comment');
-            $table->json('ehr_request_data')->nullable();
-            $table->json('ehr_response_data')->nullable();
-            $table->json('ehr_request_status')->nullable();
             $table->timestamps();
             $table->unsignedBigInteger('doctor_id');
             $table->foreign('doctor_id')->references('id')->on('doctors')->onDelete('cascade');        });

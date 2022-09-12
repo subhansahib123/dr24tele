@@ -19,9 +19,6 @@ class CreateSlotsTable extends Migration
             $table->dateTime('start');
             $table->dateTime('end');
             $table->string('status');
-            $table->json('ehr_request_data')->nullable();
-            $table->json('ehr_response_data')->nullable();
-            $table->json('ehr_request_status')->nullable();
             $table->timestamps();
             $table->unsignedBigInteger('schedule_id');
             $table->foreign('schedule_id')->references('id')->on('schedules')->onDelete('cascade');

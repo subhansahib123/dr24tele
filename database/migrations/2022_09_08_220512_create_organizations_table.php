@@ -17,10 +17,9 @@ class CreateOrganizationsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug');
-            $table->json('ehr_request_data')->nullable();
-            $table->json('ehr_response_data')->nullable();
-            $table->json('ehr_request_status')->nullable();
             $table->timestamps();
+            $table->unsignedBigInteger('organization_id')->nullable();
+            $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('cascade');
         });
     }
 
