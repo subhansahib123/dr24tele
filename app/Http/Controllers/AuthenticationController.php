@@ -39,12 +39,11 @@ class AuthenticationController extends Controller
         // dd($curl);
         try{
             $response = curl_exec($curl);
-            curl_close($curl);
+
             if($response==false || isset($response->status)){
                 return curl_error($curl);
             }else {
                 $result_data=json_decode($response);
-
                 // dd($result_data);
                 $user=User::where('username',$result_data->username)->first();
                 if($user){
@@ -57,7 +56,7 @@ class AuthenticationController extends Controller
                 }
 
             }
-
+            curl_close($curl);
 
         }
         catch (\Exception $e) {
@@ -79,7 +78,7 @@ class AuthenticationController extends Controller
         $data=['username'=>$request->username,'password'=>$request->password];
         $userInfo=session('loggedInUser');
         $userInfo=json_decode(json_encode($userInfo), true);
-        
+
         $token=$userInfo['sessionInfo']['token'];
         curl_setopt_array($curl, array(
           CURLOPT_URL => $baseUrl.'rest/admin/role?order=ASC',
