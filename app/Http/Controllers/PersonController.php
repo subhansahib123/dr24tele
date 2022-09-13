@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\BadResponseException;
+use GuzzleHttp\Exception\RequestException;
 use Illuminate\Http\Request;
 use GuzzleHttp\Psr7\Request as clientRequest;
 class PersonController extends Controller
@@ -11,10 +13,11 @@ class PersonController extends Controller
         $baseUrl=config('services.ehr.baseUrl');
         $apiKey=config('services.ehr.apiKey');
         $client = new Client();
+        $Authorization = $request->header('Authorization');
         $headers = [
             'Content-Type' => 'application/json',
             'Accept' => 'application/json',
-            'Authorization' => 'SessionId:10.47.0.6#nissi:c6bc6265-e876-414a-9672-a85e09280059:ehrn:OrgSuperAdmin:MasterProfession#1663062748752#1721705290#136',
+            'Authorization' => $Authorization,
             'apikey' => $apiKey
         ];
         $givenName = $request->givenName;
@@ -139,9 +142,20 @@ class PersonController extends Controller
             }';
 //        print_r($body);
 //        die();
-        $userUuid = 'urn:uuid:ca83c571-53e0-5398-3183-ede82ba70ba9';
-        $results = new clientRequest('POST', $baseUrl.'rest/admin/person?userUuid='.$userUuid, $headers, $body);
-        $res = $client->sendAsync($results)->wait();
-        echo $res->getBody();
+
+        $userUuid = $request->userUuid;
+        try {
+            $results = new clientRequest('POST', $baseUrl.'rest/admin/person?userUuid='.$userUuid, $headers, $body);
+            $res = $client->sendAsync($results)->wait();
+            echo $res->getBody();
+        }
+        catch (RequestException   $e){
+            if ($e->hasResponse()){
+                if ($e->getResponse()->getStatusCode() == '400') {
+                    echo $e->getMessage();
+                }
+            }
+        }
+
     }
 }
