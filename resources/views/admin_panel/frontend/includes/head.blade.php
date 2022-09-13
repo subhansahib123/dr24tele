@@ -16,7 +16,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="{{asset('assets/images/brand/favicon.ico')}}" />
 
     <!-- TITLE -->
-    <title>Tool Prime | Admin </title>
+    <title>Dr24Tele | Admin </title>
 
     <!-- BOOTSTRAP CSS -->
 

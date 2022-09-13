@@ -15,7 +15,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="{{asset('assets/images/brand/favicon.ico')}}" />
 
     <!-- TITLE -->
-    <title>Tool Prime | Login</title>
+    <title>Dr24Tele | Login</title>
 
     <!-- BOOTSTRAP CSS -->
     <link id="style" href="{{asset('assets/plugins/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet" />
@@ -52,7 +52,7 @@
                 <!-- CONTAINER OPEN -->
                 <div class="col col-login mx-auto mt-7">
                     <div class="text-center text-white">
-                        <h3>Tool Prime</h3>
+                        <h3>Dr24Tele</h3>
                     </div>
                 </div>
 

@@ -4,8 +4,9 @@
     <div class="app-sidebar">
         <div class="side-header">
             <a class="header-brand1" href="index.html">
-                <img src="{{asset('assets/images/brand/toolprime-sidebar-rplace.png')}}" class="header-brand-img light-logo" alt="logo">
-                <img src="{{asset('assets/images/brand/toolprime-sidebar.png')}}" class="header-brand-img light-logo1" alt="logo">
+                <!-- <img src="{{asset('assets/images/brand/toolprime-sidebar-rplace.png')}}" class="header-brand-img light-logo" alt="logo"> -->
+                <!-- <img src="{{asset('assets/images/brand/toolprime-sidebar.png')}}" class="header-brand-img light-logo1" alt="logo"> -->
+                <h3>Dr24Tele</h3>
             </a>
             <!-- LOGO -->
         </div>
@@ -34,7 +35,7 @@
                     {{-- <a class="side-menu__item has-link" data-bs-toggle="slide" href="{{route('users.index')}}"><i class="side-menu__icon fe fe-user"></i><span class="side-menu__label">Users</span></a> --}}
                 </li>
                 <li class="slide">
-                    {{-- <a class="side-menu__item has-link" data-bs-toggle="slide" href="{{route('packeges.index')}}"><i class="side-menu__icon fe fe-user"></i><span class="side-menu__label">Packages</span></a> --}}
+                    <a class="side-menu__item has-link" data-bs-toggle="slide" href="{{route('roles')}}"><i class="side-menu__icon fe fe-user"></i><span class="side-menu__label">Roles</span></a> 
                 </li>
                 <li class="slide">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i class="side-menu__icon fe fe-slack"></i><span class="side-menu__label">Tools</span><i class="angle fe fe-chevron-right"></i></a>

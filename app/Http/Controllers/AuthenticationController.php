@@ -122,6 +122,7 @@ class AuthenticationController extends Controller
 
             return $e->getMessage();
 
+
     }
 }
 }
