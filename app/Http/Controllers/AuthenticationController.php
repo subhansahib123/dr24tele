@@ -19,8 +19,9 @@ class AuthenticationController extends Controller
 
 
         $data=['username'=>$request->username,'password'=>$request->password];
+        $params = array('orgName' => 'dr-tele','tenantId'=>'ehrn');
         curl_setopt_array($curl, array(
-            CURLOPT_URL => $baseUrl.'rest/admin/v1/login?orgName=dr-tele&tenantId=ehrn',
+            CURLOPT_URL => $baseUrl.'rest/admin/v1/login?'.http_build_query($params),
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
@@ -35,18 +36,21 @@ class AuthenticationController extends Controller
                     'apikey: '.$apiKey
                 ),
         ));
+        // dd($curl);
         try{
             $response = curl_exec($curl);
             curl_close($curl);
-            if($response==false){
+            if($response==false || isset($response->status)){
                 return curl_error($curl);
             }else {
                 $result_data=json_decode($response);
+
+                // dd($result_data);
                 $user=User::where('username',$result_data->username)->first();
                 if($user){
                     Auth::login($user);
                     session(['loggedInUser' => $result_data]);
-                    return view('admin_panel.index');
+                    return redirect()->route('dashboard');
                 }
                 else {
                     return response('signup');
@@ -63,6 +67,7 @@ class AuthenticationController extends Controller
 
     }
     public function dashboard(){
+        // dd(session('loggedInUser'));
         return view('admin_panel.index');
     }
     public function roles(Request $request)
@@ -72,7 +77,10 @@ class AuthenticationController extends Controller
         $apiKey=config('services.ehr.apiKey');
 
         $data=['username'=>$request->username,'password'=>$request->password];
-
+        $userInfo=session('loggedInUser');
+        $userInfo=json_decode(json_encode($userInfo), true);
+        
+        $token=$userInfo['sessionInfo']['token'];
         curl_setopt_array($curl, array(
           CURLOPT_URL => $baseUrl.'rest/admin/role?order=ASC',
           CURLOPT_RETURNTRANSFER => true,
@@ -84,13 +92,13 @@ class AuthenticationController extends Controller
           CURLOPT_CUSTOMREQUEST => 'GET',
           CURLOPT_HTTPHEADER => array(
             'Accept: application/json',
-            'Authorization: SessionId:10.47.0.6#nissi:c6bc6265-e876-414a-9672-a85e09280059:ehrn:OrgSuperAdmin:MasterProfession#1663018605742#222808352#101',
+            'Authorization: '.$token,
             'apikey:'.$apiKey
           ),
         ));
-        
+
         $response = curl_exec($curl);
-        
+
         curl_close($curl);
         // echo $response;
         try{
@@ -98,14 +106,14 @@ class AuthenticationController extends Controller
                 return curl_error($curl);
             }else {
                 $roles=json_decode($response);
-                
+
                 foreach($roles as $role){
                     Role::firstOrCreate([
                         'name'=>$role->authority,
                         'slug'=>Str::slug($role->authority)
                     ]);
                 }
-                
+
                 return  view('admin_panel.user_role.show',["roles"=>$roles]);
                 dd($roles);
             }
@@ -113,6 +121,7 @@ class AuthenticationController extends Controller
         catch (\Exception $e) {
 
             return $e->getMessage();
-          
+
     }
+}
 }
