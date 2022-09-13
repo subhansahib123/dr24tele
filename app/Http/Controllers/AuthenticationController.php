@@ -112,9 +112,9 @@ class AuthenticationController extends Controller
                         'slug'=>Str::slug($role->authority)
                     ]);
                 }
-
+                // dd($roles);
                 return  view('admin_panel.user_role.show',["roles"=>$roles]);
-                dd($roles);
+                
             }
         }
         catch (\Exception $e) {

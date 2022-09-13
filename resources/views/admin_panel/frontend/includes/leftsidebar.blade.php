@@ -26,7 +26,7 @@
                     <a class="side-menu__item has-link" data-bs-toggle="slide" href="{{route('admin-profile-page')}}"><i class="side-menu__icon fe fe-user"></i><span class="side-menu__label">Profile</span></a>
                 </li> --}}
                 <li class="slide">
-                    {{-- <a class="side-menu__item has-link" data-bs-toggle="slide" href="{{route('permissions.index')}}"><i class="side-menu__icon fe fe-user"></i><span class="side-menu__label">Permissions</span></a> --}}
+                    <a class="side-menu__item has-link" data-bs-toggle="slide" href="{{route('profession')}}"><i class="side-menu__icon fe fe-user"></i><span class="side-menu__label">Professions</span></a> 
                 </li>
                 <li class="slide">
                     {{-- <a class="side-menu__item has-link" data-bs-toggle="slide" href="{{route('roles.index')}}"><i class="side-menu__icon fe fe-user"></i><span class="side-menu__label">Roles</span></a> --}}
