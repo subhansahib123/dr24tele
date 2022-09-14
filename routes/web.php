@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\ProfessionController;
+use App\Http\Controllers\OrganizationController;
+use App\Http\Controllers\UserController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -46,6 +49,11 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::get('/dashboard',[AuthenticationController::class,'dashboard'])->name('dashboard');
         Route::get('/roles',[AuthenticationController::class,'roles'])->name('roles');
         Route::get('/profession',[ProfessionController::class,'profession'])->name('profession');
+        Route::get('/organization',[OrganizationController::class,'organization'])->name('organization');
+        Route::get('/patient',[UserController::class,'patient'])->name('patient');
+        Route::get('/allpatient',[UserController::class,'all_patient'])->name('all.patients');
+        Route::get('/createuser',[UserController::class,'create_user'])->name('create.user');
+        Route::post('/storeuser',[UserController::class,'store_user'])->name('store.user');
 
         //Forget Password Routes
         // Route::get('forget-password', [SocialAuthenticationController::class, 'showForgetPasswordForm'])->name('forget.password.get');

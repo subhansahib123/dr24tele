@@ -15,9 +15,9 @@ class ProfessionController extends Controller
         $baseUrl = config('services.ehr.baseUrl');
         $apiKey = config('services.ehr.apiKey');
 
-        $userInfo=session('loggedInUser');
-        $userInfo=json_decode(json_encode($userInfo), true);
-        $token=$userInfo['sessionInfo']['token'];
+        $userInfo = session('loggedInUser');
+        $userInfo = json_decode(json_encode($userInfo), true);
+        $token = $userInfo['sessionInfo']['token'];
         curl_setopt_array($curl, array(
             CURLOPT_URL => $baseUrl . '/rest/admin/profession?order=ASC&=',
             CURLOPT_RETURNTRANSFER => true,
@@ -29,36 +29,40 @@ class ProfessionController extends Controller
             CURLOPT_CUSTOMREQUEST => 'GET',
             CURLOPT_HTTPHEADER => array(
                 'Accept: application/json',
-                'Authorization: '.$token,
-                'apikey: '.$apiKey,
+                'Authorization: ' . $token,
+                'apikey: ' . $apiKey,
             ),
         ));
 
-        $response = curl_exec($curl);
 
-        curl_close($curl);
-        try{
-            if($response==false){
+        try {
+            $response = curl_exec($curl);
+
+            curl_close($curl);
+            if ($response == false) {
                 $error = curl_error($curl);
                 return $error;
-            }
-            else{
-                $professions =json_decode($response);
-                foreach ($professions as $profession)
-                {
+            } else {
+                $professions = json_decode($response);
+                foreach ($professions as $profession) {
                     Profession::firstOrCreate([
                         'name' => $profession->profession,
+                        
                     ]);
                 }
+                if(isset($professions->message) && $professions->message="API rate limit exceeded"){
+                    return view('admin_panel.patient.show')->withError(__('API rate limit exceeded.'));
+                }else if(isset($professions->message) && $professions->message="Invalid Token"){
+                    return view('admin_panel.patient.show')->withError(__('Invalid Token.'));
+                }else{
+                    return view('admin_panel.profession.show', ['professions' => $professions]);
+
+                }
                 // dd($profession);
-                return view('admin_panel.profession.show',['professions'=>$professions]);
-                
             }
-        }
-        catch (\Exception $e) {
+        } catch (\Exception $e) {
 
             return $e->getMessage();
         }
-    
     }
 }

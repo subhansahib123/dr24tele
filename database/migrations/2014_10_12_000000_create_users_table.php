@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Validation\Rules\Unique;
 
 class CreateUsersTable extends Migration
 {
@@ -15,15 +16,17 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('username')->unique();
-            $table->string('email')->unique();
-            $table->string('phone_number')->unique();
+            // Replace Nullable with Unique from here 
+            $table->string('username')->nullable(); 
+            $table->string('email')->nullable();
+            $table->string('phone_number')->nullable();
+            // To here
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->boolean('status');
             $table->rememberToken();
             $table->timestamps();
-            $table->unsignedBigInteger('profession_id');
+            $table->unsignedBigInteger('profession_id')->nullable();
             $table->foreign('profession_id')->references('id')->on('professions')->onDelete('cascade');
         });
     }
