@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\OrganisationController;
 use App\Http\Controllers\ProfessionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthenticationController;
@@ -48,6 +49,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::get('/roles',[AuthenticationController::class,'roles'])->name('roles');
         //Professions
         Route::get('/profession', [ProfessionController::class,'index'])->name('profession');
+        //Organisation
+        Route::get('/organisation', [OrganisationController::class,'index'])->name('organisation');
         //Forget Password Routes
         // Route::get('forget-password', [SocialAuthenticationController::class, 'showForgetPasswordForm'])->name('forget.password.get');
         // Route::post('forget-password', [SocialAuthenticationController::class, 'submitForgetPasswordForm'])->name('forget.password.post');

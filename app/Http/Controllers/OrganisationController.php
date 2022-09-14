@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Profession;
+use App\Models\Organization;
 use Illuminate\Http\Request;
 
-class ProfessionController extends Controller
+class OrganisationController extends Controller
 {
     public function index(){
         $baseUrl=config('services.ehr.baseUrl');
@@ -16,7 +16,7 @@ class ProfessionController extends Controller
             $token = $userInfo['sessionInfo']['token'];
             $curl = curl_init();
             curl_setopt_array($curl, array(
-                CURLOPT_URL => $baseUrl.'rest/admin/profession?order=ASC',
+                CURLOPT_URL => $baseUrl.'rest/admin/organisation/v2/hierarchy?order=ASC',
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_ENCODING => '',
                 CURLOPT_MAXREDIRS => 10,
@@ -36,13 +36,17 @@ class ProfessionController extends Controller
                 if($response==false){
                     return curl_error($curl);
                 }else {
-                    $professions=json_decode($response);
-                    foreach($professions as $profession){
-                        Profession::firstOrCreate([
-                            'name'=>$profession->profession,
+                    $organizations=json_decode($response);
+                    foreach($organizations as $organization){
+                        Organization::updateOrCreate(
+                            ['name'=>$organization->name],
+                            [
+                            'name'=>$organization->name,
+                            'slug'=>$organization->name,
+                            'level'=>$organization->level,
                         ]);
                     }
-                    return  view('admin_panel.profession.show',["professions"=>$professions]);
+                    return  view('admin_panel.organization.show',["organizations"=>$organizations]);
                 }
             }
             catch (\Exception $e) {
