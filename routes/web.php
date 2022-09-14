@@ -41,6 +41,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
          */
         Route::get('/login', [AuthenticationController::class,'showLogin'])->name('login.show');
         Route::post('/login', [AuthenticationController::class,'login'])->name('login.perform');
+        Route::post('/logout', [AuthenticationController::class,'logout'])->name('logout');
         //temp Dashboard
         Route::get('/dashboard',[AuthenticationController::class,'dashboard'])->name('dashboard');
         Route::get('/roles',[AuthenticationController::class,'roles'])->name('roles');
