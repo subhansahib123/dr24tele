@@ -12,6 +12,8 @@ class Organization extends Model
     protected $fillable=[
         'name',
         'slug',
+        'uuid',
+        'status'
     ];
     public function department()
     {
