@@ -11,11 +11,11 @@
 
             <!-- PAGE-HEADER -->
             <div class="page-header">
-                <h1 class="page-title">Patients </h1>
+                <h1 class="page-title">Map User by Role </h1>
                 <div>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Patients </li>
+                        <li class="breadcrumb-item active" aria-current="page">Map User </li>
                     </ol>
                 </div>
             </div>
@@ -24,8 +24,8 @@
             <form action="{{route('role.mapped')}}" method="POST">
                 @csrf
                 <div class="form-group">
-                    <label for="user">Users</label>
-                    <select class="form-control" name="user" id="user">
+                    <label for="user">User</label>
+                    <select class="form-control" value="{{old('user')}}" name="user" id="user">
                         @if($users)
                         @foreach ($users as $user)
                         <option value="{{$user->uuid}}">{{$user->username}}</option>
@@ -35,7 +35,7 @@
                 </div>
                 <div class="form-group">
                     <label for="role">Roles</label>
-                    <select class="form-control" name="role" id="role">
+                    <select class="form-control" value="{{old('role')}}" name="role" id="role">
                         @if($roles)
                         @foreach ($roles as $role)
                         <option value="{{$role->name}}">{{$role->name}}</option>
@@ -45,8 +45,11 @@
                 </div>
                 <div class="form-group">
                     <!-- <label for="role">Roles</label> -->
-                    <button type="submit" class="btn btn-primary" >Map User Role</button>
-                    
+                    <button type="submit" class="btn btn-primary">Map User Role</button>
+
+
+                    <a href="{{route('dashboard')}}" class="btn btn-info">Back</a>
+
                 </div>
             </form>
 

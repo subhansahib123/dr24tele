@@ -3,7 +3,7 @@
 use App\Http\Controllers\PersonController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\OrganizationController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -20,3 +20,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 //Person
 Route::post('/person/create',[PersonController::class,'create'])->name('person.create');
+Route::get('/states/{country_id}',[OrganizationController::class,'states'])->name('load.states');
+Route::get('/cities/{state_id}',[OrganizationController::class,'cities'])->name('load.cities');
+

@@ -1,21 +1,24 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Profession;
 use Illuminate\Http\Request;
 
 class ProfessionController extends Controller
 {
-    public function index(){
-        $baseUrl=config('services.ehr.baseUrl');
-        $apiKey=config('services.ehr.apiKey');
-        $userInfo=session('loggedInUser');
+    // Function to create professions
+    public function professions()
+    {
+        $baseUrl = config('services.ehr.baseUrl');
+        $apiKey = config('services.ehr.apiKey');
+        $userInfo = session('loggedInUser');
         if (!empty($userInfo)) {
             $userInfo = json_decode(json_encode($userInfo), true);
             $token = $userInfo['sessionInfo']['token'];
             $curl = curl_init();
             curl_setopt_array($curl, array(
-                CURLOPT_URL => $baseUrl.'rest/admin/profession?order=ASC',
+                CURLOPT_URL => $baseUrl . 'rest/admin/profession?order=ASC',
                 CURLOPT_RETURNTRANSFER => true,
                 CURLOPT_ENCODING => '',
                 CURLOPT_MAXREDIRS => 10,
@@ -25,29 +28,39 @@ class ProfessionController extends Controller
                 CURLOPT_CUSTOMREQUEST => 'GET',
                 CURLOPT_HTTPHEADER => array(
                     'Accept: application/json',
-                    'Authorization:'.$token,
-                    'apikey:'.$apiKey
+                    'Authorization:' . $token,
+                    'apikey:' . $apiKey
                 ),
             ));
-            $response = curl_exec($curl);
-            curl_close($curl);
-            try{
-                if($response==false){
+
+            try {
+                $response = curl_exec($curl);
+                if ($response == false) {
                     return curl_error($curl);
-                }else {
-                    $professions=json_decode($response);
-                    foreach($professions as $profession){
+                    curl_close($curl);
+                } else {
+                    $professions = json_decode($response);
+                    foreach ($professions as $profession) {
                         Profession::firstOrCreate([
-                            'name'=>$profession->profession,
+                            'name' => $profession->profession,
                         ]);
+                        if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
+
+
+
+                            curl_close($curl);
+                            return  view('admin_panel.profession.show', ["professions" => $professions]);
+                        } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 401) {
+                            curl_close($curl);
+                            return redirect()->back()->withErrors(['error' => 'You are not authorized to view professions']);
+                        } else {
+                            return redirect()->back()->withErrors(['error' => __('Unknow Error From Api.')]);
+                        }
                     }
-                    return  view('admin_panel.profession.show',["professions"=>$professions]);
                 }
-            }
-            catch (\Exception $e) {
+            } catch (\Exception $e) {
                 return $e->getMessage();
             }
-
         }
     }
 }
