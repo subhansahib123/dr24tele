@@ -80,6 +80,7 @@ class AuthenticationController extends Controller
         $userInfo=json_decode(json_encode($userInfo), true);
 
         $token=$userInfo['sessionInfo']['token'];
+        
         curl_setopt_array($curl, array(
           CURLOPT_URL => $baseUrl.'rest/admin/role?order=ASC',
           CURLOPT_RETURNTRANSFER => true,
@@ -105,6 +106,7 @@ class AuthenticationController extends Controller
                 return curl_error($curl);
             }else {
                 $roles=json_decode($response);
+                // dd($token);
 
                 foreach($roles as $role){
                     Role::firstOrCreate([
