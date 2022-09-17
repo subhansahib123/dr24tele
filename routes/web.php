@@ -4,7 +4,6 @@ use App\Http\Controllers\OrganisationController;
 use App\Http\Controllers\ProfessionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthenticationController;
-use App\Http\Controllers\ProfessionController;
 use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\UserController;
 
@@ -51,7 +50,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         //temp Dashboard
         Route::get('/dashboard',[AuthenticationController::class,'dashboard'])->name('dashboard');
 
-        // This Route shows list of All Registered roles 
+        // This Route shows list of All Registered roles
         Route::get('/roles',[AuthenticationController::class,'roles'])->name('roles');
 
         //Professions
@@ -60,32 +59,32 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::get('/organisation', [OrganisationController::class,'index'])->name('organisation');
 
 
-        // This Route shows list of All Registered Professions 
+        // This Route shows list of All Registered Professions
         Route::get('/profession',[ProfessionController::class,'profession'])->name('profession');
 
-        // This Route shows list of All Registered organizations 
+        // This Route shows list of All Registered organizations
         Route::get('/organization',[OrganizationController::class,'organization'])->name('organization');
 
-        // This Route shows list Unmapped patients (roles are not assigned) 
+        // This Route shows list Unmapped patients (roles are not assigned)
         Route::get('/patient',[UserController::class,'patient'])->name('patient');
 
         // This Route shows list ?
         Route::get('/allpatient',[UserController::class,'all_patient'])->name('all.patients');
 
-        // These Routes are used to create Users  
+        // These Routes are used to create Users
         Route::get('/createuser',[UserController::class,'create_user'])->name('create.user');
         Route::post('/storeuser',[UserController::class,'store_user'])->name('store.user');
 
-        // These Routes are used to Map Roles to Users  
+        // These Routes are used to Map Roles to Users
         Route::get('/mappingrole',[UserController::class,'mapUser'])->name('mappingRole');
         Route::post('/mappedrole',[UserController::class,'mapUserRole'])->name('role.mapped');
 
-        // These Routes are used to Map Roles to Users  
+        // These Routes are used to Map Roles to Users
         Route::get('/updatingrole',[UserController::class,'updateUserRole'])->name('updatingRole');
         Route::post('/updatedRole',[UserController::class,'updateUserRoleStore'])->name('role.updated');
 
 
-        
+
 
         //Forget Password Routes
         // Route::get('forget-password', [SocialAuthenticationController::class, 'showForgetPasswordForm'])->name('forget.password.get');
