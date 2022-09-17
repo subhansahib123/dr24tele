@@ -26,13 +26,13 @@
                     <a class="side-menu__item has-link" data-bs-toggle="slide" href="{{route('admin-profile-page')}}"><i class="side-menu__icon fe fe-user"></i><span class="side-menu__label">Profile</span></a>
                 </li> --}}
                 <li class="slide">
-                    {{-- <a class="side-menu__item has-link" data-bs-toggle="slide" href="{{route('permissions.index')}}"><i class="side-menu__icon fe fe-user"></i><span class="side-menu__label">Permissions</span></a> --}}
+                    <a class="side-menu__item has-link" data-bs-toggle="slide" href="{{route('profession')}}"><i class="side-menu__icon fe fe-user"></i><span class="side-menu__label">Professions</span></a>
                 </li>
                 <li class="slide">
-                    {{-- <a class="side-menu__item has-link" data-bs-toggle="slide" href="{{route('roles.index')}}"><i class="side-menu__icon fe fe-user"></i><span class="side-menu__label">Roles</span></a> --}}
+                    {{-- <a class="side-menu__item has-link" data-bs-toggle="slide" href="{{route('roles.index')}}"><i class="side-menu__icon fe fe-user"><i><span class="side-menu__label">Roles</span></a> --}}
                 </li>
                 <li class="slide">
-                    {{-- <a class="side-menu__item has-link" data-bs-toggle="slide" href="{{route('users.index')}}"><i class="side-menu__icon fe fe-user"></i><span class="side-menu__label">Users</span></a> --}}
+                    <a class="side-menu__item has-link" data-bs-toggle="slide" href="{{route('organization')}}"><i class="side-menu__icon fe fe-user"></i><span class="side-menu__label">Organizations</span></a> 
                 </li>
                 <li class="slide">
                     <a class="side-menu__item has-link" data-bs-toggle="slide" href="{{route('roles')}}"><i class="side-menu__icon fe fe-user"></i><span class="side-menu__label">Roles</span></a>
@@ -40,6 +40,7 @@
                 <li class="slide">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i class="side-menu__icon fe fe-slack"></i><span class="side-menu__label">Professions</span><i class="angle fe fe-chevron-right"></i></a>
                     <ul class="slide-menu nav-tree">
+
                         <li><a class="slide-item" href="{{route('profession')}}">Profession</a></li>
                     </ul>
                 </li>
@@ -56,35 +57,58 @@
                         {{-- <li><a class="slide-item" href="{{route('blog_categories.index')}}">Categories</a></li>
                         <li><a href="{{route('blogs.index')}}" class="slide-item"> Blogs</a></li> --}}
                     </ul>
-                </li>
 
-                <li class="sub-category">
-                    <h3>General Information</h3>
                 </li>
-                <li class="slide">
-                    <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i class="side-menu__icon fe fe-slack"></i><span class="side-menu__label">General</span><i class="angle fe fe-chevron-right"></i></a>
-                    <ul class="slide-menu">
-                        {{-- <li class="side-menu-label1"><a href="javascript:void(0)">General</a></li>
-                        <li><a href="{{route('pages.index')}}" class="slide-item {{ (request()->is('pages')) ? 'active' : '' }}">Pages</a></li>
-                        <li><a href="{{route('faqs.index')}}" class="slide-item {{ (request()->is('faqs')) ? 'active' : '' }}">FAQs</a></li>
-                        <li><a href="{{route('testimonials.index')}}" class="slide-item {{ (request()->is('testimonials')) ? 'active' : '' }}">Testimonials</a></li>
-                        <li><a href="{{route('advertise.index')}}" class="slide-item {{ (request()->is('advertise')) ? 'active' : '' }}">Advertise</a></li>
-                        <li><a href="{{route('contact.index')}}" class="slide-item {{ (request()->is('contact')) ? 'active' : '' }}">Contact</a></li>
-                        <li><a href="{{route('setting.index')}}" class="slide-item {{ (request()->is('setting')) ? 'active' : '' }}">Setting</a></li> --}}
-                    </ul>
-                </li>
+                <li><a href="{{route('tools.index')}}" class="slide-item"> Tools</a></li> --}}
+            </ul>
+            </li>
+            <li class="slide">
+                <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i class="side-menu__icon fe fe-slack"></i><span class="side-menu__label">Images</span><i class="angle fe fe-chevron-right"></i></a>
+                <ul class="slide-menu nav-tree">
+                    {{-- <li><a class="slide-item" href="{{route('image_categories.index')}}">Categories</a>
+            </li>
+            <li><a href="{{route('images.index')}}" class="slide-item"> Images</a></li> --}}
+            </ul>
+            </li>
+            <li class="slide">
+                <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i class="side-menu__icon fe fe-slack"></i><span class="side-menu__label">Patients</span><i class="angle fe fe-chevron-right"></i></a>
+                <ul class="slide-menu nav-tree">
+                    
+            <li><a href="{{route('patient')}}" class="slide-item">Unmapped Patients</a></li> 
+            <li><a href="{{route('all.patients')}}" class="slide-item"> All Patients</a></li> 
+            
+            </ul>
+            </li>
 
-                <li class="slide">
-                    <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i class="side-menu__icon fe fe-slack"></i><span class="side-menu__label">Configuration Settings</span><i class="angle fe fe-chevron-right"></i></a>
-                    <ul class="slide-menu nav-tree">
-                        {{-- <li><a class="slide-item" href="{{route('captcha.index')}}">Google Captcha</a></li>
-                        <li><a href="{{route('google.index')}}" class="slide-item"> Google Login</a></li>
+            <li class="sub-category">
+                <h3>General Information</h3>
+            </li>
+            <li class="slide">
+                <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i class="side-menu__icon fe fe-slack"></i><span class="side-menu__label">General</span><i class="angle fe fe-chevron-right"></i></a>
+                <ul class="slide-menu">
+                    {{-- <li class="side-menu-label1"><a href="javascript:void(0)">General</a></li>
+                        <li><a href="{{route('pages.index')}}" class="slide-item {{ (request()->is('pages')) ? 'active' : '' }}">Pages</a>
+            </li>
+            <li><a href="{{route('faqs.index')}}" class="slide-item {{ (request()->is('faqs')) ? 'active' : '' }}">FAQs</a></li>
+            <li><a href="{{route('testimonials.index')}}" class="slide-item {{ (request()->is('testimonials')) ? 'active' : '' }}">Testimonials</a></li>
+            <li><a href="{{route('advertise.index')}}" class="slide-item {{ (request()->is('advertise')) ? 'active' : '' }}">Advertise</a></li>
+            <li><a href="{{route('contact.index')}}" class="slide-item {{ (request()->is('contact')) ? 'active' : '' }}">Contact</a></li>
+            <li><a href="{{route('setting.index')}}" class="slide-item {{ (request()->is('setting')) ? 'active' : '' }}">Setting</a></li> --}}
+            </ul>
+            </li>
 
-                        <li><a class="slide-item" href="{{route('facebook.index')}}">Facebook Login</a></li>
-                        <li><a href="{{route('linkedin.index')}}" class="slide-item"> Linkedin Login</a></li>
-                        <li><a class="slide-item" href="{{route('stripe.index')}}">Stripe Login</a></li> --}}
-                    </ul>
-                </li>
+            <li class="slide">
+                <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i class="side-menu__icon fe fe-slack"></i><span class="side-menu__label">Configuration Settings</span><i class="angle fe fe-chevron-right"></i></a>
+                <ul class="slide-menu nav-tree">
+                    {{-- <li><a class="slide-item" href="{{route('captcha.index')}}">Google Captcha</a>
+            </li>
+            <li><a href="{{route('google.index')}}" class="slide-item"> Google Login</a></li>
+
+            <li><a class="slide-item" href="{{route('facebook.index')}}">Facebook Login</a></li>
+            <li><a href="{{route('linkedin.index')}}" class="slide-item"> Linkedin Login</a></li>
+            <li><a class="slide-item" href="{{route('stripe.index')}}">Stripe Login</a></li> --}}
+            </ul>
+            </li>
 
             </ul>
             <div class="slide-right" id="slide-right"><svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191" width="24" height="24" viewBox="0 0 24 24">

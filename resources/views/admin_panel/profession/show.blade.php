@@ -54,17 +54,20 @@
                                     <div class="mt-4">
                                         <a href="" class="btn btn-info">Edit</a>
                                         <a href="" class="btn btn-default">Back</a>
+
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                 </div>
             </div>
             <!-- CONTAINER CLOSED -->
 
         </div>
     </div>
+
 
 
 

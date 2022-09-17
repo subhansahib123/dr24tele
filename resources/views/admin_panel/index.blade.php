@@ -12,6 +12,7 @@
                         <!-- PAGE-HEADER -->
                         <div class="page-header">
                             <h1 class="page-title">Dashboard</h1>
+                            @include('admin_panel.frontend.includes.messages')
                             <div>
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
