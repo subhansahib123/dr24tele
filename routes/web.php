@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\OrganisationController;
+use App\Http\Controllers\ProfessionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\ProfessionController;
@@ -45,11 +47,18 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
          */
         Route::get('/login', [AuthenticationController::class,'showLogin'])->name('login.show');
         Route::post('/login', [AuthenticationController::class,'login'])->name('login.perform');
+        Route::post('/logout', [AuthenticationController::class,'logout'])->name('logout');
         //temp Dashboard
         Route::get('/dashboard',[AuthenticationController::class,'dashboard'])->name('dashboard');
 
         // This Route shows list of All Registered roles 
         Route::get('/roles',[AuthenticationController::class,'roles'])->name('roles');
+
+        //Professions
+        Route::get('/profession', [ProfessionController::class,'index'])->name('profession');
+        //Organisation
+        Route::get('/organisation', [OrganisationController::class,'index'])->name('organisation');
+
 
         // This Route shows list of All Registered Professions 
         Route::get('/profession',[ProfessionController::class,'profession'])->name('profession');

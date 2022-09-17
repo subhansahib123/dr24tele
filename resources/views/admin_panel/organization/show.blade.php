@@ -74,16 +74,17 @@
                                                 <a href="" class="btn btn-default">Back</a>
                                             </div>
                                         </div>
+
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+
                     <!-- CONTAINER CLOSED -->
 
     </div>
 </div>
-
 
 
 @endsection
