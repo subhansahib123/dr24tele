@@ -18,6 +18,8 @@ class CreateOrganizationsTable extends Migration
             $table->string('name');
             $table->string('slug');
             $table->string('level')->nullable();
+            $table->string('uuid')->nullable();
+            $table->string('status')->defualt('Disabled');
             $table->timestamps();
             $table->unsignedBigInteger('organization_id')->nullable();
             $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('cascade');

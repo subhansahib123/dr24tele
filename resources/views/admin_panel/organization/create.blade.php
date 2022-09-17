@@ -11,11 +11,11 @@
 
                         <!-- PAGE-HEADER -->
                         <div class="page-header">
-                            <h1 class="page-title">Role Create</h1>
+                            <h1 class="page-title">Organization Create</h1>
                             <div>
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Role Create</li>
+                                    <li class="breadcrumb-item active" aria-current="page">Organization Create</li>
                                 </ol>
                             </div>
                         </div>
@@ -26,7 +26,7 @@
                             <div class="col-md-12 col-xl-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h4 class="card-title">Role Create
+                                        <h4 class="card-title">Organization Create
 
 
 
@@ -35,43 +35,45 @@
                                     </div>
                                     @include('admin_panel.frontend.includes.messages')
                                     <div class="card-body">
-                                        <form class="form-horizontal" action="{{route('roles.store')}}" method="POST">
+                                        <form class="form-horizontal" action="{{route('store.organization')}}" method="POST">
                                             @csrf
                                             <div class=" row mb-4">
-                                                <label for="inputName" class="col-md-3 form-label"> Name</label>
+                                                <label for="displayname" class="col-md-3 form-label"> Display Name</label>
                                                 <div class="col-md-2">
-                                                    <input type="text" class="form-control" value="{{old('name')}}" name="name" id="inputName" placeholder="Name" autocomplete="username">
+                                                    <input type="text" class="form-control" value="{{old('displayname')}}" name="displayname" id="displayname" placeholder="Display Name" autocomplete="displayname">
                                                 </div>
-                                                @if ($errors->has('name'))
-                                                    <span class="text-danger text-left">{{ $errors->first('name') }}</span>
+                                                @if ($errors->has('displayname'))
+                                                    <span class="text-danger text-left">{{ $errors->first('displayname') }}</span>
                                                 @endif
                                             </div>
-                                            <div class="row md-4">
-                                                <label for="permissions" class="form-label">Assign Permissions</label>
-                                                <div class="col-md-9">
-                                                    <table class="table table-striped">
-                                                        <thead>
-                                                            <th scope="col" width="1%"><input type="checkbox" name="all_permission"></th>
-                                                            <th scope="col" width="20%">Name</th>
-                                                            <th scope="col" width="1%">Guard</th>
-                                                        </thead>
-
-                                                        @foreach($permissions as $permission)
-                                                            <tr>
-                                                                <td>
-                                                                    <input type="checkbox"
-                                                                    name="permission[{{ $permission->name }}]"
-                                                                    value="{{ $permission->name }}"
-                                                                    class='permission'>
-                                                                </td>
-                                                                <td>{{ $permission->name }}</td>
-                                                                <td>{{ $permission->guard_name }}</td>
-                                                            </tr>
-                                                        @endforeach
-                                                    </table>
+                                            <div class=" row mb-4">
+                                                <label for="inputName" class="col-md-3 form-label"> User Name</label>
+                                                <div class="col-md-2">
+                                                    <input type="text" class="form-control" value="{{old('username')}}" name="username" id="username" placeholder="Username" autocomplete="username">
                                                 </div>
+                                                @if ($errors->has('username'))
+                                                    <span class="text-danger text-left">{{ $errors->first('username') }}</span>
+                                                @endif
                                             </div>
-                                            {{-- <div class=" row mb-4">
+                                            <div class=" row mb-4">
+                                                <label for="email" class="col-md-3 form-label"> Email</label>
+                                                <div class="col-md-2">
+                                                    <input type="text" class="form-control" value="{{old('email')}}" name="email" id="email" placeholder="Email" autocomplete="email">
+                                                </div>
+                                                @if ($errors->has('email'))
+                                                    <span class="text-danger text-left">{{ $errors->first('email') }}</span>
+                                                @endif
+                                            </div>
+                                            <div class=" row mb-4">
+                                                <label for="email" class="col-md-3 form-label"> Contact Person Designation</label>
+                                                <div class="col-md-2">
+                                                    <input type="text" class="form-control" value="{{old('contactperson')}}" name="contactperson" id="contactperson" placeholder="Contact Person Designation" autocomplete="contactperson">
+                                                </div>
+                                                @if ($errors->has('contactperson'))
+                                                    <span class="text-danger text-left">{{ $errors->first('contactperson') }}</span>
+                                                @endif
+                                            </div>
+                                            <div class=" row mb-4">
                                                 <label for="inputEmail3" class="col-md-3 form-label">Email</label>
                                                 <div class="col-md-9">
                                                     <input type="email" class="form-control" id="inputEmail3" placeholder="Email" autocomplete="username">
@@ -82,15 +84,15 @@
                                                 <div class="col-md-9">
                                                     <input type="password" class="form-control" id="inputPassword3" placeholder="Password" autocomplete="new-password">
                                                 </div>
-                                            </div> --}}
-                                            {{-- <div class="mb-0 row justify-content-end">
+                                            </div>
+                                           <div class="mb-0 row justify-content-end">
                                                 <div class="col-md-9">
                                                     <label class="custom-control custom-checkbox">
                                                             <input type="checkbox" class="custom-control-input" name="example-checkbox2" value="option2">
                                                             <span class="custom-control-label">Check me Out</span>
                                                         </label>
                                                 </div>
-                                            </div> --}}
+                                            </div>
                                             <div class="mb-0 mt-4 row justify-content-end">
                                                 <div class="col-md-9">
                                                     <button class="btn btn-primary" type="submit">Save</button>

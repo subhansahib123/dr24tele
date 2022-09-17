@@ -53,10 +53,12 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         // This Route shows list of All Registered roles
         Route::get('/roles',[AuthenticationController::class,'roles'])->name('roles');
 
+
         //Professions
         Route::get('/profession', [ProfessionController::class,'index'])->name('profession');
         //Organisation
         Route::get('/organisation', [OrganisationController::class,'index'])->name('organisation');
+
 
 
         // This Route shows list of All Registered Professions
@@ -64,6 +66,11 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
 
         // This Route shows list of All Registered organizations
         Route::get('/organization',[OrganizationController::class,'organization'])->name('organization');
+        Route::get('/create/organization',[OrganizationController::class,'create'])->name('create.organization');
+
+
+        Route::post('/organization',[OrganizationController::class,'createOrganization'])->name('store.organization');
+
 
         // This Route shows list Unmapped patients (roles are not assigned)
         Route::get('/patient',[UserController::class,'patient'])->name('patient');
