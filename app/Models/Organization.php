@@ -14,7 +14,7 @@ class Organization extends Model
         'slug',
 
         'uuid',
-        'status'
+        'status',
 
         'level'
 

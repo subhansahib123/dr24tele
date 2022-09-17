@@ -26,7 +26,7 @@
                     <a class="side-menu__item has-link" data-bs-toggle="slide" href="{{route('admin-profile-page')}}"><i class="side-menu__icon fe fe-user"></i><span class="side-menu__label">Profile</span></a>
                 </li> --}}
                 <li class="slide">
-                    <a class="side-menu__item has-link" data-bs-toggle="slide" href="{{route('profession')}}"><i class="side-menu__icon fe fe-user"></i><span class="side-menu__label">Professions</span></a>
+                    <a class="side-menu__item has-link" data-bs-toggle="slide" href="{{route('professions')}}"><i class="side-menu__icon fe fe-user"></i><span class="side-menu__label">Professions</span></a>
                 </li>
                 <li class="slide">
                     {{-- <a class="side-menu__item has-link" data-bs-toggle="slide" href="{{route('roles.index')}}"><i class="side-menu__icon fe fe-user"><i><span class="side-menu__label">Roles</span></a> --}}
@@ -37,13 +37,13 @@
                 <li class="slide">
                     <a class="side-menu__item has-link" data-bs-toggle="slide" href="{{route('roles')}}"><i class="side-menu__icon fe fe-user"></i><span class="side-menu__label">Roles</span></a>
                 </li>
-                <li class="slide">
+                {{--<li class="slide">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i class="side-menu__icon fe fe-slack"></i><span class="side-menu__label">Professions</span><i class="angle fe fe-chevron-right"></i></a>
                     <ul class="slide-menu nav-tree">
 
-                        <li><a class="slide-item" href="{{route('profession')}}">Profession</a></li>
+                        <li><a class="slide-item" href="{{route('professions')}}">Profession</a></li>
                     </ul>
-                </li>
+                </li>--}}
                 <li class="slide">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i class="side-menu__icon fe fe-slack"></i><span class="side-menu__label">Images</span><i class="angle fe fe-chevron-right"></i></a>
                     <ul class="slide-menu nav-tree">
@@ -59,7 +59,7 @@
                     </ul>
 
                 </li>
-                <li><a href="{{route('tools.index')}}" class="slide-item"> Tools</a></li> --}}
+                {{-- <li><a href="{{route('tools.index')}}" class="slide-item"> Tools</a></li> --}}
             </ul>
             </li>
             <li class="slide">
@@ -71,11 +71,11 @@
             </ul>
             </li>
             <li class="slide">
-                <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i class="side-menu__icon fe fe-slack"></i><span class="side-menu__label">Patients</span><i class="angle fe fe-chevron-right"></i></a>
+                <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i class="side-menu__icon fe fe-slack"></i><span class="side-menu__label">Total Users</span><i class="angle fe fe-chevron-right"></i></a>
                 <ul class="slide-menu nav-tree">
-                    
-            <li><a href="{{route('patient')}}" class="slide-item">Unmapped Patients</a></li> 
-            <li><a href="{{route('all.patients')}}" class="slide-item"> All Patients</a></li> 
+            <li><a href="{{route('create.user')}}" class="slide-item"> Create User</a></li>
+            <li><a href="{{route('users.unmapped')}}" class="slide-item">Unmapped Users</a></li>
+            <li><a href="{{route('all.users')}}" class="slide-item"> All Users</a></li> 
             
             </ul>
             </li>

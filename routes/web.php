@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\OrganisationController;
 use App\Http\Controllers\ProfessionController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthenticationController;
@@ -54,18 +53,11 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::get('/roles',[AuthenticationController::class,'roles'])->name('roles');
 
 
-        //Professions
-        Route::get('/profession', [ProfessionController::class,'index'])->name('profession');
-        //Organisation
-        Route::get('/organisation', [OrganisationController::class,'index'])->name('organisation');
-
-
-
         // This Route shows list of All Registered Professions
-        Route::get('/profession',[ProfessionController::class,'profession'])->name('profession');
+        Route::get('/professions',[ProfessionController::class,'professions'])->name('professions');
 
         // This Route shows list of All Registered organizations
-        Route::get('/organization',[OrganizationController::class,'organization'])->name('organization');
+        Route::get('/organization/list',[OrganizationController::class,'organization'])->name('organization');
         Route::get('/create/organization',[OrganizationController::class,'create'])->name('create.organization');
 
 
@@ -73,14 +65,14 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
 
 
         // This Route shows list Unmapped patients (roles are not assigned)
-        Route::get('/patient',[UserController::class,'patient'])->name('patient');
+        Route::get('/users/unmapped',[UserController::class,'usersUnmapped'])->name('users.unmapped');
 
         // This Route shows list ?
-        Route::get('/allpatient',[UserController::class,'all_patient'])->name('all.patients');
+        Route::get('/all/users',[UserController::class,'allusers'])->name('all.users');
 
         // These Routes are used to create Users
-        Route::get('/createuser',[UserController::class,'create_user'])->name('create.user');
-        Route::post('/storeuser',[UserController::class,'store_user'])->name('store.user');
+        Route::get('/create/user',[UserController::class,'create_user'])->name('create.user');
+        Route::post('/store/user',[UserController::class,'store_user'])->name('store.user');
 
         // These Routes are used to Map Roles to Users
         Route::get('/mappingrole',[UserController::class,'mapUser'])->name('mappingRole');
