@@ -44,6 +44,7 @@ class UserController extends Controller
 
         try {
             $response = curl_exec($curl);
+            // dd($response);
             if ($response == false) {
                 $error = curl_error($curl);
                 return redirect()->view('admin_panel.totalUsers.unmappedUsers')->withError(__($error));
