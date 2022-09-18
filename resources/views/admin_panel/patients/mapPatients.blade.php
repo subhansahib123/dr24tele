@@ -21,7 +21,7 @@
             </div>
             @include('admin_panel.frontend.includes.messages')
             <!-- PAGE-HEADER END -->
-            <form action="{{route('role.mapped')}}" method="POST">
+            <form action="{{route('patient.mapped')}}" method="POST">
                 @csrf
                 <div class="form-group">
                     <label for="user">User</label>
@@ -34,7 +34,7 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="role">Roles</label>
+                    <label for="role">Organization</label>
                     <select class="form-control" value="{{old('role')}}" name="role" id="role">
                         @if($organizations)
                         @foreach ($organizations as $organization)
