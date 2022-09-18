@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\PatientController;
 
 /*
 |--------------------------------------------------------------------------
@@ -64,7 +65,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::post('/organization',[OrganizationController::class,'createOrganization'])->name('store.organization');
 
 
-        // This Route shows list Unmapped patients (roles are not assigned)
+        // This Route shows list Unmapped User (roles are not assigned)
         Route::get('/users/unmapped',[UserController::class,'usersUnmapped'])->name('users.unmapped');
 
         // This Route shows list ?
@@ -83,7 +84,13 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::post('/updatedRole',[UserController::class,'updateUserRoleStore'])->name('role.updated');
 
 
+        //This Route is used to Create Patient 
+        Route::get('/create/patients',[PatientController::class,'createPatients'])->name('create.patients');
+        Route::post('/store/patients',[PatientController::class,'storePatients'])->name('store.patients');
 
+        //This Route is used to Map Patient with reference to Organization 
+        Route::get('/map/patients',[PatientController::class,'mapPatients'])->name('map.patients');
+        Route::post('/patient/mapped',[PatientController::class,'patientMapped'])->name('patient.mapped');
 
         //Forget Password Routes
         // Route::get('forget-password', [SocialAuthenticationController::class, 'showForgetPasswordForm'])->name('forget.password.get');

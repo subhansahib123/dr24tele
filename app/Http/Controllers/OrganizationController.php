@@ -46,9 +46,6 @@ class OrganizationController extends Controller
 
         try {
             $response = curl_exec($curl);
-
-
-            
             if ($response == false) {
                 $error = curl_error($curl);
                 return $error;
@@ -63,8 +60,6 @@ class OrganizationController extends Controller
                     ]);
                 }
                 if ( curl_getinfo($curl, CURLINFO_HTTP_CODE)==200) {
-                   
-
                     curl_close($curl);
                     return view('admin_panel.organization.show', ['organizations' => $organizations]);
                 } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
