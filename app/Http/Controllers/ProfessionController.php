@@ -62,5 +62,8 @@ class ProfessionController extends Controller
                 return $e->getMessage();
             }
         }
+        else{
+            return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
+        }
     }
 }
