@@ -113,9 +113,10 @@ class PatientController extends Controller
             return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
         $token = $userInfo['sessionInfo']['token'];
         $params = array('personUuid' => $request->PersonId, 'orgUuid' => $request->uuid);
-        
+        $req_url=$baseUrl .'rest/admin/orgPersonMapping/add/'.$request->user.'/'.$request->organisation;
+        // dd($req_url);
         curl_setopt_array($curl, array(
-            CURLOPT_URL => $baseUrl . 'rest/admin/orgPersonMapping/add/' . http_build_query($params),
+            CURLOPT_URL => $req_url,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
@@ -131,11 +132,12 @@ class PatientController extends Controller
         try {
 
             $response = curl_exec($curl);
+            // dd($response);
             if ($response == false) {
                 $error = curl_error($curl);
                 return redirect()->back()->withErrors(['error' => __($error)]);;
             } else {
-
+                
                 $patients = json_decode($response);
 
 

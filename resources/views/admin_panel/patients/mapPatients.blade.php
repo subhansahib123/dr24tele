@@ -35,7 +35,7 @@
                 </div>
                 <div class="form-group">
                     <label for="role">Organization</label>
-                    <select class="form-control" value="{{old('role')}}" name="role" id="role">
+                    <select class="form-control" value="{{old('role')}}" name="organisation" id="role">
                         @if($organizations)
                         @foreach ($organizations as $organization)
                         <option value="{{$organization->uuid}}">{{$organization->name}}</option>
