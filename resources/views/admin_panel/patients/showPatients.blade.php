@@ -11,11 +11,11 @@
 
             <!-- PAGE-HEADER -->
             <div class="page-header">
-                <h1 class="page-title">Organizations List</h1>
+                <h1 class="page-title">Patients List</h1>
                 <div>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Organizations List</li>
+                        <li class="breadcrumb-item active" aria-current="page">Patients List</li>
                     </ol>
                 </div>
             </div>
@@ -28,10 +28,10 @@
                         <div class="card-header row">
                             <div class="col-3"><span class="card-title">List</span></div>
                             <div class="col-7 align-self-center"></div>
-                            <div class="col-2">
+                            <!-- <div class="col-2">
                                 <a href="{{route('create.organization')}}"><button class="btn btn-primary">ADD Organizations</button></a>
 
-                            </div>
+                            </div> -->
 
                             {{-- <span class="card-title "><a href="{{route('roles.create')}}"> Add New Permission</a></span> --}}
                         </div>
@@ -51,27 +51,18 @@
 
                                     <table class="table table-striped">
                                         <thead>
-                                            <th scope="col" width="35%">Name</th>
-                                            <th scope="col" width="3%">List</th>
-                                            <th scope="col" width="3%">List</th>
+                                            <th scope="col" width="40%">Name</th>
+                                           {{-- <th scope="col" width="1%">List</th>--}}
                                         </thead>
 
 
-                                        @foreach($organizations->childlist as $organization)
+                                        @foreach($patients->person as $patients)
                                         <tr>
 
                                             <td>
 
-                                                {{$organization->name}}
+                                                {{isset($patients->givenName)?$patients->givenName:''}}
 
-
-                                            </td>
-                                            <td>
-                                            <a href="{{route('patients.list',['uuid'=>$organization->uuid])}}" ><button class="btn btn-primary">Patients</button></a>
-
-                                            </td>
-                                            <td>
-                                            <a href="{{route('departments.list',['uuid'=>$organization->uuid])}}" ><button class="btn btn-primary">Departments</button></a>
 
                                             </td>
 

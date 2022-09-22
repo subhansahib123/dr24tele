@@ -45,13 +45,13 @@
                                 <div class=" row mb-4">
                                     <label for="username" class="col-md-3 form-label"> User Name</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" value="{{old('name')}}" name="name" id="username" placeholder="Username" >
+                                        <input type="text" class="form-control" value="{{old('name')}}" name="name" id="username" placeholder="Username">
                                     </div>
                                     @if ($errors->has('name'))
                                     <span class="text-danger text-left">{{ $errors->first('name') }}</span>
                                     @endif
                                 </div>
-                                
+
                                 <div class=" row mb-4">
                                     <label for="email" class="col-md-3 form-label"> Contact Person Designation</label>
                                     <div class="col-md-9">
@@ -77,7 +77,7 @@
                                         <select class="form-control" onchange="loadStates(this.value,this)" id="country">
                                             <option value="">Select Country</option>
                                             @foreach ($countries as $country)
-                                            <option value="{{$country->id}}" {{old('country')==$country->name?'selected':''}} >{{$country->name}}</option>
+                                            <option value="{{$country->id}}" {{old('country')==$country->name?'selected':''}}>{{$country->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -139,11 +139,36 @@
                                     <label for="country" class="col-md-3 form-label"> Select Status </label>
                                     <div class="col-md-9">
                                         <select class="form-control" name="status" id="state">
+                                            <option value="">Select</option>
                                             <option value="Enabled" {{old("status")=="Enabled"?"selected":''}}>Enable</option>
-                                            <option value="Disabled" {{old("status")=="Disabled"?"selected":''}}>Disable</option>
+                                            <option value="Disabled    " {{old("status")=="Disabled"?"selected":''}}>Disable</option>
 
                                         </select>
                                     </div>
+                                </div>
+                                <h6 class="text-blue">If you want to create Department select Level <strong> SubOrg</strong> an then Select <strong>Organization</strong></h6>
+                                <h6 class="text-blue">If you want to create New Organization select level <strong> Master</strong> </h6>
+
+                                <div class=" row mb-4">
+                                    <label for="level" class="col-md-3 form-label"> Select Level </label>
+                                    <div class="col-md-9">
+                                        <select class="form-control" name="level" id="level">
+                                            <option value="">Select</option>
+                                            <option value="Hospital">Hospital</option>
+                                            <option value="Department">Department</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="organization">Organizations</label>
+                                    <select class="form-control"  name="organization" id="organization">
+                                        <option value="">Select</option>
+                                        @if($organizations)
+                                        @foreach ($organizations as $organization)
+                                        <option value="{{$organization->uuid}}">{{$organization->name}}</option>
+                                        @endforeach
+                                        @endif
+                                    </select>
                                 </div>
                                 <div class="mb-0 mt-4 row justify-content-end">
                                     <div class="col">

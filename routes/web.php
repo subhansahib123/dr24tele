@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\PatientController;
 
 /*
@@ -91,7 +92,16 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         //This Route is used to Map Patient with reference to Organization 
         Route::get('/map/patients',[PatientController::class,'mapPatients'])->name('map.patients');
         Route::post('/patient/mapped',[PatientController::class,'patientMapped'])->name('patient.mapped');
-
+        
+        //This Route is used to show departments list 
+        Route::get('/departments/list/{uuid}',[DepartmentController::class,'departmentsList'])->name('departments.list');
+        
+        //This Route is used to show Patients list 
+        Route::get('/patients/list/{uuid}',[PatientController::class,'patientsList'])->name('patients.list');
+        
+        //This Route is used to show Doctors list of a specific department 
+        Route::get('/doctors/list/{uuid}',[UserController::class,'doctorsList'])->name('doctors.list');
+        
         //Forget Password Routes
         // Route::get('forget-password', [SocialAuthenticationController::class, 'showForgetPasswordForm'])->name('forget.password.get');
         // Route::post('forget-password', [SocialAuthenticationController::class, 'submitForgetPasswordForm'])->name('forget.password.post');

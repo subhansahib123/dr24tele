@@ -17,6 +17,8 @@ class CreateDepartmentsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug');
+            $table->string('level');
+            $table->string('uuid');
             $table->timestamps();
             $table->unsignedBigInteger('department_id')->nullable();            
             $table->unsignedBigInteger('organization_id');

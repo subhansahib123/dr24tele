@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Department;
 use App\Models\User;
 
 use Illuminate\Http\Request;
 use App\Models\Role;
+use App\Models\Organization;
+use App\Models\Doctor;
+use App\Models\User_Role;
 
 class UserController extends Controller
 {
@@ -58,13 +62,11 @@ class UserController extends Controller
                 } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
                     return view('admin_panel.totalUsers.unmappedUsers', ['patients' => $patients]);
                     curl_close($curl);
-
-                }
-                else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
+                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
                     curl_close($curl);
                     return redirect()->back()->withErrors(['error' => 'Failed to serialize to JSON object']);
-                }else{
-                    return redirect()->back()->withErrors(['error' => __('Unknow Error From Api.')]);    
+                } else {
+                    return redirect()->back()->withErrors(['error' => __('Unknow Error From Api.')]);
                 }
             }
         } catch (\Exception $e) {
@@ -116,9 +118,9 @@ class UserController extends Controller
                 $all_patients = json_decode($response);
                 if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
                     curl_close($curl);
-                    return view('admin_panel.totalUsers.index', ['all_patients' => $all_patients]);}
-                 else if (isset($all_patients->message) && $all_patients->message = "Invalid Token") {
-                    return redirect()->back()->withErrors(['error'=>'Invalid Token.']);
+                    return view('admin_panel.totalUsers.index', ['all_patients' => $all_patients]);
+                } else if (isset($all_patients->message) && $all_patients->message = "Invalid Token") {
+                    return redirect()->back()->withErrors(['error' => 'Invalid Token.']);
                 } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
                     curl_close($curl);
                     return redirect()->back()->withErrors(['error' => 'Provided password does not match the password policy / User already exists / User name missing in the request / Please provide name']);
@@ -130,7 +132,7 @@ class UserController extends Controller
                     return redirect()->back()->withErrors(['error' => 'Failed to serialize to JSON']);
                 } else if (isset($all_patients->message) && $all_patients->message = "API rate limit exceeded") {
                     return redirect()->back()->withError(__('API rate limit exceeded.'));
-                }else{
+                } else {
                     return redirect()->back()->withErrors(['error' => __('Unknow Error From Api.')]);
                 }
             }
@@ -220,7 +222,12 @@ class UserController extends Controller
                 } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 401) {
                     curl_close($curl);
                     return redirect()->back()->withErrors(['error' => 'You are not authorized to create user']);
-                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 409) {
+                } else if (isset($user->message) && $user->message = "API rate limit exceeded") {
+                    return redirect()->back()->withErrors(['error' => __('API rate limit exceeded.')]);
+                } else if (isset($user->message) && $user->message = "Invalid Token") {
+                    return redirect()->back()->withErrors(['error' => __('Invalid Token.')]);
+                } 
+                 else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 409) {
                     curl_close($curl);
                     return redirect()->back()->withErrors(['error' => 'Failed to serialize to JSON']);
                 } else {
@@ -235,8 +242,9 @@ class UserController extends Controller
     {
         $users = User::all();
         $roles = Role::all();
+        $organizations = Organization::all();
         // dd($roles);
-        return view('admin_panel.totalUsers.roleEdit', ['users' => $users, 'roles' => $roles]);
+        return view('admin_panel.totalUsers.roleEdit', ['users' => $users, 'roles' => $roles, 'organizations' => $organizations]);
     }
 
 
@@ -245,7 +253,8 @@ class UserController extends Controller
     {
 
         $curl = curl_init();
-
+        $uuid = $request->department;
+        // dd($uuid);
         $baseUrl = config('services.ehr.baseUrl');
         $apiKey = config('services.ehr.apiKey');
         $userInfo = session('loggedInUser');
@@ -255,8 +264,10 @@ class UserController extends Controller
 
         $token = $userInfo['sessionInfo']['token'];
         $data = [['useruuid' => $request->user, 'rolename' => $request->role]];
+        $req_url = $baseUrl . '/rest/admin/orgUserMapping/role/add/' . $uuid;
+        // dd($req_url);
         curl_setopt_array($curl, array(
-            CURLOPT_URL => $baseUrl . '/rest/admin/orgUserMapping/role/add/c6bc6265-e876-414a-9672-a85e09280059',
+            CURLOPT_URL => $req_url,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
@@ -284,13 +295,36 @@ class UserController extends Controller
                 $userRole = json_decode($response);
                 // dd(curl_getinfo($curl, CURLINFO_HTTP_CODE));
                 if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
+                    $user = User::where('uuid', $request->user)->first();
+                    $role = Role::where('name', $request->role)->first();
+                    $department = Department::where('uuid', $request->department)->first();
+                    curl_close($curl);
+                    if ($request->role == 'Practitioner') {
+                        Doctor::firstOrCreate([
+
+                            'status' => 1,
+                            'user_id' => $user->id,
+                            'department_id' => $department->id
+                        ]);
+                        User_Role::firstOrCreate([
+                            'user_id' => $user->id,
+                            'role_id' => $role->id
+                        ]);
+                    }
+
                     return redirect()->back()->withSuccess(__('Successfully Mapped User Role'));
                 } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
+                    curl_close($curl);
                     return redirect()->back()->withErrors(['error' => 'User role already exists']);
-                } else {
-                    // dd(curl_getinfo($curl, CURLINFO_HTTP_CODE));
-                    return redirect()->back()->withErrors(['error' => $userRole->message]);
                 }
+                else if (isset($userRole->message) && $userRole->message = "API rate limit exceeded") {
+                    return redirect()->back()->withErrors(['error' => __('API rate limit exceeded.')]);
+                } else if (isset($userRole->message) && $userRole->message = "Invalid Token") {
+                    return redirect()->back()->withErrors(['error' => __('Invalid Token.')]);
+                } else {
+
+                    return redirect()->back()->withErrors(['error' => "Unknow Error From Api"]);
+                } 
             }
         } catch (\Exception $e) {
             // dd($e->getMessage());
@@ -346,13 +380,72 @@ class UserController extends Controller
             } else {
                 $UpdatedRole = json_decode($response);
                 if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
+                    curl_close($curl);
                     return redirect()->back()->withSuccess(__('Successfully User Role Updated'));
                 } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
+                    curl_close($curl);
                     return redirect()->back()->withErrors(['error' => 'User role already exists']);
                 } else {
 
                     // dd(curl_getinfo($curl, CURLINFO_HTTP_CODE));
                     return redirect()->back()->withErrors(['error' => $UpdatedRole->message]);
+                }
+            }
+        } catch (\Exception $e) {
+            // dd($e->getMessage());
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+            // return $e->getMessage();
+        }
+    }
+    public function doctorsList(Request $request)
+    {
+        $curl = curl_init();
+        $baseUrl = config('services.ehr.baseUrl');
+        $apiKey = config('services.ehr.apiKey');
+        $userInfo = session('loggedInUser');
+        $userInfo = json_decode(json_encode($userInfo), true);
+        if (is_null($userInfo))
+            return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
+
+        $token = $userInfo['sessionInfo']['token'];
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => $baseUrl . 'rest/admin/orgUserMapping/users/:d5e17083-c11c-4830-886d-19f99928305c?pageNo=5&maxRecords=50',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'GET',
+            CURLOPT_HTTPHEADER => array(
+                'Accept: application/json',
+                'Authorization:' . $token,
+                'apikey: ' . $apiKey
+            ),
+        ));
+        try {
+            $response = curl_exec($curl);
+            // dd($response);
+
+            if ($response == false) {
+                
+                $error = curl_error($curl);
+                return redirect()->back()->withErrors(['error' => $error]);
+            } else {
+                $doctors = json_decode($response);
+                if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
+                    curl_close($curl);
+                    dd(1);
+                    return view('admin_panel.patients.showPatients', ['doctors' => $doctors]);
+                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
+                    curl_close($curl);
+                    return redirect()->back()->withErrors(['error' => $doctors->message]);
+                } else {
+                    
+
+                    // dd(curl_getinfo($curl, CURLINFO_HTTP_CODE));
+                    return redirect()->back()->withErrors(['error' => $doctors->message]);
                 }
             }
         } catch (\Exception $e) {
