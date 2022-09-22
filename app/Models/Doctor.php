@@ -11,6 +11,8 @@ class Doctor extends Model
     protected $table="doctors";
     protected $fillable=[
         "status",
+        'user_id',
+        'department_id'
     ];
     public function user()
     {

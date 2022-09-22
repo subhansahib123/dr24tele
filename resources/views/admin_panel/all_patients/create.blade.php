@@ -93,7 +93,7 @@
                                                 </option>
                                             </select>
 
-                                            <input type="text" class="form-control" name="" id="gender" value="">
+                                            <!-- <input type="text" class="form-control" name="" id="gender" value=""> -->
                                         </div>
                                     </div>
                                 </div>

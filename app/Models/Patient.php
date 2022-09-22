@@ -11,6 +11,8 @@ class Patient extends Model
     protected $table="patients";
     protected $fillable =[
         'status',
+        'user_id',
+        'organization_id'
     ];
     public function user()
     {

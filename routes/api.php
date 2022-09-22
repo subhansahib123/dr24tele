@@ -22,4 +22,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::post('/person/create',[PersonController::class,'create'])->name('person.create');
 Route::get('/states/{country_id}',[OrganizationController::class,'states'])->name('load.states');
 Route::get('/cities/{state_id}',[OrganizationController::class,'cities'])->name('load.cities');
+Route::get('/getDepartments/{orgUuid}',[OrganizationController::class,'getDepartments'])->name('get.departments');
 

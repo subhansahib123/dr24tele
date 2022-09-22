@@ -7,6 +7,7 @@ use App\Models\Organization;
 use App\Models\Country;
 use App\Models\State;
 use App\Models\City;
+use App\Models\Department;
 use Illuminate\Support\Str;
 
 
@@ -29,7 +30,7 @@ class OrganizationController extends Controller
         $token = $userInfo['sessionInfo']['token'];
         
         curl_setopt_array($curl, array(
-            CURLOPT_URL => $baseUrl . 'rest/admin/v1/organization?=',
+            CURLOPT_URL => $baseUrl . 'rest/admin/organisation/v2/hierarchy/c6bc6265-e876-414a-9672-a85e09280059',
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
@@ -45,22 +46,25 @@ class OrganizationController extends Controller
 
 
         try {
+            // dd($token);
             $response = curl_exec($curl);
+            $organizations = json_decode($response);
             if ($response == false) {
                 $error = curl_error($curl);
-                return $error;
-            } else {
-                $organizations = json_decode($response);
-                foreach ($organizations as $organization) {
+                return redirect()->back()->withErrors(['error' => $error]);
+            } else if ( curl_getinfo($curl, CURLINFO_HTTP_CODE)==200) {
+               
+                // dd($organizations);
+                foreach ($organizations->childlist as $organization) {
                     Organization::firstOrCreate([
-                        'name' => $organization->displayname,
-                        'slug' => Str::slug($organization->displayname),
+                        'name' => $organization->name,
+                        'slug' => Str::slug($organization->name),
                         'uuid' => $organization->uuid,
                         'status' => $organization->status
                     ]);
                 }
-                if ( curl_getinfo($curl, CURLINFO_HTTP_CODE)==200) {
                     curl_close($curl);
+
                     return view('admin_panel.organization.show', ['organizations' => $organizations]);
                 } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
                     curl_close($curl);
@@ -77,7 +81,7 @@ class OrganizationController extends Controller
                 } else {
                     return redirect()->back()->withErrors(['error'=>__('Unknow Error From Api.')]);
                 }
-            }
+            
         } catch (\Exception $e) {
 
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
@@ -106,6 +110,7 @@ class OrganizationController extends Controller
             'name' => 'required|string',
             'status' => 'required|string',
             'email' => 'required|string',
+            'level' => 'required|string',
             'contactperson' => 'required|string',
             'phone' => 'required|string',
             'building' => 'string',
@@ -131,7 +136,7 @@ class OrganizationController extends Controller
             "type" => 'company',
             "status" => $request->status,
             "pparent" => [
-                "uuid" => "c6bc6265-e876-414a-9672-a85e09280059"
+                "uuid" => $request->organization
             ],
             "email" => $request->email,
             "contactperson" => $request->contactperson,
@@ -147,7 +152,8 @@ class OrganizationController extends Controller
                     "postalCode" => $request->postalCode
                 ]
             ],
-            "level" => "SubOrg"
+            "level" => $request->level,
+            // "uuid" => $request->organization,
         ];
         // dd($data);
         curl_setopt_array($curl, array(
@@ -169,32 +175,54 @@ class OrganizationController extends Controller
         ));
         try {
             $response = curl_exec($curl);
-            
+            // dd($data );
             //  var_dump(curl_getinfo($curl, CURLINFO_HTTP_CODE));
             if ($response == false) {
                 $error = curl_error($curl);
                  return redirect()->back()->withErrors(['error'=>__($error)]);;
             } else {
+                
                 $organization = json_decode($response);
-
+                // dd($organization);
                 if ( isset($organization->displayname) 
                     && $organization->displayname
                     || curl_getinfo($curl, CURLINFO_HTTP_CODE)==200 
                     || curl_getinfo($curl, CURLINFO_HTTP_CODE)==201
                 ) {
-                    // dd($or ganization);
-                   Organization::Create([
-                    'name'=>$request->name,
-                    'uuid'=>$organization->uuid,
-                    'slug'=>$organization->displayname,
-                    'status'=>$organization->status,
-                    'level'=>'SubOrg',
-                   ]);
-
-                   
                     curl_close($curl);
+                    // // dd($request->level);
+                    if($request->level == 'Department'){
+                        // dd('department ');
+                       $org= Organization::where('uuid',$request->organization)->first();
+                        Department::Create([
+                            'name'=>$request->name,
+                            'organization_id'=>$org->id,
+                            'slug'=>$organization->displayname,
+                            'level'=>"SubOrg",
+                           ]);
+                           return redirect()->back()->withSuccess(__('Successfully Department Created'));
+                    }
+                    else{
+                        Organization::Create([
+                            'name'=>$request->name,
+                            'uuid'=>$organization->uuid,
+                            'slug'=>$organization->displayname,
+                            'status'=>$organization->status,
+                            'level'=>"SubOrg",
+                           ]);
+                           return redirect()->back()->withSuccess(__('Successfully Organization Created'));
+                    }
                     
-                    return redirect()->back()->withSuccess(__('Successfully Organization Created'));
+
+                        
+        
+                    
+                    // dd($or ganization);
+                   
+                   
+                    
+                    
+                    
                 } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 409) {
                     curl_close($curl);
                     return redirect()->back()->withErrors(['error' => $organization->message]);
@@ -226,5 +254,10 @@ class OrganizationController extends Controller
     {
         $cities = City::where('state_id', $state_id)->get();
         return response()->json($cities);
+    }
+    public function getDepartments($orgUuid){
+        $org=Organization::where('uuid',$orgUuid)->first();
+        $departments=Department::where('organization_id',$org->id)->get();
+        return response()->json($departments);
     }
 }
