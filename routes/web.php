@@ -102,6 +102,9 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         //This Route is used to show Doctors list of a specific department 
         Route::get('/doctors/list/{uuid}',[UserController::class,'doctorsList'])->name('doctors.list');
         
+        //This Route is used to show Doctors list of a specific department 
+        Route::get('/users/list/{uuid}',[UserController::class,'usersList'])->name('users.list');
+        
         //Forget Password Routes
         // Route::get('forget-password', [SocialAuthenticationController::class, 'showForgetPasswordForm'])->name('forget.password.get');
         // Route::post('forget-password', [SocialAuthenticationController::class, 'submitForgetPasswordForm'])->name('forget.password.post');

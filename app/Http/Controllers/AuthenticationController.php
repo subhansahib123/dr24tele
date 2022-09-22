@@ -18,15 +18,11 @@ class AuthenticationController extends Controller
     {
         $curl = curl_init();
         $baseUrl = config('services.ehr.baseUrl');
-        
-        $userInfo = session('loggedInUser');
-        $userInfo = json_decode(json_encode($userInfo), true);
-        if (is_null($userInfo))
-            return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
-        $apiKey = config('services.ehr.apiKey');
+         $apiKey = config('services.ehr.apiKey');
 
 
         $data = ['username' => $request->username, 'password' => $request->password];
+
         $params = array('orgName' => 'dr-tele', 'tenantId' => 'ehrn');
         curl_setopt_array($curl, array(
             CURLOPT_URL => $baseUrl . 'rest/admin/v1/login?' . http_build_query($params),
@@ -44,9 +40,9 @@ class AuthenticationController extends Controller
                 'apikey: ' . $apiKey
             ),
         ));
-        // dd($curl);
         try {
             $response = curl_exec($curl);
+
 
             if ($response == false || isset($response->status)) {
                 return curl_error($curl);

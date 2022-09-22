@@ -397,7 +397,7 @@ class UserController extends Controller
             // return $e->getMessage();
         }
     }
-    public function doctorsList(Request $request)
+    public function doctorsList($uuid)
     {
         $curl = curl_init();
         $baseUrl = config('services.ehr.baseUrl');
@@ -406,11 +406,10 @@ class UserController extends Controller
         $userInfo = json_decode(json_encode($userInfo), true);
         if (is_null($userInfo))
             return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
-
+            // dd($uuid);
         $token = $userInfo['sessionInfo']['token'];
-
         curl_setopt_array($curl, array(
-            CURLOPT_URL => $baseUrl . 'rest/admin/orgUserMapping/users/:d5e17083-c11c-4830-886d-19f99928305c?pageNo=5&maxRecords=50',
+            CURLOPT_URL => $baseUrl . 'rest/admin/orgUserMapping/users/'.$uuid.'?pageNo=1&maxRecords=50',
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
@@ -436,8 +435,8 @@ class UserController extends Controller
                 $doctors = json_decode($response);
                 if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
                     curl_close($curl);
-                    dd(1);
-                    return view('admin_panel.patients.showPatients', ['doctors' => $doctors]);
+                    // dd($doctors);
+                    return view('admin_panel.doctors.showDoctors', ['doctors' => $doctors]);
                 } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
                     curl_close($curl);
                     return redirect()->back()->withErrors(['error' => $doctors->message]);
@@ -446,6 +445,62 @@ class UserController extends Controller
 
                     // dd(curl_getinfo($curl, CURLINFO_HTTP_CODE));
                     return redirect()->back()->withErrors(['error' => $doctors->message]);
+                }
+            }
+        } catch (\Exception $e) {
+            // dd($e->getMessage());
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+            // return $e->getMessage();
+        }
+    }
+    public function usersList($uuid)
+    {
+        $curl = curl_init();
+        $baseUrl = config('services.ehr.baseUrl');
+        $apiKey = config('services.ehr.apiKey');
+        $userInfo = session('loggedInUser');
+        $userInfo = json_decode(json_encode($userInfo), true);
+        if (is_null($userInfo))
+            return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
+
+        $token = $userInfo['sessionInfo']['token'];
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => $baseUrl . 'rest/admin/orgUserMapping/users/'.$uuid.'?pageNo=1&maxRecords=50',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'GET',
+            CURLOPT_HTTPHEADER => array(
+                'Accept: application/json',
+                'Authorization:' . $token,
+                'apikey: ' . $apiKey
+            ),
+        ));
+        try {
+            $response = curl_exec($curl);
+            // dd($response);
+
+            if ($response == false) {
+                
+                $error = curl_error($curl);
+                return redirect()->back()->withErrors(['error' => $error]);
+            } else {
+                $users = json_decode($response);
+                if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
+                    curl_close($curl);
+                    return view('admin_panel.organization.usersList', ['users' => $users]);
+                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
+                    curl_close($curl);
+                    return redirect()->back()->withErrors(['error' => $users->message]);
+                } else {
+                    
+
+                    // dd(curl_getinfo($curl, CURLINFO_HTTP_CODE));
+                    return redirect()->back()->withErrors(['error' => $users->message]);
                 }
             }
         } catch (\Exception $e) {

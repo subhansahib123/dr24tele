@@ -176,7 +176,7 @@ class PatientController extends Controller
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
     }
-    public function patientsList(Request $request )
+    public function patientsList($uuid )
     {
         
         $curl = curl_init();
@@ -189,9 +189,9 @@ class PatientController extends Controller
         if (is_null($userInfo))
             return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
         $token = $userInfo['sessionInfo']['token'];
-        $orgUuid=$request->uuid;
+        
         curl_setopt_array($curl, array(
-            CURLOPT_URL => $baseUrl.'rest/admin/orgPersonMapping/persons/'.$orgUuid,
+            CURLOPT_URL => $baseUrl.'rest/admin/orgPersonMapping/persons/'.$uuid,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
