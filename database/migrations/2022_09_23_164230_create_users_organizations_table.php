@@ -4,17 +4,16 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePatientOrganizationsTable extends Migration
+class CreateUsersOrganizationsTable extends Migration
 {
     /**
      * Run the migrations.
      *
-     * 
      * @return void
      */
     public function up()
     {
-        Schema::create('patient_organizations', function (Blueprint $table) {
+        Schema::create('users_organizations', function (Blueprint $table) {
             $table->id();
             $table->string('registration_code');
             $table->boolean('status');
@@ -24,7 +23,7 @@ class CreatePatientOrganizationsTable extends Migration
             $table->foreign('organization_id')->references('id')->on('organizations');
             $table->foreign('user_id')->references('id')->on('users');
         });
-    }   
+    }
 
     /**
      * Reverse the migrations.
@@ -33,6 +32,6 @@ class CreatePatientOrganizationsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('patient_organizations');
+        Schema::dropIfExists('users_organizations');
     }
 }

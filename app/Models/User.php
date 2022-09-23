@@ -64,6 +64,6 @@ class User extends Authenticatable
     }
     public function patient_organization()
     {
-       return $this->hasOne(Patient_Organization::class,'user_id');
+       return $this->hasOne(UsersOrganization::class,'user_id');
     }
 }

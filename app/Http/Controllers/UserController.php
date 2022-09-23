@@ -10,6 +10,7 @@ use App\Models\Role;
 use App\Models\Organization;
 use App\Models\Doctor;
 use App\Models\User_Role;
+use App\Models\UsersOrganization;
 
 class UserController extends Controller
 {
@@ -305,6 +306,7 @@ class UserController extends Controller
             ),
         ));
         try {
+            // dd($request->organizations);
             $response = curl_exec($curl);
             // dd($response);
 
@@ -321,6 +323,7 @@ class UserController extends Controller
                     $user = User::where('uuid', $request->user)->first();
                     $role = Role::where('name', $request->role)->first();
                     $department = Department::where('uuid', $request->department)->first();
+                    $organization=Organization::where('uuid',$request->organizations)->first();;
                     curl_close($curl);
                     if ($request->role == 'Practitioner') {
                         Doctor::firstOrCreate([
@@ -328,6 +331,56 @@ class UserController extends Controller
                             'status' => 1,
                             'user_id' => $user->id,
                             'department_id' => $department->id
+                        ]);
+                        UsersOrganization::firstOrCreate([
+
+                            'status' => 1,
+                            'registration_code' => '123ABC',
+                            'user_id' => $user->id,
+                            'organization_id' => $organization->id
+                        ]);
+                        User_Role::firstOrCreate([
+                            'user_id' => $user->id,
+                            'role_id' => $role->id
+                        ]);
+                    }
+                    else if($request->role == 'OrgSuperAdmin'){
+                        
+                        UsersOrganization::firstOrCreate([
+
+                            'status' => 1,
+                            'registration_code' => '123ABC',
+                            'user_id' => $user->id,
+                            'organization_id' => $organization->id
+                        ]);
+                        User_Role::firstOrCreate([
+                            'user_id' => $user->id,
+                            'role_id' => $role->id
+                        ]);
+                    
+                    }
+                    else if($request->role == 'FrontOffice '){
+                        
+                        UsersOrganization::firstOrCreate([
+
+                            'status' => 1,
+                            'registration_code' => '123ABC',
+                            'user_id' => $user->id,
+                            'organization_id' => $organization->id
+                        ]);
+                        User_Role::firstOrCreate([
+                            'user_id' => $user->id,
+                            'role_id' => $role->id
+                        ]);
+                    }
+                    else {
+                        
+                        UsersOrganization::firstOrCreate([
+
+                            'status' => 1,
+                            'registration_code' => '123ABC',
+                            'user_id' => $user->id,
+                            'organization_id' => $organization->id
                         ]);
                         User_Role::firstOrCreate([
                             'user_id' => $user->id,
@@ -402,7 +455,7 @@ class UserController extends Controller
 
         try {
             $response = curl_exec($curl);
-
+            
             if ($response == false) {
                 $error = curl_error($curl);
                 return redirect()->back()->withErrors(['error' => $error]);
@@ -410,6 +463,7 @@ class UserController extends Controller
                 $UpdatedRole = json_decode($response);
                 if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
                     curl_close($curl);
+
                     return redirect()->back()->withSuccess(__('Successfully User Role Updated'));
                 } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
                     curl_close($curl);

@@ -6,6 +6,7 @@ use App\Models\Organization;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Patient;
+use App\Models\UsersOrganization;
 
 class PatientController extends Controller
 {
@@ -143,7 +144,6 @@ class PatientController extends Controller
         try {
 
             $response = curl_exec($curl);
-            // dd($response);
             if ($response == false) {
                 $error = curl_error($curl);
                 curl_close($curl);
@@ -162,6 +162,14 @@ class PatientController extends Controller
                         'organization_id' => $org->id,
                         'status' => 1,
                     ]);
+                    UsersOrganization::firstOrCreate([
+
+                        'status' => 1,
+                        'registration_code' => '123ABC',
+                        'user_id' => $users->id,
+                        'organization_id' => $org->id
+                    ]);
+
                     curl_close($curl);
 
 

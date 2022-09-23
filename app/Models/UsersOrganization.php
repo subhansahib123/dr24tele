@@ -5,13 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Patient_Organization extends Model
+class UsersOrganization extends Model
 {
     use HasFactory;
-    protected $table="patient_organizations";
+    protected $table="users_organizations";
     protected $fillable=[
         "registration_code",
         "status",
+        "organization_id",
+        "user_id"
     ];
     public function organization()
     {
@@ -21,4 +23,5 @@ class Patient_Organization extends Model
     {
        return $this->belongsTo(User::class,'user_id');
     }
+
 }
