@@ -149,7 +149,8 @@
                                 <h6 class="text-blue">If you want to create Department select Level <strong> SubOrg</strong> an then Select <strong>Organization</strong></h6>
                                 <h6 class="text-blue">If you want to create New Organization select level <strong> Master</strong> </h6>
 
-                                <div class=" row mb-4" id="add">
+                                <div class=" row mb-4" >
+                                    <span id="add"></span>
                                     <label for="level" class="col-md-3 form-label"> Select Level </label>
                                     <div class="col-md-9">
                                         <select class="form-control"  name="level" id="level">
@@ -199,10 +200,10 @@
             $('#no-need').hide();
             $('#organization').attr('name','org');
             var input_organization='<input type="hidden" id="input_org" name="organization" value="c6bc6265-e876-414a-9672-a85e09280059">';
-            $('#add').append(input_organization);
+            $('#add').html(input_organization);
         }else{
-            $('input_org').remove();
-            $('#no-need').hide();
+            $('#add').html('');
+            $('#no-need').show();
             $('#organization').attr('name','organization');
             return false;
         }
