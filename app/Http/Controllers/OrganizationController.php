@@ -28,7 +28,7 @@ class OrganizationController extends Controller
         if (is_null($userInfo))
             return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
         $token = $userInfo['sessionInfo']['token'];
-        
+
         curl_setopt_array($curl, array(
             CURLOPT_URL => $baseUrl . 'rest/admin/organisation/v2/hierarchy/c6bc6265-e876-414a-9672-a85e09280059',
             CURLOPT_RETURNTRANSFER => true,
@@ -51,9 +51,11 @@ class OrganizationController extends Controller
             $organizations = json_decode($response);
             if ($response == false) {
                 $error = curl_error($curl);
+                curl_close($curl);
                 return redirect()->back()->withErrors(['error' => $error]);
-            } else if ( curl_getinfo($curl, CURLINFO_HTTP_CODE)==200) {
-               
+            } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
+                curl_close($curl);
+
                 // dd($organizations);
                 foreach ($organizations->childlist as $organization) {
                     Organization::firstOrCreate([
@@ -63,26 +65,23 @@ class OrganizationController extends Controller
                         'status' => $organization->status
                     ]);
                 }
-                    curl_close($curl);
 
-                    return view('admin_panel.organization.show', ['organizations' => $organizations]);
-                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => 'You are not Authorized']);
-                }
-                else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 401) {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => 'Unauthorized']);
-                }
-                else if (isset($organizations->message) && $organizations->message = "API rate limit exceeded") {
-                    return redirect()->back()->withErrors(['error'=>__('API rate limit exceeded.')]);
-                } else if (isset($organizations->message) && $organizations->message = "Invalid Token") {
-                    return redirect()->back()->withErrors(['error'=>__('Invalid Token.')]);
-                } else {
-                    return redirect()->back()->withErrors(['error'=>__('Unknow Error From Api.')]);
-                }
-            
+                return view('admin_panel.organization.show', ['organizations' => $organizations]);
+            } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
+                curl_close($curl);
+                return redirect()->back()->withErrors(['error' => 'You are not Authorized']);
+            } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 401) {
+                curl_close($curl);
+                return redirect()->back()->withErrors(['error' => 'Unauthorized']);
+            } else if (isset($organizations->message) && $organizations->message = "API rate limit exceeded") {
+                return redirect()->back()->withErrors(['error' => __('API rate limit exceeded.')]);
+            } else if (isset($organizations->message) && $organizations->message = "Invalid Token") {
+                return redirect()->back()->withErrors(['error' => __('Invalid Token.')]);
+            } else {
+                return redirect()->back()->withErrors(['error' => __('Unknow Error From Api.')]);
+            }
         } catch (\Exception $e) {
+            curl_close($curl);
 
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
@@ -157,7 +156,7 @@ class OrganizationController extends Controller
         ];
         // dd($data);
         curl_setopt_array($curl, array(
-            CURLOPT_URL =>  $baseUrl .'rest/admin/organisation/v2',
+            CURLOPT_URL =>  $baseUrl . 'rest/admin/organisation/v2',
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
@@ -179,69 +178,78 @@ class OrganizationController extends Controller
             //  var_dump(curl_getinfo($curl, CURLINFO_HTTP_CODE));
             if ($response == false) {
                 $error = curl_error($curl);
-                 return redirect()->back()->withErrors(['error'=>__($error)]);;
+                curl_close($curl);
+
+                return redirect()->back()->withErrors(['error' => __($error)]);;
             } else {
-                
+
                 $organization = json_decode($response);
                 // dd($organization);
-                if ( isset($organization->displayname) 
+                if (
+                    isset($organization->displayname)
                     && $organization->displayname
-                    || curl_getinfo($curl, CURLINFO_HTTP_CODE)==200 
-                    || curl_getinfo($curl, CURLINFO_HTTP_CODE)==201
+                    || curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200
+                    || curl_getinfo($curl, CURLINFO_HTTP_CODE) == 201
                 ) {
                     curl_close($curl);
                     // // dd($request->level);
-                    if($request->level == 'Department'){
+                    if ($request->level == 'Department') {
                         // dd('department ');
-                       $org= Organization::where('uuid',$request->organization)->first();
+                        $org = Organization::where('uuid', $request->organization)->first();
                         Department::Create([
-                            'name'=>$request->name,
-                            'organization_id'=>$org->id,
-                            'slug'=>$organization->displayname,
-                            'level'=>"SubOrg",
-                           ]);
-                           return redirect()->back()->withSuccess(__('Successfully Department Created'));
-                    }
-                    else{
+                            'name' => $request->name,
+                            'organization_id' => $org->id,
+                            'slug' => $organization->displayname,
+                            'level' => "SubOrg",
+                            'uuid'=>'',
+                        ]);
+                        return redirect()->back()->withSuccess(__('Successfully Department Created'));
+                    } else {
                         Organization::Create([
-                            'name'=>$request->name,
-                            'uuid'=>$organization->uuid,
-                            'slug'=>$organization->displayname,
-                            'status'=>$organization->status,
-                            'level'=>"SubOrg",
-                           ]);
-                           return redirect()->back()->withSuccess(__('Successfully Organization Created'));
+                            'name' => $request->name,
+                            'uuid' => $organization->uuid,
+                            'slug' => $organization->displayname,
+                            'status' => $organization->status,
+                            'level' => "SubOrg",
+                        ]);
+                        return redirect()->back()->withSuccess(__('Successfully Organization Created'));
                     }
-                    
 
-                        
-        
-                    
+
+
+
+
                     // dd($or ganization);
-                   
-                   
-                    
-                    
-                    
+
+
+
+
+
                 } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 409) {
                     curl_close($curl);
                     return redirect()->back()->withErrors(['error' => $organization->message]);
-                }
-                else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
+                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
                     curl_close($curl);
                     return redirect()->back()->withErrors(['error' => $organization->message]);
-                }
-                else if (isset($organization->message) && $organization->message = "API rate limit exceeded") {
-                    return redirect()->back()->withErrors(['error'=>__('API rate limit exceeded.')]);
+                } else if (isset($organization->message) && $organization->message = "API rate limit exceeded") {
+                    curl_close($curl);
+
+                    return redirect()->back()->withErrors(['error' => __('API rate limit exceeded.')]);
                 } else if (isset($organization->message) && $organization->message = "Invalid Token") {
-                    return redirect()->back()->withErrors(['error'=>__('Invalid Token.')]);
+                    curl_close($curl);
+
+                    return redirect()->back()->withErrors(['error' => __('Invalid Token.')]);
                 } else {
-                   
+                    curl_close($curl);
+
+
                     return redirect()->back()->withErrors(['error' => "Unknow Error From Api"]);
                 }
             }
         } catch (\Exception $e) {
             // dd($e->getMessage());
+            // curl_close($curl);
+
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
     }
@@ -255,9 +263,10 @@ class OrganizationController extends Controller
         $cities = City::where('state_id', $state_id)->get();
         return response()->json($cities);
     }
-    public function getDepartments($orgUuid){
-        $org=Organization::where('uuid',$orgUuid)->first();
-        $departments=Department::where('organization_id',$org->id)->get();
+    public function getDepartments($orgUuid)
+    {
+        $org = Organization::where('uuid', $orgUuid)->first();
+        $departments = Department::where('organization_id', $org->id)->get();
         return response()->json($departments);
     }
 }

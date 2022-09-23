@@ -81,7 +81,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function()
         Route::post('/mappedrole',[UserController::class,'mapUserRole'])->name('role.mapped');
 
         // These Routes are used to Map Roles to Users
-        Route::get('/updatingrole',[UserController::class,'updateUserRole'])->name('updatingRole');
+        Route::get('/updatingrole/{uuid}',[UserController::class,'updateUserRole'])->name('updatingRole');
         Route::post('/updatedRole',[UserController::class,'updateUserRoleStore'])->name('role.updated');
 
 

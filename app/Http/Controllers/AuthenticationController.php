@@ -18,7 +18,7 @@ class AuthenticationController extends Controller
     {
         $curl = curl_init();
         $baseUrl = config('services.ehr.baseUrl');
-         $apiKey = config('services.ehr.apiKey');
+        $apiKey = config('services.ehr.apiKey');
 
 
         $data = ['username' => $request->username, 'password' => $request->password];
@@ -48,22 +48,19 @@ class AuthenticationController extends Controller
                 return curl_error($curl);
             } else {
                 $result_data = json_decode($response);
-              
-                if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200 ) {
+
+                if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
                     $user = User::where('username', $result_data->username)->first();
                     curl_close($curl);
-                    if($user){
-                        
-                    
-                    Auth::login($user);
-                    session(['loggedInUser' => $result_data]);
-                    return redirect()->route('dashboard')->withSuccess(__('Successfully Login'));
-                    }else {
+                    if ($user) {
+
+
+                        Auth::login($user);
+                        session(['loggedInUser' => $result_data]);
+                        return redirect()->route('dashboard')->withSuccess(__('Successfully Login'));
+                    } else {
                         return redirect()->back()->withErrors(['error' => 'No User Exist']);
                     }
-                    
-
-                    
                 } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
                     curl_close($curl);
                     return redirect()->back()->withErrors(['error' => 'Failed to serialize to JSON']);
@@ -77,14 +74,16 @@ class AuthenticationController extends Controller
                     curl_close($curl);
                     return redirect()->back()->withErrors(['error' => 'User does not exist in DB']);
                 } else if (isset($result_data->message) && $result_data->message = "API rate limit exceeded") {
+                    curl_close($curl);
                     return redirect()->back()->withErrors(['error' => __('API rate limit exceeded.')]);
                 } else if (isset($result_data->message) && $result_data->message = "Invalid Token") {
+                    curl_close($curl);
                     return redirect()->back()->withErrors(['error' => __('Invalid Token.')]);
                 } else {
+                    curl_close($curl);
                     return redirect()->back()->withErrors(['error' => __('Unknow Error From Api.')]);
                 }
             }
-            curl_close($curl);
         } catch (\Exception $e) {
 
             return $e->getMessage();
@@ -117,14 +116,17 @@ class AuthenticationController extends Controller
             ));
 
             $response = curl_exec($curl);
-            curl_close($curl);
             try {
                 if ($response == false) {
+                    curl_close($curl);
+
                     return curl_error($curl);
                 } else {
+                    curl_close($curl);
                     return  redirect(route('login.show'));
                 }
             } catch (\Exception $e) {
+                curl_close($curl);
                 return $e->getMessage();
             }
         }
@@ -164,23 +166,37 @@ class AuthenticationController extends Controller
 
         $response = curl_exec($curl);
 
-        curl_close($curl);
         // echo $response;
         try {
             if ($response == false) {
                 return curl_error($curl);
             } else {
                 $roles = json_decode($response);
-                // dd($token);
 
-                foreach ($roles as $role) {
-                    Role::firstOrCreate([
-                        'name' => $role->authority,
-                        'slug' => Str::slug($role->authority)
-                    ]);
+
+                // dd($token);
+                if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
+                    curl_close($curl);
+                    foreach ($roles as $role) {
+                        Role::firstOrCreate([
+                            'name' => $role->authority,
+                            'slug' => Str::slug($role->authority)
+                        ]);
+                    }
+                    return  view('admin_panel.user_role.show', ["roles" => $roles]);
+                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 401) {
+                    curl_close($curl);
+                    return redirect()->back()->withErrors(['error' => 'You are not authorized to view roles']);
+                } else if (isset($roles->message) && $roles->message = "API rate limit exceeded") {
+                    curl_close($curl);
+                    return redirect()->back()->withErrors($roles->message);
+                } else if (isset($roles->message) && $roles->message = "Invalid Token") {
+                    curl_close($curl);
+                    return redirect()->back()->withErrors($roles->message);
+                } else {
+                    curl_close($curl);
+                    return redirect()->back()->withErrors(['error' => __('Unknow Error From Api.')]);
                 }
-                // dd($roles);
-                return  view('admin_panel.user_role.show', ["roles" => $roles]);
             }
         } catch (\Exception $e) {
 

@@ -149,17 +149,17 @@
                                 <h6 class="text-blue">If you want to create Department select Level <strong> SubOrg</strong> an then Select <strong>Organization</strong></h6>
                                 <h6 class="text-blue">If you want to create New Organization select level <strong> Master</strong> </h6>
 
-                                <div class=" row mb-4">
+                                <div class=" row mb-4" id="add">
                                     <label for="level" class="col-md-3 form-label"> Select Level </label>
                                     <div class="col-md-9">
-                                        <select class="form-control" name="level" id="level">
+                                        <select class="form-control"  name="level" id="level">
                                             <option value="">Select</option>
                                             <option value="Hospital">Hospital</option>
                                             <option value="Department">Department</option>
                                         </select>
                                     </div>
                                 </div>
-                                <div class="form-group">
+                                <div class="form-group" id="no-need">
                                     <label for="organization">Organizations</label>
                                     <select class="form-control"  name="organization" id="organization">
                                         <option value="">Select</option>
@@ -194,7 +194,20 @@
 @section('foot_script')
 <script type="text/javascript">
     var baseUrl = `{{url('/')}}`;
+    $('#level').change(function(){
+        if($(this).val()=="Hospital"){
+            $('#no-need').hide();
+            $('#organization').attr('name','org');
+            var input_organization='<input type="hidden" id="input_org" name="organization" value="c6bc6265-e876-414a-9672-a85e09280059">';
+            $('#add').append(input_organization);
+        }else{
+            $('input_org').remove();
+            $('#no-need').hide();
+            $('#organization').attr('name','organization');
+            return false;
+        }
 
+    });
     function loadStates(country_id, context) {
 
         if (country_id == '')

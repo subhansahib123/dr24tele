@@ -54,15 +54,19 @@ class ProfessionController extends Controller
                             curl_close($curl);
                             return redirect()->back()->withErrors(['error' => 'You are not authorized to view professions']);
                         } else {
+                            curl_close($curl);
+
                             return redirect()->back()->withErrors(['error' => __('Unknow Error From Api.')]);
                         }
                     }
                 }
             } catch (\Exception $e) {
+                curl_close($curl);
+
                 return $e->getMessage();
             }
-        }
-        else{
+        } else {
+            
             return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
     }
