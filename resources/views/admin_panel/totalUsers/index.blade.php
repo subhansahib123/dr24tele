@@ -32,7 +32,6 @@
                             </div>
                             <div class="col-5 align-self-center"></div>
                             <div class="col-2">
-                                <a href="{{route('updatingRole')}}"><button class="btn btn-primary">Update Users Role</button></a>
 
                             </div>
                             {{--<span class="card-title "><a href="#"> Add New use</a></span>--}}

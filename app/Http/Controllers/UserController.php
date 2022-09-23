@@ -338,7 +338,7 @@ class UserController extends Controller
                     return redirect()->back()->withSuccess(__('Successfully Mapped User Role'));
                 } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
                     curl_close($curl);
-                    return redirect()->route('updatingRole', $uuid);
+                    return redirect()->route('updatingRole', [$uuid]);
                     // return redirect()->back()->withErrors(['error' => 'User role already exists']);
                 } else if (isset($userRole->message) && $userRole->message = "API rate limit exceeded") {
                     curl_close($curl);
@@ -356,7 +356,6 @@ class UserController extends Controller
             }
         } catch (\Exception $e) {
             // dd($e->getMessage());
-            curl_close($curl);
 
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
             // return $e->getMessage();
