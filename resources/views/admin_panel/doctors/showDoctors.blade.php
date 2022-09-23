@@ -52,7 +52,7 @@
                                     <table class="table table-striped">
                                         <thead>
                                             <th scope="col" width="20%">Name</th>
-                                             <th scope="col" width="21%">List</th> 
+                                             <th scope="col" width="21%">User Name</th> 
                                         </thead>
 
 
