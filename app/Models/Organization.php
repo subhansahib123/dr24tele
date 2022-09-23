@@ -25,7 +25,7 @@ class Organization extends Model
     }
     public function patient_organization()
     {
-        return $this->hasOne(Patient_Organization::class,'organization_id');
+        return $this->hasOne(UsersOrganization::class,'organization_id');
     }
 
 }
