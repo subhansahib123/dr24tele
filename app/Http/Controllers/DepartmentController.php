@@ -6,6 +6,7 @@ use App\Models\Department;
 use App\Models\Organization;
 use Illuminate\Http\Request;
 use Str;
+
 class DepartmentController extends Controller
 {
     public function departmentsList($uuid)
@@ -24,9 +25,9 @@ class DepartmentController extends Controller
             return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
         $token = $userInfo['sessionInfo']['token'];
 
-        $req_url=$baseUrl . 'rest/admin/organisation/v2/hierarchy/'.$uuid;
+        $req_url = $baseUrl . 'rest/admin/organisation/v2/hierarchy/' . $uuid;
         // dd($apiKey);
-        curl_setopt_array($curl, array(     
+        curl_setopt_array($curl, array(
             CURLOPT_URL => $req_url,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
@@ -48,42 +49,50 @@ class DepartmentController extends Controller
             //  var_dump(curl_getinfo($curl, CURLINFO_HTTP_CODE));
             if ($response == false) {
                 $error = curl_error($curl);
+                curl_close($curl);
+
                 return redirect()->back()->withErrors(['error' => __($error)]);;
             } else {
                 $departments = json_decode($response);
 
-                if ( curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
+                if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
                     // dd($departments);
                     curl_close($curl);
-                    $org=Organization::where('uuid',$uuid)->first();
-                    foreach($departments->childlist as $department){
+                    $org = Organization::where('uuid', $uuid)->first();
+                    foreach ($departments->childlist as $department) {
                         Department::firstOrCreate([
-                            'name'=>$department->name,
-                            'slug'=>Str::slug($department->name),
-                            'organization_id'=>$org->id,
-                            'level'=>'SubOrg',
-                            'uuid'=>$department->uuid
+                            'name' => $department->name,
+                            'slug' => Str::slug($department->name),
+                            'organization_id' => $org->id,
+                            'level' => 'SubOrg',
+                            'uuid' => $department->uuid
                         ]);
                     }
-                    
 
-                    return view('admin_panel.departments.show',['departments' => $departments]);
-                    
+
+                    return view('admin_panel.departments.show', ['departments' => $departments]);
+
 
                     // return redirect()->back()->withSuccess(__('Successfully Department List Fetched'));
                 } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
                     curl_close($curl);
                     return redirect()->back()->withErrors(['error' => __($departments->message)]);
                 } else if (isset($departments->message) && $departments->message = "API rate limit exceeded") {
+                    curl_close($curl);
+
                     return redirect()->back()->withErrors(['error' => __('API rate limit exceeded.')]);
                 } else if (isset($departments->message) && $departments->message = "Invalid Token") {
+                    curl_close($curl);
+
                     return redirect()->back()->withErrors(['error' => __('Invalid Token.')]);
                 } else {
+                    curl_close($curl);
 
                     return redirect()->back()->withErrors(['error' => "Unknown Error From Api"]);
                 }
             }
         } catch (\Exception $e) {
+            curl_close($curl);
             // dd($e->getMessage());
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }

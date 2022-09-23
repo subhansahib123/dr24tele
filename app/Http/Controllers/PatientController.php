@@ -63,6 +63,8 @@ class PatientController extends Controller
             $response = curl_exec($curl);
             if ($response == false) {
                 $error = curl_error($curl);
+                curl_close($curl);
+
                 return redirect()->back()->withErrors(['error' => __($error)]);;
             } else {
 
@@ -83,15 +85,23 @@ class PatientController extends Controller
                     curl_close($curl);
                     return redirect()->back()->withErrors(['error' => 'invalid useruuid / Please provide userUuid']);
                 } else if (isset($patients->message) && $patients->message = "API rate limit exceeded") {
+                    curl_close($curl);
+
                     return redirect()->back()->withErrors(['error' => __('API rate limit exceeded.')]);
                 } else if (isset($patients->message) && $patients->message = "Invalid Token") {
+                    curl_close($curl);
+
                     return redirect()->back()->withErrors(['error' => __('Invalid Token.')]);
                 } else {
+                    curl_close($curl);
+
 
                     return redirect()->back()->withErrors(['error' => "Unknow Error From Api"]);
                 }
             }
         } catch (\Exception $e) {
+            curl_close($curl);
+
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
     }
@@ -136,6 +146,8 @@ class PatientController extends Controller
             // dd($response);
             if ($response == false) {
                 $error = curl_error($curl);
+                curl_close($curl);
+
                 return redirect()->back()->withErrors(['error' => __($error)]);;
             } else {
                 // dd($request->all());
@@ -164,21 +176,29 @@ class PatientController extends Controller
                     curl_close($curl);
                     return redirect()->back()->withErrors(['error' => 'Person doesnt exists in DB / person already mapped to the organization']);
                 } else if (isset($patients->message) && $patients->message = "API rate limit exceeded") {
+                    curl_close($curl);
+
                     return redirect()->back()->withErrors(['error' => __('API rate limit exceeded.')]);
                 } else if (isset($patients->message) && $patients->message = "Invalid Token") {
+                    curl_close($curl);
+
                     return redirect()->back()->withErrors(['error' => __('Invalid Token.')]);
                 } else {
+                    curl_close($curl);
+
 
                     return redirect()->back()->withErrors(['error' => "Unknow Error From Api"]);
                 }
             }
         } catch (\Exception $e) {
+            curl_close($curl);
+
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
     }
-    public function patientsList($uuid )
+    public function patientsList($uuid)
     {
-        
+
         $curl = curl_init();
         $baseUrl = config('services.ehr.baseUrl');
         $apiKey = config('services.ehr.apiKey');
@@ -189,9 +209,9 @@ class PatientController extends Controller
         if (is_null($userInfo))
             return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
         $token = $userInfo['sessionInfo']['token'];
-        
+
         curl_setopt_array($curl, array(
-            CURLOPT_URL => $baseUrl.'rest/admin/orgPersonMapping/persons/'.$uuid,
+            CURLOPT_URL => $baseUrl . 'rest/admin/orgPersonMapping/persons/' . $uuid,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
@@ -200,8 +220,8 @@ class PatientController extends Controller
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => 'GET',
             CURLOPT_HTTPHEADER => array(
-                'Authorization: '.$token,
-                'apikey: '.$apiKey
+                'Authorization: ' . $token,
+                'apikey: ' . $apiKey
             ),
         ));
         try {
@@ -211,26 +231,36 @@ class PatientController extends Controller
             // dd($response);
             if ($response == false) {
                 $error = curl_error($curl);
+                curl_close($curl);
+
                 return redirect()->back()->withErrors(['error' => __($error)]);;
             } else {
                 // dd($request->all());
                 $patients = json_decode($response);
-                
+
 
                 if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
                     curl_close($curl);
-                    
-                    return view('admin_panel.patients.showPatients', ['patients' => $patients] );
-                }  else if (isset($patients->message) && $patients->message = "API rate limit exceeded") {
+
+                    return view('admin_panel.patients.showPatients', ['patients' => $patients]);
+                } else if (isset($patients->message) && $patients->message = "API rate limit exceeded") {
+                    curl_close($curl);
+
                     return redirect()->back()->withErrors(['error' => __('API rate limit exceeded.')]);
                 } else if (isset($patients->message) && $patients->message = "Invalid Token") {
+                    curl_close($curl);
+
                     return redirect()->back()->withErrors(['error' => __('Invalid Token.')]);
                 } else {
+
+                    curl_close($curl);
 
                     return redirect()->back()->withErrors(['error' => "Unknow Error From Api"]);
                 }
             }
         } catch (\Exception $e) {
+            curl_close($curl);
+
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
     }

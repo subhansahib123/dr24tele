@@ -23,6 +23,7 @@
             <!-- PAGE-HEADER END -->
             <form action="{{route('role.updated')}}" method="POST">
                 @csrf
+                <input type="hidden" value="{{$uuid}}" name="uuid" >
                 <div class="form-group">
                     <label for="user">Users</label>
                     <select class="form-control"  value="{{old('user')}}" name="user" id="user">
