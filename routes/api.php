@@ -1,9 +1,9 @@
 <?php
 
-use App\Http\Controllers\PersonController;
+use App\Http\Controllers\Admin\PersonController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\OrganizationController;
+use App\Http\Controllers\Admin\OrganizationController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
