@@ -8,7 +8,7 @@ use App\Http\Controllers\Admin\OrganizationController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\Admin\PatientController;
-// Hospital Controller 
+// Hospital Controller
 
 use App\Http\Controllers\Hospital\HospitalUserController;
 use App\Http\Controllers\Hospital\HospitalPatientController;
@@ -87,7 +87,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         // This Route shows list of All Registered organizations
         Route::get('/organization/list', [OrganizationController::class, 'organization'])->name('organization');
         Route::get('/create/organization', [OrganizationController::class, 'create'])->name('create.organization');
-
+        Route::get('/delete/organisation/{uuid}',[OrganizationController::class,'deleteOrganisation'])->name('delete.organisation');
 
         Route::post('/organization', [OrganizationController::class, 'createOrganization'])->name('store.organization');
 
@@ -111,24 +111,24 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::post('/updatedRole', [UserController::class, 'updateUserRoleStore'])->name('role.updated');
 
 
-        //This Route is used to Create Patient 
+        //This Route is used to Create Patient
         Route::get('/create/patients', [PatientController::class, 'createPatients'])->name('create.patients');
         Route::post('/store/patients', [PatientController::class, 'storePatients'])->name('store.patients');
 
-        //This Route is used to Map Patient with reference to Organization 
+        //This Route is used to Map Patient with reference to Organization
         Route::get('/map/patients', [PatientController::class, 'mapPatients'])->name('map.patients');
         Route::post('/patient/mapped', [PatientController::class, 'patientMapped'])->name('patient.mapped');
 
-        //This Route is used to show departments list 
+        //This Route is used to show departments list
         Route::get('/departments/list/{uuid}', [DepartmentController::class, 'departmentsList'])->name('departments.list');
 
-        //This Route is used to show Patients list 
+        //This Route is used to show Patients list
         Route::get('/patients/list/{uuid}', [PatientController::class, 'patientsList'])->name('patients.list');
 
-        //This Route is used to show Doctors list of a specific department 
+        //This Route is used to show Doctors list of a specific department
         Route::get('/doctors/list/{uuid}', [UserController::class, 'doctorsList'])->name('doctors.list');
 
-        //This Route is used to show Doctors list of a specific department 
+        //This Route is used to show Doctors list of a specific department
         Route::get('/users/list/{uuid}', [UserController::class, 'usersList'])->name('users.list');
     });
 
@@ -155,20 +155,20 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         // These Routes are used to Map Roles to Users
         Route::get('/updating/role/{dep}', [HospitalUserController::class, 'updateHospitalUserRole'])->name('updatingUser.role');
         Route::post('/role/updated', [HospitalUserController::class, 'updateUserRoleStore'])->name('userUserRole.updated');
- 
-        //These Route is used to Create Mapped Patients 
+
+        //These Route is used to Create Mapped Patients
         Route::get('/createPatients', [HospitalPatientController::class, 'createHospitalPatients'])->name('createHospital.patients');
         Route::post('/storePatients', [HospitalPatientController::class, 'storeHospitalPatients'])->name('storeHospital.patients');
 
-        //These Route is used to Create and view Departments 
+        //These Route is used to Create and view Departments
 
-         
+
         Route::get('/departments', [HospitalDepartmentController::class, 'hospitalDepartmentsList'])->name('hospitalDepartments.list');
         Route::get('/create/department', [HospitalDepartmentController::class, 'createHospitalDepartment'])->name('createHospital.department');
         Route::post('/department/created', [HospitalDepartmentController::class, 'hospitalOrganizationCreated'])->name('hospitalOrganization.created');
 
 
-        //This Route is used to show Doctors list of a specific department 
+        //This Route is used to show Doctors list of a specific department
         Route::get('/doctors/{uuid}', [HospitalUserController::class, 'hospitalDoctorsList'])->name('hospitalDoctors.list');
 
 

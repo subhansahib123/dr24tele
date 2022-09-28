@@ -82,7 +82,7 @@ class OrganizationController extends Controller
                 return redirect()->back()->withErrors(['error' => __('Unknow Error From Api.')]);
             }
         } catch (\Exception $e) {
-            curl_close($curl);
+
 
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
@@ -269,5 +269,76 @@ class OrganizationController extends Controller
         $org = Organization::where('uuid', $orgUuid)->first();
         $departments = Department::where('organization_id', $org->id)->get();
         return response()->json($departments);
+    }
+    public function deleteOrganisation($orgUuid){
+
+
+        $curl = curl_init();
+        $baseUrl = config('services.ehr.baseUrl');
+        $apiKey = config('services.ehr.apiKey');
+
+        $userInfo = session('loggedInUser');
+        $userInfo = json_decode(json_encode($userInfo), true);
+        // dd($userInfo);
+        if (is_null($userInfo))
+            return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
+        $token = $userInfo['sessionInfo']['token'];
+        $url=$baseUrl.'rest/admin/organisation/v2/'.$orgUuid.'/inactive';
+        curl_setopt_array($curl, array(
+        CURLOPT_URL =>  $url,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => '',
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 0,
+        CURLOPT_FOLLOWLOCATION => true,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => 'DELETE',
+        CURLOPT_HTTPHEADER => array(
+            'Accept: application/json',
+            'Authorization:' . $token,
+            'apikey: ' . $apiKey,
+        ),
+        ));
+        try {
+            $response = curl_exec($curl);
+
+
+            // dd(curl_getinfo($curl, CURLINFO_HTTP_CODE));
+            $organization = json_decode($response);
+                // dd($organization);
+                if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
+                    curl_close($curl);
+                    organization::where('uuid',$orgUuid)->first()->update(['status'=>'Disabled']);
+
+                    return redirect()->back()->withSuccess(__('Successfully Organization marked Inactive'));
+
+
+                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 401) {
+                    curl_close($curl);
+                    return redirect()->back()->withErrors(['error' => $organization->message]);
+                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
+                    curl_close($curl);
+                    return redirect()->back()->withErrors(['error' => $organization->message]);
+                } else if (isset($organization->message) && $organization->message = "API rate limit exceeded") {
+
+
+                    return redirect()->back()->withErrors(['error' => __('API rate limit exceeded.')]);
+                } else if (isset($organization->message) && $organization->message = "Invalid Token") {
+
+
+                    return redirect()->back()->withErrors(['error' => __('Invalid Token.')]);
+                } else {
+
+
+
+                    return redirect()->back()->withErrors(['error' => "Unknow Error From Api"]);
+                }
+        }
+        catch (\Exception $e) {
+
+
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
+
     }
 }
