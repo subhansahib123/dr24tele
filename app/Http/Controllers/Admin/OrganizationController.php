@@ -13,7 +13,6 @@ use App\Models\Department;
 use Illuminate\Support\Str;
 
 
-
 class OrganizationController extends Controller
 {
     public function organization(Request $request)
@@ -199,9 +198,9 @@ class OrganizationController extends Controller
                         // dd('department ');
                         $org = Organization::where('uuid', $request->organization)->first();
                         Department::Create([
-                            'name' => $request->name,
+                            'name' => $organization->displayname,
                             'organization_id' => $org->id,
-                            'slug' => $organization->displayname,
+                            'slug' => $request->name,
                             'level' => "SubOrg",
                             'uuid'=>'',
                         ]);
