@@ -55,6 +55,7 @@
                                             <th scope="col" width="3%">List</th>
                                             <th scope="col" width="3%">List</th>
                                             <th scope="col" width="3%">List</th>
+                                            <th scope="col" width="3%">List</th>
                                         </thead>
 
 
@@ -77,6 +78,10 @@
                                             </td>
                                             <td>
                                             <a href="{{route('departments.list',['uuid'=>$organization->uuid])}}" ><button class="btn btn-primary">Departments</button></a>
+
+                                            </td>
+                                            <td>
+                                            <a href="{{route('delete.organisation',['uuid'=>$organization->uuid])}}" ><button class="btn btn-danger">Inactive</button></a>
 
                                             </td>
 
