@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Role;
+use App\Models\Organization;
 use Str;
 
 class AuthenticationController extends Controller
@@ -280,92 +281,102 @@ class AuthenticationController extends Controller
     }
     public function showHospitalLogin()
     {
-        
+
         return view('hospital_panel.login');
     }
-    
+
     public function hospitalLogin(Request $request)
     {
         // dd(1);
-        
+
         $curl = curl_init();
         $baseUrl = config('services.ehr.baseUrl');
         $apiKey = config('services.ehr.apiKey');
 
-       
+
         $data = ['username' => $request->username, 'password' => $request->password];
+        $user = User::with('patient_organization')->where('username',  $request->username)->first();
+        if(!isset($user->patient_organization))
+            return redirect()->back()->withErrors(['error' => 'User is not associated with any Organisation']);
+        $organisation=Organization::find($user->patient_organization->organization_id);
+        if(is_null($organisation))
+            return redirect()->back()->withErrors(['error' => 'No Organisation record found in database']);
 
-        $params = array('orgName' => 'madinahospital', 'tenantId' => 'ehrn');
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => $baseUrl . 'rest/admin/v1/login?' . http_build_query($params),
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'POST',
-            CURLOPT_POSTFIELDS => json_encode($data),
-            CURLOPT_HTTPHEADER => array(
-                'Content-Type: application/json',
-                'Accept: application/json',
-                'apikey: ' . $apiKey
-            ),
-        ));
-        try {
-            // dd(1);
-            $response = curl_exec($curl);
+        if ($user) {
 
 
-            if ($response == false || isset($response->status)) {
-                return curl_error($curl);
-            } else {
-                $result_data = json_decode($response);
-                // dd($result_data);
-                if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
-                    $user = User::where('username', $result_data->username)->first();
-                    curl_close($curl);
-                    if ($user) {
+            Auth::login($user);
 
 
-                        Auth::login($user);
+
+            $params = array('orgName' => $organisation->slug, 'tenantId' => 'ehrn');
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => $baseUrl . 'rest/admin/v1/login?' . http_build_query($params),
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_POSTFIELDS => json_encode($data),
+                CURLOPT_HTTPHEADER => array(
+                    'Content-Type: application/json',
+                    'Accept: application/json',
+                    'apikey: ' . $apiKey
+                ),
+            ));
+            try {
+                // dd(1);
+                $response = curl_exec($curl);
+
+
+                if ($response == false || isset($response->status)) {
+                    return curl_error($curl);
+                } else {
+                    $result_data = json_decode($response);
+                    // dd($result_data);
+                    if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
+
+                        curl_close($curl);
                         session(['loggedInUser' => $result_data]);
                         return redirect()->route('hospital.dashboard')->withSuccess(__('Successfully Login'));
+
+                    } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
+                        curl_close($curl);
+                        return redirect()->back()->withErrors(['error' => 'Failed to serialize to JSON']);
+                    } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 401) {
+                        curl_close($curl);
+                        return redirect()->back()->withErrors(['error' => 'Invalid credentials']);
+                    } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 403) {
+                        curl_close($curl);
+                        return redirect()->back()->withErrors(['error' => 'User / login blocked; return login failure with delay']);
+                    } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 409) {
+                        curl_close($curl);
+                        return redirect()->back()->withErrors(['error' => 'User does not exist in DB']);
+                    } else if (isset($result_data->message) && $result_data->message = "API rate limit exceeded") {
+                        curl_close($curl);
+                        return redirect()->back()->withErrors(['error' => __('API rate limit exceeded.')]);
+                    } else if (isset($result_data->message) && $result_data->message = "Invalid Token") {
+                        curl_close($curl);
+                        return redirect()->back()->withErrors(['error' => __('Invalid Token.')]);
                     } else {
+                        curl_close($curl);
+                        return redirect()->back()->withErrors(['error' => __('Unknow Error From Api.')]);
+                    }
+                }
+            } catch (\Exception $e) {
+
+                return $e->getMessage();
+            }
+        } else {
                         return redirect()->back()->withErrors(['error' => 'No User Exist']);
                     }
-                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => 'Failed to serialize to JSON']);
-                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 401) {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => 'Invalid credentials']);
-                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 403) {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => 'User / login blocked; return login failure with delay']);
-                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 409) {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => 'User does not exist in DB']);
-                } else if (isset($result_data->message) && $result_data->message = "API rate limit exceeded") {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => __('API rate limit exceeded.')]);
-                } else if (isset($result_data->message) && $result_data->message = "Invalid Token") {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => __('Invalid Token.')]);
-                } else {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => __('Unknow Error From Api.')]);
-                }
-            }
-        } catch (\Exception $e) {
-
-            return $e->getMessage();
-        }
     }
     public function hospitalDashboard()
     {
         // dd(session('loggedInUser'));
         return view('hospital_panel.index');
     }
-    
+
 }
