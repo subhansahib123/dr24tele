@@ -113,12 +113,12 @@ class OrganizationController extends Controller
             'level' => 'required|string',
             'contactperson' => 'required|string',
             'phone' => 'required|string',
-            'building' => 'string',
-            'postalCode' => 'required|string',
-            'district' => 'required|string',
-            'city' => 'required|string',
-            'state' => 'required|string',
-            'country' => 'required|string',
+            // 'building' => 'string',
+            // 'postalCode' => 'required|string',
+            // 'district' => 'required|string',
+            // 'city' => 'required|string',
+            // 'state' => 'required|string',
+            // 'country' => 'required|string',
         ]);
         $curl = curl_init();
         $baseUrl = config('services.ehr.baseUrl');
