@@ -24,8 +24,10 @@ class HospitalUserController extends Controller
 
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
-        if (is_null($userInfo))
+        if (is_null($userInfo)){
+            Auth::logout();
             return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
+        }
 
         $token = $userInfo['sessionInfo']['token'];
         $orgId = $userInfo['sessionInfo']['orgId'];
@@ -99,8 +101,10 @@ class HospitalUserController extends Controller
 
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
-        if (is_null($userInfo))
+        if (is_null($userInfo)){
+            Auth::logout();
             return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
+        }
 
         $token = $userInfo['sessionInfo']['token'];
         curl_setopt_array($curl, array(
@@ -181,8 +185,10 @@ class HospitalUserController extends Controller
         // dd($data);
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
-        if (is_null($userInfo))
+        if (is_null($userInfo)){
+            Auth::logout();
             return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
+        }
         $token = $userInfo['sessionInfo']['token'];
 
         curl_setopt_array($curl, array(
@@ -280,19 +286,21 @@ class HospitalUserController extends Controller
         $apiKey = config('services.ehr.apiKey');
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
-        if (is_null($userInfo))
+        if (is_null($userInfo)){
+            Auth::logout();
             return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
+        }
 
         $token = $userInfo['sessionInfo']['token'];
         $orgId = $userInfo['sessionInfo']['orgId'];
 
         $data = [['useruuid' => $request->user, 'rolename' => $request->role]];
 
-        
+
         if (isset($request->department)) {
             $orgId = $request->department;
         }
-        
+
 
         $req_url = $baseUrl . '/rest/admin/orgUserMapping/role/add/' . $orgId;
         // dd($req_url);
@@ -317,7 +325,7 @@ class HospitalUserController extends Controller
             // dd($request->organizations);
             $response = curl_exec($curl);
             // dd($response);
-            
+
             // dd($dep);
             if ($response == false) {
                 $error = curl_error($curl);
@@ -432,8 +440,10 @@ class HospitalUserController extends Controller
         $apiKey = config('services.ehr.apiKey');
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
-        if (is_null($userInfo))
+        if (is_null($userInfo)){
+            Auth::logout();
             return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
+        }
         // dd($uuid);
         $token = $userInfo['sessionInfo']['token'];
         curl_setopt_array($curl, array(
@@ -496,14 +506,16 @@ class HospitalUserController extends Controller
     public function updateUserRoleStore(Request $request)
     {
 
-        // dd($request->all()); 
+        // dd($request->all());
         $curl = curl_init();
         $baseUrl = config('services.ehr.baseUrl');
         $apiKey = config('services.ehr.apiKey');
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
-        if (is_null($userInfo))
+        if (is_null($userInfo)){
+            Auth::logout();
             return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
+        }
 
         $token = $userInfo['sessionInfo']['token'];
         $data = [['useruuid' => $request->user, 'rolename' => $request->role]];

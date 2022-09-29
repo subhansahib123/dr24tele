@@ -51,8 +51,10 @@ class HospitalDepartmentController extends Controller
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
         // dd($userInfo);
-        if (is_null($userInfo))
+        if (is_null($userInfo)){
+            Auth::logout();
             return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
+        }
         $token = $userInfo['sessionInfo']['token'];
         $orgId=$userInfo['sessionInfo']['orgId'];
         $org=Organization::where('uuid',$orgId)->first();
@@ -119,8 +121,8 @@ class HospitalDepartmentController extends Controller
                     || curl_getinfo($curl, CURLINFO_HTTP_CODE) == 201
                 ) {
                     curl_close($curl);
-                    
-                    
+
+
                         Department::Create([
                             'name' => $request->name,
                             'organization_id' => $org->id,
@@ -169,8 +171,10 @@ class HospitalDepartmentController extends Controller
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
         // dd($userInfo);
-        if (is_null($userInfo))
+        if (is_null($userInfo)){
+            Auth::logout();
             return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
+        }
         $token = $userInfo['sessionInfo']['token'];
         $orgId=$userInfo['sessionInfo']['orgId'];
 
