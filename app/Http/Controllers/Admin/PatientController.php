@@ -81,6 +81,7 @@ class PatientController extends Controller
                     $user->update([
                         'PersonId' => $patients->PersonId,
                     ]);
+                    // dd( $patients);
                     return redirect()->back()->withSuccess(__('Patient Successfully Created'));
                 } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 401) {
                     curl_close($curl);
@@ -129,7 +130,7 @@ class PatientController extends Controller
             return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
         $token = $userInfo['sessionInfo']['token'];
-        $params = array('personUuid' => $request->PersonId, 'orgUuid' => $request->uuid);
+
         $req_url = $baseUrl . 'rest/admin/orgPersonMapping/add/' . $request->user . '/' . $request->organisation;
         // dd($req_url);
         curl_setopt_array($curl, array(
@@ -158,7 +159,7 @@ class PatientController extends Controller
                 // dd($request->all());
                 $patients = json_decode($response);
 
-
+                // dd($patients);
                 if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
                     $users = User::where('PersonId', $request->user)->first();
                     $org = Organization::where('uuid', $request->organisation)->first();
@@ -177,22 +178,22 @@ class PatientController extends Controller
 
                     curl_close($curl);
 
-
+                    // dd($patients);
                     return redirect()->back()->withSuccess(__('orgPersonMapping For orgID, Personid mapped successfully'));
                 } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 401) {
                     curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => 'You are not authorized to create person or EHR for person']);
+                    return redirect()->back()->withErrors(['error' => $patients->message ]);
                 } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
                     curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => 'Please provide valid orgUUID to addOrgPersonMappingByOrgId / Please provide valid personUUID to addOrgPersonMappingByOrgId ']);
+                    return redirect()->back()->withErrors(['error' => $patients->message ]);
                 } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 409) {
                     curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => 'Person doesnt exists in DB / person already mapped to the organization']);
-                } else if (isset($patients->message) && $patients->message = "API rate limit exceeded") {
+                    return redirect()->back()->withErrors(['error' =>$patients->message ]);
+                } else if (isset($patients->message) && $patients->message == "API rate limit exceeded") {
                     curl_close($curl);
 
                     return redirect()->back()->withErrors(['error' => __('API rate limit exceeded.')]);
-                } else if (isset($patients->message) && $patients->message = "Invalid Token") {
+                } else if (isset($patients->message) && $patients->message == "Invalid Token") {
                     curl_close($curl);
 
                     return redirect()->back()->withErrors(['error' => __('Invalid Token.')]);
@@ -204,7 +205,7 @@ class PatientController extends Controller
                 }
             }
         } catch (\Exception $e) {
-            curl_close($curl);
+            // curl_close($curl);
 
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
@@ -257,7 +258,7 @@ class PatientController extends Controller
                 // dd($patients);
                 if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
                     curl_close($curl);
-
+                    // dd($patients);
                     return view('admin_panel.patients.showPatients', ['patients' => $patients]);
                 } else if (isset($patients->message) && $patients->message = "API rate limit exceeded") {
                     curl_close($curl);
@@ -295,9 +296,10 @@ class PatientController extends Controller
             return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
         $token = $userInfo['sessionInfo']['token'];
-
+        $url=$baseUrl . 'rest/admin/person/'.$uuid.'?reason=wedontneedthisperson';
+        // dd($url);
         curl_setopt_array($curl, array(
-            CURLOPT_URL => $baseUrl . 'rest/admin/person/'.$uuid.'?reason=duplicate',
+            CURLOPT_URL => $url,
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
@@ -324,7 +326,7 @@ class PatientController extends Controller
             } else {
                 // dd($request->all());
                 $patients = json_decode($response);
-
+                // dd($patients);
 
                 if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
                     curl_close($curl);
@@ -334,12 +336,18 @@ class PatientController extends Controller
                         Patient::where('user_id',$user->id)->delete();
                         $user->delete();
                     }
+
                     return redirect()->back()->withSuccess(__('Successfully Patient Deleted'));
-                } else if (isset($patients->message) && $patients->message = "API rate limit exceeded") {
+                }
+                else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
+                     curl_close($curl);
+                    return redirect()->back()->withErrors(['error' => __($patients->message)]);
+                }
+                else if (isset($patients->message) && $patients->message == "API rate limit exceeded") {
                     curl_close($curl);
 
                     return redirect()->back()->withErrors(['error' => __('API rate limit exceeded.')]);
-                } else if (isset($patients->message) && $patients->message = "Invalid Token") {
+                } else if (isset($patients->message) && $patients->message == "Invalid Token") {
                     curl_close($curl);
 
                     return redirect()->back()->withErrors(['error' => __('Invalid Token.')]);
