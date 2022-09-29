@@ -43,7 +43,7 @@
                                 <div class="bg-light p-4 rounded">
 
 
-                                
+
 
 
 
@@ -51,8 +51,9 @@
 
                                     <table class="table table-striped">
                                         <thead>
-                                            <th scope="col" width="20%">User Name</th>
-                                             <th scope="col" width="21%">Name</th> 
+                                            <th scope="col" width="10%">User Name</th>
+                                             <th scope="col" width="10%">Name</th>
+                                             <th scope="col" width="4%">Delete</th>
                                         </thead>
 
 
@@ -71,12 +72,15 @@
 
 
                                             </td>
+                                            <td>
+                                                <a href="{{route('user.delete',[$user->uuid])}}" class="btn btn-danger">Delete</a>
+                                            </td>
 
                                         </tr>
-                                        @endforeach  
+                                        @endforeach
 
                                     </table>
-                                    
+
 
 
                                 </div>

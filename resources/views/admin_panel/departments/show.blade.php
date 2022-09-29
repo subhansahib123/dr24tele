@@ -43,7 +43,7 @@
                                 <div class="bg-light p-4 rounded">
 
 
-                                
+
 
 
 
@@ -52,7 +52,8 @@
                                     <table class="table table-striped">
                                         <thead>
                                             <th scope="col" width="40%">Name</th>
-                                             <th scope="col" width="1%">List</th> 
+                                             <th scope="col" width="1%">List</th>
+                                              <th scope="col" width="1%">List</th>
                                         </thead>
 
 
@@ -71,12 +72,18 @@
 
 
                                             </td>
+                                            <td>
+
+                                                <a href="{{route('delete.organisation',['uuid'=>$department->uuid])}}"><button class="btn btn-danger">Inactive</button></a>
+
+
+                                            </td>
 
                                         </tr>
-                                        @endforeach  
+                                        @endforeach
 
                                     </table>
-                                    
+
 
 
                                 </div>

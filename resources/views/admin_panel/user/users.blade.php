@@ -11,11 +11,11 @@
 
             <!-- PAGE-HEADER -->
             <div class="page-header">
-                <h1 class="page-title">Unmapped Patients</h1>
+                <h1 class="page-title">All Users</h1>
                 <div>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Unmapped Patients List</li>
+                        <li class="breadcrumb-item active" aria-current="page">All Users List</li>
                     </ol>
                 </div>
             </div>
@@ -27,12 +27,12 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="col-3">
-                                <span class="card-title">Patients</span>
+                                <span class="card-title">Users</span>
 
                             </div>
                             <div class="col-7 align-self-center"></div>
                             <div class="col-2">
-                                <a href="{{route('mappingRole')}}"><button class="btn btn-primary">Map Patients</button></a>
+                                <a href="{{route('mappingRole')}}"><button class="btn btn-primary">Map Users</button></a>
 
                             </div>
                             {{--<span class="card-title "><a href="#"> Add New Patient</a></span>--}}
@@ -54,10 +54,11 @@
                                         <table class="table table-striped">
                                             <thead>
                                                 <th scope="col" width="20%">Name</th>
+                                                 <th scope="col" width="20%">Username</th>
                                                <th scope="col" width="1%">Action</th>
                                             </thead>
-                                            @if(isset($patients)&&$patients->person)
-                                            @foreach($patients->person as $all_patient)
+                                            @if(isset($all_patients) && $all_patients->Users)
+                                            @foreach($all_patients->Users as $all_patient)
 
 
                                             <tr>
@@ -65,13 +66,21 @@
                                                 <td>
 
 
-                                                    {{isset($all_patient->givenName)?$all_patient->givenName:'' }}
+                                                    {{isset($all_patient->name)?$all_patient->name:'' }}
 
 
 
                                                 </td>
                                                 <td>
-                                                    <a href="{{route('patient.delete',[$all_patient->personId])}}" class="btn btn-danger">Delete</a>
+
+
+                                                    {{isset($all_patient->username)?$all_patient->username:'' }}
+
+
+
+                                                </td>
+                                                <td>
+                                                    <a href="{{route('user.delete',[$all_patient->uuid])}}" class="btn btn-danger">Delete</a>
                                                 </td>
 
 
