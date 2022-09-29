@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Organization;
+
 use App\Models\Country;
 use App\Models\State;
 use App\Models\City;
@@ -308,9 +309,18 @@ class OrganizationController extends Controller
                 // dd($organization);
                 if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
                     curl_close($curl);
-                    organization::where('uuid',$orgUuid)->first()->update(['status'=>'Disabled']);
+                    $orgDb=Organization::where('uuid',$orgUuid)->first();
+                    if($orgDb){
+                       $orgDb->update(['status'=>'Disabled']);
+                       return redirect()->back()->withSuccess(__('Successfully Organization marked Inactive'));
+                    }else {
+                        Department::where('uuid',$orgUuid)->delete();
+                        return redirect()->back()->withSuccess(__('Successfully Department marked Inactive'));
+                    }
 
-                    return redirect()->back()->withSuccess(__('Successfully Organization marked Inactive'));
+
+
+
 
 
                 } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 401) {

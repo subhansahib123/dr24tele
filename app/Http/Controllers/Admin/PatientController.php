@@ -207,6 +207,7 @@ class PatientController extends Controller
     }
     public function patientsList($uuid)
     {
+        // dd(1);
 
         $curl = curl_init();
         $baseUrl = config('services.ehr.baseUrl');
@@ -247,7 +248,7 @@ class PatientController extends Controller
                 // dd($request->all());
                 $patients = json_decode($response);
 
-
+                // dd($patients);
                 if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
                     curl_close($curl);
 
@@ -269,6 +270,80 @@ class PatientController extends Controller
             }
         } catch (\Exception $e) {
             curl_close($curl);
+
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
+    }
+    public function patientDelete($uuid)
+    {
+
+        $curl = curl_init();
+        $baseUrl = config('services.ehr.baseUrl');
+        $apiKey = config('services.ehr.apiKey');
+
+        $userInfo = session('loggedInUser');
+        $userInfo = json_decode(json_encode($userInfo), true);
+        // dd($userInfo);
+        if (is_null($userInfo))
+            return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
+        $token = $userInfo['sessionInfo']['token'];
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => $baseUrl . 'rest/admin/person/'.$uuid.'?reason=duplicate',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'DELETE',
+            CURLOPT_HTTPHEADER => array(
+                'Accept: application/json',
+                'Authorization: ' . $token,
+                'apikey: ' . $apiKey
+            ),
+        ));
+        try {
+
+            $response = curl_exec($curl);
+
+            // dd($response);
+            if ($response == false) {
+                $error = curl_error($curl);
+                curl_close($curl);
+
+                return redirect()->back()->withErrors(['error' => __($error)]);;
+            } else {
+                // dd($request->all());
+                $patients = json_decode($response);
+
+
+                if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
+                    curl_close($curl);
+                    $user= User::where('PersonId',$uuid)->first();
+                    if($user){
+                        UsersOrganization::where('user_id',$user->id)->delete();
+                        Patient::where('user_id',$user->id)->delete();
+                        $user->delete();
+                    }
+                    return redirect()->back()->withSuccess(__('Successfully Patient Deleted'));
+                } else if (isset($patients->message) && $patients->message = "API rate limit exceeded") {
+                    curl_close($curl);
+
+                    return redirect()->back()->withErrors(['error' => __('API rate limit exceeded.')]);
+                } else if (isset($patients->message) && $patients->message = "Invalid Token") {
+                    curl_close($curl);
+
+                    return redirect()->back()->withErrors(['error' => __('Invalid Token.')]);
+                } else {
+
+                    curl_close($curl);
+
+                    return redirect()->back()->withErrors(['error' => "Unknow Error From Api"]);
+                }
+            }
+        } catch (\Exception $e) {
+
 
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }

@@ -94,7 +94,11 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
         // This Route shows list Unmapped User (roles are not assigned)
         Route::get('/users/unmapped', [UserController::class, 'usersUnmapped'])->name('users.unmapped');
-
+        //actual Users
+         Route::get('/users/all', [UserController::class, 'allusersActual'])->name('users.all.actual');
+         //actual unmapped user
+         Route::get('/unmapped/users', [UserController::class, 'allUnmappedUsersActual'])->name('users.unmapped.actual');
+        //
         // This Route shows list ?
         Route::get('/all/users', [UserController::class, 'allusers'])->name('all.users');
 
@@ -124,12 +128,15 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
         //This Route is used to show Patients list
         Route::get('/patients/list/{uuid}', [PatientController::class, 'patientsList'])->name('patients.list');
-
+        //Delete Patient
+        Route::get('/patients/delete/{uuid}', [PatientController::class, 'patientDelete'])->name('patient.delete');
         //This Route is used to show Doctors list of a specific department
         Route::get('/doctors/list/{uuid}', [UserController::class, 'doctorsList'])->name('doctors.list');
 
         //This Route is used to show Doctors list of a specific department
         Route::get('/users/list/{uuid}', [UserController::class, 'usersList'])->name('users.list');
+        //Delete User
+        Route::get('/user/delete/{uuid}',[UserController::class, 'deleteUser'])->name('user.delete');
     });
 
 

@@ -11,11 +11,11 @@
 
             <!-- PAGE-HEADER -->
             <div class="page-header">
-                <h1 class="page-title">ALL Users </h1>
+                <h1 class="page-title">ALL Patients </h1>
                 <div>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">ALL Users </li>
+                        <li class="breadcrumb-item active" aria-current="page">ALL Patients </li>
                     </ol>
                 </div>
             </div>
@@ -27,7 +27,7 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="col-5">
-                                <span class="card-title">Mapped and Unmapped Users</span>
+                                <span class="card-title">Mapped and Unmapped Patients</span>
 
                             </div>
                             <div class="col-5 align-self-center"></div>
@@ -53,7 +53,7 @@
                                         <table class="table table-striped">
                                             <thead>
                                                 <th scope="col" width="20%">Name</th>
-                                                <th scope="col" width="1%">Guard</th>
+                                                <th scope="col" width="1%">Action</th>
                                             </thead>
                                             @if($all_patients->person)
                                             @foreach($all_patients->person as $all_patient)
@@ -66,6 +66,10 @@
                                                     {{$all_patient->givenName}}
 
 
+                                                </td>
+
+                                                 <td>
+                                                    <a href="{{route('patient.delete',[$all_patient->personId])}}" class="btn btn-danger">Delete</a>
                                                 </td>
 
 

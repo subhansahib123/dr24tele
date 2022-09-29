@@ -52,7 +52,7 @@
                                     <table class="table table-striped">
                                         <thead>
                                             <th scope="col" width="40%">Name</th>
-                                           {{-- <th scope="col" width="1%">List</th>--}}
+                                           <th scope="col" width="1%">List</th>
                                         </thead>
 
 
@@ -65,7 +65,9 @@
 
 
                                             </td>
-
+                                            <td>
+                                                <a href="{{route('user.delete',[$patients->personId])}}" class="btn btn-danger">Delete</a>
+                                            </td>
                                         </tr>
                                         @endforeach
 
