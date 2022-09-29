@@ -15,14 +15,14 @@ use App\Models\UsersOrganization;
 
 class UserController extends Controller
 {
-    public function __construct()
-    {
-        $userInfo = session('loggedInUser');
-        $userInfo = json_decode(json_encode($userInfo), true);
-        if (is_null($userInfo))
-            return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
+    // public function __construct()
+    // {
+    //     $userInfo = session('loggedInUser');
+    //     $userInfo = json_decode(json_encode($userInfo), true);
+    //     if (is_null($userInfo))
+    //         return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
 
-    }
+    // }
 
     // Function that show list of All Unmapped Patients
     public function usersUnmapped()
@@ -35,8 +35,10 @@ class UserController extends Controller
 
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
-        if (is_null($userInfo))
+        if (is_null($userInfo)){
+            Auth::logout();
             return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
+        }
 
         $token = $userInfo['sessionInfo']['token'];
         curl_setopt_array($curl, array(
@@ -98,8 +100,10 @@ class UserController extends Controller
 
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
-        if (is_null($userInfo))
+        if (is_null($userInfo)){
+            Auth::logout();
             return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
+        }
 
         $token = $userInfo['sessionInfo']['token'];
 
@@ -172,8 +176,11 @@ class UserController extends Controller
 
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
-        if (is_null($userInfo))
+        if (is_null($userInfo)){
+            Auth::logout();
             return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
+        }
+
 
         $token = $userInfo['sessionInfo']['token'];
 
@@ -196,7 +203,7 @@ class UserController extends Controller
         try {
             $response = curl_exec($curl);
 
-
+            // dd($response);
             if ($response == false) {
                 $error = curl_error($curl);
                 curl_close($curl);
@@ -209,17 +216,17 @@ class UserController extends Controller
                     return view('admin_panel.user.users', ['all_patients' => $all_patients]);
                 } else if (isset($all_patients->message) && $all_patients->message = "Invalid Token") {
                     curl_close($curl);
-
-                    return redirect()->back()->withErrors(['error' => 'Invalid Token.']);
+                    Auth::logout();
+                    return redirect()->route('login.show')->withErrors(['error' => 'Invalid Token.']);
                 } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
                     curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => 'Provided password does not match the password policy / User already exists / User name missing in the request / Please provide name']);
+                    return redirect()->back()->withErrors(['error' => $all_patients->message]);
                 } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 401) {
                     curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => 'You are not authorized to create user']);
+                    return redirect()->back()->withErrors(['error' => $all_patients->message]);
                 } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 409) {
                     curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => 'Failed to serialize to JSON']);
+                    return redirect()->back()->withErrors(['error' => $all_patients->message]);
                 } else if (isset($all_patients->message) && $all_patients->message = "API rate limit exceeded") {
                     curl_close($curl);
 
@@ -247,8 +254,10 @@ class UserController extends Controller
 
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
-        if (is_null($userInfo))
+        if (is_null($userInfo)){
+            Auth::logout();
             return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
+        }
 
         $token = $userInfo['sessionInfo']['token'];
 
@@ -343,8 +352,10 @@ class UserController extends Controller
         // dd($data);
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
-        if (is_null($userInfo))
+        if (is_null($userInfo)){
+            Auth::logout();
             return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
+        }
         $token = $userInfo['sessionInfo']['token'];
         curl_setopt_array($curl, array(
             CURLOPT_URL => $baseUrl . '/rest/admin/user',
@@ -445,8 +456,10 @@ class UserController extends Controller
         $apiKey = config('services.ehr.apiKey');
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
-        if (is_null($userInfo))
+        if (is_null($userInfo)){
+            Auth::logout();
             return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
+        }
 
         $token = $userInfo['sessionInfo']['token'];
         $data = [['useruuid' => $request->user, 'rolename' => $request->role]];
@@ -594,8 +607,10 @@ class UserController extends Controller
         $apiKey = config('services.ehr.apiKey');
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
-        if (is_null($userInfo))
+        if (is_null($userInfo)){
+            Auth::logout();
             return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
+        }
 
         $token = $userInfo['sessionInfo']['token'];
         $data = [['useruuid' => $request->user, 'rolename' => $request->role]];
@@ -656,8 +671,10 @@ class UserController extends Controller
         $apiKey = config('services.ehr.apiKey');
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
-        if (is_null($userInfo))
+        if (is_null($userInfo)){
+            Auth::logout();
             return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
+        }
         // dd($uuid);
         $token = $userInfo['sessionInfo']['token'];
         curl_setopt_array($curl, array(
@@ -717,8 +734,10 @@ class UserController extends Controller
         $apiKey = config('services.ehr.apiKey');
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
-        if (is_null($userInfo))
+        if (is_null($userInfo)){
+            Auth::logout();
             return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
+        }
 
         $token = $userInfo['sessionInfo']['token'];
 
@@ -778,8 +797,10 @@ class UserController extends Controller
         $apiKey = config('services.ehr.apiKey');
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
-        if (is_null($userInfo))
+        if (is_null($userInfo)){
+            Auth::logout();
             return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
+        }
 
         $token = $userInfo['sessionInfo']['token'];
 

@@ -16,7 +16,7 @@ use Illuminate\Support\Str;
 
 class OrganizationController extends Controller
 {
-    public function organization(Request $request)
+    public function organization()
     {
 
         $curl = curl_init();
@@ -27,8 +27,11 @@ class OrganizationController extends Controller
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
         // dd($userInfo);
-        if (is_null($userInfo))
+        if (is_null($userInfo)){
+            Auth::logout();
             return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
+        }
+
         $token = $userInfo['sessionInfo']['token'];
 
         curl_setopt_array($curl, array(
@@ -128,8 +131,10 @@ class OrganizationController extends Controller
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
         // dd($userInfo);
-        if (is_null($userInfo))
+        if (is_null($userInfo)){
+            Auth::logout();
             return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
+        }
         $token = $userInfo['sessionInfo']['token'];
         $data = [
             "displayname" => $request->displayname,
@@ -281,8 +286,10 @@ class OrganizationController extends Controller
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
         // dd($userInfo);
-        if (is_null($userInfo))
+        if (is_null($userInfo)){
+            Auth::logout();
             return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
+        }
         $token = $userInfo['sessionInfo']['token'];
         $url=$baseUrl.'rest/admin/organisation/v2/'.$orgUuid.'/inactive';
         curl_setopt_array($curl, array(

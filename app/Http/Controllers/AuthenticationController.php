@@ -43,7 +43,7 @@ class AuthenticationController extends Controller
         ));
         try {
             $response = curl_exec($curl);
-
+            // dd($response);
 
             if ($response == false || isset($response->status)) {
                 return curl_error($curl);
@@ -127,7 +127,7 @@ class AuthenticationController extends Controller
                     return  redirect(route('login.show'));
                 }
             } catch (\Exception $e) {
-                curl_close($curl);
+                // curl_close($curl);
                 return $e->getMessage();
             }
         }

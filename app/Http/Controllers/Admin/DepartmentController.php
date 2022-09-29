@@ -23,8 +23,10 @@ class DepartmentController extends Controller
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
         // dd($userInfo);
-        if (is_null($userInfo))
+        if (is_null($userInfo)){
+            Auth::logout();
             return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
+        }
         $token = $userInfo['sessionInfo']['token'];
 
         $req_url = $baseUrl . 'rest/admin/organisation/v2/hierarchy/' . $uuid;
@@ -77,10 +79,10 @@ class DepartmentController extends Controller
                     }else {
                         return redirect()->back()->withErrors(['error' => __('No Record Found')]);
                     }
-                    
 
 
-                    
+
+
                 } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
                     curl_close($curl);
                     return redirect()->back()->withErrors(['error' => __($departments->message)]);
@@ -99,7 +101,7 @@ class DepartmentController extends Controller
                 }
             }
         } catch (\Exception $e) {
-            
+
             // dd($e->getMessage());
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }

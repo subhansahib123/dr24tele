@@ -18,12 +18,12 @@ class HospitalPatientController extends Controller
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
         $orgId = $userInfo['sessionInfo']['orgId'];
-        
+
         return view('hospital_panel.patients.create', ['users' => $users,'orgId'=>$orgId]);
     }
     public function storeHospitalPatients(Request $request)
     {
-    
+
         $curl = curl_init();
         $baseUrl = config('services.ehr.baseUrl');
         $apiKey = config('services.ehr.apiKey');
@@ -31,8 +31,10 @@ class HospitalPatientController extends Controller
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
         // dd($userInfo);
-        if (is_null($userInfo))
+        if (is_null($userInfo)){
+            Auth::logout();
             return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
+        }
         $token = $userInfo['sessionInfo']['token'];
         $data = [
             'givenName' => $request->givenName,
@@ -89,7 +91,7 @@ class HospitalPatientController extends Controller
                     $users = User::where('PersonId', $patients->PersonId)->first();
 
                     $org = Organization::where('uuid', $request->orgId)->first();
-                    
+
                     Patient::firstOrCreate([
                         'user_id' => $users->id,
                         'organization_id' => $org->id,
