@@ -26,7 +26,7 @@ class PatientController extends Controller
         $userInfo = json_decode(json_encode($userInfo), true);
         // dd($userInfo);
         if (is_null($userInfo)){
-            Auth::logout();
+            \Auth::logout();
             return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
         $token = $userInfo['sessionInfo']['token'];
@@ -125,9 +125,11 @@ class PatientController extends Controller
         $userInfo = json_decode(json_encode($userInfo), true);
         // dd($userInfo);
         if (is_null($userInfo)){
-            Auth::logout();
+            \Auth::logout();
             return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
+        dd($request->PersonId
+    );
         $token = $userInfo['sessionInfo']['token'];
         $params = array('personUuid' => $request->PersonId, 'orgUuid' => $request->uuid);
         $req_url = $baseUrl . 'rest/admin/orgPersonMapping/add/' . $request->user . '/' . $request->organisation;
@@ -146,6 +148,7 @@ class PatientController extends Controller
                 'apikey:' . $apiKey
             ),
         ));
+        
         try {
 
             $response = curl_exec($curl);
@@ -244,7 +247,7 @@ class PatientController extends Controller
 
             $response = curl_exec($curl);
 
-            // dd($response);
+            
             if ($response == false) {
                 $error = curl_error($curl);
                 curl_close($curl);
@@ -257,7 +260,7 @@ class PatientController extends Controller
                 // dd($patients);
                 if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
                     curl_close($curl);
-
+                    // dd($patients);
                     return view('admin_panel.patients.showPatients', ['patients' => $patients]);
                 } else if (isset($patients->message) && $patients->message = "API rate limit exceeded") {
                     curl_close($curl);
@@ -283,6 +286,7 @@ class PatientController extends Controller
     public function patientDelete($uuid)
     {
 
+        
         $curl = curl_init();
         $baseUrl = config('services.ehr.baseUrl');
         $apiKey = config('services.ehr.apiKey');
@@ -315,7 +319,7 @@ class PatientController extends Controller
 
             $response = curl_exec($curl);
 
-            // dd($response);
+            dd($response);
             if ($response == false) {
                 $error = curl_error($curl);
                 curl_close($curl);
@@ -324,7 +328,7 @@ class PatientController extends Controller
             } else {
                 // dd($request->all());
                 $patients = json_decode($response);
-
+                // dd($patients);
 
                 if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
                     curl_close($curl);
@@ -335,11 +339,15 @@ class PatientController extends Controller
                         $user->delete();
                     }
                     return redirect()->back()->withSuccess(__('Successfully Patient Deleted'));
-                } else if (isset($patients->message) && $patients->message = "API rate limit exceeded") {
+                } 
+                if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400){
+                    return redirect()->back()->withErrors(['error' => __($patients->message)]);
+
+            } else if (isset($patients->message) && $patients->message == "API rate limit exceeded") {
                     curl_close($curl);
 
                     return redirect()->back()->withErrors(['error' => __('API rate limit exceeded.')]);
-                } else if (isset($patients->message) && $patients->message = "Invalid Token") {
+                } else if (isset($patients->message) && $patients->message == "Invalid Token") {
                     curl_close($curl);
 
                     return redirect()->back()->withErrors(['error' => __('Invalid Token.')]);

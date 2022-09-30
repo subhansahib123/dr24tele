@@ -87,17 +87,21 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         // This Route shows list of All Registered organizations
         Route::get('/organization/list', [OrganizationController::class, 'organization'])->name('organization');
         Route::get('/create/organization', [OrganizationController::class, 'create'])->name('create.organization');
-        Route::get('/delete/organisation/{uuid}',[OrganizationController::class,'deleteOrganisation'])->name('delete.organisation');
+        Route::get('/delete/organisation/{uuid}', [OrganizationController::class, 'deleteOrganisation'])->name('delete.organisation');
 
         Route::post('/organization', [OrganizationController::class, 'createOrganization'])->name('store.organization');
+        //Get single record of organization
+        Route::get('/single/organization/{uuid}', [OrganizationController::class, 'singleOrganization'])->name('single.organization');
+        Route::post('/update/organization', [OrganizationController::class, 'updateOrganization'])->name('update.organization');
+
 
 
         // This Route shows list Unmapped User (roles are not assigned)
         Route::get('/users/unmapped', [UserController::class, 'usersUnmapped'])->name('users.unmapped');
         //actual Users
-         Route::get('/users/all', [UserController::class, 'allusersActual'])->name('users.all.actual');
-         //actual unmapped user
-         Route::get('/unmapped/users', [UserController::class, 'allUnmappedUsersActual'])->name('users.unmapped.actual');
+        Route::get('/users/all', [UserController::class, 'allusersActual'])->name('users.all.actual');
+        //actual unmapped user
+        Route::get('/unmapped/users', [UserController::class, 'allUnmappedUsersActual'])->name('users.unmapped.actual');
         //
         // This Route shows list ?
         Route::get('/all/users', [UserController::class, 'allusers'])->name('all.users');
@@ -136,7 +140,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         //This Route is used to show Doctors list of a specific department
         Route::get('/users/list/{uuid}', [UserController::class, 'usersList'])->name('users.list');
         //Delete User
-        Route::get('/user/delete/{uuid}',[UserController::class, 'deleteUser'])->name('user.delete');
+        Route::get('/user/delete/{uuid}', [UserController::class, 'deleteUser'])->name('user.delete');
     });
 
 
@@ -156,7 +160,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
         // These Routes are used to Map Roles to Users
         Route::get('/mapping/role', [HospitalUserController::class, 'mapHospitalUser'])->name('mapHospital.user');
-        Route::post('/role/mapped',[HospitalUserController::class,'hospitalUserMapped'])->name('hospitalUser.mapped');
+        Route::post('/role/mapped', [HospitalUserController::class, 'hospitalUserMapped'])->name('hospitalUser.mapped');
 
 
         // These Routes are used to Map Roles to Users
@@ -177,9 +181,6 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
         //This Route is used to show Doctors list of a specific department
         Route::get('/doctors/{uuid}', [HospitalUserController::class, 'hospitalDoctorsList'])->name('hospitalDoctors.list');
-
-
-
     });
     Route::group(['prefix' => 'user', 'middleware' => ['auth']], function () {
     });

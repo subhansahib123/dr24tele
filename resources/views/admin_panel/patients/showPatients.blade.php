@@ -66,7 +66,7 @@
 
                                             </td>
                                             <td>
-                                                <a href="{{route('user.delete',[$patients->personId])}}" class="btn btn-danger">Delete</a>
+                                                <a href="{{route('patient.delete',[$patients->personIdentifiers->identifier])}}" class="btn btn-danger">Delete</a>
                                             </td>
                                         </tr>
                                         @endforeach
