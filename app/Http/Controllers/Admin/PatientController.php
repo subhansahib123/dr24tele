@@ -128,8 +128,7 @@ class PatientController extends Controller
             \Auth::logout();
             return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
-        dd($request->PersonId
-    );
+        // dd($request->PersonId);
         $token = $userInfo['sessionInfo']['token'];
         $params = array('personUuid' => $request->PersonId, 'orgUuid' => $request->uuid);
         $req_url = $baseUrl . 'rest/admin/orgPersonMapping/add/' . $request->user . '/' . $request->organisation;

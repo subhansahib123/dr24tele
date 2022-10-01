@@ -90,7 +90,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::get('/delete/organisation/{uuid}', [OrganizationController::class, 'deleteOrganisation'])->name('delete.organisation');
 
         Route::post('/organization', [OrganizationController::class, 'createOrganization'])->name('store.organization');
-        //Get single record of organization
+        //Get single record of organization and update it
         Route::get('/single/organization/{uuid}', [OrganizationController::class, 'singleOrganization'])->name('single.organization');
         Route::post('/update/organization', [OrganizationController::class, 'updateOrganization'])->name('update.organization');
 
@@ -129,6 +129,10 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
         //This Route is used to show departments list
         Route::get('/departments/list/{uuid}', [DepartmentController::class, 'departmentsList'])->name('departments.list');
+
+        //Get single record of organization and update it
+        Route::get('/single/department/{uuid}', [OrganizationController::class, 'singleOrganization'])->name('single.department');
+        Route::post('/update/department', [DepartmentController::class, 'updateDepartment'])->name('update.department');
 
         //This Route is used to show Patients list
         Route::get('/patients/list/{uuid}', [PatientController::class, 'patientsList'])->name('patients.list');

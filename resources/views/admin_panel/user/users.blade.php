@@ -31,10 +31,7 @@
 
                             </div>
                             <div class="col-7 align-self-center"></div>
-                            <div class="col-2">
-                                <a href="{{route('mappingRole')}}"><button class="btn btn-primary">Map Users</button></a>
-
-                            </div>
+                            
                             {{--<span class="card-title "><a href="#"> Add New Patient</a></span>--}}
                         </div>
                         <div class="card-body">

@@ -63,7 +63,7 @@
 
                                                 <td>
 
-                                                    {{$all_patient->givenName}}
+                                                {{isset($all_patient->givenName)?$all_patient->givenName:'' }}
 
 
                                                 </td>
