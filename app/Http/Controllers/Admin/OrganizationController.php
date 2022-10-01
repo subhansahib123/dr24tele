@@ -392,27 +392,31 @@ class OrganizationController extends Controller
 
             // dd($response);
             $organization = json_decode($response);
-            // dd($organization->uuid);
+            // dd($organization);
             if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
                 curl_close($curl);
                 $countries = Country::all();
-                foreach ($organization->address as $address)
-                // dd($address);
-                return view('admin_panel.organization.organizationForUpdate',['organization'=>$organization,'orgData'=>$orgData,'countries'=>$countries,'address'=>$address]);
+                
+                
+                return view('admin_panel.organization.organizationForUpdate',['organization'=>$organization,'orgData'=>$orgData,'countries'=>$countries]);
             } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 401) {
                 curl_close($curl);
                 return redirect()->back()->withErrors(['error' => $organization->message]);
             } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
                 curl_close($curl);
                 return redirect()->back()->withErrors(['error' => $organization->message]);
-            } else if (isset($organization->message) && $organization->message == "API rate limit exceeded") {
+            }else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 409) {
+                curl_close($curl);
+                return redirect()->back()->withErrors(['error' => $organization->message]);
+            } 
+            else if (isset($organization->message) && $organization->message == "API rate limit exceeded") {
 
 
-                return redirect()->back()->withErrors(['error' => __('API rate limit exceeded.')]);
+                return redirect()->back()->withErrors(['error' => __('API rate limit exceeded')]);
             } else if (isset($organization->message) && $organization->message == "Invalid Token") {
 
 
-                return redirect()->back()->withErrors(['error' => __('Invalid Token.')]);
+                return redirect()->back()->withErrors(['error' => __('Invalid Token')]);
             } else {
 
 

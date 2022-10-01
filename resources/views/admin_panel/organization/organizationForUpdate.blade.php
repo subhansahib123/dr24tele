@@ -58,7 +58,7 @@
                                 <div class=" row mb-4">
                                     <label for="email" class="col-md-3 form-label"> Contact Person Designation</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" value="{{$orgData->contactperson}}" name="contactperson" id="contactperson" placeholder="Contact Person Designation" autocomplete="contactperson">
+                                        <input type="text" class="form-control" value="{{$organization->contactperson}}" name="contactperson" id="contactperson" placeholder="Contact Person Designation" autocomplete="contactperson">
                                     </div>
                                     @if ($errors->has('contactperson'))
                                     <span class="text-danger text-left">{{ $errors->first('contactperson') }}</span>
@@ -80,7 +80,7 @@
                                         <select class="form-control" onchange="loadStates(this.value,this)" id="country">
                                             <option value="">Select Country</option>
                                             @foreach ($countries as $country)
-                                            <option value="{{$country->id}}" {{$address->country==$country->state?'selected':''}}>{{$country->name}}</option>
+                                            <option value="{{$country->id}}" {{$organization->address[0]->country==$country->name?'selected':''}}>{{$country->name}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -93,7 +93,7 @@
                                     <input type="hidden" value="" name="state" id="state_value" />
                                     <div class="col-md-9">
                                         <select class="form-control" onchange="loadCities(this.value,this)" id="state">
-                                            <option {{$address->state==$country->state?'selected':''}}>Select State</option>
+                                            <option >Select State</option>
 
                                         </select>
                                     </div>
@@ -106,7 +106,7 @@
                                     <input type="hidden" value="" name="city" id="city_value" />
                                     <div class="col-md-9">
                                         <select class="form-control" id="city">
-                                            <option {{$address->city==$country->city?'selected':''}}>Select City</option>
+                                            <option >Select City</option>
                                         </select>
                                     </div>
                                     @if ($errors->has('contactperson'))
@@ -123,19 +123,19 @@
                                 <div class=" row mb-4 addresss">
                                     <label for="building" class="col-md-3 form-label">Building</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" value="{{old('building')}}" id="building" name="building" placeholder="Building Address">
+                                        <input type="text" class="form-control" value="{{$organization->address[0]->building}}" id="building" name="building" placeholder="Building Address">
                                     </div>
                                 </div>
                                 <div class=" row mb-4 addresss">
                                     <label for="district" class="col-md-3 form-label">District</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" value="{{old('district')}}" id="district" name="district" placeholder="District">
+                                        <input type="text" class="form-control" value="{{$organization->address[0]->district}}" id="district" name="district" placeholder="District">
                                     </div>
                                 </div>
                                 <div class=" row mb-4 addresss">
                                     <label for="postalCode" class="col-md-3 form-label">Postal Code</label>
                                     <div class="col-md-9">
-                                        <input type="number" class="form-control" value="{{old('postalCode')}}" id="postalCode" name="postalCode" placeholder="Postal Code">
+                                        <input type="number" class="form-control" value="{{$organization->address[0]->postalCode}}" id="postalCode" name="postalCode" placeholder="Postal Code">
                                     </div>
                                 </div>
                                 <div class=" row mb-4">
@@ -172,6 +172,8 @@
 @endsection
 @section('foot_script')
 <script type="text/javascript">
+    var state=`{{$organization->address[0]->state}}`;
+    var city=`{{$organization->address[0]->city}}`;
     var baseUrl = `{{url('/')}}`;
     $('#level').change(function(){
         if($(this).val()=="Hospital"){
@@ -206,7 +208,10 @@
             var option = "<option value=''>Select State</option>";
             data.forEach(function(row, index) {
                 console.log(row);
-                option += `<option value='${row.id}'>${row.name}</option>`;
+                if(state==row.name)
+                    option += `<option value='${row.id}' selected>${row.name}</option>`;
+                else 
+                option += `<option value='${row.id}' >${row.name}</option>`;
             });
             $('#state').html(option);
         }).fail(function(error) {
@@ -227,7 +232,10 @@
             var option = "<option value=''>Select City</option>";
             data.forEach(function(row, index) {
                 // console.log(row);
-                option += `<option value='${row.id}'>${row.name}</option>`;
+                if(city==row.name)
+                    option += `<option value='${row.id}' selected>${row.name}</option>`;
+                else
+                    option += `<option value='${row.id}'>${row.name}</option>`;
             });
             $('#city').html(option);
         }).fail(function(error) {
