@@ -51,9 +51,10 @@
 
                                     <table class="table table-striped">
                                         <thead>
-                                            <th scope="col" width="40%">Name</th>
-                                             <th scope="col" width="1%">List</th>
-                                              <th scope="col" width="1%">List</th>
+                                            <th scope="col" width="32%">Name</th>
+                                             <th scope="col" width="3%">Update</th>
+                                             <th scope="col" width="3%">List</th>
+                                              <th scope="col" width="3%">List</th>
                                         </thead>
 
 
@@ -64,6 +65,10 @@
 
                                                 {{$department->name}}
 
+
+                                            </td>
+                                            <td>
+                                            <a href="{{route('single.department',['uuid'=>$department->uuid])}}" ><button class="btn btn-info">Update</button></a>
 
                                             </td>
                                             <td>

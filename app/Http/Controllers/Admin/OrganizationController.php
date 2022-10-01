@@ -368,9 +368,12 @@ class OrganizationController extends Controller
         }
         $token = $userInfo['sessionInfo']['token'];
         $orgId = $userInfo['sessionInfo']['orgId'];
-        $req_url = $baseUrl.'rest/admin/organisation/v2/'.$uuid;
-        $orgData=Organization::where('uuid',$uuid)->first();
-        // dd($orgId);
+        $req_url = $baseUrl . 'rest/admin/organisation/v2/' . $uuid;
+        $orgData = Organization::where('uuid', $uuid)->first();
+        if($orgData==false){
+        $depData = Department::where('uuid', $uuid)->first();
+        $parentOrgId = Organization::where('id', $depData->organization_id)->first();
+        }
         curl_setopt_array($curl, array(
             CURLOPT_URL => $req_url,
             CURLOPT_RETURNTRANSFER => true,
@@ -382,10 +385,10 @@ class OrganizationController extends Controller
             CURLOPT_CUSTOMREQUEST => 'GET',
             CURLOPT_HTTPHEADER => array(
                 'Accept: application/json',
-                'Authorization:'.$token,
-                'apikey:'.$apiKey
-              ),
-            
+                'Authorization:' . $token,
+                'apikey:' . $apiKey
+            ),
+
         ));
         try {
             $response = curl_exec($curl);
@@ -396,20 +399,21 @@ class OrganizationController extends Controller
             if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
                 curl_close($curl);
                 $countries = Country::all();
-                
-                
-                return view('admin_panel.organization.organizationForUpdate',['organization'=>$organization,'orgData'=>$orgData,'countries'=>$countries]);
+                if ($orgData == true) {
+                    return view('admin_panel.organization.organizationForUpdate', ['organization' => $organization, 'orgData' => $orgData, 'countries' => $countries,]);
+                } else {
+                    return view('admin_panel.departments.departmentForUpdate', ['organization' => $organization, 'depData' => $depData,'parentOrgId'=>$parentOrgId]);
+                }
             } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 401) {
                 curl_close($curl);
                 return redirect()->back()->withErrors(['error' => $organization->message]);
             } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
                 curl_close($curl);
                 return redirect()->back()->withErrors(['error' => $organization->message]);
-            }else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 409) {
+            } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 409) {
                 curl_close($curl);
                 return redirect()->back()->withErrors(['error' => $organization->message]);
-            } 
-            else if (isset($organization->message) && $organization->message == "API rate limit exceeded") {
+            } else if (isset($organization->message) && $organization->message == "API rate limit exceeded") {
 
 
                 return redirect()->back()->withErrors(['error' => __('API rate limit exceeded')]);
@@ -431,7 +435,7 @@ class OrganizationController extends Controller
     }
     public function updateOrganization(Request $request)
     {
-        
+
         $curl = curl_init();
 
         $baseUrl = config('services.ehr.baseUrl');
@@ -445,10 +449,18 @@ class OrganizationController extends Controller
             return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
         $token = $userInfo['sessionInfo']['token'];
-        
+
         $orgId = $userInfo['sessionInfo']['orgId'];
         // dd($orgId);
-        $data=[
+        $request->validate([
+            'name' => 'required|string',
+            'status' => 'required|string',
+            'email' => 'required|string',
+            'level' => 'SubOrg',
+            'contactperson' => 'required|string',
+            'phone' => 'required|string',
+        ]);
+        $data = [
             "displayname" => $request->displayname,
             "name" => $request->name,
             "uuid" => $request->OrgUuid,
@@ -474,9 +486,9 @@ class OrganizationController extends Controller
             "level" => 'SubOrg',
             // "uuid" => $request->organization,
         ];
-        $req_url = $baseUrl.'rest/admin/organisation/v2/'.$request->OrgUuid;
+        $req_url = $baseUrl . 'rest/admin/organisation/v2/' . $request->OrgUuid;
         // dd($req_url);
-        
+
         curl_setopt_array($curl, array(
             CURLOPT_URL => $req_url,
             CURLOPT_RETURNTRANSFER => true,
@@ -486,37 +498,39 @@ class OrganizationController extends Controller
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => 'POST',
-            CURLOPT_POSTFIELDS =>json_encode($data),
+            CURLOPT_POSTFIELDS => json_encode($data),
             CURLOPT_HTTPHEADER => array(
-              'Content-Type: application/json',
-              'Accept: application/json',
-              'Authorization:'.$token,
-              'apikey:'.$apiKey,
+                'Content-Type: application/json',
+                'Accept: application/json',
+                'Authorization:' . $token,
+                'apikey:' . $apiKey,
             ),
-          ));
-          
+        ));
+
         try {
             $response = curl_exec($curl);
 
-            // dd($response);
+            // dd($request->all());
             $organization = json_decode($response);
             // dd($organization);
-            $org=Organization::where('uuid',$request->OrgUuid)->first();
+
+            // dd($organization);
             if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
                 curl_close($curl);
-                
+                $org = Organization::where('uuid', $request->OrgUuid)->first();
                 $org->update([
                     'name' => $request->name,
-                    'uuid' => $organization->uuid,
                     'slug' => $organization->displayname,
                     'status' => $organization->status,
-                    'level' => "SubOrg",
                 ]);
                 return redirect()->back()->withSuccess(__('Organization Successfully Updated'));
             } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 401) {
                 curl_close($curl);
                 return redirect()->back()->withErrors(['error' => $organization->message]);
             } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
+                curl_close($curl);
+                return redirect()->back()->withErrors(['error' => $organization->message]);
+            } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 404) {
                 curl_close($curl);
                 return redirect()->back()->withErrors(['error' => $organization->message]);
             } else if (isset($organization->message) && $organization->message == "API rate limit exceeded") {

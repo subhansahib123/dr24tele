@@ -49,7 +49,7 @@ class DepartmentController extends Controller
 
         try {
             $response = curl_exec($curl);
-            // dd($response);
+            
             //  var_dump(curl_getinfo($curl, CURLINFO_HTTP_CODE));
             if ($response == false) {
                 $error = curl_error($curl);
@@ -58,9 +58,8 @@ class DepartmentController extends Controller
                 return redirect()->back()->withErrors(['error' => __($error)]);;
             } else {
                 $departments = json_decode($response);
-
+            
                 if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
-                    // dd($departments);
                     curl_close($curl);
                     if(isset($departments->childlist)){
                         $org = Organization::where('uuid', $uuid)->first();
@@ -103,6 +102,127 @@ class DepartmentController extends Controller
         } catch (\Exception $e) {
 
             // dd($e->getMessage());
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
+    }
+    public function updateDepartment(Request $request)
+    {
+
+
+            // dd($request->all());
+        $curl = curl_init();
+
+        $baseUrl = config('services.ehr.baseUrl');
+        $apiKey = config('services.ehr.apiKey');
+
+        $userInfo = session('loggedInUser');
+        $userInfo = json_decode(json_encode($userInfo), true);
+        // dd($userInfo);
+        if (is_null($userInfo)) {
+            Auth::logout();
+            return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
+        }
+        $token = $userInfo['sessionInfo']['token'];
+        $request->validate([
+            'name' => 'required|string',
+            'status' => 'required|string',
+            'email' => 'required|string',
+            'level' => 'SubOrg',
+            'contactperson' => 'required|string',
+            'phone' => 'required|string',
+        ]);
+        $data = [
+            "displayname" => $request->displayname,
+            "name" => $request->name,
+            "uuid" => $request->DepUuid,
+            "type" => 'company',
+            "status" => $request->status,
+            "pparent" => [
+                "uuid" => $request->parentOrgId
+            ],
+            "email" => $request->email,
+            "contactperson" => '',
+            "phone" => $request->phone,
+            "address" => [
+                [
+                    "type" => "permanent",
+                    "building" => $request->building,
+                    "district" => $request->district,
+                    "city" => '',
+                    "state" => '',
+                    "country" => '',
+                    "postalCode" => $request->postalCode
+                ]
+            ],
+            "level" => 'SubOrg',
+        ];
+        $req_url = $baseUrl . 'rest/admin/organisation/v2/' . $request->DepUuid;
+        // dd($data);
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => $req_url,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => json_encode($data),
+            CURLOPT_HTTPHEADER => array(
+                'Content-Type: application/json',
+                'Accept: application/json',
+                'Authorization:' . $token,
+                'apikey:' . $apiKey,
+            ),
+        ));
+
+        try {
+            $response = curl_exec($curl);
+
+            // dd($request->all());
+            $organization = json_decode($response);
+            // dd($organization);
+
+            // dd($organization);
+            if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
+                curl_close($curl);
+                    $dep=Department::where('uuid',$request->DepUuid)->first();
+                    $dep->update([
+                        'name' => $organization->displayname,
+                        'slug' => $request->name,
+
+                    ]);
+                    return redirect()->back()->withSuccess(__('Department Successfully Updated'));
+            } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 401) {
+                curl_close($curl);
+                return redirect()->back()->withErrors(['error' => $organization->message]);
+            } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
+                curl_close($curl);
+                return redirect()->back()->withErrors(['error' => $organization->message]);
+            } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 404) {
+                curl_close($curl);
+                return redirect()->back()->withErrors(['error' => $organization->message]);
+            }else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 409) {
+                curl_close($curl);
+                return redirect()->back()->withErrors(['error' => $organization->message]);
+            } else if (isset($organization->message) && $organization->message == "API rate limit exceeded") {
+
+
+                return redirect()->back()->withErrors(['error' => __('API rate limit exceeded.')]);
+            } else if (isset($organization->message) && $organization->message == "Invalid Token") {
+
+
+                return redirect()->back()->withErrors(['error' => __('Invalid Token.')]);
+            } else {
+
+
+
+                return redirect()->back()->withErrors(['error' => "Unknow Error From Api"]);
+            }
+        } catch (\Exception $e) {
+
+
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
     }
