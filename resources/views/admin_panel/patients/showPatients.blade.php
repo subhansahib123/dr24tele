@@ -51,8 +51,9 @@
 
                                     <table class="table table-striped">
                                         <thead>
-                                            <th scope="col" width="40%">Name</th>
-                                           <th scope="col" width="1%">List</th>
+                                            <th scope="col" width="35%">Name</th>
+                                           <th scope="col" width="3%">Update</th>
+                                           <th scope="col" width="3%">List</th>
                                         </thead>
 
 
@@ -64,6 +65,9 @@
                                                 {{isset($patients->givenName)?$patients->givenName:''}}
 
 
+                                            </td>
+                                            <td>
+                                                <a href="{{route('update.patient',[$patients->personIdentifiers->identifier])}}" class="btn btn-info">Update</a>
                                             </td>
                                             <td>
                                                 <a href="{{route('patient.delete',[$patients->personIdentifiers->identifier])}}" class="btn btn-danger">Delete</a>

@@ -68,6 +68,7 @@
 
                                                 </td>
 
+                                                 
                                                  <td>
                                                     <a href="{{route('patient.delete',[$all_patient->personId])}}" class="btn btn-danger">Delete</a>
                                                 </td>
