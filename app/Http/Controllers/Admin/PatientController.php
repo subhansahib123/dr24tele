@@ -397,7 +397,7 @@ class PatientController extends Controller
           
         try {
             $response = curl_exec($curl);
-            // dd($response);
+            dd($response);
 
             if ($response == false) {
 
@@ -408,10 +408,18 @@ class PatientController extends Controller
             } else {
                 $user = json_decode($response);
                 $userName=User::where('personId',$user->personId)->first();
-                // dd($userName->username);
                 if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
                     curl_close($curl);
-                    return view('admin_panel.patients.updatePatient', ['user' => $user,'userName'=>$userName]);
+                    if(isset($userName)){
+                        return view('admin_panel.patients.updatePatient', ['user' => $user,'userName'=>$userName]);
+                    }
+                    else{
+                        $userapi=$this->getUserFromPersonId($user->personId);
+                        $user=User::create();
+                        Patient::create();
+                        return redirect()->back()->withErrors(['error' => 'Patient Do not exist in Your database']);
+                    }
+                    
                 } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
                     curl_close($curl);
                     return redirect()->back()->withErrors(['error' => $user->message]);
@@ -427,12 +435,16 @@ class PatientController extends Controller
                 }
             }
         } catch (\Exception $e) {
-            curl_close($curl);
 
             // dd($e->getMessage());
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
             // return $e->getMessage();
         }
+    }
+    protected function getUserFromPersonId($personId){
+        //request 
+        //response
+        return $response;
     }
     
     public function   patientUpdated(Request $request)
@@ -498,13 +510,25 @@ class PatientController extends Controller
                 if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
                     curl_close($curl);
                     $user=User::where('personId',$request->personId)->first();
-
+                    if (isset($user)&&count($user)>0){
+                        User::create([
+                            'username' => $user->username,
+                            'password' => \Hash::make($request->password),
+                            'email' => $request->email,
+                            'phone_number' => $request->phoneNumber,
+                            'uuid' => $user->uuid,
+                            'status' => 1
+    
+                        ]);
+                    }else{
                     $user->update([
                         'email'=>$request->email,
                         'password'=>\Hash::make($request->password),
                         'phone_number'=>$request->phoneNumber,
                     ]);
+                }
                     return redirect()->back()->withSuccess(__('Patient Successfully Updated'));
+                
                 } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
                     curl_close($curl);
                     return redirect()->back()->withErrors(['error' => $patient->message]);
