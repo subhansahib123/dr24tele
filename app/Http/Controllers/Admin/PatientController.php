@@ -363,4 +363,168 @@ class PatientController extends Controller
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
     }
+    public function   updatePatient($personId)
+    {
+        $curl = curl_init();
+        $baseUrl = config('services.ehr.baseUrl');
+        $apiKey = config('services.ehr.apiKey');
+        $userInfo = session('loggedInUser');
+        $userInfo = json_decode(json_encode($userInfo), true);
+        if (is_null($userInfo)){
+            Auth::logout();
+            return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
+        }
+
+        $token = $userInfo['sessionInfo']['token'];
+        $req_url=$baseUrl.'rest/admin/person/'.$personId;
+        // dd($req_url);
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => $req_url,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'GET',
+            CURLOPT_HTTPHEADER => array(
+              'Accept: application/json',
+              'Authorization:'.$token,
+              'apikey:'.$apiKey
+            ),
+          ));
+          
+        try {
+            $response = curl_exec($curl);
+            // dd($response);
+
+            if ($response == false) {
+
+                $error = curl_error($curl);
+                curl_close($curl);
+
+                return redirect()->back()->withErrors(['error' => $error]);
+            } else {
+                $user = json_decode($response);
+                $userName=User::where('personId',$user->personId)->first();
+                // dd($userName->username);
+                if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
+                    curl_close($curl);
+                    return view('admin_panel.patients.updatePatient', ['user' => $user,'userName'=>$userName]);
+                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
+                    curl_close($curl);
+                    return redirect()->back()->withErrors(['error' => $user->message]);
+                }else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 401) {
+                    curl_close($curl);
+                    return redirect()->back()->withErrors(['error' => $user->message]);
+                } else {
+                    curl_close($curl);
+
+
+                    // dd(curl_getinfo($curl, CURLINFO_HTTP_CODE));
+                    return redirect()->back()->withErrors(['error' => $user->message]);
+                }
+            }
+        } catch (\Exception $e) {
+            curl_close($curl);
+
+            // dd($e->getMessage());
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+            // return $e->getMessage();
+        }
+    }
+    
+    public function   patientUpdated(Request $request)
+    {
+        $curl = curl_init();
+        $baseUrl = config('services.ehr.baseUrl');
+        $apiKey = config('services.ehr.apiKey');
+        $userInfo = session('loggedInUser');
+        $userInfo = json_decode(json_encode($userInfo), true);
+        if (is_null($userInfo)){
+            Auth::logout();
+            return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
+        }
+        $token = $userInfo['sessionInfo']['token'];
+        $req_url=$baseUrl.'rest/admin/person/'.$request->personId;
+        
+        $data = [
+            'givenName' => $request->givenName,
+            'middleName' => $request->middleName,
+            'gender' => [
+                'genderCode' => $request->genderCode,
+            ],
+            'prefix' => $request->prefix,
+            'phoneExt' => $request->phoneExt,
+            'email' => $request->email,
+            'dateOfBirth' => $request->dateOfBirth,
+            'maritalStatus' => $request->maritalStatus,
+        ];
+        // dd($data);
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => $req_url,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS =>json_encode($data),
+            CURLOPT_HTTPHEADER => array(
+              'Content-Type: application/json',
+              'Accept: application/json',
+              'Authorization:'.$token,
+              'apikey: '.$apiKey
+            ),
+          ));
+          
+          
+        try {
+            $response = curl_exec($curl);
+            // dd($response);
+
+            if ($response == false) {
+
+                $error = curl_error($curl);
+                curl_close($curl);
+
+                return redirect()->back()->withErrors(['error' => $error]);
+            } else {
+                $patient = json_decode($response);
+                // dd($userName->username);
+                if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
+                    curl_close($curl);
+                    $user=User::where('personId',$request->personId)->first();
+
+                    $user->update([
+                        'email'=>$request->email,
+                        'password'=>\Hash::make($request->password),
+                        'phone_number'=>$request->phoneNumber,
+                    ]);
+                    return redirect()->back()->withSuccess(__('Patient Successfully Updated'));
+                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
+                    curl_close($curl);
+                    return redirect()->back()->withErrors(['error' => $patient->message]);
+                }else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 401) {
+                    curl_close($curl);
+                    return redirect()->back()->withErrors(['error' => $patient->message]);
+                } else {
+                    curl_close($curl);
+
+
+                    // dd(curl_getinfo($curl, CURLINFO_HTTP_CODE));
+                    return redirect()->back()->withErrors(['error' => $patient->message]);
+                }
+            }
+        } catch (\Exception $e) {
+            curl_close($curl);
+
+            // dd($e->getMessage());
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+            // return $e->getMessage();
+        }
+    }
 }

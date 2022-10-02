@@ -105,7 +105,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         //
         // This Route shows list ?
         Route::get('/all/users', [UserController::class, 'allusers'])->name('all.users');
-
+        
         // These Routes are used to create Users
         Route::get('/create/user', [UserController::class, 'create_user'])->name('create.user');
         Route::post('/store/user', [UserController::class, 'store_user'])->name('store.user');
@@ -136,6 +136,12 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
         //This Route is used to show Patients list
         Route::get('/patients/list/{uuid}', [PatientController::class, 'patientsList'])->name('patients.list');
+        //Show single patient
+        Route::get('/update/patient/{personId}', [PatientController::class, 'updatePatient'])->name('update.patient');
+        //Update patient
+        Route::post('/patient/updated', [PatientController::class, 'patientUpdated'])->name('patient.updated');
+
+        
         //Delete Patient
         Route::get('/patients/delete/{uuid}', [PatientController::class, 'patientDelete'])->name('patient.delete');
         //This Route is used to show Doctors list of a specific department
