@@ -210,7 +210,7 @@ class UserController extends Controller
                 return redirect()->back()->withErrors(['error' => __($error)]);
             } else {
                 $all_patients = json_decode($response);
-                // dd($all_patients);
+                dd($all_patients);
                 if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
                     curl_close($curl);
                     return view('admin_panel.user.users', ['all_patients' => $all_patients]);
@@ -388,7 +388,7 @@ class UserController extends Controller
                 // dd($users);
                 if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
                     curl_close($curl);
-
+                    // dd(1);
                     User::create([
                         'username' => $user->username,
                         'password' => \Hash::make($request->password),
@@ -465,6 +465,7 @@ class UserController extends Controller
         $data = [['useruuid' => $request->user, 'rolename' => $request->role]];
         $req_url = $baseUrl . '/rest/admin/orgUserMapping/role/add/' . $uuid;
         // dd($req_url);
+        // dd($uuid);
         curl_setopt_array($curl, array(
             CURLOPT_URL => $req_url,
             CURLOPT_RETURNTRANSFER => true,
@@ -503,6 +504,7 @@ class UserController extends Controller
                     $organization=Organization::where('uuid',$request->organizations)->first();;
                     curl_close($curl);
                     if ($request->role == 'Practitioner') {
+                    
                         Doctor::firstOrCreate([
 
                             'status' => 1,
@@ -522,7 +524,7 @@ class UserController extends Controller
                         ]);
                     }
                     else if($request->role == 'OrgSuperAdmin'){
-
+                        
                         UsersOrganization::firstOrCreate([
 
                             'status' => 1,
@@ -534,6 +536,8 @@ class UserController extends Controller
                             'user_id' => $user->id,
                             'role_id' => $role->id
                         ]);
+
+                    // dd($user->id,$role->id,$organization->id);
 
                     }
                     else if($request->role == 'FrontOffice '){
@@ -859,6 +863,44 @@ class UserController extends Controller
 
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
 
+        }
+    }
+    public function updateUser($uuid ,$username ,$name)
+    {
+
+        return view('admin_panel.user.updateUser', ['uuid'=>$uuid,'username'=>$username,'name'=>$name]);
+    }
+    public function userUpdated(Request $request)
+    {
+        // dd($request->all());
+        if(isset($request->username)&&isset($request->name)&&isset($request->password)){
+            dd(1);
+        }
+        else if(isset($request->username)&&isset($request->name)&&($request->password!=true)){
+            dd(2);
+        }
+        else if(isset($request->username)&&isset($request->password)&&($request->name!=true)){
+            dd(3);
+
+        }
+        else if(isset($request->password)&&isset($request->name)&&($request->username!=true)){
+            dd(4);
+            
+        }
+        else if(isset($request->username)&&($request->name!=true)&&($request->password!=true)){
+            dd(5);
+        }
+        else if(($request->username!=true)&&isset($request->password)&&($request->name!=true)){
+            dd(6);
+
+        }
+        else if(($request->password!=true)&&isset($request->name)&&($request->username!=true)){
+            dd(7);
+            
+        }
+        
+        else{
+            return redirect()->back()->withErrors(['error' => 'Please fill form Correctly to Update User ']);
         }
     }
     
