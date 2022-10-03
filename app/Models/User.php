@@ -62,7 +62,7 @@ class User extends Authenticatable
     {
        return $this->hasOne(Appointment::class,'doctor_id');
     }
-    public function patient_organization()
+    public function user_organization()
     {
        return $this->hasOne(UsersOrganization::class,'user_id');
     }

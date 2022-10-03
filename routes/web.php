@@ -100,6 +100,9 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::get('/users/unmapped', [UserController::class, 'usersUnmapped'])->name('users.unmapped');
         //actual Users
         Route::get('/users/all', [UserController::class, 'allusersActual'])->name('users.all.actual');
+        //Update actual Users
+        Route::get('/update/user/{uuid}/{username}/{name}', [UserController::class, 'updateUser'])->name('updateUser');
+        Route::post('/user/update', [UserController::class, 'userUpdated'])->name('userUpdated');
         //actual unmapped user
         Route::get('/unmapped/users', [UserController::class, 'allUnmappedUsersActual'])->name('users.unmapped.actual');
         //
