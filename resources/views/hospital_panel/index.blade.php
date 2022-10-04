@@ -89,6 +89,7 @@
                                             </div>
                                         </div>
                                     </div>
+                                    <input type="hidden" value="hospital" name="value">
                                     <div class="col-lg-6 col-md-6 col-sm-12 col-xl-3">
                                         <div class="card overflow-hidden">
                                             <div class="card-body">

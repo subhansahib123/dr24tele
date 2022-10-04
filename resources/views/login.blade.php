@@ -112,6 +112,8 @@
                                                 <button type="submit" class="login100-form-btn btn-primary">
                                                         Login
                                                 </button>
+                                                <input type="hidden" value="admin" name="value">
+
                                             </div>
                                             {{-- <div class="text-center pt-3">
                                                 <p class="text-dark mb-0">Not a member?<a href="{{route('register.show')}}" class="text-primary ms-1">Sign UP</a></p>

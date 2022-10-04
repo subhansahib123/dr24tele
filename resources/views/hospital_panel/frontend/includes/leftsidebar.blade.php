@@ -3,7 +3,7 @@
     <div class="app-sidebar__overlay" data-bs-toggle="sidebar"></div>
     <div class="app-sidebar">
         <div class="side-header">
-            <a class="header-brand1" href="index.html">
+            <a class="header-brand1" href="{{route('hospital.dashboard')}}">
                 <!-- <img src="{{asset('assets/images/brand/toolprime-sidebar-rplace.png')}}" class="header-brand-img light-logo" alt="logo"> -->
                 <!-- <img src="{{asset('assets/images/brand/toolprime-sidebar.png')}}" class="header-brand-img light-logo1" alt="logo"> -->
                 <h3>Dr24Tele</h3>
@@ -18,11 +18,25 @@
                 <li class="sub-category">
                     <h3>Main</h3>
                 </li>
-               
-                
+
+
                 {{--<li class="slide">
                     <a class="side-menu__item has-link" data-bs-toggle="slide" href="{{route('organization')}}"><i class="side-menu__icon fe fe-user"></i><span class="side-menu__label">Organizations</span></a>
+                </li>
+                <li class="slide">
+                    <a class="side-menu__item has-link" data-bs-toggle="slide" href="{{route('updateHospital')}}"><i class="side-menu__icon fe fe-user"></i><span class="side-menu__label">Hospital</span></a>
+                </li>
+                <li class="slide">
+                    <a class="side-menu__item has-link" data-bs-toggle="slide" href="{{route('updatePassword')}}"><i class="side-menu__icon fe fe-user"></i><span class="side-menu__label">Update Hospital</span></a>
                 </li>--}}
+                <li class="slide">
+                    <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i class="side-menu__icon fe fe-slack"></i><span class="side-menu__label">Update</span><i class="angle fe fe-chevron-right"></i></a>
+                    <ul class="slide-menu nav-tree">
+                        <li><a class="side-menu__item has-link" data-bs-toggle="slide" href="{{route('updateHospital')}}"></i><span class="side-menu__label">Hospital</span></a></li>
+                        <li><a class="side-menu__item has-link" data-bs-toggle="slide" href="{{route('updatePassword')}}"></i><span class="side-menu__label"> Password</span></a></li>
+                    </ul>
+                </li>
+                
                 <li class="slide">
                     <a class="side-menu__item has-link" data-bs-toggle="slide" href="{{route('hospitalDepartments.list')}}"><i class="side-menu__icon fe fe-user"></i><span class="side-menu__label">Departments</span></a>
                 </li>
@@ -39,22 +53,16 @@
 
                     </ul>
                 </li>
-                
+
                 <li class="slide">
                     <a class="side-menu__item has-link" data-bs-toggle="slide" href="{{route('createHospital.patients')}}"><i class="side-menu__icon fe fe-user"></i><span class="side-menu__label">Create Patients</span></a>
                 </li>
-                {{--<li class="slide">
-                    <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i class="side-menu__icon fe fe-slack"></i><span class="side-menu__label">Total Patients</span><i class="angle fe fe-chevron-right"></i></a>
-                    <ul class="slide-menu nav-tree">
-                        <li><a href="{{route('createHospital.patients')}}" class="slide-item"> Create Patient</a></li>
-                        <li><a href="{{route('map.patients')}}" class="slide-item">Map Patients</a></li>
-                    </ul>
-                </li>--}}
 
-               
-            
 
-          
+
+
+
+
 
 
             </ul>
