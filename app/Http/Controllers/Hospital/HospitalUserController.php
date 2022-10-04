@@ -263,7 +263,7 @@ class HospitalUserController extends Controller
                 } else if (isset($user->message) && $user->message == "Invalid User.") {
 
                     curl_close($curl);
-                    return redirect()->route('hospital.login')->withErrors(['error' => __($user->message)]);
+                    return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
                 } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 409) {
 
                     curl_close($curl);
