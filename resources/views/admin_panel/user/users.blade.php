@@ -51,7 +51,8 @@
                                         <table class="table table-striped">
                                             <thead>
                                                 <th scope="col" width="20%">Name</th>
-                                                 <th scope="col" width="20%">Username</th>
+                                                 <th scope="col" width="18%">Username</th>
+                                               <th scope="col" width="2%">Update</th>
                                                <th scope="col" width="1%">Action</th>
                                             </thead>
                                             @if(isset($all_patients) && $all_patients->Users)
@@ -75,6 +76,9 @@
 
 
 
+                                                </td>
+                                                <td>
+                                                    <a href="{{route('updateUser',[$all_patient->uuid,$all_patient->username,$all_patient->name])}}" class="btn btn-info">Update</a>
                                                 </td>
                                                 <td>
                                                     <a href="{{route('user.delete',[$all_patient->uuid])}}" class="btn btn-danger">Delete</a>
