@@ -161,6 +161,13 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
         Route::get('/dashboard', [AuthenticationController::class, 'hospitalDashboard'])->name('hospital.dashboard');
 
+        //Update Hospital 
+        Route::get('/update/hospital', [HospitalUserController::class, 'updateHospital'])->name('updateHospital');
+        Route::post('/hospital/updated', [HospitalUserController::class, 'hospitalUpdated'])->name('hospitalUpdated');
+        //Update  Profile
+        Route::get('/update/password', [HospitalUserController::class, 'updatePassword'])->name('updatePassword');
+        Route::post('/password/updated', [HospitalUserController::class, 'passwordUpdated'])->name('passwordUpdated');
+
         //Route that is used to view all users, all unmapped users and to create users
         Route::get('/all/users', [HospitalUserController::class, 'allHospitalUsers'])->name('allHospital.users');
         Route::get('/unmapped/users', [HospitalUserController::class, 'hospitalUnmappedUsers'])->name('hospitalUnmapped.Users');

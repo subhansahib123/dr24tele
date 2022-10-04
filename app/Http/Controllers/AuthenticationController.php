@@ -74,15 +74,15 @@ class AuthenticationController extends Controller
                 } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 409) {
                     curl_close($curl);
                     return redirect()->back()->withErrors(['error' => 'User does not exist in DB']);
-                } else if (isset($result_data->message) && $result_data->message = "API rate limit exceeded") {
+                } else if (isset($result_data->message) && $result_data->message == "API rate limit exceeded") {
                     curl_close($curl);
                     return redirect()->back()->withErrors(['error' => __('API rate limit exceeded.')]);
-                } else if (isset($result_data->message) && $result_data->message = "Invalid Token") {
+                } else if (isset($result_data->message) && $result_data->message == "Invalid Token") {
                     curl_close($curl);
                     return redirect()->back()->withErrors(['error' => __('Invalid Token.')]);
                 } else {
                     curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => __('Unknow Error From Api.')]);
+                    return redirect()->back()->withErrors(['error' => __('Unknown Error From Api.')]);
                 }
             }
         } catch (\Exception $e) {
@@ -92,9 +92,11 @@ class AuthenticationController extends Controller
     }
     public function logout(Request $request)
     {
+        session_start();
         $baseUrl = config('services.ehr.baseUrl');
         $apiKey = config('services.ehr.apiKey');
         $userInfo = session('loggedInUser');
+
         if (!empty($userInfo)) {
             $userInfo = json_decode(json_encode($userInfo), true);
             $token = $userInfo['sessionInfo']['token'];
@@ -117,14 +119,47 @@ class AuthenticationController extends Controller
             ));
 
             $response = curl_exec($curl);
+            $logout = json_decode($response);
+
             try {
                 if ($response == false) {
                     curl_close($curl);
 
                     return curl_error($curl);
                 } else {
-                    curl_close($curl);
-                    return  redirect(route('login.show'));
+                    // dd($response);
+                    // dd($result_data);
+                    if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
+                        unset($userInfo);
+                        session_destroy();
+                        Auth::logout();
+                        curl_close($curl);
+                        // dd($userInfo);
+                        $url = url()->previous();
+                        $contains = Str::contains($url, 'hospital');
+
+                        if( $contains) {
+                            return  redirect(route('hospital.login'));
+                        }else{
+                            return  redirect(route('login.show'));
+                        }
+                        
+                    } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
+                        curl_close($curl);
+                        return redirect()->back()->withErrors(['error' => $logout->message]);
+                    } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 409) {
+                        curl_close($curl);
+                        return redirect()->back()->withErrors(['error' => $logout->message]);
+                    } else if (isset($logout->message) && $logout->message == "API rate limit exceeded") {
+                        curl_close($curl);
+                        return redirect()->back()->withErrors(['error' => __('API rate limit exceeded.')]);
+                    } else if (isset($logout->message) && $logout->message == "Invalid Token") {
+                        curl_close($curl);
+                        return redirect()->back()->withErrors(['error' => __('Invalid Token.')]);
+                    } else {
+                        curl_close($curl);
+                        return redirect()->back()->withErrors(['error' => __('Unknown Error From Api.')]);
+                    }
                 }
             } catch (\Exception $e) {
                 // curl_close($curl);
@@ -188,10 +223,10 @@ class AuthenticationController extends Controller
                 } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 401) {
                     curl_close($curl);
                     return redirect()->back()->withErrors(['error' => 'You are not authorized to view roles']);
-                } else if (isset($roles->message) && $roles->message = "API rate limit exceeded") {
+                } else if (isset($roles->message) && $roles->message == "API rate limit exceeded") {
                     curl_close($curl);
                     return redirect()->back()->withErrors($roles->message);
-                } else if (isset($roles->message) && $roles->message = "Invalid Token") {
+                } else if (isset($roles->message) && $roles->message == "Invalid Token") {
                     curl_close($curl);
                     return redirect()->back()->withErrors($roles->message);
                 } else {
@@ -263,10 +298,10 @@ class AuthenticationController extends Controller
                 } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 409) {
                     curl_close($curl);
                     return redirect()->back()->withErrors(['error' => 'User does not exist in DB']);
-                } else if (isset($result_data->message) && $result_data->message = "API rate limit exceeded") {
+                } else if (isset($result_data->message) && $result_data->message == "API rate limit exceeded") {
                     curl_close($curl);
                     return redirect()->back()->withErrors(['error' => __('API rate limit exceeded.')]);
-                } else if (isset($result_data->message) && $result_data->message = "Invalid Token") {
+                } else if (isset($result_data->message) && $result_data->message == "Invalid Token") {
                     curl_close($curl);
                     return redirect()->back()->withErrors(['error' => __('Invalid Token.')]);
                 } else {
@@ -288,7 +323,6 @@ class AuthenticationController extends Controller
     public function hospitalLogin(Request $request)
     {
         // dd(1);
-
         $curl = curl_init();
         $baseUrl = config('services.ehr.baseUrl');
         $apiKey = config('services.ehr.apiKey');
@@ -296,10 +330,11 @@ class AuthenticationController extends Controller
 
         $data = ['username' => $request->username, 'password' => $request->password];
         $user = User::with('patient_organization')->where('username',  $request->username)->first();
-        if(!isset($user->patient_organization))
+        // dd($user);
+        if (!isset($user->patient_organization))
             return redirect()->back()->withErrors(['error' => 'User is not associated with any Organisation']);
-        $organisation=Organization::find($user->patient_organization->organization_id);
-        if(is_null($organisation))
+        $organisation = Organization::find($user->patient_organization->organization_id);
+        if (is_null($organisation))
             return redirect()->back()->withErrors(['error' => 'No Organisation record found in database']);
 
         if ($user) {
@@ -309,7 +344,7 @@ class AuthenticationController extends Controller
 
 
 
-            $params = array('orgName' => $organisation->slug, 'tenantId' => 'ehrn');
+            $params = array('orgName' => $organisation->name, 'tenantId' => 'ehrn');
             curl_setopt_array($curl, array(
                 CURLOPT_URL => $baseUrl . 'rest/admin/v1/login?' . http_build_query($params),
                 CURLOPT_RETURNTRANSFER => true,
@@ -330,7 +365,7 @@ class AuthenticationController extends Controller
                 // dd(1);
                 $response = curl_exec($curl);
 
-
+                // dd($response);
                 if ($response == false || isset($response->status)) {
                     return curl_error($curl);
                 } else {
@@ -338,10 +373,15 @@ class AuthenticationController extends Controller
                     // dd($result_data);
                     if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
 
-                        curl_close($curl);
-                        session(['loggedInUser' => $result_data]);
-                        return redirect()->route('hospital.dashboard')->withSuccess(__('Successfully Login'));
 
+                        curl_close($curl);
+
+                        session_start();
+                        session(['loggedInUser' => $result_data]);
+                        $userInfo = session('loggedInUser');
+                        $userInfo = json_decode(json_encode($userInfo), true);
+                        // dd($userInfo);
+                        return redirect()->route('hospital.dashboard')->withSuccess(__('Successfully Login'));
                     } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
                         curl_close($curl);
                         return redirect()->back()->withErrors(['error' => 'Failed to serialize to JSON']);
@@ -354,10 +394,10 @@ class AuthenticationController extends Controller
                     } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 409) {
                         curl_close($curl);
                         return redirect()->back()->withErrors(['error' => 'User does not exist in DB']);
-                    } else if (isset($result_data->message) && $result_data->message = "API rate limit exceeded") {
+                    } else if (isset($result_data->message) && $result_data->message == "API rate limit exceeded") {
                         curl_close($curl);
                         return redirect()->back()->withErrors(['error' => __('API rate limit exceeded.')]);
-                    } else if (isset($result_data->message) && $result_data->message = "Invalid Token") {
+                    } else if (isset($result_data->message) && $result_data->message == "Invalid Token") {
                         curl_close($curl);
                         return redirect()->back()->withErrors(['error' => __('Invalid Token.')]);
                     } else {
@@ -370,13 +410,12 @@ class AuthenticationController extends Controller
                 return $e->getMessage();
             }
         } else {
-                        return redirect()->back()->withErrors(['error' => 'No User Exist']);
-                    }
+            return redirect()->back()->withErrors(['error' => 'No User Exist']);
+        }
     }
     public function hospitalDashboard()
     {
         // dd(session('loggedInUser'));
         return view('hospital_panel.index');
     }
-
 }
