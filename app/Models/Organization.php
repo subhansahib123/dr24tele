@@ -23,7 +23,7 @@ class Organization extends Model
     {
         return $this->hasMany(Department::class,'organization_id');
     }
-    public function patient_organization()
+    public function user_organization()
     {
         return $this->hasOne(UsersOrganization::class,'organization_id');
     }

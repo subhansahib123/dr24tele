@@ -330,11 +330,11 @@ class AuthenticationController extends Controller
 
         $data = ['username' => $request->username, 'password' => $request->password];
 
-        $user = User::with('patient_organization')->where('username',  $request->username)->first();
+        $user = User::with('user_organization')->where('username',  $request->username)->first();
         // dd($user);
-        if (!isset($user->patient_organization))
+        if (!isset($user->user_organization))
             return redirect()->back()->withErrors(['error' => 'User is not associated with any Organisation']);
-        $organisation = Organization::find($user->patient_organization->organization_id);
+        $organisation = Organization::find($user->user_organization->organization_id);
         if (is_null($organisation))
 
             return redirect()->back()->withErrors(['error' => 'No Organisation record found in database']);
