@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Profession;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ProfessionController extends Controller
 {
@@ -37,8 +38,8 @@ class ProfessionController extends Controller
             try {
                 $response = curl_exec($curl);
                 if ($response == false) {
-                    return curl_error($curl);
                     curl_close($curl);
+                    return curl_error($curl);
                 } else {
                     $professions = json_decode($response);
                     foreach ($professions as $profession) {
@@ -46,18 +47,35 @@ class ProfessionController extends Controller
                             'name' => $profession->profession,
                         ]);
                         if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
-
-
-
                             curl_close($curl);
                             return  view('admin_panel.profession.show', ["professions" => $professions]);
                         } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 401) {
                             curl_close($curl);
-                            return redirect()->back()->withErrors(['error' => 'You are not authorized to view professions']);
-                        } else {
+                            return redirect()->back()->withErrors(['error' => $professions->message]);
+                        } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
+                            curl_close($curl);
+                            return redirect()->back()->withErrors(['error' => $professions->message]);
+                        } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 403) {
+                            curl_close($curl);
+                            return redirect()->back()->withErrors(['error' => $professions->message]);
+                        } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 409) {
+                            curl_close($curl);
+                            return redirect()->back()->withErrors(['error' => $professions->message]);
+                        } else if (isset($professions->message) && $professions->message == "API rate limit exceeded") {
+                            curl_close($curl);
+                            return redirect()->back()->withErrors(['error' => $professions->message]);
+                        }else if (isset($professions->message) && $professions->message == "Invalid User") {
+                            Auth::logout();
+                            curl_close($curl);
+                            return redirect()->route('login.show')->withErrors(['error' => $professions->message]);
+                        }  else if (isset($professions->message) && $professions->message == "Invalid Token") {
+                            Auth::logout();
+                            curl_close($curl);
+                            return redirect()->route('login.show')->withErrors(['error' => $professions->message]);
+                        }else {
                             curl_close($curl);
 
-                            return redirect()->back()->withErrors(['error' => __('Unknow Error From Api.')]);
+                            return redirect()->back()->withErrors(['error' => 'Unknown Error From Api.']);
                         }
                     }
                 }
@@ -67,7 +85,7 @@ class ProfessionController extends Controller
                 return $e->getMessage();
             }
         } else {
-            
+            Auth::logout();
             return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
     }

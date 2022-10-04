@@ -12,6 +12,8 @@ use App\Models\State;
 use App\Models\City;
 use App\Models\Department;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Auth;
+
 
 
 class OrganizationController extends Controller
@@ -58,32 +60,48 @@ class OrganizationController extends Controller
                 $error = curl_error($curl);
                 curl_close($curl);
                 return redirect()->back()->withErrors(['error' => $error]);
-            } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
-                curl_close($curl);
-
-                // dd($organizations);
-                foreach ($organizations->childlist as $organization) {
-                    Organization::firstOrCreate([
-                        'name' => $organization->name,
-                        'slug' => Str::slug($organization->name),
-                        'uuid' => $organization->uuid,
-                        'status' => $organization->status
-                    ]);
-                }
-
-                return view('admin_panel.organization.show', ['organizations' => $organizations]);
-            } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
-                curl_close($curl);
-                return redirect()->back()->withErrors(['error' => 'You are not Authorized']);
-            } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 401) {
-                curl_close($curl);
-                return redirect()->back()->withErrors(['error' => 'Unauthorized']);
-            } else if (isset($organizations->message) && $organizations->message == "API rate limit exceeded") {
-                return redirect()->back()->withErrors(['error' => __('API rate limit exceeded.')]);
-            } else if (isset($organizations->message) && $organizations->message == "Invalid Token") {
-                return redirect()->back()->withErrors(['error' => __('Invalid Token.')]);
             } else {
-                return redirect()->back()->withErrors(['error' => __('Unknow Error From Api.')]);
+                if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
+                    curl_close($curl);
+
+                    // dd($organizations);
+                    foreach ($organizations->childlist as $organization) {
+                        Organization::firstOrCreate([
+                            'name' => $organization->name,
+                            'slug' => Str::slug($organization->name),
+                            'uuid' => $organization->uuid,
+                            'status' => $organization->status
+                        ]);
+                    }
+
+                    return view('admin_panel.organization.show', ['organizations' => $organizations]);
+                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
+                    curl_close($curl);
+                    return redirect()->back()->withErrors(['error' => $organizations->message]);
+                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 401) {
+                    curl_close($curl);
+                    return redirect()->back()->withErrors(['error' => $organizations->message]);
+                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 403) {
+                    curl_close($curl);
+                    return redirect()->back()->withErrors(['error' => $organizations->message]);
+                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 409) {
+                    curl_close($curl);
+                    return redirect()->back()->withErrors(['error' => $organizations->message]);
+                } else if (isset($organizations->message) && $organizations->message == "API rate limit exceeded") {
+                    curl_close($curl);
+                    return redirect()->back()->withErrors(['error' => $organizations->message]);
+                } else if (isset($organizations->message) && $organizations->message == "Invalid User") {
+                    Auth::logout();
+                    curl_close($curl);
+                    return redirect()->route('login.show')->withErrors(['error' => $organizations->message]);
+                } else if (isset($organizations->message) && $organizations->message == "Invalid Token") {
+                    Auth::logout();
+                    curl_close($curl);
+                    return redirect()->route('login.show')->withErrors(['error' => $organizations->message]);
+                } else {
+                    curl_close($curl);
+                    return redirect()->back()->withErrors(['error' => 'Unknown Error From Api.']);
+                }
             }
         } catch (\Exception $e) {
 
@@ -235,22 +253,32 @@ class OrganizationController extends Controller
                 } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 409) {
                     curl_close($curl);
                     return redirect()->back()->withErrors(['error' => $organization->message]);
+                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 403) {
+                    curl_close($curl);
+                    return redirect()->back()->withErrors(['error' => $organization->message]);
+                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 401) {
+                    curl_close($curl);
+                    return redirect()->back()->withErrors(['error' => $organization->message]);
                 } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
                     curl_close($curl);
                     return redirect()->back()->withErrors(['error' => $organization->message]);
                 } else if (isset($organization->message) && $organization->message == "API rate limit exceeded") {
                     curl_close($curl);
 
-                    return redirect()->back()->withErrors(['error' => __('API rate limit exceeded.')]);
-                } else if (isset($organization->message) && $organization->message == "Invalid Token") {
+                    return redirect()->back()->withErrors(['error' => $organization->message]);
+                } else if (isset($organization->message) && $organization->message == "Invalid User") {
+                    Auth::logout();
                     curl_close($curl);
-
-                    return redirect()->back()->withErrors(['error' => __('Invalid Token.')]);
+                    return redirect()->route('login.show')->withErrors(['error' => $organization->message]);
+                } else if (isset($organization->message) && $organization->message == "Invalid Token") {
+                    Auth::logout();
+                    curl_close($curl);
+                    return redirect()->route('login.show')->withErrors(['error' => $organization->message]);
                 } else {
                     curl_close($curl);
 
 
-                    return redirect()->back()->withErrors(['error' => "Unknow Error From Api"]);
+                    return redirect()->back()->withErrors(['error' => "Unknown Error From Api"]);
                 }
             }
         } catch (\Exception $e) {
@@ -314,36 +342,50 @@ class OrganizationController extends Controller
 
             // dd(curl_getinfo($curl, CURLINFO_HTTP_CODE));
             $organization = json_decode($response);
-            // dd($organization);
-            if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
+            if ($response == false) {
+                $error = curl_error($curl);
                 curl_close($curl);
-                $orgDb = Organization::where('uuid', $orgUuid)->first();
-                if ($orgDb) {
-                    $orgDb->update(['status' => 'Disabled']);
-                    return redirect()->back()->withSuccess(__('Successfully Organization marked Inactive'));
-                } else {
-                    Department::where('uuid', $orgUuid)->delete();
-                    return redirect()->back()->withSuccess(__('Successfully Department marked Inactive'));
-                }
-            } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 401) {
-                curl_close($curl);
-                return redirect()->back()->withErrors(['error' => $organization->message]);
-            } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
-                curl_close($curl);
-                return redirect()->back()->withErrors(['error' => $organization->message]);
-            } else if (isset($organization->message) && $organization->message == "API rate limit exceeded") {
 
-
-                return redirect()->back()->withErrors(['error' => __('API rate limit exceeded.')]);
-            } else if (isset($organization->message) && $organization->message == "Invalid Token") {
-
-
-                return redirect()->back()->withErrors(['error' => __('Invalid Token.')]);
+                return redirect()->back()->withErrors(['error' => __($error)]);;
             } else {
-
-
-
-                return redirect()->back()->withErrors(['error' => "Unknow Error From Api"]);
+                // dd($organization);
+                if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
+                    curl_close($curl);
+                    $orgDb = Organization::where('uuid', $orgUuid)->first();
+                    if ($orgDb) {
+                        $orgDb->update(['status' => 'Disabled']);
+                        return redirect()->back()->withSuccess(__('Successfully Organization marked Inactive'));
+                    } else {
+                        Department::where('uuid', $orgUuid)->delete();
+                        return redirect()->back()->withSuccess(__('Successfully Department marked Inactive'));
+                    }
+                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 401) {
+                    curl_close($curl);
+                    return redirect()->back()->withErrors(['error' => $organization->message]);
+                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 403) {
+                    curl_close($curl);
+                    return redirect()->back()->withErrors(['error' => $organization->message]);
+                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 409) {
+                    curl_close($curl);
+                    return redirect()->back()->withErrors(['error' => $organization->message]);
+                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
+                    curl_close($curl);
+                    return redirect()->back()->withErrors(['error' => $organization->message]);
+                } else if (isset($organization->message) && $organization->message == "API rate limit exceeded") {
+                    curl_close($curl);
+                    return redirect()->back()->withErrors(['error' => $organization->message]);
+                } else if (isset($organization->message) && $organization->message == "Invalid User") {
+                    Auth::logout();
+                    curl_close($curl);
+                    return redirect()->route('login.show')->withErrors(['error' => $organization->message]);
+                } else if (isset($organization->message) && $organization->message == "Invalid Token") {
+                    Auth::logout();
+                    curl_close($curl);
+                    return redirect()->route('login.show')->withErrors(['error' => $organization->message]);
+                } else {
+                    curl_close($curl);
+                    return redirect()->back()->withErrors(['error' => "Unknown Error From Api"]);
+                }
             }
         } catch (\Exception $e) {
 
@@ -370,9 +412,9 @@ class OrganizationController extends Controller
         $orgId = $userInfo['sessionInfo']['orgId'];
         $req_url = $baseUrl . 'rest/admin/organisation/v2/' . $uuid;
         $orgData = Organization::where('uuid', $uuid)->first();
-        if($orgData==false){
-        $depData = Department::where('uuid', $uuid)->first();
-        $parentOrgId = Organization::where('id', $depData->organization_id)->first();
+        if ($orgData == false) {
+            $depData = Department::where('uuid', $uuid)->first();
+            $parentOrgId = Organization::where('id', $depData->organization_id)->first();
         }
         curl_setopt_array($curl, array(
             CURLOPT_URL => $req_url,
@@ -396,36 +438,47 @@ class OrganizationController extends Controller
             // dd($response);
             $organization = json_decode($response);
             // dd($organization);
-            if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
+            if ($response == false) {
+                $error = curl_error($curl);
                 curl_close($curl);
-                $countries = Country::all();
-                if ($orgData == true) {
-                    return view('admin_panel.organization.organizationForUpdate', ['organization' => $organization, 'orgData' => $orgData, 'countries' => $countries,]);
-                } else {
-                    return view('admin_panel.departments.departmentForUpdate', ['organization' => $organization, 'depData' => $depData,'parentOrgId'=>$parentOrgId]);
-                }
-            } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 401) {
-                curl_close($curl);
-                return redirect()->back()->withErrors(['error' => $organization->message]);
-            } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
-                curl_close($curl);
-                return redirect()->back()->withErrors(['error' => $organization->message]);
-            } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 409) {
-                curl_close($curl);
-                return redirect()->back()->withErrors(['error' => $organization->message]);
-            } else if (isset($organization->message) && $organization->message == "API rate limit exceeded") {
 
-
-                return redirect()->back()->withErrors(['error' => __('API rate limit exceeded')]);
-            } else if (isset($organization->message) && $organization->message == "Invalid Token") {
-
-
-                return redirect()->back()->withErrors(['error' => __('Invalid Token')]);
+                return redirect()->back()->withErrors(['error' => __($error)]);;
             } else {
-
-
-
-                return redirect()->back()->withErrors(['error' => "Unknow Error From Api"]);
+                if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
+                    curl_close($curl);
+                    $countries = Country::all();
+                    if ($orgData == true) {
+                        return view('admin_panel.organization.organizationForUpdate', ['organization' => $organization, 'orgData' => $orgData, 'countries' => $countries,]);
+                    } else {
+                        return view('admin_panel.departments.departmentForUpdate', ['organization' => $organization, 'depData' => $depData, 'parentOrgId' => $parentOrgId]);
+                    }
+                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 401) {
+                    curl_close($curl);
+                    return redirect()->back()->withErrors(['error' => $organization->message]);
+                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
+                    curl_close($curl);
+                    return redirect()->back()->withErrors(['error' => $organization->message]);
+                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 403) {
+                    curl_close($curl);
+                    return redirect()->back()->withErrors(['error' => $organization->message]);
+                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 409) {
+                    curl_close($curl);
+                    return redirect()->back()->withErrors(['error' => $organization->message]);
+                } else if (isset($organization->message) && $organization->message == "API rate limit exceeded") {
+                    curl_close($curl);
+                    return redirect()->back()->withErrors(['error' => $organization->message]);
+                } else if (isset($organization->message) && $organization->message == "Invalid User") {
+                    Auth::logout();
+                    curl_close($curl);
+                    return redirect()->route('login.show')->withErrors(['error' => $organization->message]);
+                } else if (isset($organization->message) && $organization->message == "Invalid Token") {
+                    Auth::logout();
+                    curl_close($curl);
+                    return redirect()->route('login.show')->withErrors(['error' => $organization->message]);
+                } else {
+                    curl_close($curl);
+                    return redirect()->back()->withErrors(['error' => "Unknown Error From Api"]);
+                }
             }
         } catch (\Exception $e) {
 
@@ -515,37 +568,45 @@ class OrganizationController extends Controller
             // dd($organization);
 
             // dd($organization);
-            if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
+            if ($response == false || isset($response->status)) {
                 curl_close($curl);
-                $org = Organization::where('uuid', $request->OrgUuid)->first();
-                $org->update([
-                    'name' => $request->name,
-                    'slug' => $organization->displayname,
-                    'status' => $organization->status,
-                ]);
-                return redirect()->back()->withSuccess(__('Organization Successfully Updated'));
-            } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 401) {
-                curl_close($curl);
-                return redirect()->back()->withErrors(['error' => $organization->message]);
-            } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
-                curl_close($curl);
-                return redirect()->back()->withErrors(['error' => $organization->message]);
-            } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 404) {
-                curl_close($curl);
-                return redirect()->back()->withErrors(['error' => $organization->message]);
-            } else if (isset($organization->message) && $organization->message == "API rate limit exceeded") {
 
-
-                return redirect()->back()->withErrors(['error' => __('API rate limit exceeded.')]);
-            } else if (isset($organization->message) && $organization->message == "Invalid Token") {
-
-
-                return redirect()->back()->withErrors(['error' => __('Invalid Token.')]);
+                return curl_error($curl);
             } else {
-
-
-
-                return redirect()->back()->withErrors(['error' => "Unknow Error From Api"]);
+                if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
+                    curl_close($curl);
+                    $org = Organization::where('uuid', $request->OrgUuid)->first();
+                    $org->update([
+                        'name' => $request->name,
+                        'slug' => $organization->displayname,
+                        'status' => $organization->status,
+                    ]);
+                    return redirect()->back()->withSuccess(__('Organization Successfully Updated'));
+                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 401) {
+                    curl_close($curl);
+                    return redirect()->back()->withErrors(['error' => $organization->message]);
+                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
+                    curl_close($curl);
+                    return redirect()->back()->withErrors(['error' => $organization->message]);
+                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 404) {
+                    curl_close($curl);
+                    return redirect()->back()->withErrors(['error' => $organization->message]);
+                } else if (isset($organization->message) && $organization->message == "API rate limit exceeded") {
+                    curl_close($curl);
+                   return redirect()->back()->withErrors(['error' => $organization->message]);
+                } else if (isset($organization->message) && $organization->message == "Invalid User") {
+                    Auth::logout();
+                    curl_close($curl);
+                    return redirect()->route('login.show')->withErrors(['error' => $organization->message]);
+                }  else if (isset($organization->message) && $organization->message == "Invalid Token") {
+                    Auth::logout();
+                    curl_close($curl);
+                    return redirect()->route('login.show')->withErrors(['error' => $organization->message]);
+                }
+                 else {
+                    curl_close($curl);
+                    return redirect()->back()->withErrors(['error' => "Unknown Error From Api"]);
+                }
             }
         } catch (\Exception $e) {
 

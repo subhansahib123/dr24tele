@@ -7,7 +7,9 @@ use App\Http\Controllers\Controller;
 use App\Models\Department;
 use App\Models\Organization;
 use Illuminate\Http\Request;
-use Str;
+use Illuminate\Support\Facades\Auth;
+
+use Illuminate\Support\Str;
 
 class DepartmentController extends Controller
 {
@@ -54,11 +56,9 @@ class DepartmentController extends Controller
             if ($response == false) {
                 $error = curl_error($curl);
                 curl_close($curl);
-
                 return redirect()->back()->withErrors(['error' => __($error)]);;
             } else {
                 $departments = json_decode($response);
-            
                 if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
                     curl_close($curl);
                     if(isset($departments->childlist)){
@@ -72,8 +72,6 @@ class DepartmentController extends Controller
                                 'uuid' => $department->uuid
                             ]);
                     }
-
-
                     return view('admin_panel.departments.show', ['departments' => $departments]);
                     }else {
                         return redirect()->back()->withErrors(['error' => __('No Record Found')]);
@@ -82,17 +80,30 @@ class DepartmentController extends Controller
 
 
 
-                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
+                }else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
                     curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => __($departments->message)]);
-                } else if (isset($departments->message) && $departments->message = "API rate limit exceeded") {
+                    return redirect()->back()->withErrors(['error' => $departments->message]);
+                }else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 401) {
+                    curl_close($curl);
+                    return redirect()->back()->withErrors(['error' => $departments->message]);
+                }else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 403) {
+                    curl_close($curl);
+                    return redirect()->back()->withErrors(['error' => $departments->message]);
+                }else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 409) {
+                    curl_close($curl);
+                    return redirect()->back()->withErrors(['error' => $departments->message]);
+                } else if (isset($departments->message) && $departments->message == "API rate limit exceeded") {
                     curl_close($curl);
 
-                    return redirect()->back()->withErrors(['error' => __('API rate limit exceeded.')]);
-                } else if (isset($departments->message) && $departments->message = "Invalid Token") {
+                    return redirect()->back()->withErrors(['error' => $departments->message]);
+                }else if (isset($departments->message) && $departments->message == "Invalid User") {
+                    Auth::logout();
                     curl_close($curl);
-
-                    return redirect()->back()->withErrors(['error' => __('Invalid Token.')]);
+                    return redirect()->route('login.show')->withErrors(['error' => $departments->message]);
+                }  else if (isset($departments->message) && $departments->message == "Invalid Token") {
+                    Auth::logout();
+                    curl_close($curl);
+                    return redirect()->route('login.show')->withErrors(['error' => $departments->message]);
                 } else {
                     curl_close($curl);
 
@@ -100,8 +111,6 @@ class DepartmentController extends Controller
                 }
             }
         } catch (\Exception $e) {
-
-            // dd($e->getMessage());
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
     }
