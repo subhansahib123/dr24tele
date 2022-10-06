@@ -19,7 +19,7 @@ class HospitalPatientController extends Controller
         $userInfo = json_decode(json_encode($userInfo), true);
         $orgId = $userInfo['sessionInfo']['orgId'];
 
-        return view('hospital_panel.patients.create', ['users' => $users,'orgId'=>$orgId]);
+        return view('hospital_panel.patients.create', ['users' => $users, 'orgId' => $orgId]);
     }
     public function storeHospitalPatients(Request $request)
     {
@@ -31,9 +31,9 @@ class HospitalPatientController extends Controller
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
         // dd($userInfo);
-        if (is_null($userInfo)){
-            Auth::logout();
-            return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
+        if (is_null($userInfo)) {
+
+            return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
         $token = $userInfo['sessionInfo']['token'];
         $data = [
@@ -107,28 +107,30 @@ class HospitalPatientController extends Controller
                     return redirect()->back()->withSuccess(__('Patient Successfully Created'));
                 } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 401) {
                     curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => 'You are not authorized to create person or EHR for person']);
+                    return redirect()->back()->withErrors(['error' => $patients->message]);
                 } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
                     curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => 'invalid useruuid / Please provide userUuid']);
-                } else if (isset($patients->message) && $patients->message = "API rate limit exceeded") {
+                    return redirect()->back()->withErrors(['error' => $patients->message]);
+                } else if (isset($patients->message) && $patients->message == "API rate limit exceeded") {
                     curl_close($curl);
 
-                    return redirect()->back()->withErrors(['error' => __('API rate limit exceeded.')]);
-                } else if (isset($patients->message) && $patients->message = "Invalid Token") {
-                    curl_close($curl);
+                    return redirect()->back()->withErrors(['error' => 'API rate limit exceeded.']);
+                } else if (isset($patients->message) && $patients->message == "Invalid User") {
 
-                    return redirect()->back()->withErrors(['error' => __('Invalid Token.')]);
+                    curl_close($curl);
+                    return redirect()->route('logout')->withErrors(['error' => $patients->message]);
+                } else if (isset($patients->message) && $patients->message == "Invalid Token") {
+
+                    curl_close($curl);
+                    return redirect()->route('logout')->withErrors(['error' => $patients->message]);
                 } else {
                     curl_close($curl);
 
 
-                    return redirect()->back()->withErrors(['error' => "Unknow Error From Api"]);
+                    return redirect()->back()->withErrors(['error' => "Unknown Error From Api"]);
                 }
             }
         } catch (\Exception $e) {
-            curl_close($curl);
-
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
     }

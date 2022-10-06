@@ -26,8 +26,8 @@ class DepartmentController extends Controller
         $userInfo = json_decode(json_encode($userInfo), true);
         // dd($userInfo);
         if (is_null($userInfo)){
-            Auth::logout();
-            return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
+              
+            return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
         $token = $userInfo['sessionInfo']['token'];
 
@@ -97,13 +97,13 @@ class DepartmentController extends Controller
 
                     return redirect()->back()->withErrors(['error' => $departments->message]);
                 }else if (isset($departments->message) && $departments->message == "Invalid User") {
-                    Auth::logout();
+                      
                     curl_close($curl);
-                    return redirect()->route('login.show')->withErrors(['error' => $departments->message]);
+                    return redirect()->route('logout')->withErrors(['error' => $departments->message]);
                 }  else if (isset($departments->message) && $departments->message == "Invalid Token") {
-                    Auth::logout();
+                      
                     curl_close($curl);
-                    return redirect()->route('login.show')->withErrors(['error' => $departments->message]);
+                    return redirect()->route('logout')->withErrors(['error' => $departments->message]);
                 } else {
                     curl_close($curl);
 
@@ -128,8 +128,8 @@ class DepartmentController extends Controller
         $userInfo = json_decode(json_encode($userInfo), true);
         // dd($userInfo);
         if (is_null($userInfo)) {
-            Auth::logout();
-            return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
+              
+            return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
         $token = $userInfo['sessionInfo']['token'];
         $request->validate([
@@ -199,7 +199,6 @@ class DepartmentController extends Controller
                     $dep=Department::where('uuid',$request->DepUuid)->first();
                     $dep->update([
                         'name' => $organization->displayname,
-                        'slug' => $request->name,
 
                     ]);
                     return redirect()->back()->withSuccess(__('Department Successfully Updated'));
@@ -215,19 +214,20 @@ class DepartmentController extends Controller
             }else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 409) {
                 curl_close($curl);
                 return redirect()->back()->withErrors(['error' => $organization->message]);
-            } else if (isset($organization->message) && $organization->message == "API rate limit exceeded") {
-
-
-                return redirect()->back()->withErrors(['error' => __('API rate limit exceeded.')]);
-            } else if (isset($organization->message) && $organization->message == "Invalid Token") {
-
-
-                return redirect()->back()->withErrors(['error' => __('Invalid Token.')]);
+            }else if (isset($organization->message) && $organization->message == "API rate limit exceeded") {
+                curl_close($curl);
+                return redirect()->back()->withErrors(['error' => $organization->message]);
+            }else if (isset($organization->message) && $organization->message == "Invalid User") {
+ 
+                curl_close($curl);
+                return redirect()->route('logout')->withErrors(['error' => $organization->message]);
+            }  else if (isset($organization->message) && $organization->message == "Invalid Token") {
+            
+                curl_close($curl);
+                return redirect()->route('logout')->withErrors(['error' => $organization->message]);
             } else {
-
-
-
-                return redirect()->back()->withErrors(['error' => "Unknow Error From Api"]);
+                curl_close($curl);
+                return redirect()->back()->withErrors(['error' => "Unknown Error From Api"]);
             }
         } catch (\Exception $e) {
 

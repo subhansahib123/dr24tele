@@ -31,7 +31,7 @@
                         </div>
                         @include('admin_panel.frontend.includes.messages')
                         <div class="card-body">
-                            <form class="form-horizontal" action="{{route('hospitalOrganization.created')}}" method="POST">
+                            <form class="form-horizontal" action="{{route('hospitalDepartment.created')}}" method="POST">
                                 @csrf
                                 <div class=" row mb-4">
                                     <label for="displayname" class="col-md-3 form-label"> Display Name</label>
@@ -65,47 +65,6 @@
                                     <label for="phone" class="col-md-3 form-label"> Phone Number</label>
                                     <div class="col-md-9">
                                         <input type="number" class="form-control" value="{{old('phone')}}" name="phone" id="phone" placeholder="Phone Number" autocomplete="contactperson">
-                                    </div>
-                                    @if ($errors->has('contactperson'))
-                                    <span class="text-danger text-left">{{ $errors->first('contactperson') }}</span>
-                                    @endif
-                                </div>
-                                <div class=" row mb-4">
-                                    <label for="country" class="col-md-3 form-label"> Select Country </label>
-                                    <div class="col-md-9">
-                                        <input type="hidden" value="" name="country" id="country_value" />
-                                        <select class="form-control" onchange="loadStates(this.value,this)" id="country">
-                                            <option value="">Select Country</option>
-                                            @foreach ($countries as $country)
-                                            <option value="{{$country->id}}" {{old('country')==$country->name?'selected':''}}>{{$country->name}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    @if ($errors->has('contactperson'))
-                                    <span class="text-danger text-left">{{ $errors->first('contactperson') }}</span>
-                                    @endif
-                                </div>
-                                <div class=" row mb-4">
-                                    <label for="country" class="col-md-3 form-label"> Select State </label>
-                                    <input type="hidden" value="" name="state" id="state_value" />
-                                    <div class="col-md-9">
-                                        <select class="form-control" onchange="loadCities(this.value,this)" id="state">
-                                            <option>Select State</option>
-
-                                        </select>
-                                    </div>
-                                    @if ($errors->has('contactperson'))
-                                    <span class="text-danger text-left">{{ $errors->first('contactperson') }}</span>
-                                    @endif
-                                </div>
-                                <div class=" row mb-4">
-                                    <label for="country" class="col-md-3 form-label"> Select City </label>
-                                    <input type="hidden" value="" name="city" id="city_value" />
-                                    <div class="col-md-9">
-                                        <select class="form-control" id="city">
-                                            <option>Select City</option>
-
-                                        </select>
                                     </div>
                                     @if ($errors->has('contactperson'))
                                     <span class="text-danger text-left">{{ $errors->first('contactperson') }}</span>
@@ -164,76 +123,3 @@
     </div>
 </div>
 
-
-
-@endsection
-@section('foot_script')
-<script type="text/javascript">
-    var baseUrl = `{{url('/')}}`;
-    $('#level').change(function(){
-        if($(this).val()=="Hospital"){
-            $('#no-need').hide();
-            $('#organization').attr('name','org');
-            var input_organization='<input type="hidden" id="input_org" name="organization" value="c6bc6265-e876-414a-9672-a85e09280059">';
-            $('#add').html(input_organization);
-        }else{
-            $('#add').html('');
-            $('#no-need').show();
-            $('#organization').attr('name','organization');
-            return false;
-        }
-
-    });
-    function loadStates(country_id, context) {
-
-        if (country_id == '')
-            return false;
-
-        // console.log($(this))
-        var country_name = $(context).find(':selected').text();
-        $('#country_value').val(country_name);
-        $.ajax({
-            url: `${baseUrl}/api/states/${country_id}`,
-            method: 'GET'
-        }).done(function(data) {
-            // console.log(data);
-            var option = "<option value=''>Select State</option>";
-            data.forEach(function(row, index) {
-                console.log(row);
-                option += `<option value='${row.id}'>${row.name}</option>`;
-            });
-            $('#state').html(option);
-        }).fail(function(error) {
-            console.log(error);
-        });
-    }
-
-    function loadCities(state_id, context) {
-        if (state_id == '')
-            return false;
-        var state = $(context).find(':selected').text();
-        $('#state_value').val(state);
-        $.ajax({
-            url: `${baseUrl}/api/cities/${state_id}`,
-            method: 'GET'
-        }).done(function(data) {
-            // console.log(data);
-            var option = "<option value=''>Select City</option>";
-            data.forEach(function(row, index) {
-                // console.log(row);
-                option += `<option value='${row.id}'>${row.name}</option>`;
-            });
-            $('#city').html(option);
-        }).fail(function(error) {
-            console.log(error);
-        });
-    }
-
-    $(document).ready(function() {
-        $('#city').change(function() {
-            let city = $(this).find(':selected').text();
-            $('#city_value').val(city);
-        });
-    });
-</script>
-@endsection

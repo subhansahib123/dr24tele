@@ -65,13 +65,13 @@ class ProfessionController extends Controller
                             curl_close($curl);
                             return redirect()->back()->withErrors(['error' => $professions->message]);
                         }else if (isset($professions->message) && $professions->message == "Invalid User") {
-                            Auth::logout();
+                             
                             curl_close($curl);
-                            return redirect()->route('login.show')->withErrors(['error' => $professions->message]);
+                            return redirect()->route('logout')->withErrors(['error' => $professions->message]);
                         }  else if (isset($professions->message) && $professions->message == "Invalid Token") {
-                            Auth::logout();
+                             
                             curl_close($curl);
-                            return redirect()->route('login.show')->withErrors(['error' => $professions->message]);
+                            return redirect()->route('logout')->withErrors(['error' => $professions->message]);
                         }else {
                             curl_close($curl);
 
@@ -85,8 +85,8 @@ class ProfessionController extends Controller
                 return $e->getMessage();
             }
         } else {
-            Auth::logout();
-            return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
+             
+            return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
     }
 }
