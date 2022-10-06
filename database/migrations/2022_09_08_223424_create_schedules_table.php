@@ -18,16 +18,18 @@ class CreateSchedulesTable extends Migration
             $table->string('status');
             $table->dateTime('start');
             $table->dateTime('end');
+            
             $table->string('comment');
             $table->timestamps();
             $table->unsignedBigInteger('doctor_id');
-            $table->foreign('doctor_id')->references('id')->on('doctors')->onDelete('cascade');        });
+            $table->foreign('doctor_id')->references('id')->on('doctors')->onDelete('cascade');
+          });
     }
 
     /**
      * Reverse the migrations.
      *
-     * 
+     *
      * @return void
      */
     public function down()

@@ -73,7 +73,13 @@
     <!-- CUSTOM JS -->
     <script src="{{asset('assets/js/custom.js')}}"></script>
 
+    <script src="{{asset('/assets/plugins/accordion-Wizard-Form/jquery.accordion-wizard.min.js')}}"></script>
+    <script src="{{asset('/assets/js/moment.js')}}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
 
+    <script src="{{asset('/assets/datetimepicker/build/jquery.datetimepicker.full.js')}}"></script>
+
+    <script src="{{asset('/assets/js/form-wizard.js')}}"></script>
 <!-- Active NAv----->
 
 <script>

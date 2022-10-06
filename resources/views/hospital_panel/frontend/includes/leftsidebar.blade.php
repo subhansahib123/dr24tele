@@ -36,7 +36,7 @@
                         <li><a class="side-menu__item has-link" data-bs-toggle="slide" href="{{route('updatePassword')}}"></i><span class="side-menu__label"> Password</span></a></li>
                     </ul>
                 </li>
-                
+
                 <li class="slide">
                     <a class="side-menu__item has-link" data-bs-toggle="slide" href="{{route('hospitalDepartments.list')}}"><i class="side-menu__icon fe fe-user"></i><span class="side-menu__label">Departments</span></a>
                 </li>
@@ -56,6 +56,10 @@
 
                 <li class="slide">
                     <a class="side-menu__item has-link" data-bs-toggle="slide" href="{{route('createHospital.patients')}}"><i class="side-menu__icon fe fe-user"></i><span class="side-menu__label">Create Patients</span></a>
+                </li>
+
+                <li class="slide">
+                    <a class="side-menu__item has-link" data-bs-toggle="slide" href="{{route('list.schedules')}}"><i class="side-menu__icon fe fe-calender"></i><span class="side-menu__label">Schedules</span></a>
                 </li>
 
 

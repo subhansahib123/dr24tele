@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\PersonController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\OrganizationController;
+use App\Http\Controllers\Hospital\ScheduleController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -24,3 +25,6 @@ Route::get('/states/{country_id}',[OrganizationController::class,'states'])->nam
 Route::get('/cities/{state_id}',[OrganizationController::class,'cities'])->name('load.cities');
 Route::get('/getDepartments/{orgUuid}',[OrganizationController::class,'getDepartments'])->name('get.departments');
 
+//create schedule and get storeHospitalPatients
+Route::post('/store/schedule',[ScheduleController::class,'insert'])->name('store.schedule');
+Route::post('/update/slots',[ScheduleController::class,'updateSlots'])->name('update.slot');
