@@ -166,9 +166,9 @@ class AuthenticationController extends Controller
                         $contains = Str::contains($url, 'hospital');
 
                         if( $contains) {
-                            return  redirect()->route('hospital.login')->withErrors(['error' =>$logout->message ]);
+                            return  redirect()->route('logout')->withErrors(['error' =>$logout->message ]);
                         }else{
-                            return  redirect(route('login.show'))->withErrors(['error' =>$logout->message ]);
+                            return  redirect(route('logout'))->withErrors(['error' =>$logout->message ]);
                         }
                     } else {
                         curl_close($curl);
@@ -194,8 +194,7 @@ class AuthenticationController extends Controller
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
         if (is_null($userInfo)) {
-            Auth::logout();
-            return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
+            return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
         $token = $userInfo['sessionInfo']['token'];
 
@@ -253,13 +252,12 @@ class AuthenticationController extends Controller
                     curl_close($curl);
                     return redirect()->back()->withErrors(['error' => $roles->message]);
                 }else if (isset($roles->message) && $roles->message == "Invalid User") {
-                    Auth::logout();
+                   
                     curl_close($curl);
-                    return redirect()->route('login.show')->withErrors(['error' => $roles->message]);
+                    return redirect()->route('logout')->withErrors(['error' => $roles->message]);
                 }  else if (isset($roles->message) && $roles->message == "Invalid Token") {
-                    Auth::logout();
                     curl_close($curl);
-                    return redirect()->route('login.show')->withErrors(['error' => $roles->message]);
+                    return redirect()->route('logout')->withErrors(['error' => $roles->message]);
                 }else {
                     curl_close($curl);
                     return redirect()->back()->withErrors(['error' =>'Unknown Error From Api.']);
@@ -287,10 +285,11 @@ class AuthenticationController extends Controller
         $data = ['username' => $request->username, 'password' => $request->password];
 
         $user = User::with('user_organization')->where('username',  $request->username)->first();
-        // dd($user);
+        // dd  ($user->user_organization);
         if (!isset($user->user_organization))
             return redirect()->back()->withErrors(['error' => 'User is not associated with any Organisation']);
         $organisation = Organization::find($user->user_organization->organization_id);
+        // dd  ($organisation->name);
         if (is_null($organisation))
 
             return redirect()->back()->withErrors(['error' => 'No Organisation record found in database']);

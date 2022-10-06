@@ -70,26 +70,34 @@
 
                                             </td>
                                             <td>
-                                            <a href="{{route('single.organization',['uuid'=>$organization->uuid])}}" ><button class="btn btn-info">Update</button></a>
+                                                <a href="{{route('single.organization',['uuid'=>$organization->uuid])}}"><button class="btn btn-info">Update</button></a>
 
                                             </td>
                                             <td>
-                                            <a href="{{route('users.list',['uuid'=>$organization->uuid])}}" ><button class="btn btn-primary">Users</button></a>
+                                                <a href="{{route('users.list',['uuid'=>$organization->uuid])}}"><button class="btn btn-primary">Users</button></a>
 
                                             </td>
                                             <td>
-                                            <a href="{{route('patients.list',['uuid'=>$organization->uuid])}}" ><button class="btn btn-primary">Patients</button></a>
+                                                <a href="{{route('patients.list',['uuid'=>$organization->uuid])}}"><button class="btn btn-primary">Patients</button></a>
 
                                             </td>
                                             <td>
-                                            <a href="{{route('departments.list',['uuid'=>$organization->uuid])}}" ><button class="btn btn-primary">Departments</button></a>
+                                                <a href="{{route('departments.list',['uuid'=>$organization->uuid])}}"><button class="btn btn-primary">Departments</button></a>
 
                                             </td>
+                                            @if($organization->status == 'Enabled')
                                             <td>
-                                            <a href="{{route('delete.organisation',['uuid'=>$organization->uuid])}}" ><button class="btn btn-danger">Inactive</button></a>
+
+                                                <a href="{{route('delete.organisation',['uuid'=>$organization->uuid])}}"><button class="btn btn-danger">Inactive</button></a>
 
                                             </td>
+                                            @else
+                                            <td>
+                                                <a href="{{route('delete.organisation',['uuid'=>$organization->uuid])}}"><button class="btn btn-info"> Active</button></a>
 
+                                            </td>
+                                            
+                                            @endif
                                         </tr>
                                         @endforeach
 

@@ -12,7 +12,6 @@ use App\Models\Organization;
 use App\Models\Doctor;
 use App\Models\User_Role;
 use App\Models\UsersOrganization;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -22,7 +21,7 @@ class UserController extends Controller
     //     $userInfo = session('loggedInUser');
     //     $userInfo = json_decode(json_encode($userInfo), true);
     //     if (is_null($userInfo))
-    //         return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
+    //         return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
 
     // }
 
@@ -38,8 +37,8 @@ class UserController extends Controller
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
         if (is_null($userInfo)) {
-            Auth::logout();
-            return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
+             
+            return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
 
         $token = $userInfo['sessionInfo']['token'];
@@ -75,13 +74,13 @@ class UserController extends Controller
                 }
                 //Invalid token
                 else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 409) {
-                    Auth::logout();
+                     
                     curl_close($curl);
-                    return redirect()->route('login.show')->withErrors(['error' => $patients->message]);
+                    return redirect()->route('logout')->withErrors(['error' => $patients->message]);
                 } else if (isset($patients->message) && $patients->message == "Invalid User") {
-                    Auth::logout();
+                     
                     curl_close($curl);
-                    return redirect()->route('login.show')->withErrors(['error' => $patients->message]);
+                    return redirect()->route('logout')->withErrors(['error' => $patients->message]);
                 } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
                     curl_close($curl);
                     return view('admin_panel.totalUsers.unmappedUsers', ['patients' => $patients]);
@@ -115,8 +114,8 @@ class UserController extends Controller
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
         if (is_null($userInfo)) {
-            Auth::logout();
-            return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
+             
+            return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
 
         $token = $userInfo['sessionInfo']['token'];
@@ -151,13 +150,13 @@ class UserController extends Controller
                     curl_close($curl);
                     return view('admin_panel.totalUsers.index', ['all_patients' => $all_patients]);
                 } else if (isset($all_patients->message) && $all_patients->message == "Invalid User") {
-                    Auth::logout();
+                     
                     curl_close($curl);
-                    return redirect()->route('login.show')->withErrors(['error' => $all_patients->message]);
+                    return redirect()->route('logout')->withErrors(['error' => $all_patients->message]);
                 }  else if (isset($all_patients->message) && $all_patients->message == "Invalid Token") {
-                    Auth::logout();
+                     
                     curl_close($curl);
-                    return redirect()->route('login.show')->withErrors(['error' => $all_patients->message]);
+                    return redirect()->route('logout')->withErrors(['error' => $all_patients->message]);
                 }
                  else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
                     curl_close($curl);
@@ -198,8 +197,8 @@ class UserController extends Controller
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
         if (is_null($userInfo)) {
-            Auth::logout();
-            return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
+             
+            return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
 
 
@@ -236,13 +235,13 @@ class UserController extends Controller
                     curl_close($curl);
                     return view('admin_panel.user.users', ['all_patients' => $all_patients]);
                 }else if (isset($all_patients->message) && $all_patients->message == "Invalid User") {
-                    Auth::logout();
+                     
                     curl_close($curl);
-                    return redirect()->route('login.show')->withErrors(['error' => $all_patients->message]);
+                    return redirect()->route('logout')->withErrors(['error' => $all_patients->message]);
                 }  else if (isset($all_patients->message) && $all_patients->message == "Invalid Token") {
-                    Auth::logout();
+                     
                     curl_close($curl);
-                    return redirect()->route('login.show')->withErrors(['error' => $all_patients->message]);
+                    return redirect()->route('logout')->withErrors(['error' => $all_patients->message]);
                 }
                  else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
                     curl_close($curl);
@@ -283,8 +282,8 @@ class UserController extends Controller
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
         if (is_null($userInfo)) {
-            Auth::logout();
-            return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
+             
+            return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
 
         $token = $userInfo['sessionInfo']['token'];
@@ -320,13 +319,13 @@ class UserController extends Controller
                     curl_close($curl);
                     return view('admin_panel.user.umappedUser', ['all_patients' => $all_patients]);
                 } else if (isset($all_patients->message) && $all_patients->message == "Invalid User") {
-                    Auth::logout();
+                     
                     curl_close($curl);
-                    return redirect()->route('login.show')->withErrors(['error' => $all_patients->message]);
+                    return redirect()->route('logout')->withErrors(['error' => $all_patients->message]);
                 }  else if (isset($all_patients->message) && $all_patients->message == "Invalid Token") {
-                    Auth::logout();
+                     
                     curl_close($curl);
-                    return redirect()->route('login.show')->withErrors(['error' => $all_patients->message]);
+                    return redirect()->route('logout')->withErrors(['error' => $all_patients->message]);
                 }else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
                     curl_close($curl);
                     return redirect()->back()->withErrors(['error' => $all_patients->message]);
@@ -386,8 +385,8 @@ class UserController extends Controller
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
         if (is_null($userInfo)) {
-            Auth::logout();
-            return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
+             
+            return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
         $token = $userInfo['sessionInfo']['token'];
         curl_setopt_array($curl, array(
@@ -446,13 +445,13 @@ class UserController extends Controller
 
                     return redirect()->back()->withErrors(['error' => $user->message]);
                 } else if (isset($user->message) && $user->message == "Invalid User") {
-                    Auth::logout();
+                     
                     curl_close($curl);
-                    return redirect()->route('login.show')->withErrors(['error' => $user->message]);
+                    return redirect()->route('logout')->withErrors(['error' => $user->message]);
                 }  else if (isset($user->message) && $user->message == "Invalid Token") {
-                    Auth::logout();
+                     
                     curl_close($curl);
-                    return redirect()->route('login.show')->withErrors(['error' => $user->message]);
+                    return redirect()->route('logout')->withErrors(['error' => $user->message]);
                 }
                 else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 409) {
 
@@ -496,8 +495,8 @@ class UserController extends Controller
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
         if (is_null($userInfo)) {
-            Auth::logout();
-            return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
+             
+            return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
 
         $token = $userInfo['sessionInfo']['token'];
@@ -624,13 +623,13 @@ class UserController extends Controller
 
                     return redirect()->back()->withErrors(['error' => $userRole->message]);
                 }else if (isset($userRole->message) && $userRole->message == "Invalid User") {
-                    Auth::logout();
+                     
                     curl_close($curl);
-                    return redirect()->route('login.show')->withErrors(['error' => $userRole->message]);
+                    return redirect()->route('logout')->withErrors(['error' => $userRole->message]);
                 }  else if (isset($userRole->message) && $userRole->message == "Invalid Token") {
-                    Auth::logout();
+                     
                     curl_close($curl);
-                    return redirect()->route('login.show')->withErrors(['error' => $userRole->message]);
+                    return redirect()->route('logout')->withErrors(['error' => $userRole->message]);
                 }
                  else {
                     curl_close($curl);
@@ -660,8 +659,8 @@ class UserController extends Controller
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
         if (is_null($userInfo)) {
-            Auth::logout();
-            return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
+             
+            return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
 
         $token = $userInfo['sessionInfo']['token'];
@@ -697,6 +696,12 @@ class UserController extends Controller
                 $UpdatedRole = json_decode($response);
                 if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
                     curl_close($curl);
+                    // dd($UpdatedRole[0]->useruuid);
+                    $user=User::where('uuid',$UpdatedRole[0]->useruuid)->first();
+                    $role=Role::where('name',$UpdatedRole[0]->rolename)->first();
+                    $userRole=User_Role::where('user_id',$user->id)->first();
+                    // dd($userRole->id);
+                    $userRole->update(['role_id'=>$role->id]);
                     return redirect()->back()->withSuccess(__('Successfully User Role Updated'));
                 } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
                     curl_close($curl);
@@ -715,13 +720,13 @@ class UserController extends Controller
 
                     return redirect()->back()->withErrors(['error' => $UpdatedRole->message]);
                 }else if (isset($UpdatedRole->message) && $UpdatedRole->message == "Invalid User") {
-                    Auth::logout();
+                     
                     curl_close($curl);
-                    return redirect()->route('login.show')->withErrors(['error' => $UpdatedRole->message]);
+                    return redirect()->route('logout')->withErrors(['error' => $UpdatedRole->message]);
                 }  else if (isset($UpdatedRole->message) && $UpdatedRole->message == "Invalid Token") {
-                    Auth::logout();
+                     
                     curl_close($curl);
-                    return redirect()->route('login.show')->withErrors(['error' => $UpdatedRole->message]);
+                    return redirect()->route('logout')->withErrors(['error' => $UpdatedRole->message]);
                 }else {
                     curl_close($curl);
                     return redirect()->back()->withErrors(['error' => "Unknown Error From Api"]);
@@ -739,8 +744,8 @@ class UserController extends Controller
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
         if (is_null($userInfo)) {
-            Auth::logout();
-            return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
+             
+            return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
         // dd($uuid);
         $token = $userInfo['sessionInfo']['token'];
@@ -778,18 +783,32 @@ class UserController extends Controller
                 } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
                     curl_close($curl);
                     return redirect()->back()->withErrors(['error' => $doctors->message]);
+                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 401) {
+                    curl_close($curl);
+                    return redirect()->back()->withErrors(['error' => $doctors->message]);
+                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 403) {
+                    curl_close($curl);
+                    return redirect()->back()->withErrors(['error' => $doctors->message]);
+                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 409) {
+                    curl_close($curl);
+                    return redirect()->back()->withErrors(['error' => $doctors->message]);
+                }else if (isset($doctors->message) && $doctors->message == "API rate limit exceeded") {
+                    curl_close($curl);
+                    return redirect()->back()->withErrors(['error' => $doctors->message]);
+                }else if (isset($doctors->message) && $doctors->message == "Invalid User") {
+                
+                    curl_close($curl);
+                return redirect()->route('logout')->withErrors(['error' => $doctors->message]);
+                } else if (isset($doctors->message) && $doctors->message == "Invalid Token") {
+                
+                    curl_close($curl);
+                return redirect()->route('logout')->withErrors(['error' => $doctors->message]);
                 } else {
                     curl_close($curl);
-
-
-                    // dd(curl_getinfo($curl, CURLINFO_HTTP_CODE));
-                    return redirect()->back()->withErrors(['error' => $doctors->message]);
+                    return redirect()->back()->withErrors(['error' =>  "Unknown Error From Api"]);
                 }
             }
         } catch (\Exception $e) {
-            // dd($e->getMessage());
-            curl_close($curl);
-
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
             // return $e->getMessage();
         }
@@ -802,8 +821,8 @@ class UserController extends Controller
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
         if (is_null($userInfo)) {
-            Auth::logout();
-            return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
+             
+            return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
 
         $token = $userInfo['sessionInfo']['token'];
@@ -841,17 +860,35 @@ class UserController extends Controller
                 } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
                     curl_close($curl);
                     return redirect()->back()->withErrors(['error' => $users->message]);
-                } else {
+                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 401) {
+                    curl_close($curl);
+                    return redirect()->back()->withErrors(['error' => $users->message]);
+                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 403) {
+                    curl_close($curl);
+                    return redirect()->back()->withErrors(['error' => $users->message]);
+                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 409) {
+                    curl_close($curl);
+                    return redirect()->back()->withErrors(['error' => $users->message]);
+                } else if (isset($users->message) && $users->message == "API rate limit exceeded") {
+                    curl_close($curl);
+                    return redirect()->back()->withErrors(['error' => $users->message]);
+                }else if (isset($users->message) && $users->message == "Invalid User") {
+                
+                    curl_close($curl);
+                return redirect()->route('logout')->withErrors(['error' => $users->message]);
+                } else if (isset($users->message) && $users->message == "Invalid Token") {
+                
+                    curl_close($curl);
+                return redirect()->route('logout')->withErrors(['error' => $users->message]);
+                }else {
                     curl_close($curl);
 
 
                     // dd(curl_getinfo($curl, CURLINFO_HTTP_CODE));
-                    return redirect()->back()->withErrors(['error' => $users->message]);
+                    return redirect()->back()->withErrors(['error' =>  "Unknown Error From Api"]);
                 }
             }
         } catch (\Exception $e) {
-            curl_close($curl);
-
             // dd($e->getMessage());
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
             // return $e->getMessage();
@@ -865,8 +902,8 @@ class UserController extends Controller
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
         if (is_null($userInfo)) {
-            Auth::logout();
-            return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
+             
+            return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
 
         $token = $userInfo['sessionInfo']['token'];
@@ -912,18 +949,35 @@ class UserController extends Controller
                 } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
                     curl_close($curl);
                     return redirect()->back()->withErrors(['error' => $users->message]);
-                } else {
+                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 401) {
+                    curl_close($curl);
+                    return redirect()->back()->withErrors(['error' => $users->message]);
+                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 403) {
+                    curl_close($curl);
+                    return redirect()->back()->withErrors(['error' => $users->message]);
+                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 409) {
+                    curl_close($curl);
+                    return redirect()->back()->withErrors(['error' => $users->message]);
+                } else if (isset($users->message) && $users->message == "API rate limit exceeded") {
+                    curl_close($curl);
+                    return redirect()->back()->withErrors(['error' => $users->message]);
+                }else if (isset($users->message) && $users->message == "Invalid User") {
+                
+                    curl_close($curl);
+                return redirect()->route('logout')->withErrors(['error' => $users->message]);
+                } else if (isset($users->message) && $users->message == "Invalid Token") {
+                
+                    curl_close($curl);
+                return redirect()->route('logout')->withErrors(['error' => $users->message]);
+                }else {
                     curl_close($curl);
 
 
                     // dd(curl_getinfo($curl, CURLINFO_HTTP_CODE));
-                    return redirect()->back()->withErrors(['error' => $users->message]);
+                    return redirect()->back()->withErrors(['error' => "Unknown Error From Api"]);
                 }
             }
         } catch (\Exception $e) {
-
-
-
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
     }

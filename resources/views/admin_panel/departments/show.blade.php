@@ -63,7 +63,7 @@
 
                                             <td>
 
-                                                {{$department->name}}
+                                                {{$department->displayname}}
 
 
                                             </td>

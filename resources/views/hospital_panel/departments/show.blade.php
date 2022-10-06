@@ -51,8 +51,9 @@
 
                                     <table class="table table-striped">
                                         <thead>
-                                            <th scope="col" width="40%">Name</th>
-                                             <th scope="col" width="1%">List</th> 
+                                            <th scope="col" width="35%">Name</th>
+                                             <th scope="col" width="3%">Update</th> 
+                                             <th scope="col" width="3%">List</th> 
                                         </thead>
 
 
@@ -62,6 +63,12 @@
                                             <td>
 
                                                 {{$department->name}}
+
+
+                                            </td>
+                                            <td>
+
+                                                <a href="{{route('updateHospital.department',['uuid'=>$department->uuid])}}"><button class="btn btn-primary">Update</button></a>
 
 
                                             </td>

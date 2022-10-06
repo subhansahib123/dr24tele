@@ -1,4 +1,4 @@
-@extends('admin_panel.layout.master')
+@extends('hospital_panel.layout.master')
 
 @section('content')
 
@@ -45,7 +45,8 @@
                                 </div>
                                 <input type="hidden" class="form-control" value="{{$organization->uuid}}" name="DepUuid" id="OrgUuid" placeholder="Display Name" autocomplete="OrgUuid">
 
-                                        <input type="hidden" class="form-control"  value="{{$depData->name}}" name="name" >
+                                        <input type="hidden" class="form-control" value="{{$depData->name}}"  name="name" >
+                        
 
                                 <div class=" row mb-4">
                                     <label for="email" class="col-md-3 form-label"> Contact Person Designation</label>
@@ -107,7 +108,7 @@
                                     </div>
                                 </div>
                             </form>
-                            <a href="{{route('dashboard')}}"><button class="btn btn-secondary mt-3">Cancel</button></a>
+                            <a href="{{route('hospital.dashboard')}}"><button class="btn btn-secondary mt-3">Cancel</button></a>
 
                         </div>
                     </div>
