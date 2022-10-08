@@ -16,6 +16,9 @@ class DatabaseSeeder extends Seeder
         $this->call([
             AdmunUserSeeder::class,
         ]);
+        $this->call([
+            RootOrganizationSeeder::class,
+        ]);
         $countries_path = './sql_data/tbl_countries.sql';
         $states_path = './sql_data/tbl_states.sql';
         $cities_path = './sql_data/tbl_cities.sql';

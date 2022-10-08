@@ -63,7 +63,7 @@
 
                                             <td>
 
-                                                {{$department->displayname}}
+                                                {{$department->name}}
 
 
                                             </td>
@@ -77,12 +77,19 @@
 
 
                                             </td>
+                                            @if($department->status == 'Enabled')
                                             <td>
 
                                                 <a href="{{route('delete.organisation',['uuid'=>$department->uuid])}}"><button class="btn btn-danger">Inactive</button></a>
 
+                                            </td>
+                                            @else
+                                            <td>
+                                                <a href="{{route('delete.organisation',['uuid'=>$department->uuid])}}"><button class="btn btn-info"> Active</button></a>
 
                                             </td>
+                                            
+                                            @endif
 
                                         </tr>
                                         @endforeach

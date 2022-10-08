@@ -59,6 +59,7 @@ class DepartmentController extends Controller
                 return redirect()->back()->withErrors(['error' => __($error)]);;
             } else {
                 $departments = json_decode($response);
+                // dd($departments);
                 if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
                     curl_close($curl);
                     if(isset($departments->childlist)){

@@ -45,7 +45,7 @@
 
 
                 <li class="slide">
-                    <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i class="side-menu__icon fe fe-slack"></i><span class="side-menu__label">Total Users</span><i class="angle fe fe-chevron-right"></i></a>
+                    <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i class="side-menu__icon fe fe-slack"></i><span class="side-menu__label">Users</span><i class="angle fe fe-chevron-right"></i></a>
                     <ul class="slide-menu nav-tree">
                         <li><a href="{{route('createHospital.user')}}" class="slide-item"> Create User</a></li>
                         <li><a href="{{route('hospitalUnmapped.Users')}}" class="slide-item">Unmapped Users</a></li>
@@ -53,10 +53,15 @@
 
                     </ul>
                 </li>
-
                 <li class="slide">
-                    <a class="side-menu__item has-link" data-bs-toggle="slide" href="{{route('createHospital.patients')}}"><i class="side-menu__icon fe fe-user"></i><span class="side-menu__label">Create Patients</span></a>
+                    <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i class="side-menu__icon fe fe-slack"></i><span class="side-menu__label">Patients</span><i class="angle fe fe-chevron-right"></i></a>
+                    <ul class="slide-menu nav-tree">
+                        <li><a href="{{route('createHospital.patients')}}" class="slide-item"> Create</a></li>
+                        <li><a href="{{route('hospitalAll.patients')}}" class="slide-item"> All Patients</a></li>
+
+                    </ul>
                 </li>
+
 
 
 
