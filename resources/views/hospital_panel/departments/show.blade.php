@@ -28,10 +28,7 @@
                         <div class="card-header row">
                             <div class="col-3"><span class="card-title">List</span></div>
                             <div class="col-7 align-self-center"></div>
-                            <div class="col-2">
-                                <a href="{{route('createHospital.department')}}"><button class="btn btn-primary"> Create Department</button></a>
-
-                            </div>
+                            
 
                             
                         </div>
@@ -51,9 +48,10 @@
 
                                     <table class="table table-striped">
                                         <thead>
-                                            <th scope="col" width="35%">Name</th>
+                                            <th scope="col" width="32%">Name</th>
                                              <th scope="col" width="3%">Update</th> 
                                              <th scope="col" width="3%">List</th> 
+                                             <th scope="col" width="3%">Inactive</th> 
                                         </thead>
 
 
@@ -78,6 +76,19 @@
 
 
                                             </td>
+                                            @if($department->status == 'Enabled')
+                                            <td>
+
+                                                <a href="{{route('delete.organisation',['uuid'=>$department->uuid])}}"><button class="btn btn-danger">Inactive</button></a>
+
+                                            </td>
+                                            @else
+                                            <td>
+                                                <a href="{{route('delete.organisation',['uuid'=>$department->uuid])}}"><button class="btn btn-info"> Active</button></a>
+
+                                            </td>
+                                            
+                                            @endif
 
                                         </tr>
                                         @endforeach  

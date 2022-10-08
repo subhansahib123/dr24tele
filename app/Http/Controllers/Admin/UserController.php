@@ -467,6 +467,167 @@ class UserController extends Controller
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
     }
+    public function mapAdminUser()
+    {
+        $users = User::all();
+        $roles = Role::all();
+        return view('admin_panel.totalUsers.roleAdminUser',['users' => $users, 'roles' => $roles ]);
+    }
+    public function adminUserMapped(Request $request)
+    {
+
+        $curl = curl_init();
+        $uuid = 'c6bc6265-e876-414a-9672-a85e09280059';
+        
+
+        // dd($uuid);
+        $baseUrl = config('services.ehr.baseUrl');
+        $apiKey = config('services.ehr.apiKey');
+        $userInfo = session('loggedInUser');
+        $userInfo = json_decode(json_encode($userInfo), true);
+        if (is_null($userInfo)) {
+             
+            return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
+        }
+        
+
+        $token = $userInfo['sessionInfo']['token'];
+        $data = [['useruuid' => $request->user, 'rolename' => $request->role]];
+        // dd($request->all());
+        $req_url = $baseUrl . '/rest/admin/orgUserMapping/role/add/' . $uuid;
+        // dd($req_url);
+        // dd($uuid);
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => $req_url,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'PATCH',
+            CURLOPT_POSTFIELDS => json_encode($data),
+            CURLOPT_HTTPHEADER => array(
+                'Content-Type: application/json',
+                'Accept: application/json',
+                'Authorization:' . $token,
+                'apikey: ' . $apiKey,
+            ),
+        ));
+        try {
+            $response = curl_exec($curl);
+            // dd($response);
+
+            if ($response == false) {
+                $error = curl_error($curl);
+                curl_close($curl);
+                return redirect()->back()->withErrors(['error' => $error]);
+            } else {
+                $userRole = json_decode($response);
+                // dd(curl_getinfo($curl, CURLINFO_HTTP_CODE));
+                if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
+                    $user = User::where('uuid', $request->user)->first();
+                    $role = Role::where('name', $request->role)->first();
+                    $department = Department::where('uuid', $request->department)->first();
+                    $organization = Organization::where('uuid', 'c6bc6265-e876-414a-9672-a85e09280059')->first();;
+                    curl_close($curl);
+                    if ($request->role == 'Practitioner') {
+
+                        Doctor::firstOrCreate([
+
+                            'status' => 1,
+                            'user_id' => $user->id,
+                            'department_id' => $department->id
+                        ]);
+                        UsersOrganization::firstOrCreate([
+
+                            'status' => 1,
+                            'registration_code' => '123ABC',
+                            'user_id' => $user->id,
+                            'organization_id' => $organization->id
+                        ]);
+                        User_Role::firstOrCreate([
+                            'user_id' => $user->id,
+                            'role_id' => $role->id
+                        ]);
+                    } else if ($request->role == 'OrgSuperAdmin') {
+
+                        User_Role::firstOrCreate([
+                            'user_id' => $user->id,
+                            'role_id' => $role->id
+                        ]);
+
+                        // dd($user->id,$role->id,$organization->id);
+
+                    } else if ($request->role == 'FrontOffice ') {
+
+                        UsersOrganization::firstOrCreate([
+
+                            'status' => 1,
+                            'registration_code' => '123ABC',
+                            'user_id' => $user->id,
+                            'organization_id' => $organization->id
+                        ]);
+                        User_Role::firstOrCreate([
+                            'user_id' => $user->id,
+                            'role_id' => $role->id
+                        ]);
+                    } else {
+
+                        UsersOrganization::firstOrCreate([
+
+                            'status' => 1,
+                            'registration_code' => '123ABC',
+                            'user_id' => $user->id,
+                            'organization_id' => $organization->id
+                        ]);
+                        User_Role::firstOrCreate([
+                            'user_id' => $user->id,
+                            'role_id' => $role->id
+                        ]);
+                    }
+
+                    return redirect()->back()->withSuccess(__('Successfully Mapped User Role'));
+                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
+                    // 'User role already exists
+                    curl_close($curl);
+                    return redirect()->route('updatingRole', [$uuid]);
+                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 401)  {
+                    curl_close($curl);
+
+                    return redirect()->back()->withErrors(['error' => $userRole->message]);
+                }else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 403)  {
+                    curl_close($curl);
+
+                    return redirect()->back()->withErrors(['error' => $userRole->message]);
+                }else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 409)  {
+                    curl_close($curl);
+
+                    return redirect()->back()->withErrors(['error' => $userRole->message]);
+                }else if (isset($userRole->message) && $userRole->message == "API rate limit exceeded") {
+                    curl_close($curl);
+
+                    return redirect()->back()->withErrors(['error' => $userRole->message]);
+                }else if (isset($userRole->message) && $userRole->message == "Invalid User") {
+                     
+                    curl_close($curl);
+                    return redirect()->route('logout')->withErrors(['error' => $userRole->message]);
+                }  else if (isset($userRole->message) && $userRole->message == "Invalid Token") {
+                     
+                    curl_close($curl);
+                    return redirect()->route('logout')->withErrors(['error' => $userRole->message]);
+                }
+                 else {
+                    curl_close($curl);
+
+                    return redirect()->back()->withErrors(['error' => "Unknown Error From Api"]);
+                }
+            }
+        } catch (\Exception $e) {
+
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
+    }
     public function mapUser()
     {
         $users = User::all();
@@ -476,7 +637,7 @@ class UserController extends Controller
         return view('admin_panel.totalUsers.roleEdit', ['users' => $users, 'roles' => $roles, 'organizations' => $organizations]);
     }
 
-
+    
 
     public function mapUserRole(Request $request)
     {

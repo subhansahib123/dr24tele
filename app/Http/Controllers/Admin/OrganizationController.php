@@ -63,7 +63,7 @@ class OrganizationController extends Controller
                 if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
                     curl_close($curl);
 
-                    dd($organizations);
+                    // dd($organizations);
                     foreach ($organizations->childlist as $organization) {
                         Organization::firstOrCreate([
                             'name' => $organization->name,
