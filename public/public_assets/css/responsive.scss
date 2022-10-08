@@ -1,0 +1,2749 @@
+//Color Variable
+$clr_white: #fff;
+$clr_offwhite: rgba(255,255,255,0.8);
+$clr_black: #000;
+$clr_emperor: #666666;
+$clr_selago: #F4F7FE;
+$clr_yellow: #FFC422;
+$clr_gray: #888888;
+$clr_albastor: #f9f9f9;
+$clr_athens: #F5F6FA;
+$clr_red:#FF3838;
+$clr_chathamas:#14467B;
+$clr_blue:#2490EB;
+/*---------------------------------
+          Mixins & Animation CSS
+-----------------------------------*/
+@mixin transition($time) {
+    -webkit-transition: $time;
+    transition: $time;
+}
+
+@mixin transform($tr_amt) {
+    -webkit-transform: $tr_amt;
+    -moz-transform: $tr_amt;
+    transform: $tr_amt;
+}
+
+@mixin transform-origin($trl_amt) {
+    transform-origin: $trl_amt;
+    -webkit-transform-origin: $trl_amt;
+    -moz-transform-origin: $trl_amt;
+    -ms-transform-origin: $trl_amt;
+    -o-transform-origin: $trl_amt;
+}
+
+@mixin transform-style($trm_amt) {
+    transform-style: $trm_amt;
+    -webkit-transform-style: $trm_amt;
+    -moz-transform-style: $trm_amt;
+    -ms-transform-style: $trm_amt;
+    -o-transform-style: $trm_amt;
+}
+
+%flex {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+
+}
+
+%inline_flex {
+    display: -webkit-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+
+}
+
+%flex_column_center {
+    @extend %flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+}
+
+%flex_column_between {
+    @extend %flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
+
+%flex_column_end {
+    @extend %flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-box-pack: end;
+    -ms-flex-pack: end;
+    justify-content: flex-end;
+}
+
+%align_center {
+    @extend %flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -ms-grid-row-align: center;
+    align-items: center;
+}
+
+%align_start {
+    -webkit-box-align: start;
+    -ms-flex-align: start;
+    -ms-grid-row-align: flex-start;
+    align-items: flex-start;
+}
+
+%align_end {
+    -webkit-box-align: end;
+    -ms-flex-align: end;
+    -ms-grid-row-align: flex-end;
+    align-items: flex-end;
+}
+%flex_justify_between {
+    @extend %flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
+
+%flex_justify_end {
+    @extend %flex;
+    -webkit-box-pack: end;
+    -ms-flex-pack: end;
+    justify-content: flex-end;
+}
+
+%flex_justify_start {
+    @extend %flex;
+    -webkit-box-pack: start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+}
+
+%flex_start {
+    @extend %flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+}
+
+%flex_start {
+    @extend %flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: flex-start;
+    -ms-flex-align: flex-start;
+    -ms-grid-row-align: flex-start;
+    align-items: flex-start;
+}
+
+%flex_between {
+    @extend %flex;
+    -webkit-box-pack: justify;
+    -ms-flex-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -ms-grid-row-align: center;
+    align-items: center;
+
+}
+
+%flex_end {
+    @extend %flex;
+    -webkit-box-pack: end;
+    -ms-flex-pack: end;
+    justify-content: flex-end;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    -ms-grid-row-align: center;
+    align-items: center;
+}
+
+@media only screen and (max-width:575px) {
+    .xs-center {
+        text-align: center;
+    }
+    .xs-none {
+        display: none;
+    }
+    .smt-15{
+        margin-top: 15px!important;
+    }
+    .breadcrumb-wrap {
+        padding: 50px 0;
+        .breadcrumb-title{
+            .breadcrumb-menu{
+                li{
+                    font-size: 14px;
+                    a{
+                        font-size: 14px;
+                    }
+                }
+            }
+        }
+        .breadcrumb-img{
+            img{
+                display: none;
+            }
+        }
+    }
+    .page-nav {
+        margin-top: 15px;
+        li{
+            a{
+            width: 36px;
+            height: 36px;
+            font-size: 16px;
+            line-height: 36px;
+            }
+        }
+    }
+    //Hero CSS
+    .hero-wrap{
+        &.style2{
+            .hero-content{
+                .counter-card-wrap{
+                    margin: 0 -6px;
+                    .counter-card{
+                        width: calc(50% - 12px);
+                        &:after{
+                           display: none;
+                        }
+                        .counter-icon{
+                            i{
+                                font-size: 50px;
+                            }
+                        }
+                    }
+                }
+            }
+            .hero-appointment {
+                .hero-appointment-img{
+                    display: none;
+                }
+                .hero-appointment-form {
+                    position: relative;
+                    top: auto;
+                    padding: 20px 20px 10px;
+                    @include transform(translateY(0));
+                    .fg-opt-wrap{
+                        .fg-opt{
+                            margin-bottom: 10px;
+                        }
+                    }
+                }
+            }
+            .hero-doctor{
+                .hero-doctor-bg{
+                    display: none;
+                }
+                .about-doctor-box {
+                    position: relative;
+                    top: auto;
+                    left: auto;
+                    padding: 20px;
+                    min-width: 300px;
+                    .doctor-info{
+                        h5 {
+                            font-size: 15px;
+                        }
+                    }
+                   .btn {
+                        padding: 5px 12px;
+                        font-size: 14px;
+                    }
+                }
+            }
+        }
+    }
+    //About css
+    .about-wrap{
+        &.style1{
+            .about-img-wrap{
+                .about-img-one{
+                    max-width: 265px;
+                }
+                .about-img-two{
+                    max-width: 225px;
+                    bottom: 0;
+                }
+                .about-doctor-box{
+                    top: 15px;
+                    z-index: 1;
+                    min-width: 300px;
+                }
+            }
+        }
+        &.style2{
+            .about-img-wrap{
+                padding-bottom: 100px;
+                .about-img-one{
+                    max-width: 285px;
+                }
+                .about-img-two{
+                   max-width: 230px;
+                }
+                .about-promo-box {
+                    bottom: 0;
+                    right: 0;
+                }
+            }
+        }
+        &.style3{
+            .about-img-wrap{
+                padding-bottom: 80px;
+                .about-img-one{
+                    max-width: 280px;
+                }
+                .about-img-two{
+                   max-width: 200px;
+                }
+                .about-promo-box{
+                    bottom: 20px;
+                    right: 0;
+                    padding: 20px;
+                    .promo-icon{
+                        margin-right: 15px;
+                        i{
+                            font-size: 45px;
+                        }
+                    }
+                    h2{
+                        font-size: 30px;
+                        span{
+                            font-size: 14px;
+                        }
+                    }
+                }
+            } 
+        }
+    }
+    //Why Choose Us CSS
+    .wh-wrap{
+        &.style2{
+            .wh-img-wrap{
+                height: 520px;
+                width: calc(100% - 50px);
+                .appointment-form{
+                    width: 300px;
+                    top: 55px;
+                    left: -50px;
+                    h2{
+                        font-size:20px;
+                    }
+                }
+            }
+        }
+        &.style3{
+            .wh-img-wrap{
+                .about-doctor-box{
+                    min-width: 300px;
+                    padding: 20px;
+                }
+            }
+        }
+    }
+    //FAQ CSS
+    .faq-wrap {
+        .faq-img-wrap{
+            .faq-shape{
+                max-width: 220px;
+            }
+            .faq-img-one{
+                max-width: 260px;
+            }
+            .faq-img-two{
+                max-width: 220px;
+            }
+        }
+    }
+     //CTA CSS
+     .cta-wrap{
+        .cta-content{
+            text-align: center;
+            .cta-logo{
+                margin: 0 auto;
+                display: block;
+            }
+            .content-title{
+                width:100%;
+                margin: 20px 0 0;
+            }
+        }
+        .cta-btn{
+            margin-top: 25px;
+            text-align: center;
+        }
+    }
+     //Why Choose Us CSS
+     .wh-wrap{
+        &.style1{
+            .wh-img-wrap{
+                padding-bottom: 80px;
+                .wh-shape-one {
+                    width: 320px;
+                }
+                .wh-img-one{
+                    max-width: 260px;
+                }
+                .wh-img-two{
+                    max-width: 230px;
+                }
+            }
+        }
+    }
+    //Appointment CSS
+    .appointment-wrap{
+        &.style1{
+            .appointment-bg{
+                height: 480px;
+                bottom: 0;
+                margin-bottom: 70px;
+                margin-right: 60px;
+                .appointment-form{
+                    top: 50%;
+                    width: 280px;
+                    right: -60px;
+                    @include transform(translateY(-50%));
+                    h2{
+                        font-size:20px;
+                    }
+                }
+            }
+        }
+        &.style3{
+            .promo-bg{
+                height: 350px;
+            }
+        }
+        &.style1,
+        &.style2,
+        &.style3{
+            .appointment-content{
+                .content-feature-list{
+                    columns: 1;
+                    li{
+                        i{
+                            top: 17px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .appointment-form{
+        padding: 20px;
+        .form-group{
+            margin-bottom: 15px;
+            input,select{
+                height: 52px;
+                padding: 12px 15px;
+                font-size: 14px;
+            }
+        }
+    }
+    //Promo Card CSS
+    .promo-wrap{
+        &.style1 {
+            margin: -10px 0 0;
+        }
+    }
+    //Counter Section CSS
+    .counter-card-wrap{
+        &.style1{
+            margin:0 -6px;
+        }
+        .counter-card{
+            &.style1{
+                width: calc(50% - 12px);
+                margin: 0 6px 12px 6px;
+                text-align: center;
+                padding: 20px 5px;
+                border: 1px solid rgba(255,255,255,0.2);
+                .counter-icon{
+                    width: 50px;
+                    display: block;
+                    margin: 0 auto;
+                    &:after{
+                        width: 40px;
+                        height: 40px;
+                        bottom: 0;
+                    }
+                    i{
+                        font-size: 45px;
+                    }
+                }
+                .counter-text{
+                    width: 100%;
+                    margin: 15px 0 0;
+                    h2{
+                        font-size: 30px;
+                        .target{
+                            font-size: 30px;
+                            top: 0;
+                        }
+                    }
+                    p{
+                        font-size: 14px;
+                    }
+                }
+            }
+            &.style2{
+                width: calc(50% - 12px);
+                margin: 0 6px 12px 6px;
+                text-align: center;
+                padding: 20px 5px;
+                border: 1px solid rgba(255,255,255,0.2);
+                &:nth-child(3),
+                &:nth-child(4){
+                    margin-bottom: 0;
+                }
+                .counter-icon{
+                    margin: 0 auto;
+                    width: 62px;
+                    height: 62px;
+                    i{
+                        font-size: 30px;
+                    }
+                }
+                .counter-text{
+                    width: 100%;
+                    margin: 15px 0 0;
+                    h2{
+                        font-size: 30px;
+                        .target{
+                            font-size: 30px;
+                            top: 0;
+                        }
+                    }
+                    p{
+                        font-size: 14px;
+                    }
+                }
+            }
+        }
+    }
+}
+@media only screen and (min-width: 576px) and (max-width: 767px) {
+    .container-fluid{
+        max-width: 540px;
+        padding:0 15px;
+    }
+    //Hero CSS
+    .hero-wrap{
+        &.style2{
+            .hero-content{
+                .counter-card-wrap{
+                    .counter-card{
+                        &:after{
+                            right: 10px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+    //About CSS
+    .about-wrap{
+        &.style1{
+            .about-img-wrap{
+                .about-img-one{
+                    max-width: 340px;
+                }
+                .about-img-two{
+                    max-width: 300px;
+                }
+            }
+        }
+        &.style2{
+            .about-img-wrap{
+                padding-bottom: 80px;
+                .about-img-one{
+                    max-width: 325px;
+                }
+                .about-img-two{
+                   max-width: 270px;
+                }
+                .about-promo-box {
+                    bottom: 40px;
+                    right: 70px;
+                }
+            }
+        }
+        &.style3{
+            .about-img-wrap{
+                .about-img-one{
+                    max-width: 325px;
+                }
+                .about-img-two{
+                   max-width: 250px;
+                }
+                .about-promo-box{
+                    bottom: 60px;
+                    right: 30px;
+                }
+            } 
+        }
+    }
+    //Appointment CSS
+    .appointment-wrap{
+        &.style1{
+            .appointment-bg{
+                height: 550px;
+                bottom: 0;
+                margin-bottom: 70px;
+                .appointment-form{
+                    top: 45px;
+                    width: 360px;
+                }
+            }
+        }
+    }
+    //Promo Card CSS
+    .promo-wrap{
+        &.style1 {
+            margin: -20px 0 0;
+        }
+    }
+    //Counter Section CSS
+    .counter-card-wrap{
+        .counter-card{
+            width: 50%;
+            .counter-text{
+                h2{
+                    font-size: 30px;
+                    .target{
+                        font-size: 30px;
+                        top: 0;
+                    }
+                }
+                p{
+                    font-size: 15px;
+                }
+            }
+        }
+    }
+    //FAQ CSS
+    .faq-wrap {
+        .faq-img-wrap{
+            .faq-shape{
+                max-width: 350px;
+            }
+            .faq-img-one{
+                max-width: 320px;
+            }
+            .faq-img-two{
+                max-width: 280px;
+            }
+        }
+    }
+}
+
+@media only screen and (max-width: 767px) {
+    p,input,textarea {
+        font-size: 14px;
+    }
+    .btn{
+        font-size: 14px;
+    }
+    .sm-none {
+        display: none !important;
+    }
+    .sm-center {
+        text-align: center !important;
+    }
+
+    .mb-50 {
+        margin-bottom: 30px !important;
+    }
+
+    .pt-100 {
+        padding-top: 50px
+    }
+    .pb-50 {
+        padding-bottom: 0px
+    }
+
+    .pb-60 {
+        padding-bottom: 15px;
+    }
+
+    .pb-100 {
+        padding-bottom: 50px;
+    }
+
+    .mt-100 {
+        margin-top: 50px!important;
+    }
+    
+    .mb-100 {
+        margin-bottom: 50px!important;
+    }
+    .mtb-100 {
+        margin-top: 50px !important;
+        margin-bottom: 50px !important;
+    }
+    .ptb-100 {
+        padding-top: 50px;
+        padding-bottom: 50px;
+    }
+
+    .pt-70 {
+        padding-top: 20px;
+    }
+
+    .pb-70 {
+        padding-bottom: 20px;
+    }
+
+    .pb-75 {
+        padding-bottom: 25px;
+    }
+
+    .pb-50 {
+        padding-bottom: 0px
+    }
+
+    .pt-75 {
+        padding-top: 25px
+    }
+
+    .mb-40 {
+        margin-bottom: 25px !important;
+    }
+    .section-title.mb-50,
+    .content-title.mb-50{
+        margin-bottom: 30px!important;
+    }
+    .section-title.mb-40{
+        margin-bottom: 20px!important;
+    }
+    .link,.btn{
+        font-size: 14px;
+    }
+    .btn{
+        padding:12px 20px 12px;
+    }
+    .content-wrapper{
+        margin-top: 245px;
+    }
+    .back-to-top {
+        font-size: 20px;
+        width: 35px;
+        height: 35px;
+        line-height: 32px;
+        right: 10px;
+
+        i {
+            font-size: 18px;
+        }
+    }
+    .section-title,
+    .content-title{
+        &.style2,
+        &.style3{
+            span {
+                font-size: 12px;
+            }
+        }
+        &.style1{
+            span {
+                font-size: 14px;
+            }
+        }
+        h2{
+            font-size: 24px;
+            line-height: 1.3;
+        }
+    }
+    .breadcrumb-wrap {
+        padding: 60px 0 65px;
+    }
+    .breadcrumb-title {
+        h2{
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        .breadcrumb-menu {
+            li {
+                font-size: 14px;
+                &:after{
+                    font-size: 15px;
+                    top: 0;
+                }
+                a{
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+    .owl-carousel {
+        .owl-nav {
+            button{
+                &.owl-prev,
+                &.owl-next{
+                    width: 40px;
+                    height: 40px;
+                    i{
+                        font-size: 20px;
+                    }
+                }
+            }
+        }
+    }
+    .content-feature-list{
+        li{
+            font-size: 14px;
+            i{
+                font-size: 18px;
+                top: 3px;
+            }
+        }
+    }
+    //Card Title CSS
+    .team-card .team-info h3,
+    .contact-item .contact-info h3,
+    .testimonial-card .client-info-area .client-info-wrap .client-info h3,
+    .portfolio-card.style1 .portfolio-info h3,
+    .portfolio-card.style2 .portfolio-info h3,
+    .feature-item-wrap .feature-item .feature-text h3,
+    .service-card .service-info h3,
+    .promo-card .promo-info h3,
+    .blog-card .blog-info h3{
+        font-size:20px;
+    }
+    .feature-item-wrap{
+        .feature-item{
+            margin-bottom: 20px;
+            .feature-icon{
+                width: 55px;
+                height: 55px;
+                i{
+                    font-size: 26px;
+                }
+            }
+            .feature-text{
+                width: calc(100% - 70px);
+                margin-left: 15px;
+            }
+        }
+    }
+    //Slider btn CSS
+    .testimonial-wrap.style1::before {
+        height: 35%;
+    }
+    .testimonial-slider-one,
+    .blog-slider-one{
+        &.owl-carousel{
+            .owl-nav{
+                position: relative;
+                top: auto;
+                right: auto;
+                justify-content: center;
+                margin: 10px 0 10px
+            }
+        }
+    }
+    //Hero CSS
+    .hero-wrap{
+        margin-top: 246px;
+        .hero-content{
+            margin-bottom: 30px;
+            span{
+                margin-bottom: 8px;
+            }
+            h1{
+                margin-bottom: 15px;
+                font-weight: 700;
+            }
+            p{
+                margin-bottom: 25px;
+            }
+        }
+        &.style1{
+            .hero-slide-item {
+                padding: 50px 0 100px;
+                .hero-content{
+                    h1{
+                        font-size: 32px;
+                    }
+                }
+                .hero-img-wrap {
+                    .hero-img {
+                       display: none;
+                    }
+                    .promo-box-wrap {
+                        position: relative;
+                        right: 0;
+                        bottom: 0;
+                        .promo-box{
+                            margin-top: 55px;
+                        }
+                    }
+                }
+            }
+        }
+        &.style2{
+            padding: 40px 0 140px;
+            .hero-content{
+                margin-bottom: 30px;
+                h1{
+                    font-size: 30px;
+                }
+                .counter-card-wrap{
+                    margin-top: 30px;
+                }
+            }
+            .hero-appointment{
+                .hero-appointment-img {
+                    height: 250px;
+                    width: 350px;
+                }
+                .hero-appointment-form{
+                    right: 0;
+                }
+            }
+            .hero-doctor {
+                .hero-doctor-bg {
+                    height: 230px;
+                    width: 330px;
+                }
+            }
+        }
+        &.style3{
+            .hero-slide-item{
+                padding: 180px 0 70px;
+                .hero-content{
+                    margin-bottom: 35px;
+                    h1{
+                        font-size: 32px;
+                    }
+                }
+                .hero-img-wrap{
+                    height: 400px;
+                    width: calc(100% - 60px);
+                    .hero-promo-box{
+                        right: -60px;
+                        padding: 25px 25px;
+                        min-width: 180px;
+                        .promo-icon{
+                            i{
+                                font-size: 45px;
+                            }
+                        }
+                        h2{
+                            font-size: 34px;
+                            span{
+                                font-size: 14px;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .hero-slider-one,
+    .hero-slider-two{
+        &.owl-carousel{
+            .owl-nav{
+                bottom: 35px;
+                position: relative;
+            }
+        }
+    }
+    //About CSS
+    .about-wrap{
+        &.style1,
+        &.style2,
+        &.style3{
+            .about-content{
+                .content-title{
+                    margin-bottom: 20px;
+                }
+            }
+        }
+        &.style1{
+            .about-img-wrap{
+                .about-doctor-box{
+                    padding: 20px;
+                    .doctor-info{
+                        h5 {
+                            font-size: 15px;
+                        }
+                    }
+                    .btn {
+                        padding: 5px 10px;
+                        font-size: 14px;
+                    }
+                }
+            }
+            .about-content{
+                .content-feature-list{
+                    margin-bottom: 25px;
+                    li{
+                        padding-left: 28px;
+                        i{
+                            font-size: 22px;
+                            top: 1px;
+                        }
+                    }
+                }
+                .about-promo-video {
+                    height: 165px;
+                }
+            }
+        }
+        &.style2{
+            .about-img-wrap{
+                .about-promo-box{
+                    padding: 20px 30px;
+                    .promo-icon{
+                        &:after{
+                            width: 45px;
+                            height: 45px;
+                        }
+                        i{
+                            font-size: 55px;
+                        }
+                    }
+                    h2{
+                        font-size: 34px;
+                        span{
+                            font-size: 14px;
+                        }
+                    }
+                }
+            }
+            
+        }
+    }
+    //Promo CSS
+    .promo-card{
+        padding: 20px;
+        .promo-icon{
+            width: 50px;
+            i{
+                font-size: 50px;
+            }
+        }
+        .promo-info{
+            width: calc(100% - 65px);
+            margin-left: 15px;
+        }
+        &.style2{
+            border-radius: 0;
+            .promo-info{
+                p{
+                    margin: 0 0 12px;
+                }
+            }
+        }
+        &.style3{
+            border-radius: 10px;
+            .promo-info{
+                p{
+                    margin: 0 0 15px;
+                }
+            }
+        }
+    }
+    //Service Card CSS
+    .service-card{
+        .service-img{
+            .service-icon{
+                width: 55px;
+                height: 55px;
+                i{
+                    font-size: 28px;
+                }
+            }
+        }
+        .service-info{
+            padding: 25px 20px 15px;
+            h3{
+                margin: 0 0 10px;
+            }
+            p{
+                margin: 0  0 10px;
+            }
+        }
+        &.style3{
+            .service-info{
+                padding: 45px 20px 20px;
+            }
+        }
+        &.style4{
+            padding: 20px;
+            .service-icon{
+                margin-bottom: 15px;
+            }
+        }
+    }
+    .service-desc .single-service-img {
+        margin: 10px 0 20px;
+    }
+    //Portfolio CSS
+    .portfolio-card{
+        &.style1,
+        &.style2{
+            .portfolio-info{
+                width: calc(100% - 40px);
+                padding: 20px;
+                .portfolio-cat{
+                    font-size: 14px;
+                }
+            }
+            &:hover{
+                .portfolio-info{
+                    bottom: 20px;
+                }
+            }
+        }
+    }
+    //Testimonial CSS
+    .testimonial-card{
+        padding:20px 20px 18px;
+        .client-quote{
+            margin-bottom: 18px;
+            @include transition(0.4s);
+        }
+        .client-info-area{
+            .client-info-wrap{
+                width: calc(100% - 30px);
+                .client-img{
+                    width: 50px;
+                    height: 50px;
+                }
+                .client-info{
+                    width: calc(100% - 65px);
+                    margin-left: 15px;
+                    h3{
+                        margin-bottom: 5px;
+                    }
+                }
+            }
+            .quote-icon{
+                i{
+                    font-size: 30px;
+                }
+            }
+        }
+        &.style1,
+        &.style3{
+            .ratings{
+                margin-bottom: 10px;
+            }
+        }
+        &.style2{
+            .ratings{
+                margin: 15px 0 10px;
+            }
+        }
+    }
+    //Team CSS
+    .team-card {
+        .team-info {
+            padding: 18px 20px 20px;
+            span{
+                font-size: 14px;
+            }
+        }
+    }
+    //Appointment Section CSS
+    .appointment-wrap{
+        &.style1,
+        &.style3{
+            .appointment-content{
+                .content-title{
+                    margin-bottom: 20px;
+                }
+            }
+        }
+        &.style1{
+            .appointment-bg{
+                bottom: 0;
+                margin-bottom: 50px;
+            }
+            .appointment-content{
+                .content-feature-list{
+                    margin-bottom: 25px;
+                    li{
+                        i{
+                            top: 17px;
+                        }
+                    }
+                }
+            }
+        }
+        &.style2{
+            .promo-bg{
+                height: 350px;
+            }
+        }
+    }
+    //Partner CSS
+    .partner-item{
+        padding: 0 10px;
+    }
+    //Why Choose CSS
+    .wh-wrap{
+        &.style3{
+            .wh-img-wrap{
+                margin-left: 60px;
+                .wh-bg-3{
+                    height: 400px;
+                }
+                .about-doctor-box{
+                    left: -60px;
+                    .btn{
+                        font-size: 14px;
+                        padding: 6px 10px;
+                    }
+                }
+            }
+        }
+    }
+    //Pricing Card CSS
+    .pricing-card{
+        padding: 20px;
+        .pricing-header{
+            .pricing-header-left{
+                h5{
+                    font-size: 20px;
+                    margin: 0 0 8px;
+                }
+                h2{
+                    font-size: 30px;
+                    span{
+                        font-size: 14px;
+                    }
+                }
+            }
+            .pricing-header-right{
+                i{
+                    font-size: 50px;
+                }
+            }
+        }
+        .pricing-features{
+            margin: 20px 0 25px;
+            li{
+                margin-bottom: 15px;
+                font-size: 14px;
+                i{
+                    font-size: 18px;
+                }
+            }
+        }
+    }
+    .blog-card{
+        .blog-info{
+            h3{
+                margin-bottom: 12px;
+            }
+            .blog-metainfo{
+                li{
+                    &:after{
+                        top: 1px;
+                        right: -15px;
+                        font-size: 15px;
+                    }
+                }
+            }
+        }
+        &.style1{
+            .blog-info{
+                padding: 30px 20px 18px;
+                .blog-date{
+                    top: -22px;
+                    right: 20px;
+                    font-size: 14px;
+                }
+                h3{
+                    margin-bottom: 12px;
+                }
+            }
+        }
+        &.style2{
+            .blog-img{
+                .blog-date{
+                    top: 20px;
+                    left: 20px;
+                    font-size: 14px;
+                }
+            }
+            .blog-info{
+                padding: 18px 20px 18px;
+                h3{
+                    margin-bottom: 12px;
+                }
+                p{
+                    margin: 0 0 12px;
+                }
+            }
+        }
+        &.style3{
+            .blog-info{
+                padding: 20px 20px 18px;
+                .blog-date{
+                    position: absolute;
+                    top: -25px;
+                    right: 20px;
+                    font-size: 14px;
+                }
+                .blog-metainfo{
+                    margin: 0 0 12px;
+                }
+                h3{
+                    margin-bottom: 12px;
+                }
+            }
+        }
+        &:hover{
+            .blog-img{
+                img{
+                    @include transform(scale(1.05));
+                }
+            }
+            .blog-info{
+                .blog-date{
+                    background-color: $clr_blue;
+                }
+            }
+        }
+    }
+    //Contact CSS
+    .contact-item {
+        padding: 20px;
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            i {
+                font-size: 28px;
+            }
+        }
+        .contact-info {
+            width: calc(100% - 80px);
+        }
+    }
+    .contact-form {
+        padding: 20px;
+        h3 {
+            font-size: 20px;
+            margin: 0 0 20px;
+        }
+    }
+    #contactForm .form-group input {
+        height: 54px;
+    }
+    //Book Appointment CSS
+    .book-appointment-form{
+        padding: 20px;
+        .content-title{
+            margin-bottom: 20px;
+        }
+        .radio-btn{
+            margin-top: 15px;
+            .form-group{
+                margin-right: 10px;
+                margin-bottom: 0;
+                font-size: 14px;
+                label{
+                    color: $clr_emperor;
+                    margin: 0;
+                    font-weight: 400;
+                }
+            }
+        }
+        .form-group{
+            margin-bottom: 25px;
+            p{
+                color: $clr_black;
+                font-weight: 500;
+            }
+            input,textarea,select{
+                padding: 10px 18px;
+            }
+            input,select{
+                height: 52px;
+            }
+            textarea{
+                height: 90px;
+            }
+            select{
+                padding: 10px 15px;
+                font-size: 14px;
+            }
+        }
+    }
+    //FAQ CSS
+    .accordion-item .accordion-header .accordion-button span {
+        min-width: 45px;
+        min-height: 45px;
+    }
+    .accordion-item .accordion-header .accordion-button span i {
+        font-size: 18px;
+    }
+    .accordion-item .accordion-header .accordion-button {
+        font-size: 16px;
+    }
+    //Blog Details CSS
+    article h2, .service-desc h2, .terms-wrap h2, .project-desc h2,
+    article h3, .service-desc h3, .terms-wrap h3, .project-desc h3 {
+        margin-bottom: 15px;
+    }
+    article p, .service-desc p, .terms-wrap p, .project-desc p {
+        margin-bottom: 15px;
+    }
+    article .content-feature-list, .service-desc .content-feature-list, .terms-wrap .content-feature-list, .project-desc .content-feature-list {
+        margin: 15px 0 15px;
+    }
+    article ol, .service-desc ol, .terms-wrap ol, .project-desc ol {
+        margin-top: 15px;
+        margin-bottom: 25px;
+    }
+    article,
+    .service-desc,
+    .terms-wrap {
+        h1{
+             font-size: 24px;
+        }
+        h2{
+             font-size: 22px;
+        }
+        h3{
+             font-size: 20px;
+        }
+        h4{
+             font-size: 18px;
+        }
+        h5{
+             font-size: 17px;
+        }
+        h6{
+             font-size: 16px;
+        }
+        ol{
+             li{
+                 font-size: 14px;
+                 margin-bottom: 10px;
+                &:last-child{
+                    margin-bottom: 0;
+                }
+            }    
+        }
+        ul{
+            li{
+                font-size: 14px;
+                margin-bottom: 10px;
+                &:last-child{
+                    margin-bottom: 0;
+                }
+             }    
+         }
+    }
+    .post-author .post-author-info h4 {
+        font-size: 20px;
+    }
+    .wp-block-quote {
+        padding: 20px;
+        margin: 20px 0 20px;
+        p {
+            width: calc(100% - 45px);
+            font-size: 14px;
+            margin: 0 0 0 15px;
+        }
+        .wp-quote-icon{
+           width: 30px;
+            i {
+                font-size: 29px;
+            }
+        }
+    }
+    .post-metainfo {
+        margin-bottom: 15px;
+        li {
+            margin-bottom: 0;
+        }
+    }
+    .post-img {
+        margin: 0 0 25px;
+    }
+    .post-share {
+        .social-profile {
+            li{
+                a{
+                   width: 30px;
+                   height: 30px;
+                   i{
+                    font-size: 15px;
+                   }
+                }
+            }
+        }
+    }
+    .author-info-wrap {
+        .author-info {
+            h6 {
+                font-size: 15px;
+            }    
+        }
+     }
+     .reply-btn {
+         font-size: 14px;
+     }
+     .post-tag {
+         margin-bottom: 15px;
+        
+         ul {
+            li{
+                a {
+                    font-size: 13px;
+                }
+            }
+         }
+     }
+     .post-author {
+        padding: 20px;
+        .post-author-img {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+        }
+        .post-author-info {
+            width: 100%;
+            margin-left: 0;
+            margin-top: 20px;
+        }
+    }
+    #cmt-form {
+        padding: 20px;
+    }
+    .comment-item-wrap {
+        .comment-item {
+            padding-bottom: 15px;
+            margin-bottom: 15px;
+            &.reply{
+                margin-left: 25px;
+            }
+            .comment-author-img {
+                width: 55px;
+                height: 55px;
+            }
+            .comment-author-wrap {
+                width: 100%;
+                margin-left: 0;
+                margin-top: 20px;
+                .comment-author-name{
+                    h5{
+                        font-size: 18px;
+                        display: block;
+                    }
+                    .comment-date{
+                        display: block;
+                        margin-left: 0;
+                        margin-top: 12px;
+                        margin-bottom: 13px;
+                        font-size: 14px;
+                    }
+                }
+                .comment-text{
+                    margin-bottom: 8px;
+                }
+            }
+        }
+    }
+    #cmt-form {
+         .comment-form{
+             .form-group{
+                 margin-bottom: 15px;
+                 label{
+                     font-size: 14px;
+                 }
+                 input{
+                     height: 54px;
+                 }
+             }
+             .btn{
+                 &.style1{
+                     margin-top: 20px;
+                 }
+             }
+         }
+     }
+    .sidebar {
+        .sidebar-widget {
+            padding:20px;
+            h4 {
+                font-size: 18px;
+                margin: 0 0 20px;
+                padding-bottom: 15px;
+            }
+        }
+     }
+    .category-box{
+         ul{
+             li{
+                 a{
+                     font-size: 14px;
+                     padding:8px 10px 8px 15px;
+                     &:before{
+                        top: 14px;
+                    }
+                 }
+             }
+         }
+    }
+    .tag-list {
+        ul {
+            li {
+                margin: 9px 6px 0px 0px;
+            }    
+        }
+    }
+    .portfolio-info-widget {
+        .portfolio-info-item-wrap {
+            .portfolio-info-item {
+                margin-bottom: 15px;
+                font-size: 14px;
+                padding-bottom: 15px;
+                span {
+                    font-size: 14px;
+                }
+                p{
+                    font-size: 14px;
+                    i{
+                        font-size: 15px;
+                    }
+                }
+            }
+        }
+    }
+    //Account Section CSS
+    .login-form-wrap {
+        padding: 30px 20px 20px;
+       .login-header {
+           h3 {
+               font-size: 20px;
+           }
+       }
+       .login-form{
+           .form-group{
+               margin-bottom: 15px;
+               label{
+                   font-size: 14px;
+                   margin-bottom: 5px;
+               }
+                input {
+                height: 50px;
+                }
+           }
+           .checkbox{
+               label{
+                   font-size: 13px;
+               }
+           }
+           .btn{
+               padding: 11px 12px 10px;
+           }
+           .link{
+               font-size: 14px;
+           }
+       }
+    }
+    //Error Page
+    .error-content {
+        img{
+            max-width:280px;
+        }
+        p {
+            margin: 0 auto 20px;
+            max-width: 300px;
+        }
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .container-fluid{
+        max-width: 720px;
+        padding-left:15px;
+        padding-right:15px;
+    }
+    .pt-100 {
+        padding-top: 70px
+    }
+   
+    .pb-100 {
+        padding-bottom: 70px;
+    }
+
+    .mt-100 {
+        margin-top: 70px!important;
+    }
+
+    .mb-100 {
+        margin-bottom: 70px!important;
+    }
+    .mtb-100 {
+        margin-top: 70px !important;
+        margin-bottom: 70px !important;
+    }
+    .pb-50 {
+        padding-bottom: 20px
+    }
+
+    .pb-60 {
+        padding-bottom: 35px;
+    }
+
+    .mt-100 {
+        margin-top: 70px !important;
+    }
+
+    .smb-25 {
+        margin-bottom: 25px;
+    }
+
+    .smb-70 {
+        margin-bottom: 70px !important;
+    }
+
+    .ptb-100 {
+        padding-top: 70px;
+        padding-bottom: 70px;
+    }
+
+    .pt-70 {
+        padding-top: 40px
+    }
+
+    .pb-70 {
+        padding-bottom: 40px
+    }
+
+    .pb-75 {
+        padding-bottom: 45px
+    }
+
+    .pb-50 {
+        padding-bottom: 20px
+    }
+
+    .pt-75 {
+        padding-top: 45px
+    }
+    .breadcrumb-wrap{
+        padding: 70px 0;
+    }
+    .breadcrumb-title,
+    .section-title,
+    .content-title{
+        h2{
+            font-size: 35px;
+        }
+    }
+    .content-wrapper{
+        margin-top:165px;
+    }
+    //Card Title CSS
+    .team-card .team-info h3,
+    .contact-item .contact-info h3,
+    .testimonial-card .client-info-area .client-info-wrap .client-info h3,
+    .portfolio-card.style1 .portfolio-info h3,
+    .portfolio-card.style2 .portfolio-info h3,
+    .feature-item-wrap .feature-item .feature-text h3,
+    .service-card .service-info h3,
+    .promo-card .promo-info h3,
+    .blog-card .blog-info h3{
+        font-size:20px;
+    }
+    //Hero CSS
+    .hero-wrap{
+        margin-top: 165px;
+        &.style1{
+            .hero-slide-item {
+                padding: 50px 0 90px;
+                .hero-content{
+                    h1{
+                        font-size: 44px;
+                    }
+                }
+                .hero-img-wrap {
+                    .hero-img {
+                        width: calc(100% - 120px);
+                        margin-left: 120px;
+                    }
+                    .promo-box-wrap {
+                        right: 0;
+                        bottom: 50px;
+                    }
+                }
+            }
+        }
+        &.style2{
+            padding: 50px 0 140px;
+            .hero-content{
+                margin-bottom: 30px;
+                h1{
+                    font-size: 38px;
+                }
+                .counter-card-wrap{
+                    margin-top: 60px;
+                    .counter-card{
+                        &:after{
+                            right: 45px;
+                        }
+                    }
+                }
+            }
+            .hero-appointment{
+                .hero-appointment-img {
+                    height: 250px;
+                    width: 350px;
+                }
+                .hero-appointment-form{
+                    right: 0;
+                }
+            }
+            .hero-doctor {
+                .hero-doctor-bg {
+                    height: 230px;
+                    width: 330px;
+                }
+            }
+        }
+        &.style3{
+            .hero-slide-item{
+                padding: 100px 0 100px;
+                .hero-content{
+                    margin-bottom: 35px;
+                    h1{
+                        font-size: 54px;
+                    }
+                }
+                .hero-img-wrap{
+                    height: 400px;
+                    width: calc(100% - 120px);
+                    .hero-promo-box {
+                        right: -120px;
+                    }
+                }
+            }
+        }
+    }
+    .hero-slider-one,
+    .hero-slider-two{
+        &.owl-carousel{
+            .owl-nav{
+                position: relative;
+                bottom: 30px;
+            }
+        }
+    }
+    //Appointment CSS
+    .appointment-wrap{
+        &.style2{
+            .promo-bg{
+                height: 470px;
+            }
+        }
+        &.style3{
+            .promo-bg{
+                height: 530px;
+            }
+        }
+    }
+    //Why Choose Us CSS
+    .wh-wrap{
+        &.style2{
+            .wh-img-wrap{
+                height: 580px;
+            }
+        }
+        &.style3{
+            .wh-img-wrap{
+                .wh-bg-3{
+                    height: 500px;
+                }
+            }
+        }
+    }
+    //Promo CSS
+    .promo-wrap{
+        &.style1{
+            margin: -40px 0 0;
+        }
+    }
+    .promo-card{
+        .promo-icon{
+            width: 55px;
+            i{
+                font-size: 55px;
+            }
+        }
+        .promo-info{
+            width: calc(100% - 75px);
+        }
+    }
+    //Appointment CSS
+    .appointment-wrap{
+        &.style1{
+            .appointment-bg{
+                height: 550px;
+                bottom: 0;
+                margin-bottom: 70px;
+                .appointment-form{
+                    top: 40px;
+                    width: 400px;
+                }
+            }
+        }
+    }
+    //Partner CSS
+    .partner-item{
+        padding: 0 25px;
+    }
+    //Counter Section CSS
+    .counter-card-wrap{
+        .counter-card{
+            width: 50%;
+        }
+    }
+    //Contact CSS
+    .contact-item {
+        .contact-icon {
+            width: 60px;
+            height: 60px;
+            i {
+                font-size: 28px;
+            }
+        }
+        .contact-info {
+            width: calc(100% - 80px);
+        }
+    }
+}
+@media only screen and (max-width: 991px) {
+    .page-wrapper{
+        overflow-x: hidden!important;
+    }
+    .md-none {
+        display: none !important;
+    }
+    .mt-60 {
+        margin-top: 30px !important;
+    }
+    .md-center {
+        text-align: center !important;
+    }
+    .section-para{
+        margin-top: 15px;
+    }
+    //Hero CSS
+    .hero-wrap{
+        &.style1{
+            .hero-slide-item {
+                .hero-content{
+                    margin-bottom: 35px;
+                    
+                }
+            }
+        }
+    }
+    //About CSS
+    .about-wrap{
+        .about-img-wrap{
+            margin-bottom: 25px;
+        }
+    }
+    //Why Choose Us CSS
+    .wh-wrap{
+        .wh-img-wrap{
+            margin-bottom: 30px;
+        }
+    }
+    //Appointment CSS
+    .appointment-wrap{
+        &.style2{
+            .appointment-content{
+              margin-bottom: 25px;
+            }
+            .promo-bg{
+                top: 0;
+            }
+        }
+        &.style3{
+            .promo-bg{
+                margin-bottom: 30px;
+            }
+        }
+    }
+    //CTA CSS
+    .cta-wrap{
+        .cta-btn{
+            margin-top: 25px;
+        }
+    }
+    //Appointment CSS
+    .appointment-wrap{
+        &.style1{
+            .appointment-content{
+                padding-bottom:30px;
+            }
+        }
+    }
+    //FAQ CSS
+    .faq-wrap {
+        .faq-img-wrap{
+            margin-bottom: 30px;
+        }
+    }
+    //Contact CSS
+    .contact-form{
+        margin-bottom: 25px;
+    }
+    .comp-map{
+        height: 400px;
+    }
+     //Slider btn css
+    .portfolio-slider-one,
+    .service-slider-one{
+        &.owl-carousel{
+            .owl-nav{
+                justify-content: center;
+                margin: 15px 0 20px;
+                button{
+                    &.owl-prev,
+                    &.owl-next{
+                        position: relative;
+                        left: auto;
+                        right: auto;
+                        top: auto;
+                        width: 40px;
+                        height: 40px;
+                        @include transform(translateY(0));
+                        i{
+                            font-size: 22px;
+                        }
+                    }
+                    &.owl-prev{
+                        margin-right: 15px;
+                    }
+                }
+            }
+        }
+    }
+    .portfolio-slider-one{
+        &.owl-carousel{
+            .owl-nav{
+                margin: 30px 0 0;
+            }
+        }
+    }
+    .testimonial-slider-two{
+        &.owl-carousel{
+            .owl-dots{
+                justify-content:center;
+                bottom:auto;
+                max-width: 100%;
+                margin: 0 0 20px 0;
+                .owl-dot{
+                    span{
+                        width: 15px;
+                    }
+                    &.active{
+                        span{
+                            width: 30px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (min-width:992px) and (max-width:1199px) {
+    .breadcrumb-title,
+    .section-title,
+    .content-title{
+        h2{
+            font-size: 35px;
+        }
+    }
+    .breadcrumb-wrap {
+        padding: 80px 0;
+    }
+    .content-wrapper{
+        margin-top: 131px;
+    }
+    //Slider btn css
+    .portfolio-slider-one,
+    .service-slider-one{
+        &.owl-carousel{
+            .owl-nav{
+                button{
+                    &.owl-prev{
+                        left: -25px!important;
+                    }
+                    &.owl-next{
+                        right: -25px!important;
+                    }
+                }
+            }
+        }
+    }
+    //Hero CSS
+    .hero-wrap{
+        margin-top: 131px;
+        &.style1{
+            .hero-slide-item {
+                .hero-content{
+                    h1{
+                        font-size: 44px;
+                    }
+                }
+                .hero-img-wrap {
+                    .hero-img {
+                        width: calc(100% - 50px);
+                        margin-left: 50px;
+                    }
+                    .promo-box-wrap {
+                        right: 0;
+                        bottom: -80px;
+                        .promo-box{
+                            margin-bottom: 50px;
+                        }
+                    }
+                }
+            }
+        }
+        &.style2{
+            .hero-content{
+                h1{
+                    font-size: 38px;
+                }
+                .counter-card-wrap{
+                    margin-top: 60px;
+                    .counter-card{
+                        &:after{
+                            right: 7px;
+                        }
+                        .counter-icon{
+                            width: 50px;
+                            i{
+                                font-size: 50px;
+                            }
+                        }
+                        .counter-text{
+                            width: calc(100% - 70px);
+                            p{
+                                font-size: 15px;
+                            }
+                        }
+                    }
+                }
+            }
+            .hero-appointment{
+                .hero-appointment-img {
+                    height: 250px;
+                    width: 350px;
+                }
+                .hero-appointment-form{
+                    right: 0;
+                }
+            }
+            .hero-doctor {
+                .hero-doctor-bg {
+                    height: 230px;
+                    width: 330px;
+                }
+            }
+        }
+        &.style3{
+            .hero-slide-item{
+                padding: 90px 0 100px;
+                .hero-content{
+                    h1{
+                        font-size: 44px;
+                    }
+                    p{
+                        padding-right: 30px;
+                    }
+                }
+                .hero-img-wrap{
+                    height: 500px;
+                    width: calc(100% - 120px);
+                    .hero-promo-box {
+                        right: -120px;
+                    }
+                }
+            }
+        }
+    }
+    .hero-slider-one,
+    .hero-slider-two{
+        &.owl-carousel{
+            .owl-nav{
+                position: relative;
+                bottom: 30px;
+            }
+        }
+    }
+    //Appointment CSS
+    .appointment-wrap{
+        &.style1{
+            .appointment-bg{
+                margin-right: 60px;
+                .appointment-form{
+                    width: 300px;
+                    right: -60px;
+                }
+            }
+            .appointment-content{
+                padding-bottom:100px;
+                .content-feature-list{
+                    margin-bottom: 35px;
+                }
+            }
+        }
+    }
+    //About CSS
+    .about-wrap{
+        &.style1{
+            .about-img-wrap{
+                .about-img-one{
+                    max-width: 340px;
+                }
+                .about-img-two{
+                    max-width: 300px;
+                }
+                .about-doctor-box{
+                    position: absolute;
+                    top: 70px;
+                    right: 0;
+                    border-radius: 10px;
+                    box-shadow: 0 0 15px rgba(0, 0, 0, 0.09);
+                }
+            }
+            .about-content{
+                .content-feature-list{
+                    li{
+                        padding-left: 32px;
+                        i{
+                            font-size: 25px;
+                            top: 2px;
+                        }
+                    }
+                }
+                .ceo-msg{
+                    margin: 25px 0 0;
+                    .ceo-img{
+                        width: 50px;
+                        height: 50px;
+                        border-radius: 50%;
+                        img{
+                            border-radius: 50%;
+                        }
+                    }
+                    p{
+                        margin: 0 0 0 15px;
+                    }
+                }
+            }
+        }
+        &.style2{
+            .about-img-wrap{
+                padding-bottom: 120px;
+                .about-img-one{
+                    max-width: 305px;
+                }
+                .about-img-two{
+                   max-width: 220px;
+                }
+            }
+        }
+        &.style3{
+            .about-img-wrap{
+                .about-img-one{
+                    max-width: 325px;
+                }
+                .about-img-two{
+                   max-width: 250px;
+                }
+                .about-promo-box{
+                    bottom: 60px;
+                    right: 30px;
+                }
+            } 
+        }
+    }
+    //Why Choose Us CSS
+    .wh-wrap{
+        &.style1{
+            .wh-img-wrap{
+                padding-bottom: 120px;
+                .wh-img-one{
+                    max-width: 320px;
+                }
+                .wh-img-two{
+                    max-width: 280px;
+                }
+            }
+        }
+    }
+    //Counter Section CSS
+    .counter-card-wrap{
+        .counter-card{
+            .counter-text{
+                h2{
+                    font-size: 30px;
+                    .target{
+                        font-size: 30px;
+                        top: 0;
+                    }
+                }
+                p{
+                    font-size: 15px;
+                }
+            }
+            // &.style1{
+            //    .counter-icon{
+            //        width: 55px;
+            //        &:after{
+            //            width:40px;
+            //            height: 40px;
+            //        }
+            //        i{
+            //            font-size:50px;
+            //        }
+            //    }
+            // }
+            // &.style2{
+            //     .counter-icon{
+            //         width: 75px;
+            //         height: 75px;
+            //         border-radius: 50%;
+            //         background-color: $clr_white;
+            //         i{
+            //             color: $clr_blue;
+            //             font-size: 40px;
+            //         }
+            //     }
+            // }
+        }
+    }
+    //FAQ CSS
+    .faq-wrap {
+        .faq-img-wrap{
+            .faq-shape{
+                max-width: 350px;
+            }
+            .faq-img-one{
+                max-width: 320px;
+            }
+            .faq-img-two{
+                max-width: 280px;
+            }
+        }
+    }
+}
+@media only screen and (max-width: 1199px) {
+    .sidebar {
+        margin: 50px 0 0;
+    }
+    //Hero Slider Btn CSS
+    .hero-slider-one,
+    .hero-slider-two{
+        &.owl-carousel{
+            .owl-nav{
+                justify-content: center;
+                button{
+                    &.owl-prev,
+                    &.owl-next{
+                       position: relative;
+                       top: auto;
+                       left: auto;
+                       right: auto;
+                    }
+                    &.owl-prev{
+                       margin-right: 15px;
+                    }
+                }
+            }
+        }
+    }
+}
+@media only screen and (min-width:1200px) {
+    .xl-none {
+        display: none !important;
+    }
+    .content-title{
+        p{
+            padding-right: 25px;
+        }
+    }
+}
+@media only screen and (min-width: 1200px) and (max-width: 1280px) {
+    .section-img.style2 {
+        right: 10px;
+        max-width: 60px;
+    }
+    .breadcrumb-wrap{
+        .section-img {
+            max-width: 140px;
+        }
+    }
+    //Slider btn css
+    .hero-slider-one,
+    .hero-slider-two{
+        &.owl-carousel{
+            .owl-nav{
+                button{
+                    &.owl-prev,
+                    &.owl-next{
+                        width: 38px;
+                        height: 38px;
+                        i{
+                            font-size: 24px;
+                        }
+                    }
+                    &.owl-prev{
+                       left: 5px!important;
+                    }
+                    &.owl-next{
+                        right: 5px!important;
+                     }
+                }
+            }
+        }
+    }
+    .portfolio-slider-one,
+    .service-slider-one{
+        &.owl-carousel{
+            .owl-nav{
+                button{
+                    &.owl-prev{
+                        left: -30px!important;
+                    }
+                    &.owl-next{
+                        right: -30px!important;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 1400px) and (max-width: 1599px) {
+    //Hero CSS
+    .hero-wrap{
+        &.style1{
+            .hero-slide-item {
+                .hero-content{
+                    h1{
+                        font-size: 58px;
+                    }
+                }
+                .hero-img-wrap {
+                    .promo-box-wrap {
+                        max-width: 735px;
+                        right: 35px;
+                    }
+                }
+            }
+        }
+        &.style3{
+            .hero-slide-item{
+                padding: 120px 0 80px;
+                .hero-content{
+                    h1{
+                        font-size: 60px;
+                    }
+                    p{
+                        padding-right: 30px;
+                    }
+                }
+                .hero-img-wrap{
+                    height: 500px;
+                }
+            }
+        }
+    }
+    .hero-slider-one,
+    .hero-slider-two{
+        &.owl-carousel{
+            .owl-nav{
+                button{
+                    &.owl-prev{
+                       left: 5px;
+                    }
+                    &.owl-next{
+                        right: 5px;
+                     }
+                }
+            }
+        }
+    }
+    //Slider btn CSS
+    
+    .portfolio-slider-one,
+    .service-slider-one{
+        &.owl-carousel{
+            .owl-nav{
+                button{
+                    &.owl-prev,
+                    &.owl-next{
+                        width: 42px;
+                        height: 42px;
+                    }
+                    &.owl-prev{
+                        left: -48px;
+                    }
+                    &.owl-next{
+                        right: -48px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 1200px) and (max-width: 1399px) {
+    .breadcrumb-title,
+    .section-title,
+    .content-title{
+        h2{
+            font-size: 40px;
+        }
+    }
+    //Hero CSS
+    .hero-wrap{
+        &.style1{
+            .hero-slide-item {
+                .hero-content{
+                    h1{
+                        font-size: 50px;
+                    }
+                }
+                .hero-img-wrap {
+                    .promo-box-wrap {
+                        right: -50px;
+                        bottom: 20px;
+                    }
+                }
+            }
+        }
+        &.style2{
+            .hero-content{
+                .counter-card-wrap {
+                    .counter-card{
+                        &:after {
+                            right: 7px;
+                        }
+                    }
+                }
+            }
+        }
+        &.style3{
+            .hero-slide-item{
+                padding: 120px 0 80px;
+                .hero-content{
+                    h1{
+                        font-size: 54px;
+                    }
+                    p{
+                        padding-right: 30px;
+                    }
+                }
+                .hero-img-wrap{
+                    height: 500px;
+                    width: calc(100% - 120px);
+                    .hero-promo-box {
+                        right: -120px;
+                    }
+                }
+            }
+        }
+    }
+    .hero-slider-one,
+    .hero-slider-two{
+        &.owl-carousel{
+            .owl-nav{
+                button{
+                    &.owl-prev{
+                       left: 25px;
+                    }
+                    &.owl-next{
+                        right: 25px;
+                     }
+                }
+            }
+        }
+    }
+    //About CSS
+    .about-wrap{
+        &.style2{
+            .about-img-wrap{
+                .about-img-one{
+                    max-width: 340px;
+                }
+                .about-img-two{
+                    max-width: 300px;
+                }
+                .about-promo-box{
+                    right: 100px;
+                }
+            }
+        }
+    }
+    //Slider btn css
+    .portfolio-slider-one,
+    .service-slider-one{
+        &.owl-carousel{
+            .owl-nav{
+                button{
+                    &.owl-prev,
+                    &.owl-next{
+                        width: 42px;
+                        height: 42px;
+                    }
+                    &.owl-prev{
+                        left: -48px;
+                    }
+                    &.owl-next{
+                        right: -48px;
+                    }
+                }
+            }
+        }
+    }
+    //FAQ CSS
+    .faq-wrap {
+        .faq-img-wrap{
+            .faq-img-one{
+                max-width: 400px;
+            }
+            .faq-img-two{
+                max-width: 340px;
+            }
+        }
+    }
+}
+@media only screen and (min-width: 1400px) {
+    //Card Title CSS
+    .team-card .team-info h3,
+    .contact-item .contact-info h3,
+    .testimonial-card .client-info-area .client-info-wrap .client-info h3,
+    .portfolio-card.style1 .portfolio-info h3,
+    .portfolio-card.style2 .portfolio-info h3,
+    .feature-item-wrap .feature-item .feature-text h3,
+    .service-card .service-info h3,
+    .promo-card .promo-info h3,
+    .blog-card .blog-info h3{
+        font-size:24px;
+    }
+}
+
+@media only screen and (min-width: 1600px) {
+    .breadcrumb-title,
+    .section-title,
+    .content-title{
+        h2{
+            font-size: 42px;
+        }
+    }
+    .breadcrumb-wrap{
+       .container{
+            max-width: 1520px;
+            margin: 0 auto;
+       }
+    }
+    //Hero CSS
+    .hero-wrap{
+        .container{
+            max-width: 1520px;
+        }
+        &.style1,
+        &.style2{
+            .hero-content{
+                h1{
+                    font-size: 68px;
+                    line-height: 1.2;
+                }
+            }
+        }
+        &.style1{
+            .hero-slide-item {
+                .hero-img-wrap {
+                    .promo-box-wrap {
+                        max-width: 735px;
+                        right: 35px;
+                    }
+                }
+            }
+        }
+        &.style3{
+            .hero-content{
+                h1{
+                    font-size: 68px;
+                }
+                p{
+                    padding-right: 35px;
+                }
+            }
+        }
+        .hero-img-wrap{
+            padding-left: 100px;
+        }
+    }
+    .hero-slider-one,
+    .hero-slider-two{
+        &.owl-carousel{
+            .owl-nav{
+                button{
+                    &.owl-prev{
+                       left: 0px;
+                    }
+                    &.owl-next{
+                        right: 0px;
+                     }
+                }
+            }
+        }
+    }
+}
+@media only screen and (min-width:1920px) {
+    .hero-slider-one,
+    .hero-slider-two{
+        &.owl-carousel{
+            .owl-nav{
+                button{
+                    &.owl-prev{
+                       left: 65px;
+                    }
+                    &.owl-next{
+                        right: 65px;
+                     }
+                }
+            }
+        }
+    }
+}
+@media only screen and (min-width:2000px) {
+}

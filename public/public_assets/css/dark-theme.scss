@@ -1,0 +1,361 @@
+/*-------------------------------
+    Dark Theme  CSS
+-------------------------------*/
+
+//Color Variable
+$clr_white: #fff;
+$clr_offwhite: rgba(255,255,255,0.85);
+$clr_black: #000;
+$clr_aztech: #091315;
+$clr_cod: #191919;
+$clr_grey: #ABA8B0;
+$clr_mine_shaft: #3B3B3B;
+$clr_mirage:#231F3E;
+$clr_chathamas:#14467B;
+$clr_blue:#2490EB;
+
+.switch-theme-mode{
+    position: fixed;
+    top: 200px;
+    right: 15px;
+    z-index: 99;
+}
+/* The switch - the box around the slider */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 35px;
+    height: 35px;
+    input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+}
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: 0.4s;
+    transition: 0.4s;
+    &.round {
+        border-radius: 50%;
+        &:before{
+            border-radius: 50%;
+        }
+    }
+    &:before {
+        position: absolute;
+        content: "";
+        height: 35px;
+        width: 35px;
+        left: 0px;
+        bottom: 4px;
+        top: 0;
+        bottom: 0;
+        margin: auto 0;
+        -webkit-transition: 0.4s;
+        transition: 0.4s;
+        box-shadow: 0 0px 15px #2020203d;
+        background: white url('../img/night.png');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-color: $clr_aztech;
+        background-size: 17px;
+    }
+}
+input:checked + .slider {
+  background-color: transparent;
+}
+input:focus + .slider {
+  box-shadow: 0 0 1px  transparent;
+}
+input:checked + .slider:before {
+  -webkit-transform: translateX(0);
+  -ms-transform: translateX(0);
+  transform: translateX(0);
+  background: white url('../img/sunny.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 18px;
+
+}
+/*---------------------------------
+    Color CSS For Elements 
+-----------------------------------*/
+.theme-light {
+    .navbar-brand{
+        .logo-dark{
+            display: none!important;
+        }
+        .logo-light{
+            display: block!important;
+        }
+    }
+}
+
+.theme-dark {
+    .dpt-100{
+        padding-top: 100px;
+    }
+    .navbar-brand{
+        .logo-light{
+            display: none!important;
+        }
+        .logo-dark{
+            display: block!important;
+        }
+    }
+    .td-cod,
+    .footer-wrap,
+    .hero-wrap.style1 .hero-slide-item .hero-img-wrap .promo-box,
+    .btn.style3,
+    .service-card.style1,
+    .service-card.style2,
+    .service-card.style3,
+    .service-card.style4,
+    .blog-card.style1,
+    .blog-card.style2,
+    .blog-card.style3,
+    .team-card .team-info,
+    .appointment-wrap.style1 .appointment-content .content-feature-list li,
+    .appointment-wrap.style3 .appointment-content .content-feature-list li,
+    .bg-albastor {
+        background-color: $clr_cod!important;
+    }
+    body,
+    .bg-white,
+    .portfolio-card.style1 .portfolio-info,
+    .portfolio-card.style2 .portfolio-info,
+    .hero-wrap.style2 .hero-appointment .hero-appointment-form,
+    .search-area{
+        background-color: $clr_black!important;
+    }
+    .appointment-form{
+        background-color: $clr_black;
+        border:1px solid rgba(255,255,255,0.2)
+    }
+    .td-aztech,
+    .contact-item,
+    .bg-athens,
+    .hero-wrap.style1,
+    .promo-card,
+    .about-doctor-box,
+    .testimonial-card,
+    .pricing-card,
+    .about-wrap.style2 .about-img-wrap .about-promo-box,
+    .wp-block-quote{
+        background-color: $clr_aztech!important;
+    }
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    h3 a,
+    a,
+    .select-lang .navbar-language .dropdown-toggle::before,
+    .btn:hover{
+        color: $clr_white!important;
+    }
+    p,span,
+    .checkbox label,
+    .content-feature-list li,
+    .login-form .login-body .form-group label,
+    .blog-card .blog-info .blog-metainfo li,
+    article ol li,
+    .terms-wrap ol li,
+    article p strong, 
+    .terms-wrap p strong,
+    .content-feature-list li,
+    .book-appointment-form .radio-btn .form-group label,
+    article ol li, .service-desc ol li, .terms-wrap ol li,
+    .pricing-card .pricing-features li,
+    .post-metainfo li{
+        color: $clr_offwhite!important;
+    }
+    h3:hover a,
+    a:hover,
+    .copyright-text a{
+        color: $clr_blue!important;
+    }
+    .portfolio-info-widget .portfolio-info-item-wrap .portfolio-info-item,
+    .hero-wrap.style2 .hero-appointment .hero-appointment-form .fg-opt-wrap,
+    article{
+        border-color: rgba(255,255,255,0.19);
+    }
+    .tag-list ul li a{
+        background: transparent;
+        border-color: rgba(255, 255, 255, 0.2);
+        color: $clr_white!important;
+    }
+    .tag-list ul li a:hover{
+        background: $clr_blue!important;
+        color: $clr_white;
+        border-color: transparent;
+    }
+    .header-wrap{
+        &.style1,
+        &.style2{
+            .header-top{
+                background-color: $clr_black;
+            }
+            .header-bottom{
+                background-color: $clr_cod;
+                .searchbtn{
+                    i{
+                        color: $clr_white;
+                    }
+                }
+            }
+        }
+        &.style3{
+            &:after {
+                background-color: $clr_cod;
+            }
+            .header-bottom{
+                background-color: $clr_aztech;
+            }
+            .searchbtn{
+                i{
+                    color: $clr_white;
+                }
+            }
+        }
+    }
+    .breadcrumb-wrap:after{
+        background-color: rgba(0, 0, 0, 0.9);
+    }
+    .header-wrap .navbar .other-options::before {
+        background-color: rgba(255, 255, 255, 0.18);
+    }
+    .accordion-item {
+        background: transparent;
+        .accordion-header {
+            .accordion-button{
+                background-color: transparent;
+                color: $clr_white;
+                span{
+                    border: 1px solid rgba(255, 255, 255, 0.2);
+                }
+            }
+        }
+    }
+    .search-area{
+        button{
+            i{
+                color: $clr_white;
+            }
+        }
+    }
+    .sidebar-widget{
+        box-shadow: none;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .testimonial-card{
+        background-color: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+    }
+    .header-wrap.style1 .navbar .navbar-nav .nav-item a:hover,
+    .header-wrap.style1 .navbar .navbar-nav .nav-item a:focus,
+    .header-wrap.style1 .navbar .navbar-nav .nav-item a.active {
+        color: $clr_blue!important;
+    }
+    .btn.style4,
+    .comment-item{
+        border-color: rgba(255, 255, 255, 0.2);
+    }
+    .post-author,
+    #cmt-form,
+    .contact-form,
+    .post-meta-option{
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    input,textarea,
+    #cmt-form .comment-form .form-group input,
+    #cmt-form .comment-form .form-group textarea,
+    #contactForm .form-group input,
+    #contactForm .form-group textarea,
+    .login-form-wrap .login-body .form-group input,
+    .newsletter-wrap .form-group input{
+        background-color: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: $clr_white;
+    }
+    .partner-item img {
+        filter: brightness(0) invert(1);
+    }
+    .page-nav li a{
+        border: 1px solid rgba(255, 255, 255, 0.28);
+        background-color: transparent;
+        &:hover{
+            background-color: $clr_blue;
+            color: $clr_white!important;
+        }
+    }
+    .login-form-wrap .login-form .form-group input,
+    .contact-widget .form-group input,
+    .contact-widget .form-group textarea,
+    .book-appointment-form .form-group input,
+    .book-appointment-form .form-group textarea,
+    .book-appointment-form .form-group select,
+    .search-box .form-group input,
+    .appointment-form .form-group input,
+    .appointment-form .form-group select{
+        background-color: $clr_black;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: $clr_white;
+        &::placeholder{
+            color: $clr_white;
+        }
+    }
+    .login-form-wrap,
+    .book-appointment-form {
+        border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+}
+@media only screen and (max-width:991px) {
+    .theme-dark{
+        .main-menu-wrap,
+        .header-wrap .navbar .navbar-nav .nav-item .dropdown-menu{
+            background-color: $clr_aztech;
+        }
+        .menu-close i,
+        .header-wrap .navbar .navbar-nav .nav-item .menu-expand i{
+            color: $clr_white!important;
+        }
+        .header-wrap .navbar .navbar-nav .nav-item a.active,
+        .main-menu li a.active{
+            color: $clr_blue!important;
+        }
+        .main-menu li a.active,
+        .main-menu li a{
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+        .header-wrap.style2 .navbar .navbar-nav .nav-item .dropdown-menu li,
+        .header-wrap .navbar .navbar-nav .nav-item a {
+            border-color:rgba(255, 255, 255, 0.2);
+        }
+    }
+}
+@media only screen and (min-width:992px) {
+    .theme-dark{
+        .header-wrap .navbar .navbar-nav .nav-item .dropdown-menu,
+        .main-menu-wrap #menu ul li.has-children .sub-menu{
+            background-color: $clr_aztech;
+        }
+        .header-wrap .navbar .navbar-nav .nav-item a:hover,
+        .header-wrap .navbar .navbar-nav .nav-item a:focus,
+        .header-wrap .navbar .navbar-nav .nav-item a.active{
+              color: $clr_blue!important;
+         }
+         .header-wrap.style2 .navbar .navbar-nav .nav-item .dropdown-menu li{
+            border-color:rgba(255, 255, 255, 0.15);
+        }
+    }
+}
