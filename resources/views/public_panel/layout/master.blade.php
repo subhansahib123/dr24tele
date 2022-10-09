@@ -1,8 +1,9 @@
 @include('public_panel.frontend.includes.head')
 
+
+
 <!-- Page Wrapper End -->
 <div class="page-wrapper">
-
     @include('public_panel.frontend.includes.header')
 
     @yield('content')
