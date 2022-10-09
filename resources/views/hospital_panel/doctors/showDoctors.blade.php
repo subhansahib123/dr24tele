@@ -52,7 +52,8 @@
                                     <table class="table table-striped">
                                         <thead>
                                             <th scope="col" width="20%">Name</th>
-                                             <th scope="col" width="21%">User Name</th> 
+                                             <th scope="col" width="19%">User Name</th> 
+                                             <th scope="col" width="2%">Action</th> 
                                         </thead>
 
 
@@ -71,6 +72,9 @@
 
 
                                             </td>
+                                                <td>
+                                                    <a href="{{route('user.delete',[$doctor->uuid])}}" class="btn btn-danger">Delete</a>
+                                                </td>
 
                                         </tr>
                                         @endforeach  
