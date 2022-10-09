@@ -148,6 +148,7 @@ class UserController extends Controller
                 $all_patients = json_decode($response);
                 if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
                     curl_close($curl);
+                    // dd($all_patients);
                     return view('admin_panel.totalUsers.index', ['all_patients' => $all_patients]);
                 } else if (isset($all_patients->message) && $all_patients->message == "Invalid User") {
                      

@@ -19,12 +19,13 @@ class HospitalDepartmentController extends Controller
         $countries = Country::all();
 
         return view(
-            'hospital_panel.organization.create',
+            'hospital_panel.departments.create',
             [
                 'organizations' => $organizations,
 
             ]
         );
+        
     }
     public function hospitalDepartmentCreated(Request $request)
     {

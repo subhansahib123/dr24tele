@@ -305,7 +305,7 @@ class PatientController extends Controller
     public function patientDelete($uuid)
     {
 
-
+        // dd($uuid);
         $curl = curl_init();
         $baseUrl = config('services.ehr.baseUrl');
         $apiKey = config('services.ehr.apiKey');
@@ -320,7 +320,7 @@ class PatientController extends Controller
         $token = $userInfo['sessionInfo']['token'];
 
         curl_setopt_array($curl, array(
-            CURLOPT_URL => $baseUrl . 'rest/admin/person/' . $uuid . '?reason=duplicate',
+            CURLOPT_URL => $baseUrl . 'rest/admin/person/' . $uuid.'?reason=duplicate',
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
@@ -338,7 +338,7 @@ class PatientController extends Controller
 
             $response = curl_exec($curl);
 
-            dd($response);
+            // dd($response);
             if ($response == false) {
                 $error = curl_error($curl);
                 curl_close($curl);
