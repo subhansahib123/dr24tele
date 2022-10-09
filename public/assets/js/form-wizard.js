@@ -97,22 +97,24 @@
             })
                 .done(function (data) {
                     console.log(data);
-                    var schedule_id = data.schedule_id;
-                    $("#schedule_id").val(schedule_id);
-                    var slots = data.slots;
+                    if (data.schedule_id)
+                        window.location = document.referrer;
+                    // var schedule_id = data.schedule_id;
+                    // $("#schedule_id").val(schedule_id);
+                    // var slots = data.slots;
 
-                    var slotsHtml = "";
-                    slots.forEach(function (row, index) {
-                        var slot_time = row.slot;
-                        var slot_id = row.slot_id;
-                        var slot_price = row.price;
-                        var time_span = `<span>${slot_time}</span>`;
-                        var price_input = `<input type="number" class="form-control" value="${slot_price}" name="price[]">`;
-                        var status_input = ` <input type="checkbox" checked class="form-checkbox" value="1"  name="status[]"> `;
-                        var slot_id_input = `<input type="hidden" value="${slot_id}" name="slot_id[]">`;
-                        slotsHtml += `<div class="form-group col-2 bg-green mx-1 "> <label><b>Slot</b> : ${time_span}  Status: ${status_input} </label> ${price_input} ${slot_id_input}</div>`;
-                    });
-                    $("#slots_required").html(slotsHtml);
+                    // var slotsHtml = "";
+                    // slots.forEach(function (row, index) {
+                    //     var slot_time = row.slot;
+                    //     var slot_id = row.slot_id;
+                    //     var slot_price = row.price;
+                    //     var time_span = `<span>${slot_time}</span>`;
+                    //     var price_input = `<input type="number" class="form-control" value="${slot_price}" name="price[]">`;
+                    //     var status_input = ` <input type="checkbox" checked class="form-checkbox" value="1"  name="status[]"> `;
+                    //     var slot_id_input = `<input type="hidden" value="${slot_id}" name="slot_id[]">`;
+                    //     slotsHtml += `<div class="form-group col-2 bg-green mx-1 "> <label><b>Slot</b> : ${time_span}  Status: ${status_input} </label> ${price_input} ${slot_id_input}</div>`;
+                    // });
+                    // $("#slots_required").html(slotsHtml);
                 })
                 .fail(function (error) {
                     console.log(error);
