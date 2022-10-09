@@ -66,11 +66,9 @@
                                                     {{$all_patient->givenName}}
 
 
-                                                </td>
-
-                                                 
+                                                </td>                                                 
                                                  <td>
-                                                    <a href="{{route('patient.delete',[$all_patient->personId])}}" class="btn btn-danger">Delete</a>
+                                                    <a href="{{route('patient.delete',[$all_patient->personIdentifiers->identifier])}}" class="btn btn-danger">Delete</a>
                                                 </td>
 
 
