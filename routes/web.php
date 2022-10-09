@@ -14,7 +14,7 @@ use App\Http\Controllers\Hospital\HospitalUserController;
 use App\Http\Controllers\Hospital\HospitalPatientController;
 use App\Http\Controllers\Hospital\HospitalDepartmentController;
 
-
+use App\Http\Controllers\Hospital\ScheduleController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -108,7 +108,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         //
         // This Route shows list ?
         Route::get('/all/users', [UserController::class, 'allusers'])->name('all.users');
-        
+
         // These Routes are used to create Users
         Route::get('/create/user', [UserController::class, 'create_user'])->name('create.user');
         Route::post('/store/user', [UserController::class, 'store_user'])->name('store.user');
@@ -144,7 +144,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         //Update patient
         Route::post('/patient/updated', [PatientController::class, 'patientUpdated'])->name('patient.updated');
 
-        
+
         //Delete Patient
         Route::get('/patients/delete/{uuid}', [PatientController::class, 'patientDelete'])->name('patient.delete');
         //This Route is used to show Doctors list of a specific department
@@ -164,7 +164,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
         Route::get('/dashboard', [AuthenticationController::class, 'hospitalDashboard'])->name('hospital.dashboard');
 
-        //Update Hospital 
+        //Update Hospital
         Route::get('/update/hospital', [HospitalUserController::class, 'updateHospital'])->name('updateHospital');
         Route::post('/hospital/updated', [HospitalUserController::class, 'hospitalUpdated'])->name('hospitalUpdated');
         //Update  Profile
@@ -208,6 +208,13 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
         //This Route is used to show Doctors list of a specific department
         Route::get('/doctors/{uuid}', [HospitalUserController::class, 'hospitalDoctorsList'])->name('hospitalDoctors.list');
+
+        //Create Schedule For Doctors
+        Route::get('/create/schedule',[ScheduleController::class,'createSchedule'])->name('create.schedule');
+        //list of Schedules
+        Route::get('/schedules',[ScheduleController::class,'schedules'])->name('list.schedules');
+        //Create Schedule For Doctors
+        Route::get('/schedule/{id}',[ScheduleController::class,'delete'])->name('delete.schedule');
     });
     Route::group(['prefix' => 'user', 'middleware' => ['auth']], function () {
     });

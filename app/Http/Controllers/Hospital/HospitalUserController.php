@@ -699,6 +699,7 @@ class HospitalUserController extends Controller
                 return curl_error($curl);
             } else {
                 if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
+                    dd($organization);
                     curl_close($curl);
                     $countries = Country::all();
                     return view('hospital_panel.hospital.updateHospital', ['organization' => $organization, 'orgData' => $orgData, 'countries' => $countries,]);
@@ -766,7 +767,7 @@ class HospitalUserController extends Controller
         $data = [
             "displayname" => $request->displayname,
             "name" => $request->name,
-            "uuid" => $request->OrgUuid,
+            "uuid" => $request->$orgId,
             "type" => 'company',
             "status" => $request->status,
             "pparent" => [

@@ -28,8 +28,7 @@
                 </li>--}}
                 <li class="slide">
                     <a class="side-menu__item has-link" data-bs-toggle="slide" href="{{route('updateHospital')}}"><i class="side-menu__icon fe fe-user"></i><span class="side-menu__label">Update Hospital</span></a>
-                </li>
-                <li class="slide">
+                </li>  <li class="slide">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i class="side-menu__icon fe fe-slack"></i><span class="side-menu__label">Departments</span><i class="angle fe fe-chevron-right"></i></a>
                     <ul class="slide-menu nav-tree">
                         <li><a class="side-menu__item has-link" data-bs-toggle="slide" href="{{route('createHospital.department')}}"></i><span class="side-menu__label">Create</span></a></li>
@@ -60,6 +59,10 @@
                         <li><a href="{{route('hospitalAll.patients')}}" class="slide-item"> All Patients</a></li>
 
                     </ul>
+                </li>
+
+                <li class="slide">
+                    <a class="side-menu__item has-link" data-bs-toggle="slide" href="{{route('list.schedules')}}"><i class="side-menu__icon fe fe-calender"></i><span class="side-menu__label">Schedules</span></a>
                 </li>
 
 

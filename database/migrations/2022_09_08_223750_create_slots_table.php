@@ -9,7 +9,7 @@ class CreateSlotsTable extends Migration
     /**
      * Run the migrations.
      *
-     * 
+     *
      * @return void
      */
     public function up()
@@ -17,7 +17,7 @@ class CreateSlotsTable extends Migration
         Schema::create('slots', function (Blueprint $table) {
             $table->id();
             $table->dateTime('start');
-            $table->dateTime('end');
+            $table->time('end');
             $table->string('status');
             $table->timestamps();
             $table->unsignedBigInteger('schedule_id');

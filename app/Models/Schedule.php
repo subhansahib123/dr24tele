@@ -12,8 +12,13 @@ class Schedule extends Model
     protected $fillable =[
         'status',
         'start',
+        'interval',
+        'slot_belong',
+        'number_of_people',
         'end',
         'comment',
+        'doctor_id',
+        'price'
 
     ];
     public function slot()
@@ -24,5 +29,5 @@ class Schedule extends Model
     {
         return $this->belongsTo(Doctor::class,'doctor_id');
     }
-    
+
 }

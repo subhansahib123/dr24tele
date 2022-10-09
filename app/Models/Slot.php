@@ -13,6 +13,8 @@ class Slot extends Model
         'start',
         'end',
         'status',
+        'schedule_id',
+        'price'
     ];
     public function schedule()
     {
