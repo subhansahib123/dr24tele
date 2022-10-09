@@ -31,7 +31,7 @@
                         </div>
                         @include('admin_panel.frontend.includes.messages')
                         <div class="card-body">
-                            <form class="form-horizontal" action="{{route('update.department')}}" method="POST">
+                            <form class="form-horizontal" action="{{route('hospitalDepartment.updated')}}" method="POST">
                                 @csrf
                                 <div class=" row mb-4">
                                     <input type="hidden" name="parentOrgId" value="{{$parentOrgId->uuid}}">
@@ -45,15 +45,7 @@
                                 </div>
                                 <input type="hidden" class="form-control" value="{{$organization->uuid}}" name="DepUuid" id="OrgUuid" placeholder="Display Name" autocomplete="OrgUuid">
 
-                                <div class=" row mb-4">
-                                    <label for="username" class="col-md-3 form-label"> User Name</label>
-                                    <div class="col-md-9">
-                                        <input type="text" class="form-control" value="{{$depData->name}}" name="name" id="username" placeholder="Username">
-                                    </div>
-                                    @if ($errors->has('name'))
-                                    <span class="text-danger text-left">{{ $errors->first('name') }}</span>
-                                    @endif
-                                </div>
+                                        <input type="hidden" class="form-control"  value="{{$depData->name}}" name="name" >
 
                                 <div class=" row mb-4">
                                     <label for="email" class="col-md-3 form-label"> Contact Person Designation</label>

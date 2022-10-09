@@ -52,7 +52,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
          * Login Routes
          */
         Route::get('/', function () {
-            return view('home');
+            return view('public_panel.index02');
         });
         // Admin Login
         Route::get('/login', [AuthenticationController::class, 'showLogin'])->name('login.show');
@@ -190,13 +190,20 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         //These Route is used to Create Mapped Patients
         Route::get('/createPatients', [HospitalPatientController::class, 'createHospitalPatients'])->name('createHospital.patients');
         Route::post('/storePatients', [HospitalPatientController::class, 'storeHospitalPatients'])->name('storeHospital.patients');
-
-        //These Route is used to Create and view Departments
-
-
+ 
+        //These Route is used to Create Mapped Patients
+        Route::get('/all/patients', [HospitalPatientController::class, 'hospitalAllPatients'])->name('hospitalAll.patients');
+        
+        //This Route is used to view Departments
         Route::get('/departments', [HospitalDepartmentController::class, 'hospitalDepartmentsList'])->name('hospitalDepartments.list');
+
+        //Route to Create Department
         Route::get('/create/department', [HospitalDepartmentController::class, 'createHospitalDepartment'])->name('createHospital.department');
-        Route::post('/department/created', [HospitalDepartmentController::class, 'hospitalOrganizationCreated'])->name('hospitalOrganization.created');
+        Route::post('/department/created', [HospitalDepartmentController::class, 'hospitalDepartmentCreated'])->name('hospitalDepartment.created');
+         
+        //Route to update Department
+        Route::get('/update/department/{uuid}', [HospitalDepartmentController::class, 'updateHospitalDepartment'])->name('updateHospital.department');
+        Route::post('/department/updated', [HospitalDepartmentController::class, 'hospitalDepartmentUpdated'])->name('hospitalDepartment.updated');
 
 
         //This Route is used to show Doctors list of a specific department
