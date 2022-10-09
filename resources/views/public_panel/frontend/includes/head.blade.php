@@ -16,7 +16,7 @@
     <link rel="stylesheet" href="{{asset('public_assets/css/style.css')}}">
     <link rel="stylesheet" href="{{asset('public_assets/css/responsive.css')}}">
     <link rel="stylesheet" href="{{asset('public_assets/css/dark-theme.css')}}">
-    <title>Dr24Tele | Hospital</title>
+    <title>Dr24Tele | Hospital | Doctors</title>
     <link rel="icon" type="image/png" href="{{asset('assets/images/brand/favicon.ico')}}">
 </head>
 
