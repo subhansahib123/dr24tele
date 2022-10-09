@@ -52,7 +52,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
          * Login Routes
          */
         Route::get('/', function () {
-            return view('public_panel.index02');
+            return view('public_panel.index');
         });
         // Admin Login
         Route::get('/login', [AuthenticationController::class, 'showLogin'])->name('login.show');
