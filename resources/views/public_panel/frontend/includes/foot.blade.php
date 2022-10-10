@@ -14,6 +14,8 @@
 <script src="{{asset('public_assets/js/jquery.appear.js')}}"></script>
 <script src="{{asset('public_assets/js/tweenmax.min.js')}}"></script>
 <script src="{{asset('public_assets/js/main.js')}}"></script>
+<script src="https://www.gstatic.com/firebasejs/6.0.2/firebase.js"></script>
+<script src="{{asset('public_assets/js/firebase.js')}}"></script>
 </body>
 
 </html>
