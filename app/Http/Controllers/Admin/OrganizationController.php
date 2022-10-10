@@ -20,6 +20,7 @@ class OrganizationController extends Controller
     public function organization()
     {
 
+
         $curl = curl_init();
 
         $baseUrl = config('services.ehr.baseUrl');
@@ -29,8 +30,8 @@ class OrganizationController extends Controller
         $userInfo = json_decode(json_encode($userInfo), true);
         // dd($userInfo);
         if (is_null($userInfo)) {
-             
-            return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
+
+            return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
 
         $token = $userInfo['sessionInfo']['token'];
@@ -54,13 +55,25 @@ class OrganizationController extends Controller
         try {
             // dd($token);
             $response = curl_exec($curl);
+            // dd($response);
             $organizations = json_decode($response);
-            if ($response == false) {
+            // dd($response);
+            if ($response == false ) {
                 $error = curl_error($curl);
                 curl_close($curl);
                 return redirect()->back()->withErrors(['error' => $error]);
             } else {
-                if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
+                if (isset($organizations->message) && $organizations->message == "Invalid Token") {
+
+                    curl_close($curl);
+
+                    return redirect()->route('login.show')->withErrors(['error' => $organizations->message]);
+                }else if (isset($organizations->message) && $organizations->message == "Invalid User") {
+
+                    curl_close($curl);
+                    return redirect()->route('login.show')->withErrors(['error' => $organizations->message]);
+                }
+                else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
                     curl_close($curl);
 
                     // dd($organizations);
@@ -85,19 +98,11 @@ class OrganizationController extends Controller
                     return redirect()->back()->withErrors(['error' => $organizations->message]);
                 } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 409) {
                     curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $organizations->message]);
+                    return redirect()->route('login.show')->withErrors(['error' => $organizations->message]);
                 } else if (isset($organizations->message) && $organizations->message == "API rate limit exceeded") {
                     curl_close($curl);
                     return redirect()->back()->withErrors(['error' => $organizations->message]);
-                } else if (isset($organizations->message) && $organizations->message == "Invalid User") {
-                     
-                    curl_close($curl);
-                    return redirect()->route('logout')->withErrors(['error' => $organizations->message]);
-                } else if (isset($organizations->message) && $organizations->message == "Invalid Token") {
-                     
-                    curl_close($curl);
-                    return redirect()->route('logout')->withErrors(['error' => $organizations->message]);
-                } else {
+                }  else {
                     curl_close($curl);
                     return redirect()->back()->withErrors(['error' => 'Unknown Error From Api.']);
                 }
@@ -149,9 +154,10 @@ class OrganizationController extends Controller
         $userInfo = json_decode(json_encode($userInfo), true);
         // dd($userInfo);
         if (is_null($userInfo)) {
-             
-            return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
+
+            return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
+        $parent_org_uuid=$request->has('input_org')?$request->input_org:$request->organization;
         $token = $userInfo['sessionInfo']['token'];
         $data = [
             "displayname" => $request->displayname,
@@ -159,7 +165,7 @@ class OrganizationController extends Controller
             "type" => 'company',
             "status" => $request->status,
             "pparent" => [
-                "uuid" => $request->organization
+                "uuid" => $parent_org_uuid
             ],
             "email" => $request->email,
             "contactperson" => $request->contactperson,
@@ -175,7 +181,7 @@ class OrganizationController extends Controller
                     "postalCode" => $request->postalCode
                 ]
             ],
-            "level" => $request->level,
+            "level" =>'SubOrg',
             // "uuid" => $request->organization,
         ];
         // dd($data);
@@ -217,8 +223,9 @@ class OrganizationController extends Controller
                 ) {
                     curl_close($curl);
                     // // dd($request->level);
+                    $org = Organization::where('uuid',  $parent_org_uuid)->first();
                     if ($request->level == 'Department') {
-                        $org = Organization::where('uuid', $request->organization)->first();
+
                         // dd($request->organization);
                         Department::Create([
                             'name' => $organization->displayname,
@@ -235,6 +242,7 @@ class OrganizationController extends Controller
                             'slug' => $organization->displayname,
                             'status' => $organization->status,
                             'level' => "SubOrg",
+                            'organization_id' => $org->id
                         ]);
                         return redirect()->back()->withSuccess(__('Successfully Organization Created'));
                     }
@@ -249,7 +257,7 @@ class OrganizationController extends Controller
 
 
 
-                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 409) {
+                } else if ($organization->message == "Provided organization name already exist") {
                     curl_close($curl);
                     return redirect()->back()->withErrors(['error' => $organization->message]);
                 } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 403) {
@@ -266,13 +274,13 @@ class OrganizationController extends Controller
 
                     return redirect()->back()->withErrors(['error' => $organization->message]);
                 } else if (isset($organization->message) && $organization->message == "Invalid User") {
-                     
+
                     curl_close($curl);
-                    return redirect()->route('logout')->withErrors(['error' => $organization->message]);
+                    return redirect()->route('login.show')->withErrors(['error' => $organization->message]);
                 } else if (isset($organization->message) && $organization->message == "Invalid Token") {
-                     
+
                     curl_close($curl);
-                    return redirect()->route('logout')->withErrors(['error' => $organization->message]);
+                    return redirect()->route('login.show')->withErrors(['error' => $organization->message]);
                 } else {
                     curl_close($curl);
 
@@ -315,8 +323,8 @@ class OrganizationController extends Controller
         $userInfo = json_decode(json_encode($userInfo), true);
         // dd($userInfo);
         if (is_null($userInfo)) {
-             
-            return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
+
+            return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
         $token = $userInfo['sessionInfo']['token'];
         $url = $baseUrl . 'rest/admin/organisation/v2/' . $orgUuid . '/inactive';
@@ -367,7 +375,7 @@ class OrganizationController extends Controller
                     return redirect()->back()->withErrors(['error' => $organization->message]);
                 } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 409) {
                     curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $organization->message]);
+                    return redirect()->route('login.show')->withErrors(['error' => $organization->message]);
                 } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
                     curl_close($curl);
                     return redirect()->back()->withErrors(['error' => $organization->message]);
@@ -375,13 +383,13 @@ class OrganizationController extends Controller
                     curl_close($curl);
                     return redirect()->back()->withErrors(['error' => $organization->message]);
                 } else if (isset($organization->message) && $organization->message == "Invalid User") {
-                     
+
                     curl_close($curl);
-                    return redirect()->route('logout')->withErrors(['error' => $organization->message]);
+                    return redirect()->route('login.show')->withErrors(['error' => $organization->message]);
                 } else if (isset($organization->message) && $organization->message == "Invalid Token") {
-                     
+
                     curl_close($curl);
-                    return redirect()->route('logout')->withErrors(['error' => $organization->message]);
+                    return redirect()->route('login.show')->withErrors(['error' => $organization->message]);
                 } else {
                     curl_close($curl);
                     return redirect()->back()->withErrors(['error' => "Unknown Error From Api"]);
@@ -405,8 +413,8 @@ class OrganizationController extends Controller
         $userInfo = json_decode(json_encode($userInfo), true);
         // dd($userInfo);
         if (is_null($userInfo)) {
-             
-            return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
+
+            return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
         $token = $userInfo['sessionInfo']['token'];
         $orgId = $userInfo['sessionInfo']['orgId'];
@@ -463,18 +471,18 @@ class OrganizationController extends Controller
                     return redirect()->back()->withErrors(['error' => $organization->message]);
                 } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 409) {
                     curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $organization->message]);
+                    return redirect()->route('login.showorganization')->withErrors(['error' => $organization->message]);
                 } else if (isset($organization->message) && $organization->message == "API rate limit exceeded") {
                     curl_close($curl);
                     return redirect()->back()->withErrors(['error' => $organization->message]);
                 } else if (isset($organization->message) && $organization->message == "Invalid User") {
-                     
+
                     curl_close($curl);
-                    return redirect()->route('logout')->withErrors(['error' => $organization->message]);
+                    return redirect()->route('login.show')->withErrors(['error' => $organization->message]);
                 } else if (isset($organization->message) && $organization->message == "Invalid Token") {
-                     
+
                     curl_close($curl);
-                    return redirect()->route('logout')->withErrors(['error' => $organization->message]);
+                    return redirect()->route('login.show')->withErrors(['error' => $organization->message]);
                 } else {
                     curl_close($curl);
                     return redirect()->back()->withErrors(['error' => "Unknown Error From Api"]);
@@ -498,8 +506,8 @@ class OrganizationController extends Controller
         $userInfo = json_decode(json_encode($userInfo), true);
         // dd($userInfo);
         if (is_null($userInfo)) {
-             
-            return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
+
+            return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
         $token = $userInfo['sessionInfo']['token'];
 
@@ -595,13 +603,13 @@ class OrganizationController extends Controller
                     curl_close($curl);
                    return redirect()->back()->withErrors(['error' => $organization->message]);
                 } else if (isset($organization->message) && $organization->message == "Invalid User") {
-                     
+
                     curl_close($curl);
-                    return redirect()->route('logout')->withErrors(['error' => $organization->message]);
+                    return redirect()->route('login.show')->withErrors(['error' => $organization->message]);
                 }  else if (isset($organization->message) && $organization->message == "Invalid Token") {
-                     
+
                     curl_close($curl);
-                    return redirect()->route('logout')->withErrors(['error' => $organization->message]);
+                    return redirect()->route('login.show')->withErrors(['error' => $organization->message]);
                 }
                  else {
                     curl_close($curl);

@@ -22,6 +22,7 @@ use App\Http\Controllers\Hospital\ScheduleController;
 use App\Http\Controllers\FrontEnd\TemplateController;
 
 use App\Http\Controllers\Patient\AuthController;
+use App\Http\Controllers\Doctor\ScheduleController as DoctorSchedule;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,7 +43,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
     // Route::get('/logout', [AuthenticationController::class,'logout'])->name('logout');
 
-
+    Route::get('/logout', [AuthenticationController::class, 'logout'])->name('logout');
 
 
     Route::group(['middleware' => ['guest']], function () {
@@ -61,7 +62,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
          */
         Route::get('/', function () {
             return view('public_panel.index');
-        });
+        })->name('home.page');
 
         //About_Us Page
         Route::get('/about-us',[TemplateController::class,'aboutUs'])->name('aboutUs');
@@ -105,13 +106,13 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
 
         //patient login
-        Route::get('/login',[AuthController::class,'login'])->name('patient.login');
+        // Route::get('/login',[AuthController::class,'login'])->name('patient.login');
 
         // Admin Login
         Route::get('/admin/login', [AuthenticationController::class, 'showLogin'])->name('login.show');
         Route::post('/admin/login', [AuthenticationController::class, 'login'])->name('login.perform');
 
-        Route::post('/logout', [AuthenticationController::class, 'logout'])->name('logout');
+
 
 
 
@@ -123,8 +124,13 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         // Route::post('reset-password', [SocialAuthenticationController::class, 'submitResetPasswordForm'])->name('reset.password.post');
 
         Route::get('/hospital/login', [AuthenticationController::class, 'showHospitalLogin'])->name('hospital.login');
-        Route::post('/logined', [AuthenticationController::class, 'hospitalLogin'])->name('hospitalLogin');
+        Route::post('/hospital/logined', [AuthenticationController::class, 'hospitalLogin'])->name('hospital.loggedin');
+
+        //doctor login
+        Route::get('/doctor/login', [AuthenticationController::class, 'showDoctorLogin'])->name('doctor.login');
+        Route::post('/doctor/logined', [AuthenticationController::class, 'doctorLogin'])->name('doctor.loggedin');
     });
+      //'permission'
     Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
 
         //temp Dashboard
@@ -251,7 +257,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::get('/departments', [HospitalDepartmentController::class, 'hospitalDepartmentsList'])->name('hospitalDepartments.list');
 
         //Route to Create Department
-        Route::get('/create/department', [HospitalDepartmentController::class, 'create  HospitalDepartment'])->name('createHospital.department');
+        Route::get('/create/department', [HospitalDepartmentController::class, 'createHospitalDepartment'])->name('createHospital.department');
         Route::post('/department/created', [HospitalDepartmentController::class, 'hospitalDepartmentCreated'])->name('hospitalDepartment.created');
 
         //Route to update Department
@@ -262,7 +268,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         //This Route is used to show Doctors list of a specific department
         Route::get('/doctors/{uuid}', [HospitalUserController::class, 'hospitalDoctorsList'])->name('hospitalDoctors.list');
         Route::get('/delete/doctors/{uuid}', [HospitalUserController::class, 'deleteHospitalDoctor'])->name('deleteHospital.doctor');
-        
+
         //Create Schedule For Doctors
         Route::get('/create/schedule',[ScheduleController::class,'createSchedule'])->name('create.schedule');
         //list of Schedules
@@ -270,9 +276,18 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         //Create Schedule For Doctors
         Route::get('/schedule/{id}',[ScheduleController::class,'delete'])->name('delete.schedule');
     });
-    Route::group(['prefix' => 'user', 'middleware' => ['auth']], function () {
+    Route::group(['prefix' => 'doctor', 'middleware' => ['auth']], function () {
+        Route::get('/dashboard', [AuthenticationController::class, 'DoctorDashboard'])->name('doctor.dashboard');
+
+        //Create Schedule
+        Route::get('/create/schedule',[DoctorSchedule::class,'createSchedule'])->name('create.schedule.doctor');
+        //store Schedule
+        Route::post('/store/schedule',[DoctorSchedule::class,'insert'])->name('store.schedule.doctor');
+        //list of Schedules
+        Route::get('/schedules',[DoctorSchedule::class,'schedules'])->name('list.schedules.doctor');
+        //Create Schedule
+        Route::get('/schedule/{id}',[DoctorSchedule::class,'delete'])->name('delete.schedule.doctor');
     });
-    //'permission'
-    Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
-    });
+
+
 });

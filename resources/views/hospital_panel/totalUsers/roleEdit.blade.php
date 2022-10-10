@@ -27,7 +27,7 @@
                     <label for="user">User</label>
                     <select class="form-control" value="{{old('user')}}" name="user" id="user">
                 <option value="">select</option>
-                       
+
                     @if($users)
                         @foreach ($users as $user)
                         <option value="{{$user->uuid}}">{{$user->username}}</option>
@@ -104,7 +104,7 @@
 
 
 {{--
-<!-- 
+<!--
 @section('foot_script')
  <script>
     var base_url=`{{url('/')}}`;

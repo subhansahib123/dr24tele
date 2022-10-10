@@ -21,7 +21,7 @@ class UserController extends Controller
     //     $userInfo = session('loggedInUser');
     //     $userInfo = json_decode(json_encode($userInfo), true);
     //     if (is_null($userInfo))
-    //         return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
+    //         return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
 
     // }
 
@@ -37,8 +37,8 @@ class UserController extends Controller
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
         if (is_null($userInfo)) {
-             
-            return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
+
+            return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
 
         $token = $userInfo['sessionInfo']['token'];
@@ -70,37 +70,28 @@ class UserController extends Controller
                 // dd($patients);
                 if (isset($patients->message) && $patients->message == "API rate limit exceeded") {
                     curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $patients->message]);
+                    return redirect()->route('login.show')->withErrors(['error' => $patients->message]);
                 }
-                //Invalid token
-                else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 409) {
-                     
+                else if (isset($patients->message) && $patients->message == "Invalid Token") {
+
                     curl_close($curl);
-                    return redirect()->route('logout')->withErrors(['error' => $patients->message]);
-                } else if (isset($patients->message) && $patients->message == "Invalid User") {
-                     
+                    return redirect()->route('login.show')->withErrors(['error' => $patients->message]);
+                }
+               else if (isset($patients->message) && $patients->message == "Invalid User") {
+
                     curl_close($curl);
-                    return redirect()->route('logout')->withErrors(['error' => $patients->message]);
+                    return redirect()->route('login.show')->withErrors(['error' => $patients->message]);
                 } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
                     curl_close($curl);
                     return view('admin_panel.totalUsers.unmappedUsers', ['patients' => $patients]);
-                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $patients->message]);
-                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 401) {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $patients->message]);
-                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 403) {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $patients->message]);
                 } else {
                     curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => 'Unknown Error From Api.']);
+                    return redirect()->back()->withErrors(['error' => $patients->message]);
                 }
             }
         } catch (\Exception $e) {
 
-            return redirect()->view('admin_panel.totalUsers.unmappedUsers')->withError(__($e->getMessage()));
+            return redirect()->back()->withErrors(['error'=>__($e->getMessage())]);
         }
     }
     public function allusers()
@@ -114,8 +105,8 @@ class UserController extends Controller
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
         if (is_null($userInfo)) {
-             
-            return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
+
+            return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
 
         $token = $userInfo['sessionInfo']['token'];
@@ -151,39 +142,28 @@ class UserController extends Controller
                     // dd($all_patients);
                     return view('admin_panel.totalUsers.index', ['all_patients' => $all_patients]);
                 } else if (isset($all_patients->message) && $all_patients->message == "Invalid User") {
-                     
+
                     curl_close($curl);
-                    return redirect()->route('logout')->withErrors(['error' => $all_patients->message]);
+                    return redirect()->route('login.show')->withErrors(['error' => $all_patients->message]);
                 }  else if (isset($all_patients->message) && $all_patients->message == "Invalid Token") {
-                     
+
                     curl_close($curl);
-                    return redirect()->route('logout')->withErrors(['error' => $all_patients->message]);
+                    return redirect()->route('login.show')->withErrors(['error' => $all_patients->message]);
                 }
-                 else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
+                 else if (isset($all_patients->message) && $all_patients->message == "API rate limit exceeded") {
+
                     curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $all_patients->message]);
-                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 401) {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $all_patients->message]);
-                }else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 403) {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $all_patients->message]);
-                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 409) {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $all_patients->message]);
-                } else if (isset($all_patients->message) && $all_patients->message == "API rate limit exceeded") {
+                    return redirect()->route('login.show')->withErrors(['error' => $all_patients->message]);
+                }
+                  else {
                     curl_close($curl);
 
-                    return redirect()->back()->withError(['error' => $all_patients->message]);
-                } else {
-                    curl_close($curl);
-
-                    return redirect()->back()->withErrors(['error' =>'Unknown Error From Api.']);
+                    return redirect()->back()->withErrors(['error' =>$all_patients->message]);
                 }
             }
         } catch (\Exception $e) {
 
-            return redirect()->back()->withError(__($e->getMessage()));
+            return redirect()->back()->withErrors(['error'=>__($e->getMessage())]);
             // return $e->getMessage();
         }
     }
@@ -198,8 +178,8 @@ class UserController extends Controller
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
         if (is_null($userInfo)) {
-             
-            return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
+
+            return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
 
 
@@ -236,34 +216,23 @@ class UserController extends Controller
                     curl_close($curl);
                     return view('admin_panel.user.users', ['all_patients' => $all_patients]);
                 }else if (isset($all_patients->message) && $all_patients->message == "Invalid User") {
-                     
+
                     curl_close($curl);
-                    return redirect()->route('logout')->withErrors(['error' => $all_patients->message]);
+                    return redirect()->route('login.show')->withErrors(['error' => $all_patients->message]);
                 }  else if (isset($all_patients->message) && $all_patients->message == "Invalid Token") {
-                     
+
                     curl_close($curl);
-                    return redirect()->route('logout')->withErrors(['error' => $all_patients->message]);
+                    return redirect()->route('login.show')->withErrors(['error' => $all_patients->message]);
                 }
-                 else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
+                else if (isset($all_patients->message) && $all_patients->message == "API rate limit exceeded") {
+
                     curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $all_patients->message]);
-                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 403) {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $all_patients->message]);
-                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 401) {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $all_patients->message]);
-                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 409) {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $all_patients->message]);
-                } else if (isset($all_patients->message) && $all_patients->message == "API rate limit exceeded") {
+                    return redirect()->route('login.show')->withErrors(['error' => $all_patients->message]);
+                }
+                  else {
                     curl_close($curl);
 
-                    return redirect()->back()->withError(['error' => $all_patients->message]);
-                } else {
-                    curl_close($curl);
-
-                    return redirect()->back()->withErrors(['error' =>'Unknown Error From Api.']);
+                    return redirect()->back()->withErrors(['error' =>$all_patients->message]);
                 }
             }
         } catch (\Exception $e) {
@@ -283,8 +252,8 @@ class UserController extends Controller
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
         if (is_null($userInfo)) {
-             
-            return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
+
+            return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
 
         $token = $userInfo['sessionInfo']['token'];
@@ -320,33 +289,21 @@ class UserController extends Controller
                     curl_close($curl);
                     return view('admin_panel.user.umappedUser', ['all_patients' => $all_patients]);
                 } else if (isset($all_patients->message) && $all_patients->message == "Invalid User") {
-                     
+
                     curl_close($curl);
-                    return redirect()->route('logout')->withErrors(['error' => $all_patients->message]);
+                    return redirect()->route('login.show')->withErrors(['error' => $all_patients->message]);
                 }  else if (isset($all_patients->message) && $all_patients->message == "Invalid Token") {
-                     
+
                     curl_close($curl);
-                    return redirect()->route('logout')->withErrors(['error' => $all_patients->message]);
-                }else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $all_patients->message]);
-                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 401) {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $all_patients->message]);
-                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 403) {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $all_patients->message]);
-                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 409) {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $all_patients->message]);
-                } else if (isset($all_patients->message) && $all_patients->message == "API rate limit exceeded") {
+                    return redirect()->route('login.show')->withErrors(['error' => $all_patients->message]);
+                }else if (isset($all_patients->message) && $all_patients->message == "API rate limit exceeded") {
                     curl_close($curl);
 
                     return redirect()->back()->withError(['error' => $all_patients->message]);
                 } else {
                     curl_close($curl);
 
-                    return redirect()->back()->withErrors(['error' => 'Unknown Error From Api.']);
+                    return redirect()->back()->withErrors(['error' => $all_patients->message]);
                 }
             }
         } catch (\Exception $e) {
@@ -386,8 +343,8 @@ class UserController extends Controller
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
         if (is_null($userInfo)) {
-             
-            return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
+
+            return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
         $token = $userInfo['sessionInfo']['token'];
         curl_setopt_array($curl, array(
@@ -424,44 +381,31 @@ class UserController extends Controller
                     // dd(1);
                     User::create([
                         'username' => $user->username,
-                        'password' => Hash::make($request->password),
-                        'email' => $user->username,
+                        'password' => $request->password,
+                        'email' => $request->name,
                         'phone_number' => $request->phoneNumber,
                         'uuid' => $user->uuid,
                         'status' => 1
 
                     ]);
                     return redirect()->back()->withSuccess(__('Successfully Created User'));
-                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $user->message]);
-                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 401) {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $user->message]);
-                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 403) {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $user->message]);
-                } else if (isset($user->message) && $user->message == "API rate limit exceeded") {
+                }  else if (isset($user->message) && $user->message == "API rate limit exceeded") {
                     curl_close($curl);
 
                     return redirect()->back()->withErrors(['error' => $user->message]);
                 } else if (isset($user->message) && $user->message == "Invalid User") {
-                     
+
                     curl_close($curl);
-                    return redirect()->route('logout')->withErrors(['error' => $user->message]);
+                    return redirect()->route('login.show')->withErrors(['error' => $user->message]);
                 }  else if (isset($user->message) && $user->message == "Invalid Token") {
-                     
+
                     curl_close($curl);
-                    return redirect()->route('logout')->withErrors(['error' => $user->message]);
+                    return redirect()->route('login.show')->withErrors(['error' => $user->message]);
                 }
-                else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 409) {
-
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $user->message]);
-                } else {
+                else {
                     curl_close($curl);
 
-                    return redirect()->back()->withErrors(['error' =>'Unknown Error From Api.']);
+                    return redirect()->back()->withErrors(['error' =>$user->message]);
                 }
             }
         } catch (\Exception $e) {
@@ -479,7 +423,7 @@ class UserController extends Controller
 
         $curl = curl_init();
         $uuid = 'c6bc6265-e876-414a-9672-a85e09280059';
-        
+
 
         // dd($uuid);
         $baseUrl = config('services.ehr.baseUrl');
@@ -487,10 +431,10 @@ class UserController extends Controller
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
         if (is_null($userInfo)) {
-             
-            return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
+
+            return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
-        
+
 
         $token = $userInfo['sessionInfo']['token'];
         $data = [['useruuid' => $request->user, 'rolename' => $request->role]];
@@ -530,7 +474,7 @@ class UserController extends Controller
                     $user = User::where('uuid', $request->user)->first();
                     $role = Role::where('name', $request->role)->first();
                     $department = Department::where('uuid', $request->department)->first();
-                    $organization = Organization::where('uuid', 'c6bc6265-e876-414a-9672-a85e09280059')->first();;
+                    $organization = Organization::where('uuid', 'c6bc6265-e876-414a-9672-a85e09280059')->first();
                     curl_close($curl);
                     if ($request->role == 'Practitioner') {
 
@@ -601,22 +545,21 @@ class UserController extends Controller
                     curl_close($curl);
 
                     return redirect()->back()->withErrors(['error' => $userRole->message]);
-                }else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 409)  {
+                }else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 409) {
                     curl_close($curl);
-
-                    return redirect()->back()->withErrors(['error' => $userRole->message]);
+                    return redirect()->route('login.show')>withErrors(['error' => $userRole->message]);
                 }else if (isset($userRole->message) && $userRole->message == "API rate limit exceeded") {
                     curl_close($curl);
 
                     return redirect()->back()->withErrors(['error' => $userRole->message]);
                 }else if (isset($userRole->message) && $userRole->message == "Invalid User") {
-                     
+
                     curl_close($curl);
-                    return redirect()->route('logout')->withErrors(['error' => $userRole->message]);
+                    return redirect()->route('login.show')->withErrors(['error' => $userRole->message]);
                 }  else if (isset($userRole->message) && $userRole->message == "Invalid Token") {
-                     
+
                     curl_close($curl);
-                    return redirect()->route('logout')->withErrors(['error' => $userRole->message]);
+                    return redirect()->route('login.show')->withErrors(['error' => $userRole->message]);
                 }
                  else {
                     curl_close($curl);
@@ -638,7 +581,7 @@ class UserController extends Controller
         return view('admin_panel.totalUsers.roleEdit', ['users' => $users, 'roles' => $roles, 'organizations' => $organizations]);
     }
 
-    
+
 
     public function mapUserRole(Request $request)
     {
@@ -657,8 +600,8 @@ class UserController extends Controller
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
         if (is_null($userInfo)) {
-             
-            return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
+
+            return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
 
         $token = $userInfo['sessionInfo']['token'];
@@ -768,35 +711,23 @@ class UserController extends Controller
                     // 'User role already exists
                     curl_close($curl);
                     return redirect()->route('updatingRole', [$uuid]);
-                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 401)  {
-                    curl_close($curl);
-
-                    return redirect()->back()->withErrors(['error' => $userRole->message]);
-                }else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 403)  {
-                    curl_close($curl);
-
-                    return redirect()->back()->withErrors(['error' => $userRole->message]);
-                }else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 409)  {
-                    curl_close($curl);
-
-                    return redirect()->back()->withErrors(['error' => $userRole->message]);
-                }else if (isset($userRole->message) && $userRole->message == "API rate limit exceeded") {
+                } else if (isset($userRole->message) && $userRole->message == "API rate limit exceeded") {
                     curl_close($curl);
 
                     return redirect()->back()->withErrors(['error' => $userRole->message]);
                 }else if (isset($userRole->message) && $userRole->message == "Invalid User") {
-                     
+
                     curl_close($curl);
-                    return redirect()->route('logout')->withErrors(['error' => $userRole->message]);
+                    return redirect()->route('login.show')->withErrors(['error' => $userRole->message]);
                 }  else if (isset($userRole->message) && $userRole->message == "Invalid Token") {
-                     
+
                     curl_close($curl);
-                    return redirect()->route('logout')->withErrors(['error' => $userRole->message]);
+                    return redirect()->route('login.show')->withErrors(['error' => $userRole->message]);
                 }
                  else {
                     curl_close($curl);
 
-                    return redirect()->back()->withErrors(['error' => "Unknown Error From Api"]);
+                    return redirect()->back()->withErrors(['error' =>  $userRole->message]);
                 }
             }
         } catch (\Exception $e) {
@@ -821,8 +752,8 @@ class UserController extends Controller
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
         if (is_null($userInfo)) {
-             
-            return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
+
+            return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
 
         $token = $userInfo['sessionInfo']['token'];
@@ -865,33 +796,21 @@ class UserController extends Controller
                     // dd($userRole->id);
                     $userRole->update(['role_id'=>$role->id]);
                     return redirect()->back()->withSuccess(__('Successfully User Role Updated'));
-                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $UpdatedRole->message]);
-                }else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 401) {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $UpdatedRole->message]);
-                }else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 403) {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $UpdatedRole->message]);
-                }else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 409) {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $UpdatedRole->message]);
-                } else if (isset($UpdatedRole->message) && $UpdatedRole->message == "API rate limit exceeded") {
+                }  else if (isset($UpdatedRole->message) && $UpdatedRole->message == "API rate limit exceeded") {
                     curl_close($curl);
 
                     return redirect()->back()->withErrors(['error' => $UpdatedRole->message]);
                 }else if (isset($UpdatedRole->message) && $UpdatedRole->message == "Invalid User") {
-                     
+
                     curl_close($curl);
-                    return redirect()->route('logout')->withErrors(['error' => $UpdatedRole->message]);
+                    return redirect()->route('login.show')->withErrors(['error' => $UpdatedRole->message]);
                 }  else if (isset($UpdatedRole->message) && $UpdatedRole->message == "Invalid Token") {
-                     
+
                     curl_close($curl);
-                    return redirect()->route('logout')->withErrors(['error' => $UpdatedRole->message]);
+                    return redirect()->route('login.show')->withErrors(['error' => $UpdatedRole->message]);
                 }else {
                     curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => "Unknown Error From Api"]);
+                    return redirect()->back()->withErrors(['error' => $UpdatedRole->message]);
                 }
             }
         } catch (\Exception $e) {
@@ -906,8 +825,8 @@ class UserController extends Controller
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
         if (is_null($userInfo)) {
-             
-            return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
+
+            return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
         // dd($uuid);
         $token = $userInfo['sessionInfo']['token'];
@@ -942,32 +861,20 @@ class UserController extends Controller
                     curl_close($curl);
                     // dd($doctors);
                     return view('admin_panel.doctors.showDoctors', ['doctors' => $doctors]);
-                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $doctors->message]);
-                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 401) {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $doctors->message]);
-                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 403) {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $doctors->message]);
-                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 409) {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $doctors->message]);
-                }else if (isset($doctors->message) && $doctors->message == "API rate limit exceeded") {
+                } else if (isset($doctors->message) && $doctors->message == "API rate limit exceeded") {
                     curl_close($curl);
                     return redirect()->back()->withErrors(['error' => $doctors->message]);
                 }else if (isset($doctors->message) && $doctors->message == "Invalid User") {
-                
+
                     curl_close($curl);
-                return redirect()->route('logout')->withErrors(['error' => $doctors->message]);
+                return redirect()->route('login.show')->withErrors(['error' => $doctors->message]);
                 } else if (isset($doctors->message) && $doctors->message == "Invalid Token") {
-                
+
                     curl_close($curl);
-                return redirect()->route('logout')->withErrors(['error' => $doctors->message]);
+                return redirect()->route('login.show')->withErrors(['error' => $doctors->message]);
                 } else {
                     curl_close($curl);
-                    return redirect()->back()->withErrors(['error' =>  "Unknown Error From Api"]);
+                    return redirect()->back()->withErrors(['error' =>   $doctors->message]);
                 }
             }
         } catch (\Exception $e) {
@@ -983,8 +890,8 @@ class UserController extends Controller
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
         if (is_null($userInfo)) {
-             
-            return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
+
+            return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
 
         $token = $userInfo['sessionInfo']['token'];
@@ -1019,35 +926,23 @@ class UserController extends Controller
                 if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
                     curl_close($curl);
                     return view('admin_panel.organization.usersList', ['users' => $users]);
-                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $users->message]);
-                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 401) {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $users->message]);
-                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 403) {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $users->message]);
-                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 409) {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $users->message]);
                 } else if (isset($users->message) && $users->message == "API rate limit exceeded") {
                     curl_close($curl);
                     return redirect()->back()->withErrors(['error' => $users->message]);
                 }else if (isset($users->message) && $users->message == "Invalid User") {
-                
+
                     curl_close($curl);
-                return redirect()->route('logout')->withErrors(['error' => $users->message]);
+                return redirect()->route('login.show')->withErrors(['error' => $users->message]);
                 } else if (isset($users->message) && $users->message == "Invalid Token") {
-                
+
                     curl_close($curl);
-                return redirect()->route('logout')->withErrors(['error' => $users->message]);
+                return redirect()->route('login.show')->withErrors(['error' => $users->message]);
                 }else {
                     curl_close($curl);
 
 
                     // dd(curl_getinfo($curl, CURLINFO_HTTP_CODE));
-                    return redirect()->back()->withErrors(['error' =>  "Unknown Error From Api"]);
+                    return redirect()->back()->withErrors(['error' =>  $users->message]);
                 }
             }
         } catch (\Exception $e) {
@@ -1064,8 +959,8 @@ class UserController extends Controller
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
         if (is_null($userInfo)) {
-             
-            return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
+
+            return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
 
         $token = $userInfo['sessionInfo']['token'];
@@ -1108,35 +1003,23 @@ class UserController extends Controller
                         $user->delete();
                     }
                     return redirect()->back()->withSuccess(__('Successfully Delete User'));
-                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $users->message]);
-                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 401) {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $users->message]);
-                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 403) {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $users->message]);
-                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 409) {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $users->message]);
-                } else if (isset($users->message) && $users->message == "API rate limit exceeded") {
+                }  else if (isset($users->message) && $users->message == "API rate limit exceeded") {
                     curl_close($curl);
                     return redirect()->back()->withErrors(['error' => $users->message]);
                 }else if (isset($users->message) && $users->message == "Invalid User") {
-                
+
                     curl_close($curl);
-                return redirect()->route('logout')->withErrors(['error' => $users->message]);
+                return redirect()->route('login.show')->withErrors(['error' => $users->message]);
                 } else if (isset($users->message) && $users->message == "Invalid Token") {
-                
+
                     curl_close($curl);
-                return redirect()->route('logout')->withErrors(['error' => $users->message]);
+                return redirect()->route('login.show')->withErrors(['error' => $users->message]);
                 }else {
                     curl_close($curl);
 
 
                     // dd(curl_getinfo($curl, CURLINFO_HTTP_CODE));
-                    return redirect()->back()->withErrors(['error' => "Unknown Error From Api"]);
+                    return redirect()->back()->withErrors(['error' => $users->message]);
                 }
             }
         } catch (\Exception $e) {

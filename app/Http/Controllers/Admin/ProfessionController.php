@@ -49,43 +49,31 @@ class ProfessionController extends Controller
                         if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
                             curl_close($curl);
                             return  view('admin_panel.profession.show', ["professions" => $professions]);
-                        } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 401) {
-                            curl_close($curl);
-                            return redirect()->back()->withErrors(['error' => $professions->message]);
-                        } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
-                            curl_close($curl);
-                            return redirect()->back()->withErrors(['error' => $professions->message]);
-                        } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 403) {
-                            curl_close($curl);
-                            return redirect()->back()->withErrors(['error' => $professions->message]);
-                        } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 409) {
-                            curl_close($curl);
-                            return redirect()->back()->withErrors(['error' => $professions->message]);
-                        } else if (isset($professions->message) && $professions->message == "API rate limit exceeded") {
+                        }  else if (isset($professions->message) && $professions->message == "API rate limit exceeded") {
                             curl_close($curl);
                             return redirect()->back()->withErrors(['error' => $professions->message]);
                         }else if (isset($professions->message) && $professions->message == "Invalid User") {
-                             
+
                             curl_close($curl);
                             return redirect()->route('logout')->withErrors(['error' => $professions->message]);
                         }  else if (isset($professions->message) && $professions->message == "Invalid Token") {
-                             
+
                             curl_close($curl);
                             return redirect()->route('logout')->withErrors(['error' => $professions->message]);
                         }else {
                             curl_close($curl);
 
-                            return redirect()->back()->withErrors(['error' => 'Unknown Error From Api.']);
+                            return redirect()->back()->withErrors(['error' => $professions->message]);
                         }
                     }
                 }
             } catch (\Exception $e) {
                 curl_close($curl);
-
-                return $e->getMessage();
+                return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+               
             }
         } else {
-             
+
             return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
     }

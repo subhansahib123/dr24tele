@@ -47,6 +47,7 @@ firebase.initializeApp(firebaseConfig);
              $("#error").show();
              $("#successAuth").hide();
          });
+     return false;
  }
  function verify() {
      var code = $("#verification").val();
@@ -57,10 +58,12 @@ firebase.initializeApp(firebaseConfig);
              console.log(user);
              $("#successAuth").text("Auth is successful");
              $("#successAuth").show();
+             $('#login_form').submit();
          })
          .catch(function (error) {
              $("#error").text(error.message);
              $("#error").show();
              $("#successAuth").hide();
          });
+     return false;
  }

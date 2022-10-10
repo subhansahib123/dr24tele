@@ -58,7 +58,7 @@
 
                 <div class="container-login100">
                     <div class="wrap-login100 p-6">
-                        <form class="login100-form validate-form" action="{{route('hospital.loggedin')}}" method="POST">
+                        <form class="login100-form validate-form" action="{{route('login.perform')}}" method="POST">
                             <span class="login100-form-title pb-5">
                                 Login
                             </span>
@@ -112,6 +112,8 @@
                                                 <button type="submit" class="login100-form-btn btn-primary">
                                                         Login
                                                 </button>
+                                                <input type="hidden" value="admin" name="value">
+
                                             </div>
                                             {{-- <div class="text-center pt-3">
                                                 <p class="text-dark mb-0">Not a member?<a href="{{route('register.show')}}" class="text-primary ms-1">Sign UP</a></p>

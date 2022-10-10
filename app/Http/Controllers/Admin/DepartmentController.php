@@ -26,7 +26,7 @@ class DepartmentController extends Controller
         $userInfo = json_decode(json_encode($userInfo), true);
         // dd($userInfo);
         if (is_null($userInfo)){
-              
+
             return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
         $token = $userInfo['sessionInfo']['token'];
@@ -51,7 +51,7 @@ class DepartmentController extends Controller
 
         try {
             $response = curl_exec($curl);
-            
+
             //  var_dump(curl_getinfo($curl, CURLINFO_HTTP_CODE));
             if ($response == false) {
                 $error = curl_error($curl);
@@ -81,34 +81,22 @@ class DepartmentController extends Controller
 
 
 
-                }else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $departments->message]);
-                }else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 401) {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $departments->message]);
-                }else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 403) {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $departments->message]);
-                }else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 409) {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $departments->message]);
-                } else if (isset($departments->message) && $departments->message == "API rate limit exceeded") {
+                }else if (isset($departments->message) && $departments->message == "API rate limit exceeded") {
                     curl_close($curl);
 
                     return redirect()->back()->withErrors(['error' => $departments->message]);
                 }else if (isset($departments->message) && $departments->message == "Invalid User") {
-                      
+
                     curl_close($curl);
                     return redirect()->route('logout')->withErrors(['error' => $departments->message]);
                 }  else if (isset($departments->message) && $departments->message == "Invalid Token") {
-                      
+
                     curl_close($curl);
                     return redirect()->route('logout')->withErrors(['error' => $departments->message]);
                 } else {
                     curl_close($curl);
 
-                    return redirect()->back()->withErrors(['error' => "Unknown Error From Api"]);
+                    return redirect()->back()->withErrors(['error' => $departments->message]);
                 }
             }
         } catch (\Exception $e) {
@@ -129,7 +117,7 @@ class DepartmentController extends Controller
         $userInfo = json_decode(json_encode($userInfo), true);
         // dd($userInfo);
         if (is_null($userInfo)) {
-              
+
             return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
         $token = $userInfo['sessionInfo']['token'];
@@ -203,32 +191,20 @@ class DepartmentController extends Controller
 
                     ]);
                     return redirect()->back()->withSuccess(__('Department Successfully Updated'));
-            } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 401) {
-                curl_close($curl);
-                return redirect()->back()->withErrors(['error' => $organization->message]);
-            } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
-                curl_close($curl);
-                return redirect()->back()->withErrors(['error' => $organization->message]);
-            } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 404) {
-                curl_close($curl);
-                return redirect()->back()->withErrors(['error' => $organization->message]);
-            }else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 409) {
-                curl_close($curl);
-                return redirect()->back()->withErrors(['error' => $organization->message]);
-            }else if (isset($organization->message) && $organization->message == "API rate limit exceeded") {
+            } else if (isset($organization->message) && $organization->message == "API rate limit exceeded") {
                 curl_close($curl);
                 return redirect()->back()->withErrors(['error' => $organization->message]);
             }else if (isset($organization->message) && $organization->message == "Invalid User") {
- 
+
                 curl_close($curl);
                 return redirect()->route('logout')->withErrors(['error' => $organization->message]);
             }  else if (isset($organization->message) && $organization->message == "Invalid Token") {
-            
+
                 curl_close($curl);
                 return redirect()->route('logout')->withErrors(['error' => $organization->message]);
             } else {
                 curl_close($curl);
-                return redirect()->back()->withErrors(['error' => "Unknown Error From Api"]);
+                return redirect()->back()->withErrors(['error' => $organization->message]);
             }
         } catch (\Exception $e) {
 
