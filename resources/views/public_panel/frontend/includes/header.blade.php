@@ -31,15 +31,15 @@
                                 </button>
                                 <div class="dropdown-menu language-dropdown-menu">
                                     <a class="dropdown-item" href="#">
-                                        <img src="assets/img/uk.png" alt="flag">
+                                        <img src="{{asset('public_assets/img/uk.png')}}" alt="flag">
                                         Eng
                                     </a>
                                     <a class="dropdown-item" href="#">
-                                        <img src="assets/img/china.png" alt="flag">
+                                        <img src="{{asset('public_assets/img/china.png')}}" alt="flag">
                                         简体中文
                                     </a>
                                     <a class="dropdown-item" href="#">
-                                        <img src="assets/img/uae.png" alt="flag">
+                                        <img src="{{asset('public_assets/img/uae.png')}}" alt="flag">
                                         العربيّة
                                     </a>
                                 </div>
@@ -76,8 +76,8 @@
         <div class="container">
             <nav class="navbar navbar-expand-md navbar-light">
                 <a class="navbar-brand" href="index.html">
-                    <img class="logo-light" src="assets/img/logo.png" alt="logo">
-                    <img class="logo-dark" src="assets/img/logo-white.png" alt="logo">
+                    <img class="logo-light" src="{{asset('public_assets/img/logo.png')}}" alt="logo">
+                    <img class="logo-dark" src="{{asset('public_assets/img/logo-white.png')}}" alt="logo">
                 </a>
                 <div class="collapse navbar-collapse main-menu-wrap" id="navbarSupportedContent">
                     <div class="menu-close d-lg-none">
@@ -108,7 +108,7 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li class="nav-item">
-                                    <a href="about.html" class="nav-link">About Us</a>
+                                    <a href="{{route('aboutUs')}}" class="nav-link">About Us</a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="portfolio.html" class="nav-link">Our Portfolio</a>
@@ -142,19 +142,19 @@
                             </a>
                             <ul class="dropdown-menu">
                                 <li class="nav-item">
-                                    <a href="team.html" class="nav-link">Our Team</a>
+                                    <a href="{{route('ourTeam')}}" class="nav-link">Our Team</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="appointment.html" class="nav-link">Book Appointment</a>
+                                    <a href="{{route('bookAppointment')}}" class="nav-link">Book Appointment</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="faq.html" class="nav-link">FAQ</a>
+                                    <a href="{{route('faq')}}" class="nav-link">FAQ</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="pricing-plan.html" class="nav-link">Pricing Plan</a>
+                                    <a href="{{route('pricingPlan')}}" class="nav-link">Pricing Plan</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="testimonials.html" class="nav-link">Testimonials</a>
+                                    <a href="{{route('testimonials')}}" class="nav-link">Testimonials</a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">
@@ -174,13 +174,13 @@
                                     </ul>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="terms-of-service.html" class="nav-link">Terms of Service</a>
+                                    <a href="{{route('termsOfService')}}" class="nav-link">Terms of Service</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="privacy-policy.html" class="nav-link">Privacy Policy</a>
+                                    <a href="{{route('privacyPolicy')}}" class="nav-link">Privacy Policy</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="error-404.html" class="nav-link">404 Error Page</a>
+                                    <a href="{{route('errorPage')}}" class="nav-link">404 Error Page</a>
                                 </li>
                             </ul>
                         </li>
@@ -197,13 +197,13 @@
                                     </a>
                                     <ul class="dropdown-menu">
                                         <li class="nav-item">
-                                            <a href="blog-no-sidebar.html" class="nav-link">Blog Grid</a>
+                                            <a href="{{route('blogGrid')}}" class="nav-link">Blog Grid</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="blog-left-sidebar.html" class="nav-link">Blog Left Sidebar</a>
+                                            <a href="{{route('blogLeftSidebar')}}" class="nav-link">Blog Left Sidebar</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="blog-right-sidebar.html" class="nav-link">Blog Right Sidebar</a>
+                                            <a href="{{route('blogRightSidebar')}}" class="nav-link">Blog Right Sidebar</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -214,20 +214,20 @@
                                     </a>
                                     <ul class="dropdown-menu">
                                         <li class="nav-item">
-                                            <a href="blog-details-no-sidebar.html" class="nav-link">Blog Details No Sidebar</a>
+                                            <a href="{{route('noSidebar')}}" class="nav-link">Blog Details No Sidebar</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="blog-details-left-sidebar.html" class="nav-link">Blog Details Left Sidebar</a>
+                                            <a href="{{route('leftSidebar')}}" class="nav-link">Blog Details Left Sidebar</a>
                                         </li>
                                         <li class="nav-item">
-                                            <a href="blog-details-right-sidebar.html" class="nav-link">Blog Details Right Sidebar</a>
+                                            <a href="{{route('rightSidebar')}}" class="nav-link">Blog Details Right Sidebar</a>
                                         </li>
                                     </ul>
                                 </li>
                             </ul>
                         </li>
                         <li class="nav-item">
-                            <a href="contact.html" class="nav-link">Contact Us</a>
+                            <a href="{{route('contactUs')}}" class="nav-link">Contact Us</a>
                         </li>
                         <li class="nav-item d-lg-none">
                             <a href="appointment.html" class="nav-link btn style1">Book Appointment</a>
