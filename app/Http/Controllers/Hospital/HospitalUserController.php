@@ -553,6 +553,93 @@ class HospitalUserController extends Controller
             // return $e->getMessage();
         }
     }
+    public function deleteHospitalDoctor($uuid)
+    {
+        $curl = curl_init();
+        $baseUrl = config('services.ehr.baseUrl');
+        $apiKey = config('services.ehr.apiKey');
+        $userInfo = session('loggedInUser');
+        $userInfo = json_decode(json_encode($userInfo), true);
+        if (is_null($userInfo)) {
+             
+            return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
+        }
+
+        $token = $userInfo['sessionInfo']['token'];
+
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => $baseUrl . 'rest/admin/user/' . $uuid,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'DELETE',
+            CURLOPT_HTTPHEADER => array(
+                'Accept: application/json',
+                'Authorization:' . $token,
+                'apikey: ' . $apiKey
+            ),
+        ));
+        try {
+            $response = curl_exec($curl);
+
+
+            if ($response == false) {
+
+                $error = curl_error($curl);
+                curl_close($curl);
+
+                return redirect()->back()->withErrors(['error' => $error]);
+            } else {
+                $users = json_decode($response);
+                if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
+                    curl_close($curl);
+                    $user = User::where('uuid', $uuid)->first();
+                    if ($user) {
+                        UsersOrganization::where('user_id', $user->id)->delete();
+                        User_Role::where('user_id', $user->id)->delete();
+                        if ($user->doctor)
+                            Doctor::where('user_id', $user->id)->delete();
+                        $user->delete();
+                    }
+                    return redirect()->back()->withSuccess(__('Successfully Delete User'));
+                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
+                    curl_close($curl);
+                    return redirect()->back()->withErrors(['error' => $users->message]);
+                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 401) {
+                    curl_close($curl);
+                    return redirect()->back()->withErrors(['error' => $users->message]);
+                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 403) {
+                    curl_close($curl);
+                    return redirect()->back()->withErrors(['error' => $users->message]);
+                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 409) {
+                    curl_close($curl);
+                    return redirect()->back()->withErrors(['error' => $users->message]);
+                } else if (isset($users->message) && $users->message == "API rate limit exceeded") {
+                    curl_close($curl);
+                    return redirect()->back()->withErrors(['error' => $users->message]);
+                }else if (isset($users->message) && $users->message == "Invalid User") {
+                
+                    curl_close($curl);
+                return redirect()->route('logout')->withErrors(['error' => $users->message]);
+                } else if (isset($users->message) && $users->message == "Invalid Token") {
+                
+                    curl_close($curl);
+                return redirect()->route('logout')->withErrors(['error' => $users->message]);
+                }else {
+                    curl_close($curl);
+
+
+                    // dd(curl_getinfo($curl, CURLINFO_HTTP_CODE));
+                    return redirect()->back()->withErrors(['error' => "Unknown Error From Api"]);
+                }
+            }
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
+    }
     public function updateHospitalUserRole($dep)
     {
         $users = User::all();
@@ -699,7 +786,7 @@ class HospitalUserController extends Controller
                 return curl_error($curl);
             } else {
                 if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
-                    dd($organization);
+                    // dd($organization);
                     curl_close($curl);
                     $countries = Country::all();
                     return view('hospital_panel.hospital.updateHospital', ['organization' => $organization, 'orgData' => $orgData, 'countries' => $countries,]);

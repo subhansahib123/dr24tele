@@ -55,8 +55,10 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::get('/', function () {
             return view('public_panel.index');
         });
+
         //patient login
         Route::get('/login',[AuthController::class,'login'])->name('patient.login');
+
         // Admin Login
         Route::get('/admin/login', [AuthenticationController::class, 'showLogin'])->name('login.show');
         Route::post('/admin/login', [AuthenticationController::class, 'login'])->name('login.perform');
@@ -206,7 +208,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::get('/departments', [HospitalDepartmentController::class, 'hospitalDepartmentsList'])->name('hospitalDepartments.list');
 
         //Route to Create Department
-        Route::get('/create/department', [HospitalDepartmentController::class, 'createHospitalDepartment'])->name('createHospital.department');
+        Route::get('/create/department', [HospitalDepartmentController::class, 'create  HospitalDepartment'])->name('createHospital.department');
         Route::post('/department/created', [HospitalDepartmentController::class, 'hospitalDepartmentCreated'])->name('hospitalDepartment.created');
 
         //Route to update Department
@@ -216,7 +218,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
         //This Route is used to show Doctors list of a specific department
         Route::get('/doctors/{uuid}', [HospitalUserController::class, 'hospitalDoctorsList'])->name('hospitalDoctors.list');
-
+        Route::get('/delete/doctors/{uuid}', [HospitalUserController::class, 'deleteHospitalDoctor'])->name('deleteHospital.doctor');
+        
         //Create Schedule For Doctors
         Route::get('/create/schedule',[ScheduleController::class,'createSchedule'])->name('create.schedule');
         //list of Schedules
