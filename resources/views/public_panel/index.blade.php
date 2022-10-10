@@ -5,7 +5,7 @@
             
             <!-- Hero Section Start -->
             <section class="hero-wrap style2">
-                <img src="assets/img/hero/hero-shape-3.png" alt="Image" class="hero-shape-one bounce">
+                <img src="{{asset('public_assets/img/hero/hero-shape-3.png')}}" alt="Image" class="hero-shape-one bounce">
                 <div class="container">
                     <div class="row gx-5">
                         <div class="col-lg-6">
@@ -51,7 +51,7 @@
                         </div>
                         <div class="col-lg-6">
                             <div class="hero-appointment" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="200">
-                                <img src="assets/img/hero/hero-shape-4.png" alt="Image" class="hero-shape-two rotate">
+                                <img src="{{asset('public_assets/img/hero/hero-shape-4.png')}}" alt="Image" class="hero-shape-two rotate">
                                 <div class="hero-appointment-img bg-f" ></div>
                                 <div class="hero-appointment-form">
                                     <div class="row fg-opt-wrap">
@@ -97,7 +97,7 @@
                             <div class="hero-doctor" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="300">
                                 <div class="about-doctor-box">
                                     <div class="doctor-img">
-                                        <img src="assets/img/about/doctor-1.jpg" alt="Image">
+                                        <img src="{{asset('public_assets/img/about/doctor-1.jpg')}}" alt="Image">
                                     </div>
                                     <div class="doctor-info">
                                         <h5>Dr. Kate Winslet</h5>
@@ -159,7 +159,7 @@
                             <div class="col-xl-8 col-lg-7">
                                 <div class="cta-content">
                                     <div class="cta-logo">
-                                        <img src="assets/img/cta-icon-2.png" alt="Image">
+                                        <img src="{{asset('public_assets/img/cta-icon-2.png')}}" alt="Image">
                                     </div>
                                     <div class="content-title style2">
                                         <h2>Don't Hesitate To Contact us</h2>
@@ -193,8 +193,8 @@
                     <div class="row gx-5 align-items-center">
                         <div class="col-lg-6" data-aos="fade-right" data-aos-duration="1200" data-aos-delay="200">
                             <div class="about-img-wrap">
-                                <img src="assets/img/about/about-img-4.jpg" alt="Image" class="about-img-one">
-                                <img src="assets/img/about/about-img-5.jpg" alt="Image" class="about-img-two">
+                                <img src="{{asset('public_assets/img/about/about-img-4.jpg')}}" alt="Image" class="about-img-one">
+                                <img src="{{asset('public_assets/img/about/about-img-5.jpg')}}" alt="Image" class="about-img-two">
                                 <div class="about-promo-box">
                                     <span class="promo-icon"><i class="flaticon-medical-operation"></i></span>
                                     <h2>700+ <span>Labratory Experts</span></h2>
@@ -256,7 +256,7 @@
                     <div class="service-slider-one style2 owl-carousel">
                         <div class="service-card style2" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="200">
                             <div class="service-img">
-                                <img src="assets/img/services/service-9.jpg" alt="Image">
+                                <img src="{{asset('public_assets/img/services/service-9.jpg')}}" alt="Image">
                                 <span class="service-icon"><i class="flaticon-hospital-ward"></i></span>
                             </div>
                             <div class="service-info">
@@ -267,7 +267,7 @@
                         </div>
                         <div class="service-card style2" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="300">
                             <div class="service-img">
-                                <img src="assets/img/services/service-10.jpg" alt="Image">
+                                <img src="{{asset('public_assets/img/services/service-10.jpg')}}" alt="Image">
                                 <span class="service-icon"><i class="flaticon-nurse"></i></span>
                             </div>
                             <div class="service-info">
@@ -278,7 +278,7 @@
                         </div>
                         <div class="service-card style2" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="400">
                             <div class="service-img">
-                                <img src="assets/img/services/service-11.jpg" alt="Image">
+                                <img src="{{asset('public_assets/img/services/service-11.jpg')}}" alt="Image">
                                 <span class="service-icon"><i class="flaticon-health-care"></i></span>
                             </div>
                             <div class="service-info">
@@ -289,7 +289,7 @@
                         </div>
                         <div class="service-card style2" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="500">
                             <div class="service-img">
-                                <img src="assets/img/services/service-12.jpg" alt="Image">
+                                <img src="{{asset('public_assets/img/services/service-12.jpg')}}" alt="Image">
                                 <span class="service-icon"><i class="flaticon-traumatology"></i></span>
                             </div>
                             <div class="service-info">
@@ -307,22 +307,22 @@
             <div class="container  pb-100">
                 <div class="partner-slider-one owl-carousel">
                     <div class="partner-item">
-                        <img src="assets/img/partner/partner-7.png" alt="Image">
+                        <img src="{{asset('public_assets/img/partner/partner-7.png')}}" alt="Image">
                     </div>
                     <div class="partner-item">
-                        <img src="assets/img/partner/partner-8.png" alt="Image">
+                        <img src="{{asset('public_assets/img/partner/partner-8.png')}}" alt="Image">
                     </div>
                     <div class="partner-item">
-                        <img src="assets/img/partner/partner-9.png" alt="Image">
+                        <img src="{{asset('public_assets/img/partner/partner-9.png')}}" alt="Image">
                     </div>
                     <div class="partner-item">
-                        <img src="assets/img/partner/partner-10.png" alt="Image">
+                        <img src="{{asset('public_assets/img/partner/partner-10.png')}}" alt="Image">
                     </div>
                     <div class="partner-item">
-                        <img src="assets/img/partner/partner-11.png" alt="Image">
+                        <img src="{{asset('public_assets/img/partner/partner-11.png')}}" alt="Image">
                     </div>
                     <div class="partner-item">
-                        <img src="assets/img/partner/partner-12.png" alt="Image">
+                        <img src="{{asset('public_assets/img/partner/partner-12.png')}}" alt="Image">
                     </div>
                 </div>
             </div>
@@ -344,7 +344,7 @@
                             <div class="client-info-area">
                                 <div class="client-info-wrap">
                                     <div class="client-img">
-                                        <img src="assets/img/testimonials/client-1.jpg" alt="Image">
+                                        <img src="{{asset('public_assets/img/testimonials/client-1.jpg')}}" alt="Image">
                                     </div>
                                     <div class="client-info">
                                         <h3>Jim Morison</h3>
@@ -368,7 +368,7 @@
                             <div class="client-info-area">
                                 <div class="client-info-wrap">
                                     <div class="client-img">
-                                        <img src="assets/img/testimonials/client-2.jpg" alt="Image">
+                                        <img src="{{asset('public_assets/img/testimonials/client-2.jpg')}}" alt="Image">
                                     </div>
                                     <div class="client-info">
                                         <h3>Alex Cruis</h3>
@@ -392,7 +392,7 @@
                             <div class="client-info-area">
                                 <div class="client-info-wrap">
                                     <div class="client-img">
-                                        <img src="assets/img/testimonials/client-3.jpg" alt="Image">
+                                        <img src="{{asset('public_assets/img/testimonials/client-3.jpg')}}" alt="Image">
                                     </div>
                                     <div class="client-info">
                                         <h3>Tom Haris</h3>
@@ -416,7 +416,7 @@
                             <div class="client-info-area">
                                 <div class="client-info-wrap">
                                     <div class="client-img">
-                                        <img src="assets/img/testimonials/client-4.jpg" alt="Image">
+                                        <img src="{{asset('public_assets/img/testimonials/client-4.jpg')}}" alt="Image">
                                     </div>
                                     <div class="client-info">
                                         <h3>Harry Jackson</h3>
@@ -440,7 +440,7 @@
                             <div class="client-info-area">
                                 <div class="client-info-wrap">
                                     <div class="client-img">
-                                        <img src="assets/img/testimonials/client-5.jpg" alt="Image">
+                                        <img src="{{asset('public_assets/img/testimonials/client-5.jpg')}}" alt="Image">
                                     </div>
                                     <div class="client-info">
                                         <h3>Chris Haris</h3>
@@ -579,42 +579,42 @@
                 </div>
                 <div class="portfolio-slider-two owl-carousel">
                     <div class="portfolio-card style2" data-aos="fade-right" data-aos-duration="1200" data-aos-delay="200">
-                        <img src="assets/img/portfolio/portfolio-7.jpg" alt="Image">
+                        <img src="{{asset('public_assets/img/portfolio/portfolio-7.jpg')}}" alt="Image">
                         <div class="portfolio-info">
                             <a href="portfolio-category.html" class="portfolio-cat">Surgery</a>
                             <h3><a href="portfolio-details.html">Neuro Surgery</a></h3>
                         </div>
                     </div>
                     <div class="portfolio-card style2" data-aos="fade-right" data-aos-duration="1200" data-aos-delay="300">
-                        <img src="assets/img/portfolio/portfolio-8.jpg" alt="Image">
+                        <img src="{{asset('public_assets/img/portfolio/portfolio-8.jpg')}}" alt="Image">
                         <div class="portfolio-info">
                             <a href="portfolio-category.html" class="portfolio-cat">Health</a>
                             <h3><a href="portfolio-details.html">Child Care</a></h3>
                         </div>
                     </div>
                     <div class="portfolio-card style2" data-aos="fade-right" data-aos-duration="1200" data-aos-delay="400">
-                        <img src="assets/img/portfolio/portfolio-1.jpg" alt="Image">
+                        <img src="{{asset('public_assets/img/portfolio/portfolio-1.jpg')}}" alt="Image">
                         <div class="portfolio-info">
                             <a href="portfolio-category.html" class="portfolio-cat">Cardiology</a>
                             <h3><a href="portfolio-details.html">Cardio Surgery</a></h3>
                         </div>
                     </div>
                     <div class="portfolio-card style2" data-aos="fade-right" data-aos-duration="1200" data-aos-delay="500">
-                        <img src="assets/img/portfolio/portfolio-2.jpg" alt="Image">
+                        <img src="{{asset('public_assets/img/portfolio/portfolio-2.jpg')}}" alt="Image">
                         <div class="portfolio-info">
                             <a href="portfolio-category.html" class="portfolio-cat">Eye Care</a>
                             <h3><a href="portfolio-details.html">Retina Checkup</a></h3>
                         </div>
                     </div>
                     <div class="portfolio-card style2" data-aos="fade-right" data-aos-duration="1200" data-aos-delay="600">
-                        <img src="assets/img/portfolio/portfolio-4.jpg" alt="Image">
+                        <img src="{{asset('public_assets/img/portfolio/portfolio-4.jpg')}}" alt="Image">
                         <div class="portfolio-info">
                             <a href="portfolio-category.html" class="portfolio-cat">Dental</a>
                             <h3><a href="portfolio-details.html">Root Canal</a></h3>
                         </div>
                     </div>
                     <div class="portfolio-card style2" data-aos="fade-right" data-aos-duration="1200" data-aos-delay="700">
-                        <img src="assets/img/portfolio/portfolio-6.jpg" alt="Image">
+                        <img src="{{asset('public_assets/img/portfolio/portfolio-6.jpg')}}" alt="Image">
                         <div class="portfolio-info">
                             <a href="portfolio-category.html" class="portfolio-cat">Family</a>
                             <h3><a href="portfolio-details.html">Adult Health</a></h3>
@@ -637,7 +637,7 @@
                     </div>
                     <div class="team-slider-one owl-carousel">
                         <div class="team-card style1" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="200">
-                            <img src="assets/img/team/team-1.jpg" alt="Image">
+                            <img src="{{asset('public_assets/img/team/team-1.jpg')}}" alt="Image">
                             <div class="team-info">
                                 <a href="mailto:fedrick@teli.com" class="team-mail"><i class="ri-mail-send-line"></i></a>
                                 <h3>Dr. Fedrick Bonita</h3>
@@ -667,7 +667,7 @@
                             </div>
                         </div>
                         <div class="team-card style1" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="300">
-                            <img src="assets/img/team/team-2.jpg" alt="Image">
+                            <img src="{{asset('public_assets/img/team/team-2.jpg')}}" alt="Image">
                             <div class="team-info">
                                 <a href="mailto:fedrick@teli.com" class="team-mail"><i class="ri-mail-send-line"></i></a>
                                 <h3>Dr. Ken Moris</h3>
@@ -697,7 +697,7 @@
                             </div>
                         </div>
                         <div class="team-card style1" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="400">
-                            <img src="assets/img/team/team-3.jpg" alt="Image">
+                            <img src="{{asset('public_assets/img/team/team-3.jpg')}}" alt="Image">
                             <div class="team-info">
                                 <a href="mailto:fedrick@teli.com" class="team-mail"><i class="ri-mail-send-line"></i></a>
                                 <h3>Dr. Luiz Frank</h3>
@@ -727,7 +727,7 @@
                             </div>
                         </div>
                         <div class="team-card style1" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="500">
-                            <img src="assets/img/team/team-4.jpg" alt="Image">
+                            <img src="{{asset('public_assets/img/team/team-4.jpg')}}" alt="Image">
                             <div class="team-info">
                                 <a href="mailto:fedrick@teli.com" class="team-mail"><i class="ri-mail-send-line"></i></a>
                                 <h3>Dr. Selina Gomez</h3>
@@ -757,7 +757,7 @@
                             </div>
                         </div>
                         <div class="team-card style1" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="600">
-                            <img src="assets/img/team/team-5.jpg" alt="Image">
+                            <img src="{{asset('public_assets/img/team/team-5.jpg')}}" alt="Image">
                             <div class="team-info">
                                 <a href="mailto:fedrick@teli.com" class="team-mail"><i class="ri-mail-send-line"></i></a>
                                 <h3>Dr. Sarai Conn</h3>
@@ -787,7 +787,7 @@
                             </div>
                         </div>
                         <div class="team-card style1" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="700">
-                            <img src="assets/img/team/team-6.jpg" alt="Image">
+                            <img src="{{asset('public_assets/img/team/team-6.jpg')}}" alt="Image">
                             <div class="team-info">
                                 <a href="mailto:fedrick@teli.com" class="team-mail"><i class="ri-mail-send-line"></i></a>
                                 <h3>Dr. Maureen Klein</h3>
@@ -836,7 +836,7 @@
                         <div class="col-xl-4 col-lg-6 col-md-6" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="200">
                             <div class="blog-card style2">
                                 <div class="blog-img">
-                                    <img src="assets/img/blog/blog-5.jpg" alt="Image">
+                                    <img src="{{asset('public_assets/img/blog/blog-5.jpg')}}" alt="Image">
                                     <a href="posts-by-date.html" class="blog-date"><span>22</span> Jun</a>
                                 </div>
                                 <div class="blog-info">
@@ -853,7 +853,7 @@
                         <div class="col-xl-4 col-lg-6 col-md-6" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="300">
                             <div class="blog-card style2">
                                 <div class="blog-img">
-                                    <img src="assets/img/blog/blog-6.jpg" alt="Image">
+                                    <img src="{{asset('public_assets/img/blog/blog-6.jpg')}}" alt="Image">
                                     <a href="posts-by-date.html" class="blog-date"><span>17</span>Jun</a>
                                 </div>
                                 <div class="blog-info">
@@ -870,7 +870,7 @@
                         <div class="col-xl-4 col-lg-6 col-md-6" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="400">
                             <div class="blog-card style2">
                                 <div class="blog-img">
-                                    <img src="assets/img/blog/blog-4.jpg" alt="Image">
+                                    <img src="{{asset('public_assets/img/blog/blog-4.jpg')}}" alt="Image">
                                     <a href="posts-by-date.html" class="blog-date"><span>25</span> May</a>
                                 </div>
                                 <div class="blog-info">
