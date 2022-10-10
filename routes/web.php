@@ -74,7 +74,12 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
         Route::get('/hospital/login', [AuthenticationController::class, 'showHospitalLogin'])->name('hospital.login');
         Route::post('/logined', [AuthenticationController::class, 'hospitalLogin'])->name('hospitalLogin');
+
+        //doctor login
+        Route::get('/doctor/login', [AuthenticationController::class, 'showDoctorLogin'])->name('doctor.login');
+        Route::post('/logined', [AuthenticationController::class, 'doctorLogin'])->name('doctor.loggedin');
     });
+      //'permission'
     Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
 
         //temp Dashboard
@@ -219,9 +224,9 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         //Create Schedule For Doctors
         Route::get('/schedule/{id}',[ScheduleController::class,'delete'])->name('delete.schedule');
     });
-    Route::group(['prefix' => 'user', 'middleware' => ['auth']], function () {
+    Route::group(['prefix' => 'doctor', 'middleware' => ['auth']], function () {
+        Route::get('/dashboard', [AuthenticationController::class, 'DoctorDashboard'])->name('doctor.dashboard');
     });
-    //'permission'
-    Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
-    });
+
+
 });

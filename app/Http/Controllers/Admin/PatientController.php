@@ -632,7 +632,7 @@ class PatientController extends Controller
                     $user = User::where('personId', $request->personId)->first();
                         $user->update([
                             'email' => $request->email,
-                            'password' => Hash::make($request->password),
+                            'password' => $request->password,
                             'phone_number' => $request->phoneNumber,
                         ]);
 

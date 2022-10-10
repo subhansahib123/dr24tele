@@ -6,7 +6,7 @@
         <div class="breadcrumb-wrap bg-f br-1">
             <div class="container">
                 <div class="breadcrumb-title">
-                    <h2>Patient Login</h2>
+                    <h2>Doctor Login</h2>
                     <ul class="breadcrumb-menu list-style">
                         <li><a href="index.html">Home </a></li>
                         <li>Login</li>
@@ -24,17 +24,19 @@
                         <div class="login-form-wrap">
                             <div class="login-header">
                                 <h3>Login</h3>
+                                  @include('admin_panel.frontend.includes.messages')
                                 <div class="alert alert-danger" id="error" style="display: none;"></div>
 
                                 <div class="alert alert-success" id="successAuth" style="display: none;"></div>
                             </div>
-                            <form class="login-form" action="#" onsubmit="return false">
-                                <input type="hidden" name="role" value="person" />
+                            <form class="login-form" id="login_form" method="POST" action="{{route('doctor.loggedin')}}" >
+                                @csrf
+                                <input type="hidden" name="role" value="doctor" />
                                 <div class="row">
                                     <div class="col-lg-12" id="numbercon">
                                         <div class="form-group">
                                             {{-- <input id="text" name="fname" type="text" placeholder="Username Or Email Address" required=""> --}}
-                                            <input type="text" id="number" class="form-control"
+                                            <input type="text" id="number" name="phone" class="form-control"
                                                 placeholder="+91 ********">
                                         </div>
                                     </div>

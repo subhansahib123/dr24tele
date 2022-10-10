@@ -53,7 +53,7 @@ class AuthenticationController extends Controller
 
                 if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
                     $user = User::where('username', $result_data->username)->first();
-                    
+
                     if ($user) {
 
 
@@ -143,7 +143,7 @@ class AuthenticationController extends Controller
                         }else{
                             return  redirect(route('login.show'));
                         }
-                        
+
                     } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
                         curl_close($curl);
                         return redirect()->back()->withErrors(['error' => $logout->message]);
@@ -252,7 +252,7 @@ class AuthenticationController extends Controller
                     curl_close($curl);
                     return redirect()->back()->withErrors(['error' => $roles->message]);
                 }else if (isset($roles->message) && $roles->message == "Invalid User") {
-                   
+
                     curl_close($curl);
                     return redirect()->route('logout')->withErrors(['error' => $roles->message]);
                 }  else if (isset($roles->message) && $roles->message == "Invalid Token") {
@@ -373,5 +373,107 @@ class AuthenticationController extends Controller
     {
         // dd(session('loggedInUser'));
         return view('hospital_panel.index');
+    }
+    public function DoctorDashboard(){
+        return view('doctor_panel.index');
+    }
+
+    public function showDoctorLogin(){
+        return view('doctor_panel.login');
+    }
+    public function doctorLogin(Request $request)
+    {
+        // dd(1);
+        $curl = curl_init();
+        $baseUrl = config('services.ehr.baseUrl');
+        $apiKey = config('services.ehr.apiKey');
+
+
+
+
+        $user = User::with('user_organization')->where('phone_number',  $request->phone)->first();
+        // dd  ($user->user_organization);
+        if (!isset($user->user_organization))
+            return redirect()->back()->withErrors(['error' => 'User is not associated with any Organisation']);
+        $organisation = Organization::find($user->user_organization->organization_id);
+        // dd  ($organisation->name);
+        if (is_null($organisation))
+
+            return redirect()->back()->withErrors(['error' => 'No Organisation record found in database']);
+
+        if ($user) {
+
+
+            Auth::login($user);
+
+            $data = ['username' => $user->username, 'password' => $user->password];
+
+            $params = array('orgName' => $organisation->name, 'tenantId' => 'ehrn');
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => $baseUrl . 'rest/admin/v1/login?' . http_build_query($params),
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => '',
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 0,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => 'POST',
+                CURLOPT_POSTFIELDS => json_encode($data),
+                CURLOPT_HTTPHEADER => array(
+                    'Content-Type: application/json',
+                    'Accept: application/json',
+                    'apikey: ' . $apiKey
+                ),
+            ));
+            try {
+                // dd(1);
+                $response = curl_exec($curl);
+
+                // dd($response);
+                if ($response == false || isset($response->status)) {
+                    curl_close($curl);
+
+                    return curl_error($curl);
+                } else {
+                    $result_data = json_decode($response);
+                    // dd($result_data);
+                    if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
+
+
+                        curl_close($curl);
+
+                        session_start();
+                        session(['loggedInUser' => $result_data]);
+                        $userInfo = session('loggedInUser');
+                        $userInfo = json_decode(json_encode($userInfo), true);
+                        // dd($userInfo);
+                        return redirect()->route('doctor.dashboard')->withSuccess(__('Successfully Login'));
+                    } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
+                        curl_close($curl);
+                        return redirect()->back()->withErrors(['error' => $result_data->message]);
+                    } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 401) {
+                        curl_close($curl);
+                        return redirect()->back()->withErrors(['error' => $result_data->message]);
+                    } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 403) {
+                        curl_close($curl);
+                        return redirect()->back()->withErrors(['error' => $result_data->message]);
+                    } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 409) {
+                        curl_close($curl);
+                        return redirect()->back()->withErrors(['error' => $result_data->message]);
+                    } else if (isset($result_data->message) && $result_data->message == "API rate limit exceeded") {
+                        curl_close($curl);
+                        return redirect()->back()->withErrors(['error' => $result_data->message]);
+                    } else {
+                        curl_close($curl);
+                        return redirect()->back()->withErrors(['error' =>'Unknown Error From Api.']);
+                    }
+                }
+            } catch (\Exception $e) {
+
+                return $e->getMessage();
+            }
+        } else {
+            return redirect()->back()->withErrors(['error' => 'No User Exist']);
+        }
     }
 }

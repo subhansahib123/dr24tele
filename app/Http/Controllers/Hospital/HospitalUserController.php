@@ -246,7 +246,7 @@ class HospitalUserController extends Controller
 
                     User::create([
                         'username' => $user->username,
-                        'password' => Hash::make($request->password),
+                        'password' => $request->password,
                         'email' => $user->username,
                         'phone_number' => $request->phoneNumber,
                         'uuid' => $user->uuid,
