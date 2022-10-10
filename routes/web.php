@@ -15,6 +15,11 @@ use App\Http\Controllers\Hospital\HospitalPatientController;
 use App\Http\Controllers\Hospital\HospitalDepartmentController;
 
 use App\Http\Controllers\Hospital\ScheduleController;
+
+//Front End Controller
+
+use App\Http\Controllers\FrontEnd\TemplateController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -54,7 +59,46 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::get('/', function () {
             return view('public_panel.index');
         });
+        //About_Us Page
+        Route::get('/about-us',[TemplateController::class,'aboutUs'])->name('aboutUs');
+        //About_Us Page
+        Route::get('/contact-us',[TemplateController::class,'contactUs'])->name('contactUs');
+       
+        //Bl0g Grid Page
+        Route::get('/blog-grid',[TemplateController::class,'blogGrid'])->name('blogGrid');
+        //Blog Left Sidebar Page
+        Route::get('/blog-right-sidebar',[TemplateController::class,'blogRightSidebar'])->name('blogRightSidebar');
+        //Blog Right Sidebar Page
+        Route::get('/blog-left-sidebar',[TemplateController::class,'blogLeftSidebar'])->name('blogLeftSidebar');
         
+        //Left Sidebar Page
+        Route::get('/left-sidebar',[TemplateController::class,'leftSidebar'])->name('leftSidebar');
+        //Right Sidebar Page
+        Route::get('/right-sidebar',[TemplateController::class,'rightSidebar'])->name('rightSidebar');
+        //No Sidebar Page
+        Route::get('/no-sidebar',[TemplateController::class,'noSidebar'])->name('noSidebar');
+        
+        
+        //Book Appointment Page
+        Route::get('/book-appointment',[TemplateController::class,'bookAppointment'])->name('bookAppointment');
+        //Team Page
+        Route::get('/our-team',[TemplateController::class,'ourTeam'])->name('ourTeam');
+        //Faq Page
+        Route::get('/faq',[TemplateController::class,'faq'])->name('faq');
+       
+        //Privacy Policy Page
+        Route::get('/privacy-policy',[TemplateController::class,'privacyPolicy'])->name('privacyPolicy');
+        //Error Page
+        Route::get('/error-page',[TemplateController::class,'errorPage'])->name('errorPage');
+        //No Sidebar Page
+        Route::get('/terms-of-service',[TemplateController::class,'termsOfService'])->name('termsOfService');
+       
+        //Testimonials Page
+        Route::get('/testimonials',[TemplateController::class,'testimonials'])->name('testimonials');
+        //No Sidebar Page
+        Route::get('/pricing-plan',[TemplateController::class,'pricingPlan'])->name('pricingPlan');
+       
+       
         // Admin Login
         Route::get('/login', [AuthenticationController::class, 'showLogin'])->name('login.show');
         Route::post('/admin/login', [AuthenticationController::class, 'login'])->name('login.perform');
