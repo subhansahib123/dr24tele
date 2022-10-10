@@ -60,16 +60,16 @@ class ProfessionController extends Controller
                             return redirect()->back()->withErrors(['error' => $professions->message]);
                         } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 409) {
                             curl_close($curl);
-                            return redirect()->back()->withErrors(['error' => $professions->message]);
+                            return redirect()->route('login.show')->withErrors(['error' => $professions->message]);
                         } else if (isset($professions->message) && $professions->message == "API rate limit exceeded") {
                             curl_close($curl);
                             return redirect()->back()->withErrors(['error' => $professions->message]);
                         }else if (isset($professions->message) && $professions->message == "Invalid User") {
-                             
+
                             curl_close($curl);
                             return redirect()->route('logout')->withErrors(['error' => $professions->message]);
                         }  else if (isset($professions->message) && $professions->message == "Invalid Token") {
-                             
+
                             curl_close($curl);
                             return redirect()->route('logout')->withErrors(['error' => $professions->message]);
                         }else {
@@ -85,7 +85,7 @@ class ProfessionController extends Controller
                 return $e->getMessage();
             }
         } else {
-             
+
             return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
     }

@@ -13,7 +13,6 @@ class Schedule extends Model
         'status',
         'start',
         'interval',
-        'slot_belong',
         'number_of_people',
         'end',
         'comment',

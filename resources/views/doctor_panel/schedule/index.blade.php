@@ -1,4 +1,4 @@
-@extends('hospital_panel.layout.master');
+@extends('doctor_panel.layout.master');
 
 @section('content')
     <div class="main-content app-content mt-0">

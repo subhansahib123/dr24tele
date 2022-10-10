@@ -200,7 +200,7 @@
             $('.addresss').show();
             $('#no-need').hide();
             $('#organization').attr('name','org');
-            var input_organization='<input type="hidden" id="input_org" name="organization" value="c6bc6265-e876-414a-9672-a85e09280059">';
+            var input_organization='<input type="hidden" id="input_org" name="input_org" value="c6bc6265-e876-414a-9672-a85e09280059">';
             $('#add').html(input_organization);
             return false;
         }else if($(this).val()=="Department"){

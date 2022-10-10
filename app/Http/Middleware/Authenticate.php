@@ -3,7 +3,7 @@
 namespace App\Http\Middleware;
 
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
-
+use Illuminate\Support\Str;
 class Authenticate extends Middleware
 {
     /**
@@ -15,7 +15,25 @@ class Authenticate extends Middleware
     protected function redirectTo($request)
     {
         if (! $request->expectsJson()) {
-            return route('login');
+            $url = url()->previous();
+            $containsHospital = Str::contains($url, 'hospital');
+            $containsDoctor = Str::contains($url, 'doctor');
+            $containsAdmin = Str::contains($url, 'admin');
+            $containsPatient = Str::contains($url, 'patient');
+
+            if( $containsHospital) {
+                return  route('hospital.login');
+            }else if($containsDoctor){
+                return  route('doctor.login');
+            }else if($containsAdmin){
+                return  route('login.show');
+            }
+            else if($containsPatient){
+                return  route('login.show');
+            }else {
+                return route('home.page');
+            }
+
         }
     }
 }

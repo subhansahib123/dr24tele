@@ -13,7 +13,7 @@ class AuthenticationController extends Controller
 {
     public function showLogin()
     {
-        return view('login');
+        return view('admin_panel.login');
     }
     public function login(Request $request)
     {
@@ -122,13 +122,13 @@ class AuthenticationController extends Controller
             $logout = json_decode($response);
 
             try {
+                //  dd($logout);
                 if ($response == false) {
                     curl_close($curl);
 
-                    return curl_error($curl);
+                    return redirect()->back()->withErrors(['error' => $error]);
                 } else {
-                    // dd($response);
-                    // dd($result_data);
+
                     if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
                         unset($userInfo);
                         session_destroy();
@@ -136,12 +136,15 @@ class AuthenticationController extends Controller
                         curl_close($curl);
                         // dd($userInfo);
                         $url = url()->previous();
-                        $contains = Str::contains($url, 'hospital');
+                        $containsHospital = Str::contains($url, 'hospital');
+                        $containsDoctor = Str::contains($url, 'doctor');
 
-                        if( $contains) {
-                            return  redirect(route('hospital.login'));
-                        }else{
-                            return  redirect(route('login.show'));
+                        if( $containsHospital) {
+                            return  redirect()->route('hospital.login');
+                        }else if($containsDoctor){
+                            return  redirect()->route('doctor.login');
+                        }else {
+                            return  redirect()->route('login.show');
                         }
 
                     } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
@@ -154,8 +157,10 @@ class AuthenticationController extends Controller
                         curl_close($curl);
                         return redirect()->back()->withErrors(['error' => $logout->message]);
                     } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 409) {
+
                         curl_close($curl);
-                        return redirect()->back()->withErrors(['error' => $logout->message]);
+
+                        return  redirect()->route('login.show')->withErrors(['error' =>$logout->message ]);
                     } else if (isset($logout->message) && $logout->message == "API rate limit exceeded") {
                         curl_close($curl);
                         return redirect()->back()->withErrors(['error' => $logout->message]);
@@ -244,7 +249,7 @@ class AuthenticationController extends Controller
                     return redirect()->back()->withErrors(['error' => $roles->message]);
                 }  else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 409) {
                     curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $roles->message]);
+                    return redirect()->route('login.show')->withErrors(['error' => $roles->message]);
                 } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 403) {
                     curl_close($curl);
                     return redirect()->back()->withErrors(['error' => $roles->message]);

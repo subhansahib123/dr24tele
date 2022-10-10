@@ -143,7 +143,7 @@ class HospitalPatientController extends Controller
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
         if (is_null($userInfo)) {
-             
+
             return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
 
@@ -182,11 +182,11 @@ class HospitalPatientController extends Controller
                     curl_close($curl);
                     return view('hospital_panel.patients.index', ['all_patients' => $all_patients]);
                 } else if (isset($all_patients->message) && $all_patients->message == "Invalid User") {
-                     
+
                     curl_close($curl);
                     return redirect()->route('logout')->withErrors(['error' => $all_patients->message]);
                 }  else if (isset($all_patients->message) && $all_patients->message == "Invalid Token") {
-                     
+
                     curl_close($curl);
                     return redirect()->route('logout')->withErrors(['error' => $all_patients->message]);
                 }
@@ -201,7 +201,7 @@ class HospitalPatientController extends Controller
                     return redirect()->back()->withErrors(['error' => $all_patients->message]);
                 } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 409) {
                     curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $all_patients->message]);
+                    return redirect()->route('hospital.login')->withErrors(['error' => $all_patients->message]);
                 } else if (isset($all_patients->message) && $all_patients->message == "API rate limit exceeded") {
                     curl_close($curl);
 

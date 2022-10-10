@@ -93,7 +93,7 @@ class PatientController extends Controller
                     return redirect()->back()->withErrors(['error' => $patients->message]);
                 } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 409) {
                     curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $patients->message]);
+                    return redirect()->route('login.show')->withErrors(['error' => $patients->message]);
                 } else if (isset($patients->message) && $patients->message == "API rate limit exceeded") {
                     curl_close($curl);
 
@@ -196,7 +196,7 @@ class PatientController extends Controller
                     return redirect()->back()->withErrors(['error' => $patients->message]);
                 } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 409) {
                     curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $patients->message]);
+                    return redirect()->route('login.show')->withErrors(['error' => $patients->message]);
                 } else if (isset($patients->message) && $patients->message == "API rate limit exceeded") {
                     curl_close($curl);
 
@@ -281,7 +281,7 @@ class PatientController extends Controller
                     return redirect()->back()->withErrors(['error' => $patients->message]);
                 } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 409) {
                     curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $patients->message]);
+                    return redirect()->route('login.show')->withErrors(['error' => $patients->message]);
                 } else if (isset($patients->message) && $patients->message == "API rate limit exceeded") {
                     curl_close($curl);
                     return redirect()->back()->withErrors(['error' => $patients->message]);
@@ -369,7 +369,7 @@ class PatientController extends Controller
                     return redirect()->back()->withErrors(['error' => $patients->message]);
                 } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 409) {
                     curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $patients->message]);
+                    return redirect()->route('login.show')->withErrors(['error' => $patients->message]);
                 } else if (isset($patients->message) && $patients->message == "API rate limit exceeded") {
                     curl_close($curl);
                     return redirect()->back()->withErrors(['error' => $patients->message]);
@@ -459,7 +459,7 @@ class PatientController extends Controller
                     return redirect()->back()->withErrors(['error' => $user->message]);
                 } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 409) {
                     curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $user->message]);
+                    return redirect()->route('login.show')->withErrors(['error' => $user->message]);
                 } else if (isset($user->message) && $user->message == "API rate limit exceeded") {
                     curl_close($curl);
                     return redirect()->back()->withErrors(['error' => $user->message]);
@@ -648,7 +648,7 @@ class PatientController extends Controller
                     return redirect()->back()->withErrors(['error' => $patient->message]);
                 } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 409) {
                     curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $patient->message]);
+                    return redirect()->route('login.show')->withErrors(['error' => $patient->message]);
                 } else if (isset($patient->message) && $patient->message == "API rate limit exceeded") {
                     curl_close($curl);
                     return redirect()->back()->withErrors(['error' => $patient->message]);
