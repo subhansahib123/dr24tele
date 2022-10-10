@@ -58,7 +58,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         })->name('home.page');
 
         //patient login
-        Route::get('/login',[AuthController::class,'login'])->name('patient.login');
+        // Route::get('/login',[AuthController::class,'login'])->name('patient.login');
 
         // Admin Login
         Route::get('/admin/login', [AuthenticationController::class, 'showLogin'])->name('login.show');
@@ -76,11 +76,11 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         // Route::post('reset-password', [SocialAuthenticationController::class, 'submitResetPasswordForm'])->name('reset.password.post');
 
         Route::get('/hospital/login', [AuthenticationController::class, 'showHospitalLogin'])->name('hospital.login');
-        Route::post('/logined', [AuthenticationController::class, 'hospitalLogin'])->name('hospitalLogin');
+        Route::post('/hospital/logined', [AuthenticationController::class, 'hospitalLogin'])->name('hospital.loggedin');
 
         //doctor login
         Route::get('/doctor/login', [AuthenticationController::class, 'showDoctorLogin'])->name('doctor.login');
-        Route::post('/logined', [AuthenticationController::class, 'doctorLogin'])->name('doctor.loggedin');
+        Route::post('/doctor/logined', [AuthenticationController::class, 'doctorLogin'])->name('doctor.loggedin');
     });
       //'permission'
     Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
@@ -209,7 +209,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::get('/departments', [HospitalDepartmentController::class, 'hospitalDepartmentsList'])->name('hospitalDepartments.list');
 
         //Route to Create Department
-        Route::get('/create/department', [HospitalDepartmentController::class, 'create  HospitalDepartment'])->name('createHospital.department');
+        Route::get('/create/department', [HospitalDepartmentController::class, 'createHospitalDepartment'])->name('createHospital.department');
         Route::post('/department/created', [HospitalDepartmentController::class, 'hospitalDepartmentCreated'])->name('hospitalDepartment.created');
 
         //Route to update Department

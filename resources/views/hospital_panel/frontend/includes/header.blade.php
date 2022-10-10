@@ -337,22 +337,21 @@
                                         class="avatar  profile-user brround cover-image">
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                    <div class="dropdown-divider m-0"></div>
+                                     <a class="dropdown-item" href="{{route('updatePassword')}}">
+                                        <i class="dropdown-icon fe fe-user"></i> Update Password
+                                    </a>
                                     <div class="drop-heading">
                                         <div class="text-center">
                                             <h5 class="text-dark mb-0 fs-14 fw-semibold">@auth
                                                 {{auth()->user()->name}}&nbsp;
                                                 @endauth</h5>
                                             <small class="text-muted">Senior Admin</small>
-                                            <a href="{{route('logout')}}"  onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
-                                            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                                @csrf
-                                            </form>
+                                            <a href="{{route('logout')}}">Logout</a>
+
                                         </div>
                                     </div>
-                                    <div class="dropdown-divider m-0"></div>
-                                     <a class="dropdown-item" href="{{route('updatePassword')}}">
-                                        <i class="dropdown-icon fe fe-user"></i> Update Password
-                                    </a>
+
                                     {{--<a class="dropdown-item" href="{{route('admin-home-page')}}">
                                         <i class="dropdown-icon  fe fe-home"></i> Dashboard
                                     </a> --}}
