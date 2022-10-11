@@ -68,41 +68,41 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::get('/about-us',[TemplateController::class,'aboutUs'])->name('aboutUs');
         //About_Us Page
         Route::get('/contact-us',[TemplateController::class,'contactUs'])->name('contactUs');
-       
+
         //Bl0g Grid Page
         Route::get('/blog-grid',[TemplateController::class,'blogGrid'])->name('blogGrid');
         //Blog Left Sidebar Page
         Route::get('/blog-right-sidebar',[TemplateController::class,'blogRightSidebar'])->name('blogRightSidebar');
         //Blog Right Sidebar Page
         Route::get('/blog-left-sidebar',[TemplateController::class,'blogLeftSidebar'])->name('blogLeftSidebar');
-        
+
         //Left Sidebar Page
         Route::get('/left-sidebar',[TemplateController::class,'leftSidebar'])->name('leftSidebar');
         //Right Sidebar Page
         Route::get('/right-sidebar',[TemplateController::class,'rightSidebar'])->name('rightSidebar');
         //No Sidebar Page
         Route::get('/no-sidebar',[TemplateController::class,'noSidebar'])->name('noSidebar');
-        
-        
+
+
         //Book Appointment Page
         Route::get('/book-appointment',[TemplateController::class,'bookAppointment'])->name('bookAppointment');
         //Team Page
         Route::get('/our-team',[TemplateController::class,'ourTeam'])->name('ourTeam');
         //Faq Page
         Route::get('/faq',[TemplateController::class,'faq'])->name('faq');
-       
+
         //Privacy Policy Page
         Route::get('/privacy-policy',[TemplateController::class,'privacyPolicy'])->name('privacyPolicy');
         //Error Page
         Route::get('/error-page',[TemplateController::class,'errorPage'])->name('errorPage');
         //No Sidebar Page
         Route::get('/terms-of-service',[TemplateController::class,'termsOfService'])->name('termsOfService');
-       
+
         //Testimonials Page
         Route::get('/testimonials',[TemplateController::class,'testimonials'])->name('testimonials');
         //No Sidebar Page
         Route::get('/pricing-plan',[TemplateController::class,'pricingPlan'])->name('pricingPlan');
-       
+
 
 
         //patient login
@@ -271,6 +271,9 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
         //Create Schedule For Doctors
         Route::get('/create/schedule',[ScheduleController::class,'createSchedule'])->name('create.schedule');
+        Route::post('/store/schedule',[ScheduleController::class,'insert'])->name('store.schedule');
+        Route::get('/schedule/edit/{id}',[DoctorSchedule::class,'edit'])->name('edit.schedule');
+        Route::post('update/schedule',[DoctorSchedule::class,'update'])->name('update.schedule');
         //list of Schedules
         Route::get('/schedules',[ScheduleController::class,'schedules'])->name('list.schedules');
         //Create Schedule For Doctors
@@ -287,6 +290,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::get('/schedules',[DoctorSchedule::class,'schedules'])->name('list.schedules.doctor');
         //Create Schedule
         Route::get('/schedule/{id}',[DoctorSchedule::class,'delete'])->name('delete.schedule.doctor');
+        Route::get('/schedule/edit/{id}',[DoctorSchedule::class,'edit'])->name('edit.schedule.doctor');
+        Route::post('update/schedule',[DoctorSchedule::class,'update'])->name('update.schedule.doctor');
     });
 
 

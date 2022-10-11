@@ -47,7 +47,7 @@
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i class="side-menu__icon fe fe-slack"></i><span class="side-menu__label">Users</span><i class="angle fe fe-chevron-right"></i></a>
                     <ul class="slide-menu nav-tree">
                         <li><a href="{{route('createHospital.user')}}" class="slide-item"> Create User</a></li>
-                        <li><a href="{{route('hospitalUnmapped.Users')}}" class="slide-item">Unmapped Users</a></li>
+                        <li><a href="{{route('mapHospital.user')}}" class="slide-item">Map Users</a></li>
                         <li><a href="{{route('allHospital.users')}}" class="slide-item"> All Users</a></li>
 
                     </ul>

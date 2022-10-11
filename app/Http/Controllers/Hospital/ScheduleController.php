@@ -97,79 +97,97 @@ class ScheduleController extends Controller
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
          }
     }
-    public function insert(Request $request){
+     public function insert(Request $request){
+         $data=$request->all();
+        if($request->has('status')){
+            $data['status']=1;
+        }else {
+            $data['status']=0;
+        }
+        // dd($request->all());
         $request->validate([
             'start'=>'required',
             'end'=>'required',
             'price'=>'required',
             'interval'=>'required',
-            'slot_belong'=>'required',
-            // 'number_of_people'=>'required',
+            'number_of_people'=>'required',
+            'comment'=>'required',
+            // 'status'=>'required',
+
+        ]);
+
+        $start=new Carbon($data['start']);
+        $end=new Carbon($data['end']);
+        $data['start']=$start;
+
+        $data['end']=$end;
+
+
+        // dd($data);
+        $schedule=Schedule::create($data);
+
+        return redirect()->route('list.schedules')->withSuccess(__('Schedule Successfully Created'));
+        // $interval=$data['interval']." minutes";
+
+        // $period =new CarbonPeriod($start, $interval,$end);
+        // $slots = [];
+        // foreach ($period as $item) {
+        //     $start_time=$item->format("h:i A");
+        //     $end_time=$item->addMinutes($data['interval'])->format("h:i A");
+
+        //     $slot=Slot::create([
+        //         'start'=>new Carbon($start_time),
+        //         'end'=>new Carbon($end_time),
+        //         'status'=>1,
+        //         'schedule_id'=>$schedule->id,
+        //         'price'=>$data['price']
+        //     ]);
+        //     array_push($slots, ['slot'=>$item->format("h:i A"),'slot_id'=>$slot->id,'price'=>$data['price']]);
+
+        // }
+
+
+
+        // return response()->json(['schedule_id'=>$schedule->id,'slots'=>$slots]);
+
+
+    }
+    //edit schedule
+    public function edit($id){
+        $schedule=Schedule::find($id);
+        return view('hospital_panel.Schedule.edit',compact('schedule'));
+
+    }
+    public function update(Request $request){
+         $data=$request->all();
+        if($request->has('status')){
+            $data['status']=1;
+        }else {
+            $data['status']=0;
+        }
+        // dd($request->all());
+        $request->validate([
+            'start'=>'required',
+            'end'=>'required',
+            'price'=>'required',
+            'interval'=>'required',
+            'number_of_people'=>'required',
             'comment'=>'required',
             'status'=>'required',
 
         ]);
-        $data=$request->all();
+
         $start=new Carbon($data['start']);
         $end=new Carbon($data['end']);
         $data['start']=$start;
-        if($request->slot_belong){
-            $data['number_of_people']=0;
-        }
 
         $data['end']=$end;
-        $schedule='';
-        if($request->has('schedule_id')&&$request->schedule_id!=''){
-
-            $schedule=Schedule::find($request->schedule_id);
-            Slot::where('schedule_id',$request->schedule_id)->delete();
-
-            $schedule->update($data);
-        }else {
-            $schedule=Schedule::create($data);
-        }
-
-        $interval=$data['interval']." minutes";
-
-        $period =new CarbonPeriod($start, $interval,$end);
-        $slots = [];
-        foreach ($period as $item) {
-            $start_time=$item->format("h:i A");
-            $end_time=$item->addMinutes($data['interval'])->format("h:i A");
-
-            $slot=Slot::create([
-                'start'=>new Carbon($start_time),
-                'end'=>new Carbon($end_time),
-                'status'=>1,
-                'schedule_id'=>$schedule->id,
-                'price'=>$data['price']
-            ]);
-            array_push($slots, ['slot'=>$item->format("h:i A"),'slot_id'=>$slot->id,'price'=>$data['price']]);
-
-        }
 
 
+        // dd($data);
+        $schedule=Schedule::find($request->id)->update($data);
 
-        return response()->json(['schedule_id'=>$schedule->id,'slots'=>$slots]);
-
-
-    }
-    function updateSlots(Request $request){
-        $slot_ids=$request->slot_id;
-        $prices=$request->price;
-        $statuses=$request->status;
-        foreach($slot_ids as  $key =>$slot_id){
-            $slot=Slot::find($slot_id);
-
-            $slot->update([
-                'price'=>$prices[$key],
-                'status'=>isset($statuses[$key])?1:0,
-
-            ]);
-        }
-        return response()->json(['msg'=>'done']);
-
-
+        return redirect()->route('list.schedules')->withSuccess(__('Schedule Successfully Updated'));
     }
     public function schedules(){
         $schedules=Schedule::all();

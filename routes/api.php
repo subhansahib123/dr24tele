@@ -26,5 +26,5 @@ Route::get('/cities/{state_id}',[OrganizationController::class,'cities'])->name(
 Route::get('/getDepartments/{orgUuid}',[OrganizationController::class,'getDepartments'])->name('get.departments');
 
 //create schedule and get storeHospitalPatients
-Route::post('/store/schedule',[ScheduleController::class,'insert'])->name('store.schedule');
-Route::post('/update/slots',[ScheduleController::class,'updateSlots'])->name('update.slot');
+// Route::post('/store/schedule',[ScheduleController::class,'insert'])->name('store.schedule');
+// Route::post('/update/slots',[ScheduleController::class,'updateSlots'])->name('update.slot');
