@@ -39,13 +39,13 @@
                       <h3 class="footer-widget-title">Company</h3>
                       <ul class="footer-menu list-style">
                           <li>
-                              <a href="index.html">
+                              <a href="{{route('home.page')}}">
                                   <i class="ri-arrow-right-s-line"></i>
                                   Home
                               </a>
                           </li>
                           <li>
-                              <a href="about.html">
+                              <a href="{{route('aboutUs')}}">
                                   <i class="ri-arrow-right-s-line"></i>
                                   About Us
                               </a>
@@ -57,13 +57,13 @@
                               </a>
                           </li>
                           <li>
-                              <a href="team.html">
+                              <a href="{{route('ourTeam')}}">
                                   <i class="ri-arrow-right-s-line"></i>
                                   Our Team
                               </a>
                           </li>
                           <li>
-                              <a href="contact.html">
+                              <a href="{{route('contactUs')}}">
                                   <i class="ri-arrow-right-s-line"></i>
                                   Contact Us
                               </a>
@@ -82,25 +82,25 @@
                               </a>
                           </li>
                           <li>
-                              <a href="appointment.html">
+                              <a href="{{route('bookAppointment')}}">
                                   <i class="ri-arrow-right-s-line"></i>
                                   Appointment
                               </a>
                           </li>
                           <li>
-                              <a href="faq.html">
+                              <a href="{{route('faq')}}">
                                   <i class="ri-arrow-right-s-line"></i>
                                   FAQ
                               </a>
                           </li>
                           <li>
-                              <a href="privacy-policy.html">
+                              <a href="{{route('privacyPolicy')}}">
                                   <i class="ri-arrow-right-s-line"></i>
                                   Privacy Policy
                               </a>
                           </li>
                           <li>
-                              <a href="terms-of-service.html">
+                              <a href="{{route('termsOfService')}}">
                                   <i class="ri-arrow-right-s-line"></i>
                                   Terms &amp; Conditions
                               </a>
@@ -113,19 +113,19 @@
                       <h3 class="footer-widget-title">Quick Link</h3>
                       <ul class="footer-menu list-style">
                           <li>
-                              <a href="about.html">
+                              <a href="{{route('aboutUs')}}">
                                   <i class="ri-arrow-right-s-line"></i>
                                   Why Choose Us
                               </a>
                           </li>
                           <li>
-                              <a href="pricing-plan.html">
+                              <a href="{{route('pricingPlan')}}">
                                   <i class="ri-arrow-right-s-line"></i>
                                   Pricing Plan
                               </a>
                           </li>
                           <li>
-                              <a href="blog-left-sidebar.html">
+                              <a href="{{route('blogLeftSidebar')}}">
                                   <i class="ri-arrow-right-s-line"></i>
                                   News &amp; Articles
                               </a>
@@ -137,7 +137,7 @@
                               </a>
                           </li>
                           <li>
-                              <a href="contact.html">
+                              <a href="{{route('contactUs')}}">
                                   <i class="ri-arrow-right-s-line"></i>
                                   Subscribe
                               </a>

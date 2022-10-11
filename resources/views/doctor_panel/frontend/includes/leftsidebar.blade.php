@@ -25,7 +25,7 @@
                 </li>
                 <li class="slide">
                     <a class="side-menu__item has-link" data-bs-toggle="slide" href="{{route('updateHospital')}}"><i class="side-menu__icon fe fe-user"></i><span class="side-menu__label">Hospital</span></a>
-                </li>--}}
+                </li>
                 <li class="slide">
                     <a class="side-menu__item has-link" data-bs-toggle="slide" href="{{route('updateHospital')}}"><i class="side-menu__icon fe fe-user"></i><span class="side-menu__label">Update Profile</span></a>
                 </li>
@@ -63,6 +63,7 @@
                 </li> --}}
 
                 <li class="slide">
+
                     <a class="side-menu__item has-link" data-bs-toggle="slide" href="{{route('list.schedules.doctor')}}"><i class="side-menu__icon fe fe-calender"></i><span class="side-menu__label">Schedules</span></a>
                 </li>
 

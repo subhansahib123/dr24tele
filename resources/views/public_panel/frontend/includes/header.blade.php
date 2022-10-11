@@ -85,11 +85,11 @@
                     </div>
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a href="#" class="nav-link active">
+                            <a href="{{route('home.page')}}" class="nav-link active">
                                 Home
                                 <i class="ri-arrow-down-s-line"></i>
                             </a>
-                            <ul class="dropdown-menu">
+                            <!-- <ul class="dropdown-menu">
                                 <li class="nav-item">
                                     <a href="index.html" class="nav-link">Home One</a>
                                 </li>
@@ -99,7 +99,7 @@
                                 <li class="nav-item">
                                     <a href="index-3.html" class="nav-link">Home Three</a>
                                 </li>
-                            </ul>
+                            </ul> -->
                         </li>
                         <li class="nav-item">
                             <a href="about.html" class="nav-link">
