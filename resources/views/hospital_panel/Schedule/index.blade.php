@@ -65,6 +65,8 @@
 
                                                         <a href="{{ route('delete.schedule', $schedule->id) }}"
                                                             class="btn btn-danger btn-sm">Delete</a>
+                                                            <a href="{{ route('edit.schedule', $schedule->id) }}"
+                                                            class="btn btn-primary btn-sm">Edit</a>
 
                                                     </td>
                                                 </tr>

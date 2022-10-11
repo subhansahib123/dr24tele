@@ -17,14 +17,21 @@ class ScheduleController extends Controller
         if(!Auth::check())
             return redirect()->route('logout')->withErrors(['error'=>'Login Token Expired ! Please login Again']);
         $user_id=auth()->user()->id;
-        // $doctor_id=Doctor::where('user_id',$user_id)->first()->id;
-        dd($user_id);
+        // dd($user_id);
+        $doctor_id=Doctor::where('user_id',$user_id)->first()->id;
+
 
 
         return view('doctor_panel.schedule.create',compact('doctor_id'));
     }
     //store schedule
     public function insert(Request $request){
+         $data=$request->all();
+        if($request->has('status')){
+            $data['status']=1;
+        }else {
+            $data['status']=0;
+        }
         // dd($request->all());
         $request->validate([
             'start'=>'required',
@@ -36,22 +43,18 @@ class ScheduleController extends Controller
             'status'=>'required',
 
         ]);
-        $data=$request->all();
+
         $start=new Carbon($data['start']);
         $end=new Carbon($data['end']);
         $data['start']=$start;
 
         $data['end']=$end;
 
-        if($request->has('status')){
-            $data['status']=1;
-        }else {
-            $data['status']=0;
-        }
+
         // dd($data);
         $schedule=Schedule::create($data);
 
-        return redirect()->back()->withSucces(__('Successfully Created schedule'));
+        return redirect()->route('list.schedules.doctor')->withSuccess(__('Schedule Successfully Created'));
         // $interval=$data['interval']." minutes";
 
         // $period =new CarbonPeriod($start, $interval,$end);
@@ -77,15 +80,56 @@ class ScheduleController extends Controller
 
 
     }
+    //edit schedule
+    public function edit($id){
+        $schedule=Schedule::find($id);
+        return view('doctor_panel.schedule.edit',compact('schedule'));
+
+    }
+    public function update(Request $request){
+         $data=$request->all();
+        if($request->has('status')){
+            $data['status']=1;
+        }else {
+            $data['status']=0;
+        }
+        // dd($request->all());
+        $request->validate([
+            'start'=>'required',
+            'end'=>'required',
+            'price'=>'required',
+            'interval'=>'required',
+            'number_of_people'=>'required',
+            'comment'=>'required',
+            'status'=>'required',
+
+        ]);
+
+        $start=new Carbon($data['start']);
+        $end=new Carbon($data['end']);
+        $data['start']=$start;
+
+        $data['end']=$end;
+
+
+        // dd($data);
+        $schedule=Schedule::find($request->id)->update($data);
+
+        return redirect()->route('list.schedules.doctor')->withSuccess(__('Schedule Successfully Updated'));
+    }
     //list schedules
     public function schedules(){
-        $schedules=Schedule::all();
-        return view('hospital_panel.Schedule.index',['schedules'=>$schedules]);
+       $user_id=auth()->user()->id;
+        // dd($user_id);
+        $doctor_id=Doctor::where('user_id',$user_id)->first()->id;
+        $schedules=Schedule::where('doctor_id',$doctor_id)->get();
+        // dd($schedules);
+        return view('doctor_panel.Schedule.index',['schedules'=>$schedules]);
     }
     //delete single schedule
     public function delete($id){
         Schedule::find($id)->delete();
-        return redirect()->back()->withSucces(__('Successfully delete schdule'));
+        return redirect()->back()->withSuccess(__('Successfully delete schdule'));
 
     }
 }

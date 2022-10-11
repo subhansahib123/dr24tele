@@ -1,4 +1,4 @@
-@extends('doctor_panel.layout.master');
+@extends('hospital_panel.layout.master');
 
 @section('content')
 
@@ -24,7 +24,7 @@
             <!-- ROW-1 OPEN -->
             <div class="row">
                 <div class="form-group">
-                    @include('doctor_panel.frontend.includes.messages')
+                    @include('hospital_panel.frontend.includes.messages')
                 </div>
                 <div class="col-xl-8">
                     <div class="card">
@@ -33,10 +33,9 @@
                             </h4>
                         </div>
                         <div class="card-body">
-                        <form  action="{{route('update.schedule.doctor')}}" method="post" class="form-horizontal">
+                        <form  action="{{route('update.schedule')}}" method="post" class="form-horizontal">
                             @csrf
-                                   <input type="hidden" class="form-control" name="doctor_id"
-                                                            id="doctor_id" required value="{{$schedule->doctor_id}}">
+
                                                             <input type="hidden" class="form-control" name="id"
                                                             id="id" required value="{{$schedule->id}}">
                                     <div class="list-group">
@@ -45,6 +44,22 @@
                                                     class="form-wizard-title">Schedule</span></h5>
                                             <div data-acc-content>
                                                 <div class="my-3 row">
+                                                    <div class="form-group col-6">
+
+                                                        <label for="start">Doctors</label>
+                                                        <select type="datetime-local" class="form-control" name="doctor_id"
+                                                            id="doctor_id" required>
+                                                            <option value="">Select Doctor</option>
+                                                            @foreach ($doctors as $doctor )
+                                                            <option {{$schedule->doctor_id==$doctor->id?'selected':''}}value="{{$doctor->id}}">{{$doctor->user->username}}</option>
+
+                                                            @endforeach
+                                                        </select>
+                                                             @if ($errors->has('doctor_id'))
+                                                                <span class="text-danger text-left">{{ $errors->first('doctor_id') }}</span>
+                                                            @endif
+
+                                                    </div>
                                                      <div class="form-group col-6">
 
                                                         <label for="start">Start Date</label>

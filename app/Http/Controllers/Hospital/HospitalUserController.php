@@ -317,7 +317,7 @@ class HospitalUserController extends Controller
         }
 
 
-        $req_url = $baseUrl . '/rest/admin/orgUserMapping/role/add/' . $orgId;
+        $req_url = $baseUrl . 'rest/admin/orgUserMapping/role/add/' . $orgId;
         // dd($req_url);
         curl_setopt_array($curl, array(
             CURLOPT_URL => $req_url,
@@ -337,16 +337,14 @@ class HospitalUserController extends Controller
             ),
         ));
         try {
-            // dd($request->organizations);
+
             $response = curl_exec($curl);
             // dd($response);
-
-            // dd($dep);
             if ($response == false) {
                 $error = curl_error($curl);
                 curl_close($curl);
 
-                // dd($error);
+
                 return redirect()->back()->withErrors(['error' => $error]);
             } else {
                 $userRole = json_decode($response);
