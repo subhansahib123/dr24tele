@@ -379,8 +379,8 @@ class AuthenticationController extends Controller
         // dd(session('loggedInUser'));
         return view('hospital_panel.index');
     }
-    public function DoctorDashboard(){
-        return view('doctor_panel.index');
+    public function ashboard(){
+        return view('doctor_panel.dashboard');
     }
 
     public function showDoctorLogin(){
@@ -452,7 +452,7 @@ class AuthenticationController extends Controller
                         $userInfo = session('loggedInUser');
                         $userInfo = json_decode(json_encode($userInfo), true);
                         // dd($userInfo);
-                        return redirect()->route('doctor.dashboard')->withSuccess(__('Successfully Login'));
+                        return redirect()->route('doctor_panel.dashboard')->withSuccess(__('Successfully Login'));
                     } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
                         curl_close($curl);
                         return redirect()->back()->withErrors(['error' => $result_data->message]);
@@ -480,5 +480,9 @@ class AuthenticationController extends Controller
         } else {
             return redirect()->back()->withErrors(['error' => 'No User Exist']);
         }
+    }
+    public function DoctorDashboard()
+    {
+        return view('doctor_panel.dashboard');
     }
 }

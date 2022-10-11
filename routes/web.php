@@ -129,6 +129,9 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         //doctor login
         Route::get('/doctor/login', [AuthenticationController::class, 'showDoctorLogin'])->name('doctor.login');
         Route::post('/doctor/logined', [AuthenticationController::class, 'doctorLogin'])->name('doctor.loggedin');
+        
+        
+   
     });
       //'permission'
     Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
