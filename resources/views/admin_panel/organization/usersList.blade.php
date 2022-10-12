@@ -11,11 +11,11 @@
 
             <!-- PAGE-HEADER -->
             <div class="page-header">
-                <h1 class="page-title">Users List</h1>
+                <h1 class="page-title">Organization Users </h1>
                 <div>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Users List</li>
+                        <li class="breadcrumb-item active" aria-current="page">Organization Users</li>
                     </ol>
                 </div>
             </div>
@@ -25,22 +25,22 @@
             <div class="row">
                 <div class="col-xl-12 col-md-12 col-sm-6">
                     <div class="card">
-                        <div class="card-header row">
+                        <!-- <div class="card-header row">
                             <div class="col-3"><span class="card-title">List</span></div>
                             <div class="col-7 align-self-center"></div>
-                            <!-- <div class="col-2">
+                            <div class="col-2">
                                 <a href="{{route('create.organization')}}"><button class="btn btn-primary">ADD Organizations</button></a>
 
-                            </div> -->
+                            </div> 
 
                             {{-- <span class="card-title "><a href="{{route('roles.create')}}"> Add New Permission</a></span> --}}
-                        </div>
+                        </div> -->
                         <div class="card-body">
 
                             @include('admin_panel.frontend.includes.messages')
                             {{-- <p>Use <code class="highlighter-rouge">.table-striped</code>to add zebra-striping to any table row within the <code class="highlighter-rouge">.tbody</code>.</p> --}}
                             <div class="table-responsive">
-                                <div class="bg-light p-4 rounded">
+                                <div class="bg-light p-4">
 
 
 
@@ -53,7 +53,7 @@
                                         <thead>
                                             <th scope="col" width="10%">User Name</th>
                                              <th scope="col" width="10%">Name</th>
-                                             <th scope="col" width="4%">Delete</th>
+                                             <th scope="col" width="4%">Action</th>
                                         </thead>
 
 
@@ -86,7 +86,7 @@
                                 </div>
                                 <div class="mt-4">
                                     <!-- <a href="" class="btn btn-info">Edit</a> -->
-                                    <a href="{{route('dashboard')}}" class="btn btn-info">Back</a>
+                                    <a href="{{url()->previous()}}" class="btn btn-info">Back</a>
 
                                 </div>
                             </div>

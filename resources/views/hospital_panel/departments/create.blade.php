@@ -11,7 +11,7 @@
 
             <!-- PAGE-HEADER -->
             <div class="page-header">
-                <h1 class="page-title">Create</h1>
+                <h1 class="page-title">Create Department</h1>
                 <div>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
@@ -26,7 +26,7 @@
                 <div class="col-md-12 col-xl-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class=""> Create New Department
+                            <h4 class=""> New Department
                             </h4>
                         </div>
                         @include('admin_panel.frontend.includes.messages')
@@ -107,11 +107,13 @@
                                 </div>
                                 <div class="mb-0 mt-4 row justify-content-end">
                                     <div class="col">
-                                        <button class="btn btn-primary" type="submit">Save</button>
+
+                                        <button class="btn btn-primary" type="submit">Create</button>
+                                        <span><a href="{{route('hospital.dashboard')}}" class="btn btn-info  ">Cancel</a></span>
+
                                     </div>
                                 </div>
                             </form>
-                            <a href="{{route('dashboard')}}"><button class="btn btn-secondary mt-3">Cancel</button></a>
 
                         </div>
                     </div>

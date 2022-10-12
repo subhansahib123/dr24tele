@@ -40,7 +40,7 @@
                             @include('admin_panel.frontend.includes.messages')
                             {{-- <p>Use <code class="highlighter-rouge">.table-striped</code>to add zebra-striping to any table row within the <code class="highlighter-rouge">.tbody</code>.</p> --}}
                             <div class="table-responsive">
-                                <div class="bg-light p-4 rounded">
+                                <div class="bg-light p-4 ">
 
 
 
@@ -51,12 +51,12 @@
 
                                     <table class="table table-striped">
                                         <thead>
-                                            <th scope="col" width="29%">Name</th>
-                                            <th scope="col" width="3%">Update</th>
-                                            <th scope="col" width="3%">List</th>
-                                            <th scope="col" width="3%">List</th>
-                                            <th scope="col" width="3%">List</th>
-                                            <th scope="col" width="3%">List</th>
+                                            <th scope="col"  width="29%">Name</th>
+                                            <th scope="col" class="text-center" width="3%"></th>
+                                            <th scope="col" class="text-center" width="3%"></th>
+                                            <th scope="col" class="text-center" width="3%"></th>
+                                            <th scope="col" class="text-center" width="3%"></th>
+                                            <th scope="col" class="text-center" width="3%"></th>
                                         </thead>
 
 

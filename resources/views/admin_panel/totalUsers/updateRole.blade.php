@@ -11,11 +11,11 @@
 
             <!-- PAGE-HEADER -->
             <div class="page-header">
-                <h1 class="page-title">Update User Role </h1>
+                <h1 class="page-title">Update Role </h1>
                 <div>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Update User Role </li>
+                        <li class="breadcrumb-item active" aria-current="page">Update Role </li>
                     </ol>
                 </div>
             </div>
@@ -46,8 +46,8 @@
                 </div>
                 <div class="form-group">
                     <!-- <label for="role">Roles</label> -->
-                    <button type="submit" class="btn btn-primary">Update User Role</button>
-                    <a href="{{route('dashboard')}}" class="btn btn-info">Back</a>
+                    <button type="submit" class="btn btn-primary">Update</button>
+                    <a href="{{route('users.unmapped')}}" class="btn btn-info">Back</a>
 
                 </div>
             </form>

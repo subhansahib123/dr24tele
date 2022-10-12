@@ -26,7 +26,7 @@
                 <div class="col-md-12 col-xl-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class=""> Update Department
+                            <h4 class="">  Department
                             </h4>
                         </div>
                         @include('admin_panel.frontend.includes.messages')
@@ -104,11 +104,12 @@
                                 </div>
                                 <div class="mb-0 mt-4 row justify-content-end">
                                     <div class="col">
-                                        <button class="btn btn-primary" type="submit">Save</button>
+                                        <button class="btn btn-primary" type="submit">Update</button>
+                                        <span><a href="{{route('hospital.dashboard')}}" class="btn btn-info  ">Cancel</a></span>                             
+
                                     </div>
                                 </div>
                             </form>
-                            <a href="{{route('hospital.dashboard')}}"><button class="btn btn-secondary mt-3">Cancel</button></a>
 
                         </div>
                     </div>

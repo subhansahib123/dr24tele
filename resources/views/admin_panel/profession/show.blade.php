@@ -27,7 +27,7 @@
                                 @include('admin_panel.frontend.includes.messages')
                                 {{-- <p>Use <code class="highlighter-rouge">.table-striped</code>to add zebra-striping to any table row within the <code class="highlighter-rouge">.tbody</code>.</p> --}}
                                 <div class="table-responsive">
-                                    <div class="bg-light p-4 rounded">
+                                    <div class="bg-light p-4  ed">
                                         @foreach($professions as $profession)
                                             <h1>Profession: {{ $profession->profession }}, Number: {{ $profession->number }} </h1>
                                             <div class="lead">

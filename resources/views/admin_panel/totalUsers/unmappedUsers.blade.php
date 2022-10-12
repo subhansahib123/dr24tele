@@ -11,11 +11,11 @@
 
             <!-- PAGE-HEADER -->
             <div class="page-header">
-                <h1 class="page-title">Unmapped Patients</h1>
+                <h1 class="page-title">Unmapped Users</h1>
                 <div>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Unmapped Patients List</li>
+                        <li class="breadcrumb-item active" aria-current="page">Unmapped Users List</li>
                     </ol>
                 </div>
             </div>
@@ -27,12 +27,12 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="col-3">
-                                <span class="card-title">Patients</span>
+                                <span class="card-title"></span>
 
                             </div>
                             <div class="col-7 align-self-center"></div>
                             <div class="col-2">
-                                <a href="{{route('mappingRole')}}"><button class="btn btn-primary">Map Patients</button></a>
+                                <a href="{{route('mappingRole')}}"><button class="btn btn-primary">Map Users</button></a>
 
                             </div>
                             {{--<span class="card-title "><a href="#"> Add New Patient</a></span>--}}
@@ -42,7 +42,7 @@
                             @include('admin_panel.frontend.includes.messages')
                             {{-- <p>Use <code class="highlighter-rouge">.table-striped</code>to add zebra-striping to any table row within the <code class="highlighter-rouge">.tbody</code>.</p> --}}
                             <div class="table-responsive">
-                                <div class="bg-light p-4 rounded">
+                                <div class="bg-light p-4 ">
                                     <div class="lead">
 
                                     </div>

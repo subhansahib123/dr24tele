@@ -31,11 +31,11 @@
                         <form action="{{route('store.patients')}}" method="POST">
                             @csrf
                             <div class="card-header">
-                                <h3 class="card-title">Create </h3>
+                                <h3 class="card-title">Create Patient </h3>
                             </div>
                             <div class="card-body">
                                 <div class="row">
-                                    <h3>Patient</h3>
+                                    <!-- <h3></h3> -->
                                     <div class="form-group">
                                         <label for="userUuid">User</label>
                                         <select class="form-control" value="{{old('user')}}" name="userUuid" id="userUuid">
@@ -167,8 +167,8 @@
                                 </div>
 
                             </div>
-                            <div class="card-footer text-end">
-                                <button type="submit" class="btn btn-success my-1">Create</button>
+                            <div class="card-footer ">
+                                <button type="submit" class="btn btn-info my-1">Create</button>
                                 {{-- <a href="javascript:void(0)" class="btn btn-danger my-1">Cancel</a> --}}
                             </div>
                         </form>

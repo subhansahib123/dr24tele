@@ -11,11 +11,11 @@
 
             <!-- PAGE-HEADER -->
             <div class="page-header">
-                <h1 class="page-title">Organization Create</h1>
+                <h1 class="page-title"> Create Organization/Department</h1>
                 <div>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Organization Create</li>
+                        <li class="breadcrumb-item active" aria-current="page"> Create Organization/Department</li>
                     </ol>
                 </div>
             </div>
@@ -26,7 +26,7 @@
                 <div class="col-md-12 col-xl-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class=""> Create New Organization
+                            <h4 class=""> Create New Organization/Department
                             </h4>
                         </div>
                         @include('admin_panel.frontend.includes.messages')
@@ -174,11 +174,12 @@
                                 </div>
                                 <div class="mb-0 mt-4 row justify-content-end">
                                     <div class="col">
-                                        <button class="btn btn-primary" type="submit">Save</button>
+                                        <button class="btn btn-primary" type="submit">Create</button>
+
+                                        <span><a href="{{route('organization')}}" class="btn btn-secondary  ">Cancel</a></span>                             
                                     </div>
                                 </div>
                             </form>
-                            <a href="{{route('dashboard')}}"><button class="btn btn-secondary mt-3">Cancel</button></a>
 
                         </div>
                     </div>

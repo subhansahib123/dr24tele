@@ -31,7 +31,7 @@
                         <form action="{{ route('store.user') }}" method="POST">
                             @csrf
                             <div class="card-header">
-                                <h3 class="card-title">Create User</h3>
+                                <!-- <h3 class="card-title">Create User</h3> -->
                             </div>
                             <div class="card-body">
                                 <div class="row">
@@ -99,8 +99,10 @@
                                 </div>
 
                             </div>
-                            <div class="card-footer text-end">
-                                <button type="submit" class="btn btn-success my-1">Create</button>
+                            <div class="card-footer ">
+                                <button type="submit" class="btn btn-primary my-1">Create</button>
+                                <span><a href="{{route('dashboard')}}" class="btn btn-secondary  ">Cancel</a></span>                             
+
                                 {{-- <a href="javascript:void(0)" class="btn btn-danger my-1">Cancel</a> --}}
                             </div>
                         </form>

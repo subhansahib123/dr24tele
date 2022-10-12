@@ -41,7 +41,7 @@
                             @include('admin_panel.frontend.includes.messages')
                             {{-- <p>Use <code class="highlighter-rouge">.table-striped</code>to add zebra-striping to any table row within the <code class="highlighter-rouge">.tbody</code>.</p> --}}
                             <div class="table-responsive">
-                                <div class="bg-light p-4 rounded">
+                                <div class="bg-light p-4    ">
                                     <div class="lead">
 
                                     </div>
@@ -53,7 +53,7 @@
                                         <table class="table table-striped">
                                             <thead>
                                                 <th scope="col" width="20%">Name</th>
-                                                <th scope="col" width="1%">Guard</th>
+                                                <th scope="col" width="1%"></th>
                                             </thead>
                                             @if($all_patients->person)
                                             @foreach($all_patients->person as $all_patient)

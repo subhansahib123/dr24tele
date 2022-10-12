@@ -50,7 +50,7 @@
                                     <div class="col-lg-6 col-md-12">
                                         <div class="form-group">
                                             <label for="Password">Password</label>
-                                            <input type="text" class="form-control"  name="password" id="Password" placeholder="Password">
+                                            <input type="text" class="form-control" name="password" id="Password" placeholder="Password">
                                         </div>
                                     </div>
 
@@ -168,7 +168,9 @@
 
                             </div>
                             <div class="card-footer text-end">
-                                <button type="submit" class="btn btn-success my-1">Create</button>
+                                <button type="submit" class="btn btn-primary my-1">Create</button>
+
+                                <span><a href="{{route('hospital.dashboard')}}" class="btn btn-info  ">Cancel</a></span>
                                 {{-- <a href="javascript:void(0)" class="btn btn-danger my-1">Cancel</a> --}}
                             </div>
                         </form>
