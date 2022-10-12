@@ -68,11 +68,12 @@ class OrganizationController extends Controller
 
                     // dd($organizations);
                     foreach ($organizations->childlist as $organization) {
-                        Organization::firstOrCreate([
+                        Organization::firstOrNew(['name'=>$organization->name],[
                             'name' => $organization->name,
                             'slug' => Str::slug($organization->name),
                             'uuid' => $organization->uuid,
-                            'status' => $organization->status
+                            'status' => $organization->status,
+                            'organization_id'=>1
                         ]);
                     }
 
@@ -219,6 +220,7 @@ class OrganizationController extends Controller
                             'slug' => $request->name,
                             'level' => "SubOrg",
                             'uuid' => $organization->uuid,
+                            
                         ]);
                         return redirect()->back()->withSuccess(__('Successfully Department Created'));
                     } else if($request->level == 'Hospital') {
@@ -228,7 +230,7 @@ class OrganizationController extends Controller
                             'slug' => $organization->displayname,
                             'status' => $organization->status,
                             'level' => "SubOrg",
-                            'organization_id' => $org->id
+                            'organization_id' => 1
                         ]);
                         return redirect()->back()->withSuccess(__('Successfully Organization Created'));
                     }

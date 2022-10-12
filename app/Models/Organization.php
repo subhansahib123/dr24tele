@@ -16,7 +16,8 @@ class Organization extends Model
         'uuid',
         'status',
 
-        'level'
+        'level',
+        'organization_id'
 
     ];
     public function department()
