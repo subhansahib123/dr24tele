@@ -221,7 +221,7 @@ class OrganizationController extends Controller
                             'uuid' => $organization->uuid,
                         ]);
                         return redirect()->back()->withSuccess(__('Successfully Department Created'));
-                    } else {
+                    } else if($request->level == 'Hospital') {
                         Organization::Create([
                             'name' => $request->name,
                             'uuid' => $organization->uuid,
@@ -232,15 +232,6 @@ class OrganizationController extends Controller
                         ]);
                         return redirect()->back()->withSuccess(__('Successfully Organization Created'));
                     }
-
-
-
-
-
-                    // dd($or ganization);
-
-
-
 
 
                 } else if ($organization->message == "Provided organization name already exist") {
