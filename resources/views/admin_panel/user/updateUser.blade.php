@@ -30,9 +30,9 @@
                     <div class="card">
                         <form action="{{route('userUpdated')}}" method="POST">
                             @csrf
-                            <div class="card-header">
-                                <h3 class="card-title">Update User</h3>
-                            </div>
+                            <!-- <div class="card-header">
+                                <h3 class="card-title">Update</h3>
+                            </div> -->
                             <div class="card-body">
                                 <div class="row">
                                     <h3>User</h3>
@@ -100,8 +100,9 @@
                                 </div>
 
                             </div>
-                            <div class="card-footer text-end">
-                                <button type="submit" class="btn btn-success my-1">Create</button>
+                            <div class="card-footer ">
+                                <button type="submit" class="btn btn-primary my-1">Update</button>
+                                <span><a href="{{route('dashboard')}}" class="btn btn-info  ">Cancel</a></span>                             
                                 {{-- <a href="javascript:void(0)" class="btn btn-danger my-1">Cancel</a> --}}
                             </div>
                         </form>

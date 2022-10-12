@@ -25,22 +25,22 @@
             <div class="row">
                 <div class="col-xl-12 col-md-12 col-sm-6">
                     <div class="card">
-                        <div class="card-header row">
+                        <!-- <div class="card-header row">
                             <div class="col-3"><span class="card-title">List</span></div>
                             <div class="col-7 align-self-center"></div>
-                            <!-- <div class="col-2">
+                            <div class="col-2">
                                 <a href="{{route('create.organization')}}"><button class="btn btn-primary">ADD Organizations</button></a>
 
-                            </div> -->
+                            </div>
 
                             {{-- <span class="card-title "><a href="{{route('roles.create')}}"> Add New Permission</a></span> --}}
-                        </div>
+                        </div> -->
                         <div class="card-body">
 
                             @include('admin_panel.frontend.includes.messages')
                             {{-- <p>Use <code class="highlighter-rouge">.table-striped</code>to add zebra-striping to any table row within the <code class="highlighter-rouge">.tbody</code>.</p> --}}
                             <div class="table-responsive">
-                                <div class="bg-light p-4 rounded">
+                                <div class="bg-light p-4 ">
 
 
                                 
@@ -51,9 +51,9 @@
 
                                     <table class="table table-striped">
                                         <thead>
-                                            <th scope="col" width="20%">Name</th>
-                                             <th scope="col" width="19%">User Name</th> 
-                                             <th scope="col" width="2%">Action</th> 
+                                            <th scope="col" width="20%">Username</th>
+                                             <th scope="col" width="19%"> Name</th> 
+                                             <th scope="col" width="2%"></th> 
                                         </thead>
 
 

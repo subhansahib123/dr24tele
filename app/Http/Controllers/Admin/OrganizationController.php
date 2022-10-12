@@ -438,7 +438,7 @@ class OrganizationController extends Controller
     }
     public function updateOrganization(Request $request)
     {
-
+        // dd($request->all());
         $curl = curl_init();
 
         $baseUrl = config('services.ehr.baseUrl');

@@ -11,7 +11,7 @@
 
             <!-- PAGE-HEADER -->
             <div class="page-header">
-                <h1 class="page-title">Map User by Role </h1>
+                <h1 class="page-title">Map User by Role Under Organization </h1>
                 <div>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
@@ -69,10 +69,10 @@
                 </div>
                 <div class="form-group">
                     <!-- <label for="role">Roles</label> -->
-                    <button type="submit" class="btn btn-primary">Map User Role</button>
+                    <button type="submit" class="btn btn-primary">Map</button>
 
 
-                    <a href="{{route('dashboard')}}" class="btn btn-info">Back</a>
+                    <a href="{{route('users.unmapped')}}" class="btn btn-info">Back</a>
 
                 </div>
             </form>

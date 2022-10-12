@@ -26,8 +26,8 @@
                 <div class="col-md-12 col-xl-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class=""> Update Department
-                            </h4>
+                            <!-- <h4 class=""> Update Department
+                            </h4> -->
                         </div>
                         @include('admin_panel.frontend.includes.messages')
                         <div class="card-body">
@@ -45,7 +45,7 @@
                                 </div>
                                 <input type="hidden" class="form-control" value="{{$organization->uuid}}" name="DepUuid" id="OrgUuid" placeholder="Display Name" autocomplete="OrgUuid">
 
-                                        <input type="hidden" class="form-control"  value="{{$depData->name}}" name="name" >
+                                <input type="hidden" class="form-control" value="{{$depData->name}}" name="name">
 
                                 <div class=" row mb-4">
                                     <label for="email" class="col-md-3 form-label"> Contact Person Designation</label>
@@ -71,7 +71,7 @@
                                         <input type="email" class="form-control" value="{{$organization->email}}" name="email" placeholder="Email" autocomplete="username">
                                     </div>
                                 </div>
-                                
+
                                 <div class=" row mb-4 addresss">
                                     <label for="building" class="col-md-3 form-label">Building</label>
                                     <div class="col-md-9">
@@ -103,11 +103,11 @@
                                 </div>
                                 <div class="mb-0 mt-4 row justify-content-end">
                                     <div class="col">
-                                        <button class="btn btn-primary" type="submit">Save</button>
+                                        <button class="btn btn-primary" type="submit">Upadate</button>
+                                        <span><a href="{{route('organization')}}" class="btn btn-secondary  ">Cancel</a></span>
                                     </div>
                                 </div>
                             </form>
-                            <a href="{{route('dashboard')}}"><button class="btn btn-secondary mt-3">Cancel</button></a>
 
                         </div>
                     </div>

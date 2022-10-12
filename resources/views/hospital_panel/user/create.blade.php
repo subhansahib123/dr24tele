@@ -85,7 +85,8 @@
                                         <div class="form-group">
                                             <label class="form-label" for="gender">Gender</label>
                                             <select name="gender_code" id="gender">
-                                                <option value="F">
+                                            <option value="">Select</option>    
+                                            <option value="F">
                                                     Female
                                                 </option>
                                                 <option value="M">
@@ -99,8 +100,10 @@
                                 </div>
 
                             </div>
-                            <div class="card-footer text-end">
-                                <button type="submit" class="btn btn-success my-1">Create</button>
+                            <div class="card-footer ">
+                                <button type="submit" class="btn btn-primary my-1">Create</button>
+                                <span><a href="{{route('hospital.dashboard')}}" class="btn btn-info  ">Cancel</a></span>                             
+
                                 {{-- <a href="javascript:void(0)" class="btn btn-danger my-1">Cancel</a> --}}
                             </div>
                         </form>

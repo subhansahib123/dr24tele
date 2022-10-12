@@ -11,11 +11,11 @@
 
             <!-- PAGE-HEADER -->
             <div class="page-header">
-                <h1 class="page-title">Map User by Organization </h1>
+                <h1 class="page-title">Map Patient Under Organization </h1>
                 <div>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Map User </li>
+                        <li class="breadcrumb-item active" aria-current="page">Map Patient </li>
                     </ol>
                 </div>
             </div>
@@ -24,8 +24,9 @@
             <form action="{{route('patient.mapped')}}" method="POST">
                 @csrf
                 <div class="form-group">
-                    <label for="user">User</label>
+                    <label for="user">Patient</label>
                     <select class="form-control" value="{{old('user')}}" name="user" id="user">
+                        <option value="">Select</option>
                         @if($users)
                         @foreach ($users as $user)
                         <option value="{{$user->PersonId}}">{{$user->username}}</option>
@@ -36,6 +37,7 @@
                 <div class="form-group">
                     <label for="role">Organization</label>
                     <select class="form-control" value="{{old('role')}}" name="organisation" id="role">
+                        <option value="">Select</option>
                         @if($organizations)
                         @foreach ($organizations as $organization)
                         <option value="{{$organization->uuid}}">{{$organization->name}}</option>
@@ -45,7 +47,7 @@
                 </div>
                 <div class="form-group">
                     <!-- <label for="role">Roles</label> -->
-                    <button type="submit" class="btn btn-primary">Map User Organization</button>
+                    <button type="submit" class="btn btn-primary">Map</button>
 
 
                     <a href="{{route('dashboard')}}" class="btn btn-info">Back</a>

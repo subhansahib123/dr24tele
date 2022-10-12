@@ -11,11 +11,11 @@
 
             <!-- PAGE-HEADER -->
             <div class="page-header">
-                <h1 class="page-title">Roles</h1>
+                <h1 class="page-title">ALL Patients </h1>
                 <div>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Roles List</li>
+                        <li class="breadcrumb-item active" aria-current="page">ALL Patients </li>
                     </ol>
                 </div>
             </div>
@@ -25,61 +25,91 @@
             <div class="row">
                 <div class="col-xl-12 col-md-12 col-sm-6">
                     <div class="card">
-        
-                            <div class="row card-header">
-                                <div class="col-md-3 p-3 px-3 text-center"><span class="card-title">Roles List</span></div>
-                                <div class="col-md-7 algn-self-center"></div>
-                                <div class="col-md-2 p-3 px-3 text-center"><span class=""><a class="btn btn-primary" href="{{route('roles.create')}}"><i class="angle fe fe-plus"></i> </a></span></div>
+                        <div class="card-header">
+                            <div class="col-5">
+                                <span class="card-title">Mapped and Unmapped Patients</span>
 
                             </div>
-                            <div class="card-body">
+                            <div class="col-5 align-self-center"></div>
+                            <div class="col-2">
 
-                                @include('admin_panel.frontend.includes.messages')
-                                {{-- <p>Use <code class="highlighter-rouge">.table-striped</code>to add zebra-striping to any table row within the <code class="highlighter-rouge">.tbody</code>.</p> --}}
-                                <div class="table-responsive">
-                                    <table class="table border text-nowrap text-md-nowrap table-striped mb-0">
-                                        <thead>
-                                            <tr>
-                                                <th>ID</th>
-                                                <th>Name</th>
+                            </div>
+                            {{--<span class="card-title "><a href="#"> Add New use</a></span>--}}
+                        </div>
+                        <div class="card-body">
 
-                                                <th>Action</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            @foreach ($roles as $role )
+                            @include('admin_panel.frontend.includes.messages')
+                            {{-- <p>Use <code class="highlighter-rouge">.table-striped</code>to add zebra-striping to any table row within the <code class="highlighter-rouge">.tbody</code>.</p> --}}
+                            <div class="table-responsive">
+                                <div class="bg-light p-4 ">
+                                    <div class="lead">
+
+                                    </div>
+
+                                    <div class="container mt-4">
+
+
+
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <th scope="col" width="20%">Name</th>
+                                                <th scope="col" width="1%">Action</th>
+                                            </thead>
+                                            @if($all_patients->person)
+                                            @foreach($all_patients->person as $all_patient)
+
+
                                             <tr>
-                                                <td>{{ $loop->index +1}}</td>
-                                                <td>{{$role->name}}</td>
 
                                                 <td>
-                                                    <a class="btn btn-primary btn-sm" href="{{ route('roles.show', $role->id) }}">Show Permissions</a>
-                                                    <a href="{{route('roles.edit',$role->id)}}" class="btn btn-info btn-sm">Edit</a>
-                                                    {!! Form::open(['method' => 'DELETE','route' => ['roles.destroy', $role->id],'style'=>'display:inline']) !!}
-                                                    {!! Form::submit('Delete', ['class' => 'btn btn-danger btn-sm']) !!}
-                                                    {!! Form::close() !!}
+
+                                                    {{$all_patient->givenName}}
+
+
+                                                </td>                                                 
+                                                 <td>
+                                                    <a href="{{route('patient.delete',[$all_patient->personIdentifiers->identifier])}}" class="btn btn-danger">Delete</a>
                                                 </td>
+
+
+
                                             </tr>
 
+
                                             @endforeach
+                                            @else
+                                            <tr>
+
+                                                <td>
+
+                                                    No Record
 
 
-                                        </tbody>
-                                    </table>
-                                    <div class="d-flex">
-                                        {!! $roles->links() !!}
+                                                </td>
+
+
+
+                                            </tr>
+                                            @endif
+
+                                        </table>
+
                                     </div>
+                                </div>
+                                <div class="mt-4">
+                                    <a href="{{route('dashboard')}}" class="btn btn-info">Back</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <!-- CONTAINER CLOSED -->
-
         </div>
+        <!-- CONTAINER CLOSED -->
+
     </div>
+</div>
 
 
 
-    @endsection
+@endsection

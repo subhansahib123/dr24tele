@@ -11,11 +11,11 @@
 
             <!-- PAGE-HEADER -->
             <div class="page-header">
-                <h1 class="page-title">All Users</h1>
+                <h1 class="page-title">All Dr-Tele Users</h1>
                 <div>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">All Users List</li>
+                        <li class="breadcrumb-item active" aria-current="page">Users List</li>
                     </ol>
                 </div>
             </div>
@@ -25,7 +25,7 @@
             <div class="row">
                 <div class="col-xl-12 col-md-12 col-sm-6">
                     <div class="card">
-                        <div class="card-header">
+                        <!-- <div class="card-header">
                             <div class="col-3">
                                 <span class="card-title">Users</span>
 
@@ -33,13 +33,13 @@
                             <div class="col-7 align-self-center"></div>
                             
                             {{--<span class="card-title "><a href="#"> Add New Patient</a></span>--}}
-                        </div>
+                        </div> -->
                         <div class="card-body">
 
                             @include('admin_panel.frontend.includes.messages')
                             {{-- <p>Use <code class="highlighter-rouge">.table-striped</code>to add zebra-striping to any table row within the <code class="highlighter-rouge">.tbody</code>.</p> --}}
                             <div class="table-responsive">
-                                <div class="bg-light p-4 rounded">
+                                <div class="bg-light p-4 ">
                                     <div class="lead">
 
                                     </div>
@@ -52,8 +52,8 @@
                                             <thead>
                                                 <th scope="col" width="20%">Name</th>
                                                  <th scope="col" width="18%">Username</th>
-                                               <th scope="col" width="2%">Update</th>
-                                               <th scope="col" width="1%">Action</th>
+                                               <th scope="col" width="2%"></th>
+                                               <th scope="col" width="1%"></th>
                                             </thead>
                                             @if(isset($all_patients) && $all_patients->Users)
                                             @foreach($all_patients->Users as $all_patient)
