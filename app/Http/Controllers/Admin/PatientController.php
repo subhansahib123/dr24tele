@@ -84,8 +84,7 @@ class PatientController extends Controller
                     return redirect()->back()->withSuccess(__('Patient Successfully Created'));
                 } else if (isset($patients->message) && $patients->message == "API rate limit exceeded") {
                     curl_close($curl);
-
-                    return redirect()->back()->withErrors(['error' => $patients->message]);
+                    return redirect()->route('login.show')->withErrors(['error' => $patients->message]);
                 } else if (isset($patients->message) && $patients->message == "Invalid User") {
 
                     curl_close($curl);
@@ -100,7 +99,9 @@ class PatientController extends Controller
                 }
             }
         } catch (\Exception $e) {
-            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+
+
+            return redirect()->back()->withErrors(['error' => __($e->getMessage())]);
         }
     }
     public function mapPatients()
@@ -173,10 +174,9 @@ class PatientController extends Controller
 
                     curl_close($curl);
                     return redirect()->back()->withSuccess(__('orgPersonMapping For orgID, Personid mapped successfully'));
-                }  else if (isset($patients->message) && $patients->message == "API rate limit exceeded") {
+                } else if (isset($patients->message) && $patients->message == "API rate limit exceeded") {
                     curl_close($curl);
-
-                    return redirect()->back()->withErrors(['error' => $patients->message]);
+                    return redirect()->route('login.show')->withErrors(['error' => $patients->message]);
                 } else if (isset($patients->message) && $patients->message == "Invalid User") {
 
                     curl_close($curl);
@@ -187,13 +187,13 @@ class PatientController extends Controller
                     return redirect()->route('login.show')->withErrors(['error' => $patients->message]);
                 } else {
                     curl_close($curl);
-
-
                     return redirect()->back()->withErrors(['error' => $patients->message]);
                 }
             }
         } catch (\Exception $e) {
-            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+
+
+            return redirect()->back()->withErrors(['error' => __($e->getMessage())]);
         }
     }
     public function patientsList($uuid)
@@ -246,9 +246,9 @@ class PatientController extends Controller
                     curl_close($curl);
                     // dd($patients);
                     return view('admin_panel.patients.showPatients', ['patients' => $patients]);
-                }  else if (isset($patients->message) && $patients->message == "API rate limit exceeded") {
+                }else if (isset($patients->message) && $patients->message == "API rate limit exceeded") {
                     curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $patients->message]);
+                    return redirect()->route('login.show')->withErrors(['error' => $patients->message]);
                 } else if (isset($patients->message) && $patients->message == "Invalid User") {
 
                     curl_close($curl);
@@ -263,7 +263,9 @@ class PatientController extends Controller
                 }
             }
         } catch (\Exception $e) {
-            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+
+
+            return redirect()->back()->withErrors(['error' => __($e->getMessage())]);
         }
     }
     public function patientDelete($uuid)
@@ -284,7 +286,7 @@ class PatientController extends Controller
         $token = $userInfo['sessionInfo']['token'];
 
         curl_setopt_array($curl, array(
-            CURLOPT_URL => $baseUrl . 'rest/admin/person/' . $uuid.'?reason=duplicate',
+            CURLOPT_URL => $baseUrl . 'rest/admin/person/' . $uuid . '?reason=duplicate',
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
@@ -322,9 +324,9 @@ class PatientController extends Controller
                         $user->delete();
                     }
                     return redirect()->back()->withSuccess(__('Successfully Patient Deleted'));
-                }  else if (isset($patients->message) && $patients->message == "API rate limit exceeded") {
+                } else if (isset($patients->message) && $patients->message == "API rate limit exceeded") {
                     curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $patients->message]);
+                    return redirect()->route('login.show')->withErrors(['error' => $patients->message]);
                 } else if (isset($patients->message) && $patients->message == "Invalid User") {
 
                     curl_close($curl);
@@ -334,16 +336,14 @@ class PatientController extends Controller
                     curl_close($curl);
                     return redirect()->route('login.show')->withErrors(['error' => $patients->message]);
                 } else {
-
                     curl_close($curl);
-
                     return redirect()->back()->withErrors(['error' => $patients->message]);
                 }
             }
         } catch (\Exception $e) {
 
 
-            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+            return redirect()->back()->withErrors(['error' => __($e->getMessage())]);
         }
     }
     public function   updatePatient($personId)
@@ -400,9 +400,9 @@ class PatientController extends Controller
                         Patient::create();
                         return redirect()->back()->withErrors(['error' => 'Patient Do not exist in Your database']);
                     }
-                }  else if (isset($user->message) && $user->message == "API rate limit exceeded") {
+                }else if (isset($user->message) && $user->message == "API rate limit exceeded") {
                     curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $user->message]);
+                    return redirect()->route('login.show')->withErrors(['error' => $user->message]);
                 } else if (isset($user->message) && $user->message == "Invalid User") {
 
                     curl_close($curl);
@@ -412,16 +412,14 @@ class PatientController extends Controller
                     curl_close($curl);
                     return redirect()->route('login.show')->withErrors(['error' => $user->message]);
                 } else {
-
-
                     curl_close($curl);
-
-                    return redirect()->back()->withErrors(['error' => "Unknown Error From Api"]);
+                    return redirect()->back()->withErrors(['error' => $user->message]);
                 }
             }
         } catch (\Exception $e) {
 
-            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+
+            return redirect()->back()->withErrors(['error' => __($e->getMessage())]);
         }
     }
     // protected function getUserFromPersonId($personId)
@@ -502,7 +500,7 @@ class PatientController extends Controller
     //         }
     //     } catch (\Exception $e) {
 
-    //         return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+    //         return redirect()->back()->withErrors(['error' => __($e->getMessage())]);
     //     }
     // }
 
@@ -570,37 +568,34 @@ class PatientController extends Controller
                 if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
                     curl_close($curl);
                     $user = User::where('personId', $request->personId)->first();
-                        $user->update([
-                            'email' => $request->email,
-                            'password' => $request->password,
-                            'phone_number' => $request->phoneNumber,
-                        ]);
+                    $user->update([
+                        'email' => $request->email,
+                        'password' => $request->password,
+                        'phone_number' => $request->phoneNumber,
+                    ]);
 
                     return redirect()->back()->withSuccess(__('Patient Successfully Updated'));
-                }  else if (isset($patient->message) && $patient->message == "API rate limit exceeded") {
+                }else if (isset($patient->message) && $patient->message == "API rate limit exceeded") {
                     curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $patient->message]);
+                    return redirect()->route('login.show')->withErrors(['error' => $patient->message]);
                 } else if (isset($patient->message) && $patient->message == "Invalid User") {
-
+                
                     curl_close($curl);
                     return redirect()->route('login.show')->withErrors(['error' => $patient->message]);
                 } else if (isset($patient->message) && $patient->message == "Invalid Token") {
-
+                
                     curl_close($curl);
                     return redirect()->route('login.show')->withErrors(['error' => $patient->message]);
                 } else {
                     curl_close($curl);
-
-
-                    // dd(curl_getinfo($curl, CURLINFO_HTTP_CODE));
                     return redirect()->back()->withErrors(['error' => $patient->message]);
                 }
+                }
+                } catch (\Exception $e) {
+                
+                
+                return redirect()->back()->withErrors(['error' => __($e->getMessage())]);
+                }
+            
             }
-        } catch (\Exception $e) {
-
-            // dd($e->getMessage());
-            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
-            // return $e->getMessage();
-        }
-    }
 }

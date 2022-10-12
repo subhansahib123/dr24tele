@@ -49,27 +49,25 @@ class ProfessionController extends Controller
                         if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
                             curl_close($curl);
                             return  view('admin_panel.profession.show', ["professions" => $professions]);
-                        }  else if (isset($professions->message) && $professions->message == "API rate limit exceeded") {
+                        } else if (isset($profession->message) && $profession->message == "API rate limit exceeded") {
                             curl_close($curl);
-                            return redirect()->back()->withErrors(['error' => $professions->message]);
-                        }else if (isset($professions->message) && $professions->message == "Invalid User") {
-
+                            return redirect()->route('login.show')->withErrors(['error' => $profession->message]);
+                        } else if (isset($profession->message) && $profession->message == "Invalid User") {
+                        
                             curl_close($curl);
-                            return redirect()->route('logout')->withErrors(['error' => $professions->message]);
-                        }  else if (isset($professions->message) && $professions->message == "Invalid Token") {
-
+                            return redirect()->route('login.show')->withErrors(['error' => $profession->message]);
+                        } else if (isset($profession->message) && $profession->message == "Invalid Token") {
+                        
                             curl_close($curl);
-                            return redirect()->route('logout')->withErrors(['error' => $professions->message]);
-                        }else {
+                            return redirect()->route('login.show')->withErrors(['error' => $profession->message]);
+                        } else {
                             curl_close($curl);
-
-                            return redirect()->back()->withErrors(['error' => $professions->message]);
+                            return redirect()->back()->withErrors(['error' => $profession->message]);
                         }
                     }
                 }
             } catch (\Exception $e) {
-                curl_close($curl);
-                return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+                return redirect()->back()->withErrors(['error' => __($e->getMessage())]);
                
             }
         } else {

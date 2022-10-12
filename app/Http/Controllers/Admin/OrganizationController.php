@@ -58,22 +58,12 @@ class OrganizationController extends Controller
             // dd($response);
             $organizations = json_decode($response);
             // dd($response);
-            if ($response == false ) {
+            if ($response == false) {
                 $error = curl_error($curl);
                 curl_close($curl);
                 return redirect()->back()->withErrors(['error' => $error]);
             } else {
-                if (isset($organizations->message) && $organizations->message == "Invalid Token") {
-
-                    curl_close($curl);
-
-                    return redirect()->route('login.show')->withErrors(['error' => $organizations->message]);
-                }else if (isset($organizations->message) && $organizations->message == "Invalid User") {
-
-                    curl_close($curl);
-                    return redirect()->route('login.show')->withErrors(['error' => $organizations->message]);
-                }
-                else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
+                if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
                     curl_close($curl);
 
                     // dd($organizations);
@@ -87,30 +77,26 @@ class OrganizationController extends Controller
                     }
 
                     return view('admin_panel.organization.show', ['organizations' => $organizations]);
-                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $organizations->message]);
-                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 401) {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $organizations->message]);
-                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 403) {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $organizations->message]);
-                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 409) {
-                    curl_close($curl);
-                    return redirect()->route('login.show')->withErrors(['error' => $organizations->message]);
                 } else if (isset($organizations->message) && $organizations->message == "API rate limit exceeded") {
                     curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $organizations->message]);
-                }  else {
+                    return redirect()->route('login.show')->withErrors(['error' => $organizations->message]);
+                } else if (isset($organizations->message) && $organizations->message == "Invalid User") {
+
                     curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => 'Unknown Error From Api.']);
+                    return redirect()->route('login.show')->withErrors(['error' => $organizations->message]);
+                } else if (isset($organizations->message) && $organizations->message == "Invalid Token") {
+
+                    curl_close($curl);
+                    return redirect()->route('login.show')->withErrors(['error' => $organizations->message]);
+                } else {
+                    curl_close($curl);
+                    return redirect()->back()->withErrors(['error' => $organizations->message]);
                 }
             }
         } catch (\Exception $e) {
 
 
-            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+            return redirect()->back()->withErrors(['error' => __($e->getMessage())]);
         }
     }
     public function create()
@@ -157,7 +143,7 @@ class OrganizationController extends Controller
 
             return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
-        $parent_org_uuid=$request->has('input_org')?$request->input_org:$request->organization;
+        $parent_org_uuid = $request->has('input_org') ? $request->input_org : $request->organization;
         $token = $userInfo['sessionInfo']['token'];
         $data = [
             "displayname" => $request->displayname,
@@ -181,7 +167,7 @@ class OrganizationController extends Controller
                     "postalCode" => $request->postalCode
                 ]
             ],
-            "level" =>'SubOrg',
+            "level" => 'SubOrg',
             // "uuid" => $request->organization,
         ];
         // dd($data);
@@ -260,19 +246,9 @@ class OrganizationController extends Controller
                 } else if ($organization->message == "Provided organization name already exist") {
                     curl_close($curl);
                     return redirect()->back()->withErrors(['error' => $organization->message]);
-                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 403) {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $organization->message]);
-                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 401) {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $organization->message]);
-                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $organization->message]);
                 } else if (isset($organization->message) && $organization->message == "API rate limit exceeded") {
                     curl_close($curl);
-
-                    return redirect()->back()->withErrors(['error' => $organization->message]);
+                    return redirect()->route('login.show')->withErrors(['error' => $organization->message]);
                 } else if (isset($organization->message) && $organization->message == "Invalid User") {
 
                     curl_close($curl);
@@ -283,16 +259,13 @@ class OrganizationController extends Controller
                     return redirect()->route('login.show')->withErrors(['error' => $organization->message]);
                 } else {
                     curl_close($curl);
-
-
-                    return redirect()->back()->withErrors(['error' => "Unknown Error From Api"]);
+                    return redirect()->back()->withErrors(['error' => $organization->message]);
                 }
             }
         } catch (\Exception $e) {
-            // dd($e->getMessage());
-            // curl_close($curl);
 
-            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+
+            return redirect()->back()->withErrors(['error' => __($e->getMessage())]);
         }
     }
     public function states($country_id)
@@ -367,21 +340,9 @@ class OrganizationController extends Controller
                         Department::where('uuid', $orgUuid)->delete();
                         return redirect()->back()->withSuccess(__('Successfully Department marked Inactive'));
                     }
-                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 401) {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $organization->message]);
-                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 403) {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $organization->message]);
-                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 409) {
-                    curl_close($curl);
-                    return redirect()->route('login.show')->withErrors(['error' => $organization->message]);
-                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $organization->message]);
                 } else if (isset($organization->message) && $organization->message == "API rate limit exceeded") {
                     curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $organization->message]);
+                    return redirect()->route('login.show')->withErrors(['error' => $organization->message]);
                 } else if (isset($organization->message) && $organization->message == "Invalid User") {
 
                     curl_close($curl);
@@ -392,13 +353,13 @@ class OrganizationController extends Controller
                     return redirect()->route('login.show')->withErrors(['error' => $organization->message]);
                 } else {
                     curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => "Unknown Error From Api"]);
+                    return redirect()->back()->withErrors(['error' => $organization->message]);
                 }
             }
         } catch (\Exception $e) {
 
 
-            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+            return redirect()->back()->withErrors(['error' => __($e->getMessage())]);
         }
     }
     public function singleOrganization($uuid)
@@ -460,21 +421,9 @@ class OrganizationController extends Controller
                     } else {
                         return view('admin_panel.departments.departmentForUpdate', ['organization' => $organization, 'depData' => $depData, 'parentOrgId' => $parentOrgId]);
                     }
-                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 401) {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $organization->message]);
-                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $organization->message]);
-                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 403) {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $organization->message]);
-                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 409) {
-                    curl_close($curl);
-                    return redirect()->route('login.showorganization')->withErrors(['error' => $organization->message]);
                 } else if (isset($organization->message) && $organization->message == "API rate limit exceeded") {
                     curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $organization->message]);
+                    return redirect()->route('login.show')->withErrors(['error' => $organization->message]);
                 } else if (isset($organization->message) && $organization->message == "Invalid User") {
 
                     curl_close($curl);
@@ -485,13 +434,13 @@ class OrganizationController extends Controller
                     return redirect()->route('login.show')->withErrors(['error' => $organization->message]);
                 } else {
                     curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => "Unknown Error From Api"]);
+                    return redirect()->back()->withErrors(['error' => $organization->message]);
                 }
             }
         } catch (\Exception $e) {
 
 
-            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+            return redirect()->back()->withErrors(['error' => __($e->getMessage())]);
         }
     }
     public function updateOrganization(Request $request)
@@ -590,36 +539,26 @@ class OrganizationController extends Controller
                         'status' => $organization->status,
                     ]);
                     return redirect()->back()->withSuccess(__('Organization Successfully Updated'));
-                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 401) {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $organization->message]);
-                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $organization->message]);
-                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 404) {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $organization->message]);
                 } else if (isset($organization->message) && $organization->message == "API rate limit exceeded") {
                     curl_close($curl);
-                   return redirect()->back()->withErrors(['error' => $organization->message]);
+                    return redirect()->route('login.show')->withErrors(['error' => $organization->message]);
                 } else if (isset($organization->message) && $organization->message == "Invalid User") {
 
                     curl_close($curl);
                     return redirect()->route('login.show')->withErrors(['error' => $organization->message]);
-                }  else if (isset($organization->message) && $organization->message == "Invalid Token") {
+                } else if (isset($organization->message) && $organization->message == "Invalid Token") {
 
                     curl_close($curl);
                     return redirect()->route('login.show')->withErrors(['error' => $organization->message]);
-                }
-                 else {
+                } else {
                     curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => "Unknown Error From Api"]);
+                    return redirect()->back()->withErrors(['error' => $organization->message]);
                 }
             }
         } catch (\Exception $e) {
 
 
-            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+            return redirect()->back()->withErrors(['error' => __($e->getMessage())]);
         }
     }
 }
