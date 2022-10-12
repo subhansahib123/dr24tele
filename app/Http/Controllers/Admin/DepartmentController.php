@@ -25,7 +25,7 @@ class DepartmentController extends Controller
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
         // dd($userInfo);
-        if (is_null($userInfo)){
+        if (is_null($userInfo)) {
 
             return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
@@ -62,7 +62,7 @@ class DepartmentController extends Controller
                 // dd($departments);
                 if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
                     curl_close($curl);
-                    if(isset($departments->childlist)){
+                    if (isset($departments->childlist)) {
                         $org = Organization::where('uuid', $uuid)->first();
                         foreach ($departments->childlist as $department) {
                             Department::firstOrCreate([
@@ -72,42 +72,38 @@ class DepartmentController extends Controller
                                 'level' => 'SubOrg',
                                 'uuid' => $department->uuid
                             ]);
-                    }
-                    return view('admin_panel.departments.show', ['departments' => $departments]);
-                    }else {
+                        }
+                        return view('admin_panel.departments.show', ['departments' => $departments]);
+                    } else {
                         return redirect()->back()->withErrors(['error' => __('No Record Found')]);
                     }
-
-
-
-
-                }else if (isset($departments->message) && $departments->message == "API rate limit exceeded") {
+                } else if (isset($departments->message) && $departments->message == "API rate limit exceeded") {
                     curl_close($curl);
-
-                    return redirect()->back()->withErrors(['error' => $departments->message]);
-                }else if (isset($departments->message) && $departments->message == "Invalid User") {
+                    return redirect()->route('login.show')->withErrors(['error' => $departments->message]);
+                } else if (isset($departments->message) && $departments->message == "Invalid User") {
 
                     curl_close($curl);
-                    return redirect()->route('logout')->withErrors(['error' => $departments->message]);
-                }  else if (isset($departments->message) && $departments->message == "Invalid Token") {
+                    return redirect()->route('login.show')->withErrors(['error' => $departments->message]);
+                } else if (isset($departments->message) && $departments->message == "Invalid Token") {
 
                     curl_close($curl);
-                    return redirect()->route('logout')->withErrors(['error' => $departments->message]);
+                    return redirect()->route('login.show')->withErrors(['error' => $departments->message]);
                 } else {
                     curl_close($curl);
-
                     return redirect()->back()->withErrors(['error' => $departments->message]);
                 }
             }
         } catch (\Exception $e) {
-            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+
+
+            return redirect()->back()->withErrors(['error' => __($e->getMessage())]);
         }
     }
     public function updateDepartment(Request $request)
     {
 
 
-            // dd($request->all());
+        // dd($request->all());
         $curl = curl_init();
 
         $baseUrl = config('services.ehr.baseUrl');
@@ -182,26 +178,26 @@ class DepartmentController extends Controller
             $organization = json_decode($response);
             // dd($organization);
 
-            
+
             if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
                 curl_close($curl);
-                    $dep=Department::where('uuid',$request->DepUuid)->first();
-                    $dep->update([
-                        'name' => $organization->displayname,
+                $dep = Department::where('uuid', $request->DepUuid)->first();
+                $dep->update([
+                    'name' => $organization->displayname,
 
-                    ]);
-                    return redirect()->back()->withSuccess(__('Department Successfully Updated'));
+                ]);
+                return redirect()->back()->withSuccess(__('Department Successfully Updated'));
             } else if (isset($organization->message) && $organization->message == "API rate limit exceeded") {
                 curl_close($curl);
-                return redirect()->back()->withErrors(['error' => $organization->message]);
-            }else if (isset($organization->message) && $organization->message == "Invalid User") {
+                return redirect()->route('login.show')->withErrors(['error' => $organization->message]);
+            } else if (isset($organization->message) && $organization->message == "Invalid User") {
 
                 curl_close($curl);
-                return redirect()->route('logout')->withErrors(['error' => $organization->message]);
-            }  else if (isset($organization->message) && $organization->message == "Invalid Token") {
+                return redirect()->route('login.show')->withErrors(['error' => $organization->message]);
+            } else if (isset($organization->message) && $organization->message == "Invalid Token") {
 
                 curl_close($curl);
-                return redirect()->route('logout')->withErrors(['error' => $organization->message]);
+                return redirect()->route('login.show')->withErrors(['error' => $organization->message]);
             } else {
                 curl_close($curl);
                 return redirect()->back()->withErrors(['error' => $organization->message]);
@@ -209,7 +205,7 @@ class DepartmentController extends Controller
         } catch (\Exception $e) {
 
 
-            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+            return redirect()->back()->withErrors(['error' => __($e->getMessage())]);
         }
     }
 }
