@@ -182,7 +182,7 @@ class DepartmentController extends Controller
             $organization = json_decode($response);
             // dd($organization);
 
-            // dd($organization);
+            
             if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
                 curl_close($curl);
                     $dep=Department::where('uuid',$request->DepUuid)->first();
