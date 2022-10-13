@@ -5,7 +5,7 @@
     $(window).on('load', function (event) {
         $('.js-preloader').delay(500).fadeOut(500);
     });
-    
+
     //Open Search Box
     $('.searchbtn').on('click', function() {
         $('.search-area').toggleClass('open');
@@ -34,7 +34,7 @@
             $(this).closest(".language-option").find(".lang-name").html($(this).text());
         });
     })
-    
+
     //Tweenmax js
     $('.hero-wrap').mousemove(function (e) {
         var wx = $(window).width();
@@ -49,8 +49,8 @@
             TweenMax.to($(this), 1, { x: (1 - newx * speed), y: (1 - newy * speed) });
         });
     });
-    
-    //Hero  Slider 
+
+    //Hero  Slider
     $(".hero-slider-one").owlCarousel({
         nav: true,
         dots: false,
@@ -83,7 +83,7 @@
         autoHeight: true,
     });
 
-    //Service Slider 
+    //Service Slider
     $(".service-slider-one").owlCarousel({
         nav: true,
         dots: false,
@@ -137,7 +137,7 @@
         }
     });
 
-    //Partner Slider 
+    //Partner Slider
     $(".partner-slider-one").owlCarousel({
         nav: false,
         dots: false,
@@ -170,7 +170,7 @@
         }
     });
 
-    //Portfolio Slider 
+    //Portfolio Slider
     $(".portfolio-slider-one").owlCarousel({
         nav: true,
         dots: false,
@@ -241,7 +241,7 @@
         dots: true,
         loop: true,
         margin: 25,
-        items: 1,
+        // items: 1,
         thumbs: false,
         smartSpeed: 1300,
         autoplay: false,
@@ -265,7 +265,7 @@
         }
     });
 
-    //Testimonial Slider 
+    //Testimonial Slider
     $(".testimonial-slider-one").owlCarousel({
         nav: true,
         dots: false,
@@ -318,7 +318,7 @@
         }
     });
 
-    //Blog Slider 
+    //Blog Slider
     $(".blog-slider-one").owlCarousel({
         nav: true,
         dots: false,

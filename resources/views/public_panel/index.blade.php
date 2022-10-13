@@ -2,7 +2,7 @@
 @section('content')
 
 
-            
+
             <!-- Hero Section Start -->
             <section class="hero-wrap style2">
                 <img src="{{asset('public_assets/img/hero/hero-shape-3.png')}}" alt="Image" class="hero-shape-one bounce">
@@ -254,50 +254,23 @@
                         </div>
                     </div>
                     <div class="service-slider-one style2 owl-carousel">
+                        @foreach ($organizations as $organization )
+
+
                         <div class="service-card style2" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="200">
                             <div class="service-img">
                                 <img src="{{asset('public_assets/img/services/service-9.jpg')}}" alt="Image">
                                 <span class="service-icon"><i class="flaticon-hospital-ward"></i></span>
                             </div>
                             <div class="service-info">
-                                <h3><a href="service-details.html">Patient Onboarding</a></h3>
+                                <h2>{{$organization->slug}}</h2>
+                                <h3><a href="service-details.html">Best Department : {{$organization->department[0]->name}}</a></h3>
                                 <p>It is a long established fact that reader will content of page when looks layout.</p>
-                                <a href="service-details.html" class="link style2">Explore More<i class="flaticon-right-arrow"></i></a>
+                                <a href="{{route('departments.of.hospital',$organization->id)}}" class="link style2">Explore More Departments<i class="flaticon-right-arrow"></i></a>
                             </div>
                         </div>
-                        <div class="service-card style2" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="300">
-                            <div class="service-img">
-                                <img src="{{asset('public_assets/img/services/service-10.jpg')}}" alt="Image">
-                                <span class="service-icon"><i class="flaticon-nurse"></i></span>
-                            </div>
-                            <div class="service-info">
-                                <h3><a href="service-details.html">Specialist Advise</a></h3>
-                                <p>It is a long established fact that reader will content of page when looks layout.</p>
-                                <a href="service-details.html" class="link style2">Explore More<i class="flaticon-right-arrow"></i></a>
-                            </div>
-                        </div>
-                        <div class="service-card style2" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="400">
-                            <div class="service-img">
-                                <img src="{{asset('public_assets/img/services/service-11.jpg')}}" alt="Image">
-                                <span class="service-icon"><i class="flaticon-health-care"></i></span>
-                            </div>
-                            <div class="service-info">
-                                <h3><a href="service-details.html">Heart Checkup</a></h3>
-                                <p>It is a long established fact that reader will content of page when looks layout.</p>
-                                <a href="service-details.html" class="link style2">Explore More<i class="flaticon-right-arrow"></i></a>
-                            </div>
-                        </div>
-                        <div class="service-card style2" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="500">
-                            <div class="service-img">
-                                <img src="{{asset('public_assets/img/services/service-12.jpg')}}" alt="Image">
-                                <span class="service-icon"><i class="flaticon-traumatology"></i></span>
-                            </div>
-                            <div class="service-info">
-                                <h3><a href="service-details.html">Orthopedic Solution</a></h3>
-                                <p>It is a long established fact that reader will content of page when looks layout.</p>
-                                <a href="service-details.html" class="link style2">Explore More<i class="flaticon-right-arrow"></i></a>
-                            </div>
-                        </div>
+                         @endforeach
+
                     </div>
                 </div>
             </section>
@@ -513,10 +486,10 @@
                                 <form action="#" class="appointment-form">
                                     <h2>Book An Appointment</h2>
                                     <div class="form-group">
-                                        <input type="text" placeholder="Full name">   
+                                        <input type="text" placeholder="Full name">
                                     </div>
                                     <div class="form-group">
-                                        <input type="number" placeholder="Phone Number">   
+                                        <input type="number" placeholder="Phone Number">
                                     </div>
                                     <div class="form-group">
                                         <select name="select_doctor" id="select_doctor">
@@ -524,10 +497,10 @@
                                             <option value="1" >Dr. Novlel Josef</option>
                                             <option value="2" >Dr. Fredrick Henry</option>
                                             <option value="3" >Dr. Steave Mark</option>
-                                        </select>   
+                                        </select>
                                     </div>
                                     <div class="form-group">
-                                        <input type="date">   
+                                        <input type="date">
                                     </div>
                                     <button type="submit" class="btn style2">Book Now</button>
                                 </form>
@@ -575,7 +548,7 @@
                         <span>Our Portfolio</span>
                         <h2>All The Great Project That We've Done</h2>
                     </div>
-                   
+
                 </div>
                 <div class="portfolio-slider-two owl-carousel">
                     <div class="portfolio-card style2" data-aos="fade-right" data-aos-duration="1200" data-aos-delay="200">
@@ -889,9 +862,9 @@
             </section>
             <!-- Blog Section End -->
 
-          
-        
-        
-        
+
+
+
+
 
 @endsection

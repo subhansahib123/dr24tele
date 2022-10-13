@@ -429,7 +429,7 @@ class AuthenticationController extends Controller
                         $userInfo = session('loggedInUser');
                         $userInfo = json_decode(json_encode($userInfo), true);
                         // dd($userInfo);
-                        return redirect()->route('doctor_panel.dashboard')->withSuccess(__('Successfully Login'));
+                        return redirect()->route('doctor.dashboard')->withSuccess(__('Successfully Login'));
                     } else if (isset($result_data->message) && $result_data->message == "API rate limit exceeded") {
                         curl_close($curl);
                         return redirect()->route('doctor.show')->withErrors(['error' => $result_data->message]);
