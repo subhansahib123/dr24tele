@@ -23,7 +23,7 @@ use App\Http\Controllers\FrontEnd\TemplateController;
 
 use App\Http\Controllers\Patient\AuthController;
 use App\Http\Controllers\Doctor\ScheduleController as DoctorSchedule;
-
+use App\Http\Controllers\homeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -60,10 +60,11 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         /**
          * Login Routes
          */
-        Route::get('/', function () {
-            return view('public_panel.index');
-        })->name('home.page');
-
+        Route::get('/',[homeController::class,'index'])->name('home.page');
+        //departments
+        Route::get('/departments/{orgid}',[homeController::class,'departmentsOfHospital'])->name('departments.of.hospital');
+        //doctors
+        Route::get('/doctors/{dptId}',[homeController::class,'doctorsOfDepartment'])->name('doctors.of.department');
         //About_Us Page
         Route::get('/about-us',[TemplateController::class,'aboutUs'])->name('aboutUs');
         //About_Us Page
@@ -129,9 +130,9 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         //doctor login
         Route::get('/doctor/login', [AuthenticationController::class, 'showDoctorLogin'])->name('doctor.login');
         Route::post('/doctor/logined', [AuthenticationController::class, 'doctorLogin'])->name('doctor.loggedin');
-        
-        
-   
+
+
+
     });
       //'permission'
     Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
