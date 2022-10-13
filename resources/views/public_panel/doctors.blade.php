@@ -29,7 +29,7 @@
                                  data-aos-delay="400">
                                  <img src="http://localhost:8000/public_assets/img/team/team-3.jpg"  alt="Image">
                                  <div class="team-info">
-                                     <a href="mailto:fedrick@teli.com" class="team-mail"><i
+                                     <a href="{{route('load.appointment',$doctor->id)}}" class="team-mail"><i
                                              class="ri-mail-send-line"></i></a>
                                      <h3>Dr. {{$doctor->user->username}}</h3>
                                      <span>Neurosurgery Efficient</span>

@@ -65,6 +65,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::get('/departments/{orgid}',[homeController::class,'departmentsOfHospital'])->name('departments.of.hospital');
         //doctors
         Route::get('/doctors/{dptId}',[homeController::class,'doctorsOfDepartment'])->name('doctors.of.department');
+        //appointment page
+        Route::get('appointment/doctor/{id}',[homeController::class,'appointment'])->name('load.appointment');
         //About_Us Page
         Route::get('/about-us',[TemplateController::class,'aboutUs'])->name('aboutUs');
         //About_Us Page
