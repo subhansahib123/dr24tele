@@ -5,7 +5,7 @@
               <div class="col-xl-3 col-lg-5 col-md-5 col-sm-12">
                   <div class="footer-widget">
                       <a href="index.html" class="footer-logo">
-                          <img src="{{asset('public_assets/img/logo-white.png')}}" alt="Image">
+                          <img src="{{asset('public_assets/img/logo.png')}}" width="120px" alt="Image">
                       </a>
                       <p class="comp-desc">
                           Lorem ipsum dolor sit amet consc tetur adicing elit. Dolor emque dicta molest enim beatae ame consequ atur tempo pretium auctor nam.

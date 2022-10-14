@@ -2,11 +2,11 @@
 <div class="sticky">
     <div class="app-sidebar__overlay" data-bs-toggle="sidebar"></div>
     <div class="app-sidebar">
-        <div class="side-header">
-            <a class="header-brand1" href="index.html">
-                <!-- <img src="{{asset('assets/images/brand/toolprime-sidebar-rplace.png')}}" class="header-brand-img light-logo" alt="logo"> -->
-                <!-- <img src="{{asset('assets/images/brand/toolprime-sidebar.png')}}" class="header-brand-img light-logo1" alt="logo"> -->
-                <h3>Dr24Tele</h3>
+        <div class="side-header my-2">
+            <a class="header-brand1 " href="{{route('dashboard')}}">
+                <img src="{{asset('assets/images/logo.png')}}"  class="header-brand-img light-logo" alt="logo"> 
+                <img src="{{asset('assets/images/logo.png')}}"  class="header-brand-img light-logo1" alt="logo">
+                <!-- <h3>Dr24Tele</h3> -->
             </a>
             <!-- LOGO -->
         </div>
@@ -24,10 +24,10 @@
                 </li>
 
                 <li class="slide">
-                    <a class="side-menu__item has-link" data-bs-toggle="slide" href="{{route('organization')}}"><i class="side-menu__icon fe fe-user"></i><span class="side-menu__label">Organizations</span></a>
+                    <a class="side-menu__item has-link" data-bs-toggle="slide" href="{{route('organization')}}"><i class="side-menu__icon zmdi zmdi-hospital"></i><span class="side-menu__label">Organizations</span></a>
                 </li>
                 <li class="slide">
-                    <a class="side-menu__item has-link" data-bs-toggle="slide" href="{{route('roles')}}"><i class="side-menu__icon fe fe-user"></i><span class="side-menu__label">Roles</span></a>
+                    <a class="side-menu__item has-link" data-bs-toggle="slide" href="{{route('roles')}}"><i class="side-menu__icon fa fa-universal-access"></i><span class="side-menu__label">Roles</span></a>
                 </li>
 
 
@@ -35,7 +35,7 @@
 
 
                 <li class="slide">
-                    <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i class="side-menu__icon fe fe-slack"></i><span class="side-menu__label">Total Users</span><i class="angle fe fe-chevron-right"></i></a>
+                    <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i class="side-menu__icon fe fe-users"></i><span class="side-menu__label">Total Users</span><i class="angle fe fe-chevron-right"></i></a>
                     <ul class="slide-menu nav-tree">
                         <li><a href="{{route('create.user')}}" class="slide-item"> Create User</a></li>
                         <li><a href="{{route('users.unmapped')}}" class="slide-item">Unmapped Users</a></li>
@@ -44,7 +44,7 @@
                     </ul>
                 </li>
                 <li class="slide">
-                    <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i class="side-menu__icon fe fe-slack"></i><span class="side-menu__label">Total Patients</span><i class="angle fe fe-chevron-right"></i></a>
+                    <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i class="side-menu__icon fa fa-wheelchair"></i><span class="side-menu__label">Total Patients</span><i class="angle fe fe-chevron-right"></i></a>
                     <ul class="slide-menu nav-tree">
                         <li><a href="{{route('create.patients')}}" class="slide-item"> Create Patient</a></li>
                         <li><a href="{{route('map.patients')}}" class="slide-item">Map Patients</a></li>

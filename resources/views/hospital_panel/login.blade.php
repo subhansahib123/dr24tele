@@ -12,7 +12,7 @@
     <meta name="keywords" content="admin,admin dashboard,admin panel,admin template,bootstrap,clean,dashboard,flat,jquery,modern,responsive,premium admin templates,responsive admin,ui,ui kit.">
 
     <!-- FAVICON -->
-    <link rel="shortcut icon" type="image/x-icon" href="{{asset('assets/images/brand/favicon.ico')}}" />
+    <link rel="shortcut icon" type="image/x-icon" href="{{asset('assets/images/brand/logo.png')}}" />
 
     <!-- TITLE -->
     <title>Dr24Tele | Login</title>
@@ -52,7 +52,7 @@
                 <!-- CONTAINER OPEN -->
                 <div class="col col-login mx-auto mt-7">
                     <div class="text-center text-white">
-                        <h3>Dr24Tele</h3>
+                        <img src="{{asset('assets/images/brand/logo.png')}}" width="120px" alt="">
                     </div>
                 </div>
 
@@ -63,12 +63,12 @@
                                 Login
                             </span>
                             @if($errors->any())
-                                @foreach ($errors->all() as $error )
-                                <h4 style="color:red">{{$error}}</h4>
+                            @foreach ($errors->all() as $error )
+                            <h4 style="color:red">{{$error}}</h4>
 
-                                @endforeach
-                                @endif
-                                @csrf
+                            @endforeach
+                            @endif
+                            @csrf
                             <div class="panel panel-primary">
                                 <div class="tab-menu-heading">
                                     <div class="tabs-menu1">
@@ -98,44 +98,45 @@
                                                 <div class="col-md-12">
                                                     <div class="form-group">
                                                         <strong>ReCaptcha:</strong>
-                                                        <div class="g-recaptcha" data-sitekey="{{ $captcha->GOOGLE_RECAPTCHA_KEY}}"></div>
-                                                        @if ($errors->has('g-recaptcha-response'))
-                                                            <span class="text-danger">{{ $errors->first('g-recaptcha-response') }}</span>
-                                                        @endif
-                                                    </div>
-                                                </div>
-                                            </div> --}}
-                                            {{-- <div class="text-end pt-4">
-                                                <p class="mb-0"><a href="{{ route('forget.password.get') }}" class="text-primary ms-1">Forgot Password?</a></p>
-                                            </div> --}}
-                                            <div class="container-login100-form-btn">
-                                                <button type="submit" class="login100-form-btn btn-primary">
-                                                        Login
-                                                </button>
-                                            </div>
-                                            {{-- <div class="text-center pt-3">
-                                                <p class="text-dark mb-0">Not a member?<a href="{{route('register.show')}}" class="text-primary ms-1">Sign UP</a></p>
-                                            </div> --}}
-                                            <label class="login-social-icon"><span>Login with Social</span></label>
-                                            {{-- <div class="d-flex justify-content-center">
-                                                <a href="{{ route('login.google') }}">
-                                                    <div class="social-login me-4 text-center">
-                                                        <i class="fa fa-google"></i>
-                                                    </div>
-                                                </a>
-                                                <a href="{{ route('login.facebook') }}">
-                                                    <div class="social-login me-4 text-center">
-                                                        <i class="fa fa-facebook"></i>
-                                                    </div>
-                                                </a>
-                                                <a href="{{ route('login.linkedin') }}">
-                                                    <div class="social-login text-center">
-                                                        <i class="fa fa-linkedin"></i>
-                                                    </div>
-                                                </a>
-                                            </div> --}}
+                                                        <div class="g-recaptcha" data-sitekey="{{ $captcha->GOOGLE_RECAPTCHA_KEY}}">
                                         </div>
-                                        {{-- <div class="tab-pane" id="tab6">
+                                        @if ($errors->has('g-recaptcha-response'))
+                                        <span class="text-danger">{{ $errors->first('g-recaptcha-response') }}</span>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div> --}}
+                            {{-- <div class="text-end pt-4">
+                                                <p class="mb-0"><a href="{{ route('forget.password.get') }}" class="text-primary ms-1">Forgot Password?</a></p>
+                    </div> --}}
+                    <div class="container-login100-form-btn">
+                        <button type="submit" class="login100-form-btn btn-primary">
+                            Login
+                        </button>
+                    </div>
+                    {{-- <div class="text-center pt-3">
+                                                <p class="text-dark mb-0">Not a member?<a href="{{route('register.show')}}" class="text-primary ms-1">Sign UP</a></p>
+                </div> --}}
+                <label class="login-social-icon"><span>Login with Social</span></label>
+                {{-- <div class="d-flex justify-content-center">
+                                                <a href="{{ route('login.google') }}">
+                <div class="social-login me-4 text-center">
+                    <i class="fa fa-google"></i>
+                </div>
+                </a>
+                <a href="{{ route('login.facebook') }}">
+                    <div class="social-login me-4 text-center">
+                        <i class="fa fa-facebook"></i>
+                    </div>
+                </a>
+                <a href="{{ route('login.linkedin') }}">
+                    <div class="social-login text-center">
+                        <i class="fa fa-linkedin"></i>
+                    </div>
+                </a>
+            </div> --}}
+        </div>
+        {{-- <div class="tab-pane" id="tab6">
                                             <div id="mobile-num" class="wrap-input100 validate-input input-group mb-4">
                                                 <a href="javascript:void(0)" class="input-group-text bg-white text-muted">
                                                     <span>+91</span>
@@ -155,17 +156,17 @@
                                                 </a>
                                             </div>
                                         </div> --}}
-                                    </div>
-                                </div>
-                            </div>
+    </div>
+    </div>
+    </div>
 
-                        </form>
-                    </div>
-                </div>
-                <!-- CONTAINER CLOSED -->
-            </div>
-        </div>
-        <!-- End PAGE -->
+    </form>
+    </div>
+    </div>
+    <!-- CONTAINER CLOSED -->
+    </div>
+    </div>
+    <!-- End PAGE -->
 
     </div>
     <!-- BACKGROUND-IMAGE CLOSED -->
