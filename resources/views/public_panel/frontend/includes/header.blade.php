@@ -76,8 +76,8 @@
         <div class="container">
             <nav class="navbar navbar-expand-md navbar-light">
                 <a class="navbar-brand" href="index.html">
-                    <img class="logo-light" src="{{asset('public_assets/img/logo.png')}}" alt="logo">
-                    <img class="logo-dark" src="{{asset('public_assets/img/logo-white.png')}}" alt="logo">
+                    <img class="logo-light" src="{{asset('public_assets/img/logo.png')}}" width="120px" alt="logo">
+                    <img class="logo-dark" src="{{asset('public_assets/img/logo.png')}}" width="120px" alt="logo">
                 </a>
                 <div class="collapse navbar-collapse main-menu-wrap" id="navbarSupportedContent">
                     <div class="menu-close d-lg-none">
