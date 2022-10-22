@@ -1,5 +1,9 @@
+$.ajaxSetup({
+    headers: {
+        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+    },
+});
 window.onload = function () {
-
     const firebaseConfig = {
         apiKey: "AIzaSyBc8YTR6-EF3sABfIDoOrcJMMiMrdYYnMY",
         authDomain: "drtele-fe555.firebaseapp.com",
@@ -14,7 +18,7 @@ window.onload = function () {
     firebase.initializeApp(firebaseConfig);
     //reder captcha
     if ($("#recaptcha-container").length > 0) render();
-    if(loggedIn){
+    if (loggedIn) {
         const messaging = firebase.messaging();
         messaging
             .requestPermission()
@@ -22,19 +26,12 @@ window.onload = function () {
                 return messaging.getToken();
             })
             .then(function (response) {
-                $.ajaxSetup({
-                    headers: {
-                        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
-                            "content"
-                        ),
-                    },
-                });
                 $.ajax({
                     url: base_url() + "/api/store-token",
                     type: "POST",
                     data: {
                         token: response,
-                        'user_id':user_id
+                        user_id: user_id,
                     },
                     dataType: "JSON",
                     success: function (response) {
@@ -109,11 +106,31 @@ function verify() {
 }
 // base url
 function base_url() {
-    var pathparts = location.pathname.split('/');
-    if (location.host == 'localhost') {
-        var url = location.origin+'/'+pathparts[1].trim('/')+'/'; // http://localhost/myproject/
-    }else{
+    var pathparts = location.pathname.split("/");
+    if (location.host == "localhost") {
+        var url = location.origin + "/" + pathparts[1].trim("/") + "/"; // http://localhost/myproject/
+    } else {
         var url = location.origin; // http://stackoverflow.com
     }
     return url;
+}
+function send_notification(userId,title,body) {
+    $.ajax({
+        url: base_url() + "/api/send-web-notification",
+        type: "POST",
+        data: {
+            // token: response,
+            user_id: userId,
+            title: title,
+            body: body,
+        },
+        dataType: "JSON",
+        success: function (response) {
+            console.log(response);
+        },
+        error: function (error) {
+            alert(error);
+        },
+    });
+    return false;
 }

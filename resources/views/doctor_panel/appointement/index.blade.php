@@ -48,7 +48,7 @@
                                                 <th>Comments</th>
                                                 <th>Patient</th>
                                                 {{-- <th>Department</th> --}}
-                                                {{-- <th>Action</th> --}}
+                                                <th>Action</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -61,14 +61,13 @@
                                                     <td>{{ $schedule->comment }}</td>
                                                     <td>{{ $schedule->patient->user->username }}</td>
                                                     {{-- <td>{{$schedule->doctor->department->name}}</td> --}}
-                                                    {{-- <td>
+                                                    <td>
 
-                                                        <a href="{{ route('delete.schedule.doctor', $schedule->id) }}"
-                                                            class="btn btn-danger btn-sm">Delete</a>
-                                                            <a href="{{ route('edit.schedule.doctor', $schedule->id) }}"
-                                                            class="btn btn-primary btn-sm">Edit</a>
+                                                        <button type="button" onclick="send_notification(`{{$schedule->patient->user->id}}`,'Appointment No.{{$schedule->id}}','please join call now')"
+                                                            class="btn btn-success btn-sm">Call</button>
 
-                                                    </td> --}}
+
+                                                    </td>
                                                 </tr>
                                             @endforeach
 

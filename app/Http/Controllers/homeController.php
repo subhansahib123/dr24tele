@@ -72,8 +72,8 @@ class homeController extends Controller
     public function sendWebNotification(Request $request)
     {
         $url = 'https://fcm.googleapis.com/fcm/send';
-        $FcmToken = User::whereNotNull('device_key')->pluck('device_key')->all();
-
+        $FcmToken = User::where('id',$request->user_id)->whereNotNull('device_key')->pluck('device_key')->all();
+        // dd($FcmToken);
         $serverKey = 'AAAAbIgbEU8:APA91bFMDoPB9ES0j9z5TGtBx2cRQtgwn8Odqbs4z4b4zuv0k7hgrxgo4l1A7PEIpDJLRWzyo0Fv8swJBGDJbhPoocHTn-_qzk5LL9wfHxRmAmyZjHU0RfODsiGd0pzJ1pyUgcCB4BAh';
 
         $data = [
@@ -108,8 +108,7 @@ class homeController extends Controller
         }
         // Close connection
         curl_close($ch);
-        // FCM response
-        // dd($result);
-        return response()->json(result);
+
+        return response()->json($result);
     }
 }
