@@ -64,11 +64,7 @@
 
                 <li class="slide">
 
-                    <a class="side-menu__item has-link" data-bs-toggle="slide" href="{{route('list.schedules.doctor')}}"><i class="side-menu__icon fe fe-calender"></i><span class="side-menu__label">Schedules</span></a>
-                </li>
-                <li class="slide">
-
-                    <a class="side-menu__item has-link" data-bs-toggle="slide" href="{{route('doctor.appointments')}}"><i class="side-menu__icon fe fe-calender"></i><span class="side-menu__label">Appointments</span></a>
+                    <a class="side-menu__item has-link" data-bs-toggle="slide" href="{{route('appointments')}}"><i class="side-menu__icon fe fe-calender"></i><span class="side-menu__label">Appointments</span></a>
                 </li>
 
 

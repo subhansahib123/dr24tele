@@ -1,69 +1,119 @@
+window.onload = function () {
 
+    const firebaseConfig = {
+        apiKey: "AIzaSyBc8YTR6-EF3sABfIDoOrcJMMiMrdYYnMY",
+        authDomain: "drtele-fe555.firebaseapp.com",
+        projectId: "drtele-fe555",
+        storageBucket: "drtele-fe555.appspot.com",
+        messagingSenderId: "466139943247",
+        appId: "1:466139943247:web:a21d0b6d163a4e5e2cb53a",
+        measurementId: "G-9CXB87FG9K",
+    };
 
-// Your web app's Firebase configuration
-// For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
-    apiKey: "AIzaSyBc8YTR6-EF3sABfIDoOrcJMMiMrdYYnMY",
-    authDomain: "drtele-fe555.firebaseapp.com",
-    projectId: "drtele-fe555",
-    storageBucket: "drtele-fe555.appspot.com",
-    messagingSenderId: "466139943247",
-    appId: "1:466139943247:web:a21d0b6d163a4e5e2cb53a",
-    measurementId: "G-9CXB87FG9K",
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    //reder captcha
+    if ($("#recaptcha-container").length > 0) render();
+    if(loggedIn){
+        const messaging = firebase.messaging();
+        messaging
+            .requestPermission()
+            .then(function () {
+                return messaging.getToken();
+            })
+            .then(function (response) {
+                $.ajaxSetup({
+                    headers: {
+                        "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr(
+                            "content"
+                        ),
+                    },
+                });
+                $.ajax({
+                    url: base_url() + "/api/store-token",
+                    type: "POST",
+                    data: {
+                        token: response,
+                        'user_id':user_id
+                    },
+                    dataType: "JSON",
+                    success: function (response) {
+                        console.log(response);
+                    },
+                    error: function (error) {
+                        alert(error);
+                    },
+                });
+            })
+            .catch(function (error) {
+                alert(error);
+            });
+        messaging.onMessage(function (payload) {
+            const title = payload.notification.title;
+            const options = {
+                body: payload.notification.body,
+                icon: payload.notification.icon,
+            };
+            new Notification(title, options);
+        });
+    }
 };
-
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-
- window.onload = function () {
-     render();
- };
- function render() {
-     window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
-         "recaptcha-container"
-     );
-     recaptchaVerifier.render();
- }
- function sendOTP() {
-     var number = $("#number").val();
-     firebase
-         .auth()
-         .signInWithPhoneNumber(number, window.recaptchaVerifier)
-         .then(function (confirmationResult) {
-             window.confirmationResult = confirmationResult;
-             coderesult = confirmationResult;
-             console.log(coderesult);
-             $("#successAuth").text("Message sent");
-             $("#successAuth").show();
-             $("#numbercon").hide();
-             $("#verfiycon").show();
-             $("#numbercon").hide();
-             $("#sendoptbtn").hide();
-             $("#recaptcha-container").hide();
-             $("#verifyoptbtn").show();
-         })
-         .catch(function (error) {
-             $("#error").text(error.message);
-             $("#error").show();
-             $("#successAuth").hide();
-         });
-     return false;
- }
- function verify() {
-     var code = $("#verification").val();
-     coderesult
-         .confirm(code)
-         .then(function (result) {
-             var user = result.user;
-             console.log(user);
-             $("#successAuth").text("Auth is successful");
-             $("#successAuth").show();
-             $('#login_form').submit();
-         })
-         .catch(function (error) {
-             $("#error").text(error.message);
-             $("#error").show();
-             $("#successAuth").hide();
-         });
-     return false;
- }
+function render() {
+    window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
+        "recaptcha-container"
+    );
+    recaptchaVerifier.render();
+}
+function sendOTP() {
+    var number = $("#number").val();
+    firebase
+        .auth()
+        .signInWithPhoneNumber(number, window.recaptchaVerifier)
+        .then(function (confirmationResult) {
+            window.confirmationResult = confirmationResult;
+            coderesult = confirmationResult;
+            console.log(coderesult);
+            $("#successAuth").text("Message sent");
+            $("#successAuth").show();
+            $("#numbercon").hide();
+            $("#verfiycon").show();
+            $("#numbercon").hide();
+            $("#sendoptbtn").hide();
+            $("#recaptcha-container").hide();
+            $("#verifyoptbtn").show();
+        })
+        .catch(function (error) {
+            $("#error").text(error.message);
+            $("#error").show();
+            $("#successAuth").hide();
+        });
+    return false;
+}
+function verify() {
+    var code = $("#verification").val();
+    coderesult
+        .confirm(code)
+        .then(function (result) {
+            var user = result.user;
+            console.log(user);
+            $("#successAuth").text("Auth is successful");
+            $("#successAuth").show();
+            $("#login_form").submit();
+        })
+        .catch(function (error) {
+            $("#error").text(error.message);
+            $("#error").show();
+            $("#successAuth").hide();
+        });
+    return false;
+}
+// base url
+function base_url() {
+    var pathparts = location.pathname.split('/');
+    if (location.host == 'localhost') {
+        var url = location.origin+'/'+pathparts[1].trim('/')+'/'; // http://localhost/myproject/
+    }else{
+        var url = location.origin; // http://stackoverflow.com
+    }
+    return url;
+}

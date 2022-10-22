@@ -20,9 +20,9 @@ class Schedule extends Model
         'price'
 
     ];
-    public function slot()
+    public function appointments()
     {
-       return $this->hasMany(Slot::class,'schedule_id');
+       return $this->belongsTo(Appointment::class,'slot_id');
     }
     public function doctor()
     {

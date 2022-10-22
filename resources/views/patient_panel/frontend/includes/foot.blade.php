@@ -80,7 +80,19 @@
     <script src="{{asset('/assets/datetimepicker/build/jquery.datetimepicker.full.js')}}"></script>
 
     <script src="{{asset('/assets/js/form-wizard.js')}}"></script>
-<!-- Active NAv----->
+<!--Firebase---->
+
+<script src="https://www.gstatic.com/firebasejs/8.3.2/firebase.js"></script>
+<script>
+var loggedIn = {{ auth()->check() ? 'true' : 'false' }};
+if(loggedIn){
+    var user_id={{auth()->user()->id}};
+}else{
+    var user_id='';
+}
+
+</script>
+<script src="{{asset('public_assets/js/firebase.js')}}"></script>
 
 <script>
 
@@ -103,18 +115,6 @@
 
 
     </script>
-    <!--Firebase---->
-    <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase.js"></script>
-<script>
-var loggedIn = {{ auth()->check() ? 'true' : 'false' }};
-if(loggedIn){
-    var user_id={{auth()->user()->id}};
-}else{
-    var user_id='';
-}
-
-</script>
-<script src="{{asset('public_assets/js/firebase.js')}}"></script>
     <!----Custom Function To Manage-->
     @yield('foot_script');
 </body>

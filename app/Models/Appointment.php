@@ -13,8 +13,12 @@ class Appointment extends Model
         'start',
         'end',
         'description',
+        'doctor_id',
+        'patient_id',
+        'slot_id'
 
     ];
+    public $timestamps = false;
     public function user()
     {
         return $this->belongsTo(User::class,'doctor_id');
@@ -27,8 +31,8 @@ class Appointment extends Model
     {
         return $this->belongsTo(Patient::class,'patient_id');
     }
-    public function slot()
+    public function schedule()
     {
-        return $this->belongsTo(Slot::class,'slot_id');
+        return $this->hasOne(Schedule::class,'slot_id');
     }
 }

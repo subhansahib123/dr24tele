@@ -9,6 +9,7 @@ use Carbon\Carbon;
 use Carbon\CarbonPeriod;
 use App\Models\Schedule;
 use App\Models\Doctor;
+use App\Models\Appointment;
 class ScheduleController extends Controller
 {
     //load doctors schedule create
@@ -132,4 +133,11 @@ class ScheduleController extends Controller
         return redirect()->back()->withSuccess(__('Successfully delete schdule'));
 
     }
+     public function appointments(){
+        $doctor_id=auth()->user()->doctor->id;
+        // dd($doctor_id);
+        $appointements=Appointment::where('doctor_id', $doctor_id)->get();
+        return view('doctor_panel.appointement.index',compact('appointements'));
+    }
+
 }

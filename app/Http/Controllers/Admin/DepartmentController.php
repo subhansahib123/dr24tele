@@ -121,7 +121,6 @@ class DepartmentController extends Controller
             'name' => 'required|string',
             'status' => 'required|string',
             'email' => 'required|string',
-            'level' => 'SubOrg',
             'contactperson' => 'required|string',
             'phone' => 'required|string',
         ]);

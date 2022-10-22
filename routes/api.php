@@ -5,6 +5,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\OrganizationController;
 use App\Http\Controllers\homeController;
+use App\Http\Controllers\PatientAuthenticationController;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -28,4 +30,11 @@ Route::get('/getDepartments/{orgUuid}',[OrganizationController::class,'getDepart
 //create schedule and get storeHospitalPatients
 // Route::post('/store/schedule',[ScheduleController::class,'insert'])->name('store.schedule');
 // Route::post('/update/slots',[ScheduleController::class,'updateSlots'])->name('update.slot');
-Route::post('/get/schedules',[homeController::class,'scheduleOfDoctor'])->name('get.schedules');
+Route::get('/get/schedules/{doctor_id}/{date}',[homeController::class,'scheduleOfDoctor'])->name('get.schedules');
+Route::post('/book/appointment',[homeController::class,'bookApppointment'])->name('book.appointment');
+Route::post('/store-token', [homeController::class, 'storeToken'])->name('store.token');
+
+
+Route::get('/agoraToken',[PatientAuthenticationController::class,'generate_token' ]);
+
+

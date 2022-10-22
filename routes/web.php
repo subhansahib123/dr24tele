@@ -24,6 +24,7 @@ use App\Http\Controllers\FrontEnd\TemplateController;
 use App\Http\Controllers\Patient\AuthController;
 use App\Http\Controllers\Doctor\ScheduleController as DoctorSchedule;
 use App\Http\Controllers\homeController;
+use App\Http\Controllers\PatientAuthenticationController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -115,17 +116,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::get('/admin/login', [AuthenticationController::class, 'showLogin'])->name('login.show');
         Route::post('/admin/login', [AuthenticationController::class, 'login'])->name('login.perform');
 
-
-
-
-
-
-        //Forget Password Routes
-        // Route::get('forget-password', [SocialAuthenticationController::class, 'showForgetPasswordForm'])->name('forget.password.get');
-        // Route::post('forget-password', [SocialAuthenticationController::class, 'submitForgetPasswordForm'])->name('forget.password.post');
-        // Route::get('reset-password/{token}', [SocialAuthenticationController::class, 'showResetPasswordForm'])->name('reset.password.get');
-        // Route::post('reset-password', [SocialAuthenticationController::class, 'submitResetPasswordForm'])->name('reset.password.post');
-
+        //hospital login
         Route::get('/hospital/login', [AuthenticationController::class, 'showHospitalLogin'])->name('hospital.login');
         Route::post('/hospital/logined', [AuthenticationController::class, 'hospitalLogin'])->name('hospital.loggedin');
 
@@ -133,6 +124,17 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::get('/doctor/login', [AuthenticationController::class, 'showDoctorLogin'])->name('doctor.login');
         Route::post('/doctor/logined', [AuthenticationController::class, 'doctorLogin'])->name('doctor.loggedin');
 
+        //paitent Register
+
+        Route::get('/patient/register', [PatientAuthenticationController::class, 'register'])->name('patient.register');
+        Route::post('/patient/registered', [PatientAuthenticationController::class, 'store_user'])->name('patient.registered');
+
+        //patient Login
+        Route::get('/patient/login',[PatientAuthenticationController::class,'login'])->name('patient.login');
+        Route::post('/patient/logined', [PatientAuthenticationController::class, 'performLogin'])->name('patient.loggedin');
+        Route::post('/send-web-notification', [homeController::class, 'sendWebNotification'])->name('send.web-notification');
+
+        Route::get('/conference/call',[PatientAuthenticationController::class,'conference_call'])->name('conference');
 
 
     });
@@ -298,7 +300,13 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::get('/schedule/{id}',[DoctorSchedule::class,'delete'])->name('delete.schedule.doctor');
         Route::get('/schedule/edit/{id}',[DoctorSchedule::class,'edit'])->name('edit.schedule.doctor');
         Route::post('update/schedule',[DoctorSchedule::class,'update'])->name('update.schedule.doctor');
+        Route::get('/appointments',[DoctorSchedule::class, 'appointments'])->name('doctor.appointments');
     });
+      Route::group(['prefix' => 'patient', 'middleware' => ['auth']], function () {
+        Route::get('/logout',[PatientAuthenticationController::class,'logout'])->name('patient.logout');
+        Route::get('/dashboard', [PatientAuthenticationController::class, 'patientDashboard'])->name('patient.dashboard');
+        Route::get('/appointments',[PatientAuthenticationController::class, 'appointments'])->name('appointments');
+      });
 
 
 });

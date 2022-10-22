@@ -373,15 +373,17 @@ class AuthenticationController extends Controller
 
 
 
-        $user = User::with('user_organization')->where('phone_number',  $request->phone)->first();
+        $user = User::with('doctor')->where('phone_number',  $request->phone)->first();
         // dd  ($user->user_organization);
-        if (!isset($user->user_organization))
-            return redirect()->back()->withErrors(['error' => 'User is not associated with any Organisation']);
-        $organisation = Organization::find($user->user_organization->organization_id);
+        if (!isset($user->doctor))
+            return redirect()->back()->withErrors(['error' => 'User is not associated with any Department']);
+
+        // dd($user->doctor->department);
+        $organisation = $user->doctor->department;
         // dd  ($organisation->name);
         if (is_null($organisation))
 
-            return redirect()->back()->withErrors(['error' => 'No Organisation record found in database']);
+            return redirect()->back()->withErrors(['error' => 'No Department record found in database']);
 
         if ($user) {
 
@@ -390,7 +392,7 @@ class AuthenticationController extends Controller
 
             $data = ['username' => $user->username, 'password' => $user->password];
 
-            $params = array('orgName' => $organisation->name, 'tenantId' => 'ehrn');
+            $params = array('orgName' => $organisation->slug, 'tenantId' => 'ehrn');
             curl_setopt_array($curl, array(
                 CURLOPT_URL => $baseUrl . 'rest/admin/v1/login?' . http_build_query($params),
                 CURLOPT_RETURNTRANSFER => true,
