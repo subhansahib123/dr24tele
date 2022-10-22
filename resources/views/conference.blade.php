@@ -1,4 +1,6 @@
+@extends('public_panel.layout.master');
 
+@section('content')
     <div class="content-wrapper">
 
         <!-- Breadcrumb Start -->
@@ -218,9 +220,9 @@
                 toggleScreenShareBtn(); // set screen share button icon
                 $("#screen-share-btn").prop("disabled", true); // disable the button on click
                 if (screenShareActive) {
-                    stopScreenShare();
+                    stopScreenShare(localStream);
                 } else {
-                    initScreenShare();
+                    initScreenShare(localStream);
                 }
             });
 
@@ -245,9 +247,9 @@
                         toggleScreenShareBtn(); // set screen share button icon
                         $("#screen-share-btn").prop("disabled", true); // disable the button on click
                         if (screenShareActive) {
-                            stopScreenShare();
+                            stopScreenShare(localStream);
                         } else {
-                            initScreenShare();
+                            initScreenShare(localStream);
                         }
                         break;
                     case "q":
