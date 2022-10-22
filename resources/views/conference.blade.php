@@ -139,9 +139,9 @@
 #full-screen-video video{
     object-fit: contain !important
 }
-/* #lower-video-bar {
-  height: 100vh;
-} */
+#lower-video-bar {
+  height: 7vh;
+}
 
 #local-stream-container {
   position: relative;
