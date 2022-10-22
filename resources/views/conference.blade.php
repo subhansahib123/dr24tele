@@ -28,14 +28,15 @@
                         <div id="full-screen-video"></div>
                         <div id="lower-video-bar" class="row mb-1">
                             <div id="remote-streams-container" class="container col-12 ml-1">
+                                <div id="mute-overlay" class="col">
+                                    <i id="mic-icon" class="fas fa-microphone-slash"></i>
+                                </div>
                                 <div id="remote-streams" class="row">
                                     <!-- insert remote streams dynamically -->
                                 </div>
                             </div>
                             <div id="local-stream-container" class="col-12 p-0">
-                                <div id="mute-overlay" class="col">
-                                    <i id="mic-icon" class="fas fa-microphone-slash"></i>
-                                </div>
+
                                 <div id="no-local-video" class="col text-center">
                                     <i id="user-icon" class="fas fa-user"></i>
                                 </div>
