@@ -82,11 +82,11 @@
                         <label for="form-appid">Agora AppId</label>
                     </div>
                     <div class="md-form mb-4">
-                        <input type="text" id="form-token" readonly class="form-control">
+                        <input type="text" id="form-token" class="form-control">
                         <label for="form-token">Agora Token</label>
                     </div>
                     <div class="md-form mb-4">
-                        <input type="text" id="form-channel" readonly value="first-channel" class="form-control">
+                        <input type="text" id="form-channel" value="first-channel" class="form-control">
                         <label for="form-channel">Channel</label>
                     </div>
                     <div class="md-form mb-4">
