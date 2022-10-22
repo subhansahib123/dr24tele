@@ -69,6 +69,7 @@ client.on('stream-subscribed', function (evt) {
     remoteStream.play('full-screen-video');
     $('#main-stats-btn').show();
     $('#main-stream-stats-btn').show();
+    addRemoteStreamMiniView(remoteStreams[mainStreamId]); // send the main video stream to a container
   } else if (remoteId == 49024) {
     // move the current main stream to miniview
     remoteStreams[mainStreamId].stop(); // stop the main video stream playback
