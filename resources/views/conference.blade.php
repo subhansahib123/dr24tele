@@ -40,17 +40,17 @@
                                     <i id="user-icon" class="fas fa-user"></i>
                                 </div>
                                 <div id="buttons-container" class="row justify-content-center mt-3">
-                                    <div class="col-md-2 text-center">
+                                    <div class="col-md-4 text-center">
                                         <button id="mic-btn" type="button" class="btn btn-block btn-dark btn-lg">
                                             <i id="mic-icon" class="fas fa-microphone"></i>
                                         </button>
                                     </div>
-                                    <div class="col-md-2 text-center">
+                                    <div class="col-md-4 text-center">
                                         <button id="video-btn" type="button" class="btn btn-block btn-dark btn-lg">
                                             <i id="video-icon" class="fas fa-video"></i>
                                         </button>
                                     </div>
-                                    <div class="col-md-2 text-center">
+                                    <div class="col-md-4 text-center">
                                         <button id="exit-btn" type="button" class="btn btn-block btn-danger btn-lg">
                                             <i id="exit-icon" class="fas fa-phone-slash"></i>
                                         </button>
@@ -109,9 +109,6 @@
 <script src='{{ asset('public_assets/js/agora-interface.js') }}'></script>
 <script src="{{asset('public_assets/js/custom-Agora.js')}}"></script>
 <style>
-    #player_1001{
-        height: 100vh !important;
-    }
     .after_join{
         position: absolute;
         top: 165px;
@@ -127,10 +124,10 @@
     }
 
 #buttons-container {
-  position: absolute;
-  z-index: 2;
-  width: 100vw;
-  bottom: 0;
+    position: absolute;
+    z-index: 2;
+    width: 330px;
+    bottom: -46px;
 }
 
 #full-screen-video {
@@ -141,9 +138,9 @@
 #full-screen-video video{
     object-fit: contain !important
 }
-#lower-video-bar {
+/* #lower-video-bar {
   height: 100vh;
-}
+} */
 
 #local-stream-container {
   position: relative;
