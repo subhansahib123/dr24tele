@@ -254,7 +254,7 @@ function stopScreenShare() {
 function addRemoteStreamMiniView(remoteStream){
   var streamId = remoteStream.getId();
   // append the remote stream template to #remote-streams
-  $('#remote-streams').append(
+  $('#remote-streams').insert(
     $('<div/>', {'id': streamId + '_container',  'class': 'remote-stream-container col'}).append(
       $('<div/>', {'id': streamId + '_mute', 'class': 'mute-overlay'}).append(
           $('<i/>', {'class': 'fas fa-microphone-slash'})
