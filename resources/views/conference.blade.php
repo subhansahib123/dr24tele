@@ -19,7 +19,7 @@
         <section class="appointment-form-wrap ptb-100">
             <div class="container- p-0">
                 <div id="main-container" class="row">
-                    <div class="col-xl-12 offset-xl-2 col-lg-12 offset-lg-1 col-12">
+                    <div class="col-xl-12 col-lg-12 col-12">
                         <div id="screen-share-btn-container" class="col-2 text-right mt-2">
                             <button id="screen-share-btn" type="button" class="btn btn-lg">
                                 <i id="screen-share-icon" class="fas fa-desktop"></i>
@@ -109,7 +109,23 @@
 <script src='{{ asset('public_assets/js/agora-interface.js') }}'></script>
 <script src="{{asset('public_assets/js/custom-Agora.js')}}"></script>
 <style>
-
+    #player_1001{
+        height: 100vh !important;
+    }
+    .after_join{
+        position: absolute;
+        top: 165px;
+        width: 100vw;
+        height: 100%;
+        background: #2490eb;
+        z-index: 9;
+    }
+    @media screen and (max-width:768px){
+        .after_join{
+            top:315px
+        }
+    }
+/*
 #buttons-container {
   position: absolute;
   z-index: 2;
@@ -192,13 +208,16 @@
 
 #screen-share-btn-container {
   z-index: 99;
-}
+} */
 </style>
 
 
 
     <script>
         //
+        $('#join-channel').click(function(){
+            $('#main-container').addClass('after_join');
+        })
 
         // UI buttons
         function enableUiControls(localStream) {
