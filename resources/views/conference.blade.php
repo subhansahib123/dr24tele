@@ -125,7 +125,7 @@
             top:315px
         }
     }
-/*
+
 #buttons-container {
   position: absolute;
   z-index: 2;
@@ -208,7 +208,7 @@
 
 #screen-share-btn-container {
   z-index: 99;
-} */
+}
 </style>
 
 
