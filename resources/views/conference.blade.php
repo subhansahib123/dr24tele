@@ -25,23 +25,6 @@
                                 <i id="screen-share-icon" class="fas fa-desktop"></i>
                             </button>
                         </div>
-                        <div id="buttons-container" class="row justify-content-center mt-3">
-                            <div class="col-md-2 text-center">
-                                <button id="mic-btn" type="button" class="btn btn-block btn-dark btn-lg">
-                                    <i id="mic-icon" class="fas fa-microphone"></i>
-                                </button>
-                            </div>
-                            <div class="col-md-2 text-center">
-                                <button id="video-btn" type="button" class="btn btn-block btn-dark btn-lg">
-                                    <i id="video-icon" class="fas fa-video"></i>
-                                </button>
-                            </div>
-                            <div class="col-md-2 text-center">
-                                <button id="exit-btn" type="button" class="btn btn-block btn-danger btn-lg">
-                                    <i id="exit-icon" class="fas fa-phone-slash"></i>
-                                </button>
-                            </div>
-                        </div>
                         <div id="full-screen-video"></div>
                         <div id="lower-video-bar" class="row mb-1">
                             <div id="remote-streams-container" class="container col-12 ml-1">
@@ -55,6 +38,23 @@
                                 </div>
                                 <div id="no-local-video" class="col text-center">
                                     <i id="user-icon" class="fas fa-user"></i>
+                                </div>
+                                <div id="buttons-container" class="row justify-content-center mt-3">
+                                    <div class="col-md-2 text-center">
+                                        <button id="mic-btn" type="button" class="btn btn-block btn-dark btn-lg">
+                                            <i id="mic-icon" class="fas fa-microphone"></i>
+                                        </button>
+                                    </div>
+                                    <div class="col-md-2 text-center">
+                                        <button id="video-btn" type="button" class="btn btn-block btn-dark btn-lg">
+                                            <i id="video-icon" class="fas fa-video"></i>
+                                        </button>
+                                    </div>
+                                    <div class="col-md-2 text-center">
+                                        <button id="exit-btn" type="button" class="btn btn-block btn-danger btn-lg">
+                                            <i id="exit-icon" class="fas fa-phone-slash"></i>
+                                        </button>
+                                    </div>
                                 </div>
                                 <div id="local-video" class="col p-0"></div>
                             </div>
@@ -138,9 +138,11 @@
   width: 100vw;
   height: 100vh;
 }
-
+#full-screen-video video{
+    object-fit: contain !important
+}
 #lower-video-bar {
-  height: 20vh;
+  height: 100vh;
 }
 
 #local-stream-container {
@@ -157,12 +159,11 @@
 }
 
 #local-video {
-  position: absolute;
-  z-index: 1;
-  height: 115vh;
-  max-width: 100%;
+    position: absolute;
+    z-index: 1;
+    height: 32vh;
+    max-width: 20%;
 }
-
 .remote-video {
   position: absolute;
   z-index: 1;
