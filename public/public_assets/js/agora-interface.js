@@ -181,11 +181,11 @@ function initScreenShare(agoraAppId, channelName) {
   // Create the stream for screen sharing.
   var screenStream = AgoraRTC.createStream({
     streamID: uid,
-    audio: false, // Set the audio attribute as false to avoid any echo during the call.
-    video: false,
-    screen: true, // screen stream
-    screenAudio: true,
-    mediaSource:  'screen', // Firefox: 'screen', 'application', 'window' (select one)
+    audio: true, // Set the audio attribute as false to avoid any echo during the call.
+    video: true,
+    screen: false, // screen stream
+    screenAudio: false,
+    // mediaSource:  'screen', // Firefox: 'screen', 'application', 'window' (select one)
   });
   // initialize the stream
   // -- NOTE: this must happen directly from user interaction, if called by a promise or callback it will fail.

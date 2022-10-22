@@ -20,7 +20,7 @@
             <div class="container- p-0">
                 <div id="main-container" class="row">
                     <div class="col-xl-12 col-lg-12 col-12">
-                        <div id="screen-share-btn-container" class="col-2 text-right mt-2">
+                        <div id="screen-share-btn-container " class="col-2 text-right mt-2 d-none">
                             <button id="screen-share-btn" type="button" class="btn btn-lg">
                                 <i id="screen-share-icon" class="fas fa-desktop"></i>
                             </button>
@@ -130,6 +130,7 @@
   position: absolute;
   z-index: 2;
   width: 100vw;
+  bottom: 0;
 }
 
 #full-screen-video {
