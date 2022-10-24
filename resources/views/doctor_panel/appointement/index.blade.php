@@ -63,7 +63,7 @@
                                                     {{-- <td>{{$schedule->doctor->department->name}}</td> --}}
                                                     <td>
 
-                                                        <button type="button" onclick="send_notification(`{{$schedule->patient->user->id}}`,'Appointment No.{{$schedule->id}}','please join call now')"
+                                                        <button type="button" onclick="send_notification(`{{$schedule->patient->user->id}}`,'Appointment No.{{$schedule->id}}','please join call now',true)"
                                                             class="btn btn-success btn-sm">Call</button>
 
 

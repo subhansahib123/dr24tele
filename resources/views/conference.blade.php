@@ -83,15 +83,15 @@
                         <label for="form-appid">Agora AppId</label>
                     </div>
                     <div class="md-form mb-4">
-                        <input type="text" id="form-token" class="form-control">
+                        <input type="text" id="form-token" value="{{$token}}" class="form-control">
                         <label for="form-token">Agora Token</label>
                     </div>
                     <div class="md-form mb-4">
-                        <input type="text" id="form-channel" value="first-channel" class="form-control">
+                        <input type="text" id="form-channel" value="{{$channelname}}" class="form-control">
                         <label for="form-channel">Channel</label>
                     </div>
                     <div class="md-form mb-4">
-                        <input type="number" id="form-uid" class="form-control" value="1001" data-decimals="0" />
+                        <input type="number" id="form-uid" class="form-control" value="{{auth()->user()->id}}" data-decimals="0" />
                         <label for="form-uid">UID</label>
                     </div>
                 </div>

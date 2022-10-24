@@ -11,6 +11,8 @@ use Carbon\Carbon;
 use App\Models\Schedule;
 use App\Models\Appointment;
 use Illuminate\Support\Facades\Auth;
+use App\AgoraToken\Src\RtcTokenBuilder;
+
 class homeController extends Controller
 {
     public function index(){
@@ -47,11 +49,11 @@ class homeController extends Controller
     }
     public function scheduleOfDoctor($doctor_id,$date){
          $date=$date." 00:00:00";
-
+        $user_id=Doctor::find($doctor_id);
          $schdeules=Schedule::whereDate('start', '=', $date." 00:00:00")
 
          ->where('doctor_id',$doctor_id)->get();
-         return response()->json( $schdeules);
+         return response()->json( ['schedules'=>$schdeules,'user_id'=>$user_id->user_id]);
     }
     public function bookApppointment(Request $request){
         $data=$request->all();
@@ -66,23 +68,44 @@ class homeController extends Controller
 
         User::find($id)->update(['device_key'=>$request->token]);
         // auth()->user()->update(['device_key'=>$request->token]);
-        return response()->json(['Token successfully stored.']);
+        return response()->json($request->token);
     }
 
     public function sendWebNotification(Request $request)
     {
         $url = 'https://fcm.googleapis.com/fcm/send';
-        $FcmToken = User::where('id',$request->user_id)->whereNotNull('device_key')->pluck('device_key')->all();
+        $FcmToken = User::where('id',$request->user_id)->whereNotNull('device_key')->pluck('device_key')->first();
         // dd($FcmToken);
         $serverKey = 'AAAAbIgbEU8:APA91bFMDoPB9ES0j9z5TGtBx2cRQtgwn8Odqbs4z4b4zuv0k7hgrxgo4l1A7PEIpDJLRWzyo0Fv8swJBGDJbhPoocHTn-_qzk5LL9wfHxRmAmyZjHU0RfODsiGd0pzJ1pyUgcCB4BAh';
+        // dd($request->link);
+        $conference_link='';
+        if($request->has('link') && $request->link=='true'){
+            $channelName=rand().$request->user_id;
+            $agoraToken=$this->generate_token($channelName);
+            $conference_link=url('/').'/conference/call/'.$channelName.'/'.urlencode($agoraToken);
+            $data = [
+                "to" => $FcmToken,
+                "notification" => [
+                    "title" => $request->title,
+                    "body" => $request->body,
+                    "data"=> $conference_link
 
-        $data = [
-            "registration_ids" => $FcmToken,
-            "notification" => [
-                "title" => $request->title,
-                "body" => $request->body,
-            ]
-        ];
+
+                ]
+            ];
+        }else {
+            $data = [
+                "to" => $FcmToken,
+                "notification" => [
+                    "title" => $request->title,
+                    "body" => $request->body,
+
+
+                ]
+            ];
+        }
+
+        // dd($data);
         $encodedData = json_encode($data);
 
         $headers = [
@@ -109,6 +132,29 @@ class homeController extends Controller
         // Close connection
         curl_close($ch);
 
-        return response()->json($result);
+        return response()->json(['fire_base'=>$result,'conference_link'=>$conference_link]);
+    }
+     public function generate_token($channelName)
+    {
+
+
+            $appID = "e4fc13e59b1d4105b5dd434a56a2bf94";
+            $appCertificate = "46369135cce54217935851efd0844afb";
+            // $channelName = $request->channel;
+            $uid = (int) mt_rand(1000000000, 9999999999);
+            $uidStr = strval($uid);
+            $role = RtcTokenBuilder::RoleAttendee;
+            $expireTimeInSeconds = 2400;
+            $currentTimestamp = (new \DateTime("now", new \DateTimeZone('Asia/Karachi')))->getTimestamp();
+            $privilegeExpiredTs = $currentTimestamp + $expireTimeInSeconds;
+
+            $token = RtcTokenBuilder::buildTokenWithUid($appID, $appCertificate, $channelName, null, $role, $privilegeExpiredTs);
+
+
+
+            // $obj = ["token" => $token];
+
+            return  $token;
+
     }
 }

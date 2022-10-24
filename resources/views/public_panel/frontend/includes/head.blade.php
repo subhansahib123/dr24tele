@@ -6,18 +6,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Link of CSS files -->
-    <link rel="stylesheet" href="{{asset('public_assets/css/bootstrap.min.css')}}">
-    <link rel="stylesheet" href="{{asset('public_assets/css/flaticon.css')}}">
-    <link rel="stylesheet" href="{{asset('public_assets/css/remixicon.css')}}">
-    <link rel="stylesheet" href="{{asset('public_assets/css/owl.carousel.min.css')}}">
-    <link rel="stylesheet" href="{{asset('public_assets/css/odometer.min.css')}}">
-    <link rel="stylesheet" href="{{asset('public_assets/css/fancybox.css')}}">
-    <link rel="stylesheet" href="{{asset('public_assets/css/aos.css')}}">
-    <link rel="stylesheet" href="{{asset('public_assets/css/style.css')}}">
-    <link rel="stylesheet" href="{{asset('public_assets/css/responsive.css')}}">
-    <link rel="stylesheet" href="{{asset('public_assets/css/dark-theme.css')}}">
-    <title>Dr24Tele | Hospital | Doctors</title>
-    <link rel="icon" type="image/png" href="{{asset('assets/images/logo.png')}}">
+    <link rel="stylesheet" href="{{ asset('public_assets/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('public_assets/css/flaticon.css') }}">
+    <link rel="stylesheet" href="{{ asset('public_assets/css/remixicon.css') }}">
+    <link rel="stylesheet" href="{{ asset('public_assets/css/owl.carousel.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('public_assets/css/odometer.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('public_assets/css/fancybox.css') }}">
+    <link rel="stylesheet" href="{{ asset('public_assets/css/aos.css') }}">
+    <link rel="stylesheet" href="{{ asset('public_assets/css/style.css') }}">
+    <link rel="stylesheet" href="{{ asset('public_assets/css/responsive.css') }}">
+    <link rel="stylesheet" href="{{ asset('public_assets/css/dark-theme.css') }}">
+    <title>DrTele | Hospital | Doctors</title>
+    <link rel="icon" type="image/png" href="{{ asset('assets/images/logo.png') }}">
 </head>
 
 <body>

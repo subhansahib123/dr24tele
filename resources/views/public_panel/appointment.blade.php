@@ -83,14 +83,73 @@
                                 <div class="form-group col-12" id='calenderwrapper'>
                                     <div id='calendar'></div>
                                 </div>
+                                <div class="col-12" id="scheduleDoctor">
+
+                                </div>
 
                                 <div class="form-group col-lg-12" id="comments" style="display: none">
                                     <label>Comments</label>
-                                    <textarea rows="5" cols="5" class="form-control" name="comments" >
+                                    <textarea rows="5" cols="5" class="form-control" name="comments">
 
                                     </textarea>
                                 </div>
+                                <div class="row" id="payment"  style="display: none">
+                                    <div class="col-xs-12 col-md-12 col-md-offset-4">
+                                        <div class="panel panel-default">
+                                            {{-- <div class="panel-heading">
+                                                <div class="row">
+                                                    <h3 class="text-center">Payment Details</h3>
+                                                    <img class="img-responsive cc-img"
+                                                        src="http://www.prepbootstrap.com/Content/images/shared/misc/creditcardicons.png">
+                                                </div>
+                                            </div> --}}
+                                            <div class="panel-body">
+                                                <form role="form">
+                                                    <div class="row">
+                                                        <div class="col-xs-12">
+                                                            <div class="form-group">
+                                                                <label>CARD NUMBER</label>
+                                                                <div class="input-group">
+                                                                    <input type="tel" class="form-control"
+                                                                        placeholder="Valid Card Number" />
+                                                                    <span class="input-group-addon"><span
+                                                                            class="fa fa-credit-card"></span></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-xs-7 col-md-7">
+                                                            <div class="form-group">
+                                                                <label><span class="hidden-xs">EXPIRATION</span><span
+                                                                        class="visible-xs-inline">EXP</span> DATE</label>
+                                                                <input type="tel" class="form-control"
+                                                                    placeholder="MM / YY" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xs-5 col-md-5 pull-right">
+                                                            <div class="form-group">
+                                                                <label>CV CODE</label>
+                                                                <input type="tel" class="form-control"
+                                                                    placeholder="CVC" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-xs-12">
+                                                            <div class="form-group">
+                                                                <label>CARD OWNER</label>
+                                                                <input type="text" class="form-control"
+                                                                    placeholder="Card Owner Names" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
 
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="form-group col-lg-12" style="display: none" id="book_appointment_submit">
                                     <button type="button" class="btn btn-apfm">Book Appointment <i
                                             class="icofont icofont-thin-right"></i></button>
@@ -107,8 +166,8 @@
 
     <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.css' rel='stylesheet' />
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js'></script>
-    <script src='{{asset('public_assets/js/moment.js')}}'></script>
-    <script src='{{asset('public_assets/js/timezone_moment.js')}}'></script>
+    <script src='{{ asset('public_assets/js/moment.js') }}'></script>
+    <script src='{{ asset('public_assets/js/timezone_moment.js') }}'></script>
     <style>
         .selected-date {
             background-color: green;
@@ -117,66 +176,73 @@
         .selected-date a {
             color: white;
         }
-        .selected-slot{
+
+        .selected-slot {
             background: green;
             color: white;
             cursor: pointer;
         }
-        .selected-slot label{
+
+        .selected-slot label {
             background: green;
             color: white;
         }
-        .selected-slot input{
+
+        .selected-slot input {
             background: green;
             color: white;
         }
-        .appointment-form-ma .form-control{
+
+        .appointment-form-ma .form-control {
             cursor: pointer;
         }
     </style>
     <script>
-        var BASE_URL = `{{url('')}}`;
+        var BASE_URL = `{{ url('') }}`;
         var doctor_id = `{{ request()->segment(count(request()->segments())) }}`;
-        var patient_id=`{{auth()->user()->patient->id}}`;
+        var patient_id = `{{ auth()->user()->patient->id }}`;
         var schedule_id;
         var start;
         var end;
-
+        var user_id;
 
 
 
         document.addEventListener('DOMContentLoaded', function() {
-            $('#book_appointment_submit').click(function(){
+            $('#book_appointment_submit').click(function() {
                 $.ajax({
-                    url: BASE_URL+"/api/book/appointment",
-                    type: "POST",
-                    data: {
-                        'doctor_id':doctor_id,
-                        'patient_id':patient_id,
-                        "slot_id":schedule_id,
-                        "start":start,
-                        "end":end,
-                        "comments":$('#comments').val()
-                    },
+                        url: BASE_URL + "/api/book/appointment",
+                        type: "POST",
+                        data: {
+                            'doctor_id': doctor_id,
+                            'patient_id': patient_id,
+                            "slot_id": schedule_id,
+                            "start": start,
+                            "end": end,
+                            "comments": $('#comments').val()
+                        },
 
-                    cache: false,
-                    timeout: 800000,
-                })
-                .done(function(data){
-                    console.log(data);
-                })
-                .fail(function(error){
-                    console.log(error);
-                });
+                        cache: false,
+                        timeout: 800000,
+                    })
+                    .done(function(data) {
+                        // console.log(data);
+                        send_notification(user_id,'Appointment No.'+data.msg,'You have a new appointment')
+                    })
+                    .fail(function(error) {
+                        console.log(error);
+                    });
             });
-             $('#schedules').on("click", '.schedule_wrapper', function() {
-                    $('.appointment-form-ma .schedule_wrapper').removeClass('selected-slot');
-                    $(this).addClass('selected-slot');
-                    schedule_id= $(this).find('input[type="hidden"]').val();
-                    start= $(this).find('input[type="text"]').attr('start');
-                    end= $(this).find('input[type="text"]').attr('end');
-                    $('#comments').show();
-                    $('#book_appointment_submit').show();
+            $('#schedules').on("click", '.schedule_wrapper', function() {
+                $('.appointment-form-ma .schedule_wrapper').removeClass('selected-slot');
+                $(this).addClass('selected-slot');
+                schedule_id = $(this).find('input[type="hidden"]').val();
+                start = $(this).find('input[type="text"]').attr('start');
+                end = $(this).find('input[type="text"]').attr('end');
+                $('#comments').show();
+                $('#payment').show();
+
+                $('#book_appointment_submit').show();
             });
             var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
@@ -231,18 +297,22 @@
                     cache: false,
                     timeout: 800000,
                 }).done(function(data) {
+
                     if (data != undefined && data.length != 0) {
                         var htmlSchedules = '';
-                        data.forEach(element => {
+                        user_id=data.user_id;
+                        data.schedules.forEach(element => {
                             console.log(element)
-                            let startDate =moment(element.start);
-                             let endDate = moment(element.end);
-                             let userTimeZone=Intl.DateTimeFormat().resolvedOptions().timeZone;
-                            startDate=startDate.tz(userTimeZone).format('h:mm a z');
-                            endDate=endDate.tz(userTimeZone).format('h:mm a z');
+                            let startDate = moment(element.start);
+                            let endDate = moment(element.end);
+                            let userTimeZone = Intl.DateTimeFormat().resolvedOptions()
+                                .timeZone;
+                            startDate = startDate.tz(userTimeZone).format('h:mm a z');
+                            endDate = endDate.tz(userTimeZone).format('h:mm a z');
 
-                            var dbDateStart=moment(element.start).format('Y-M-D HH:mm:ss');
-                            var dbDateEnd=moment(element.end).format('Y-M-D HH:mm:ss');
+                            var dbDateStart = moment(element.start).format(
+                            'Y-M-D HH:mm:ss');
+                            var dbDateEnd = moment(element.end).format('Y-M-D HH:mm:ss');
                             htmlSchedules += ` <div class="form-group col-lg-5 schedule_wrapper">
                                     <label>Appointments Left <span>${element.number_of_people}</span> / ${element.price} INR</label>
                                     <input class="form-control" type="text" start="${dbDateStart}" end="${dbDateEnd}" readonly value="${startDate} To ${endDate}" />
@@ -250,10 +320,10 @@
                                 </div>`;
 
                         });
-                         $('#calenderwrapper').after('');
-                        $('#calenderwrapper').after(htmlSchedules);
+
+                        $('#scheduleDoctor').html(htmlSchedules);
                     } else {
-                       $('#calenderwrapper').after("<h3>No Schedule found !</h3>");
+                        $('#scheduleDoctor').html("<h3>No Schedule found !</h3>");
                     }
                 });
                 // alert(dateString)

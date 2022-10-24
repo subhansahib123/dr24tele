@@ -132,9 +132,9 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         //patient Login
         Route::get('/patient/login',[PatientAuthenticationController::class,'login'])->name('patient.login');
         Route::post('/patient/logined', [PatientAuthenticationController::class, 'performLogin'])->name('patient.loggedin');
-        
 
-        Route::get('/conference/call',[PatientAuthenticationController::class,'conference_call'])->name('conference');
+
+        Route::get('/conference/call/{channelname}/{token}',[PatientAuthenticationController::class,'conference_call'])->name('conference');
 
 
     });

@@ -41,7 +41,7 @@ class ScheduleController extends Controller
             'interval'=>'required',
             'number_of_people'=>'required',
             'comment'=>'required',
-            'status'=>'required',
+            // 'status'=>'required',
 
         ]);
 

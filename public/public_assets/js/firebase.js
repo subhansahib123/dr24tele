@@ -114,7 +114,9 @@ function base_url() {
     }
     return url;
 }
-function send_notification(userId,title,body) {
+function send_notification(userId, title, body, Islink = false) {
+
+
     $.ajax({
         url: base_url() + "/api/send-web-notification",
         type: "POST",
@@ -123,14 +125,43 @@ function send_notification(userId,title,body) {
             user_id: userId,
             title: title,
             body: body,
+            link:Islink
         },
         dataType: "JSON",
         success: function (response) {
-            console.log(response);
+            console.log(response.fire_base);
+            if (response.conference_link != '')
+                window.open(response.conference_link, "_blank");
         },
         error: function (error) {
             alert(error);
         },
     });
     return false;
+}
+
+
+function generate_token(userId) {
+    var channelName = "first-channel" + userId;
+    var token;
+     $.ajax({
+         url: "/api/agoraToken",
+         type: "GET",
+         data: {
+             channel: channelName,
+         },
+
+         cache: false,
+         timeout: 800000,
+     })
+         .done(function (data) {
+           token=data.token;
+            //  $("#form-token").val(data.token);
+         })
+         .fail(function (error) {
+             console.log(error);
+         });
+
+    return {token,channelName};
+
 }

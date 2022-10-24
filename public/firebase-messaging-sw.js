@@ -1,6 +1,18 @@
 importScripts("https://www.gstatic.com/firebasejs/8.3.2/firebase-app.js");
 importScripts("https://www.gstatic.com/firebasejs/8.3.2/firebase-messaging.js");
-
+if ("serviceWorker" in navigator) {
+    navigator.serviceWorker
+        .register("./firebase-messaging-sw.js")
+        .then(function (registration) {
+            console.log(
+                "Registration successful, scope is:",
+                registration.scope
+            );
+        })
+        .catch(function (err) {
+            console.log("Service worker registration failed, error:", err);
+        });
+}
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
@@ -24,4 +36,35 @@ messaging.setBackgroundMessageHandler(function (payload) {
         icon: "/firebase-logo.png",
     };
     return self.registration.showNotification(title, options);
+});
+self.addEventListener("push", (event) => {
+    let response = event.data && event.data.text();
+    // console.log(response);
+    let title = JSON.parse(response).notification.title;
+    let body = JSON.parse(response).notification.body;
+    let icon = JSON.parse(response).notification.image;
+    let image = JSON.parse(response).notification.image;
+    // let link = JSON.parse(response).data['gcm.notification.data'];
+
+    if (JSON.parse(response).data) {
+        let link = JSON.parse(response).data["gcm.notification.data"];
+        event.waitUntil(
+            self.registration.showNotification(title, {
+                body,
+                icon,
+                image,
+                data: { url: link },
+            })
+        );
+    } else {
+        event.waitUntil(
+            self.registration.showNotification(title, { body, icon, image })
+        );
+    }
+});
+
+self.addEventListener("notificationclick", function (event) {
+    //console.log(event);
+    event.notification.close();
+    event.waitUntil(clients.openWindow(event.notification.data.url));
 });

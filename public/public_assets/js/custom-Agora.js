@@ -17,20 +17,20 @@ $("#join-channel").click(function (event) {
 });
 
 
-                $.ajax({
-                    url: "/api/agoraToken",
-                    type: "GET",
-                    data: {
-                        channel: "first-channel",
-                    },
+                // $.ajax({
+                //     url: "/api/agoraToken",
+                //     type: "GET",
+                //     data: {
+                //         channel: "first-channel",
+                //     },
 
-                    cache: false,
-                    timeout: 800000,
-                })
-                    .done(function (data) {
-                        console.log(data.token);
-                        $("#form-token").val(data.token);
-                    })
-                    .fail(function (error) {
-                        console.log(error);
-                    });
+                //     cache: false,
+                //     timeout: 800000,
+                // })
+                //     .done(function (data) {
+                //         console.log(data.token);
+                //         $("#form-token").val(data.token);
+                //     })
+                //     .fail(function (error) {
+                //         console.log(error);
+                //     });
