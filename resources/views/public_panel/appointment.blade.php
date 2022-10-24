@@ -229,7 +229,7 @@
                         // console.log(data);
 
                         send_notification(user_id,'Appointment No.'+data.msg,'You have a new appointment')
-                        window.location=BASE_URL+'/appointments'
+                        window.location=BASE_URL+'/patient/appointments'
                     })
                     .fail(function(error) {
                         console.log(error);
