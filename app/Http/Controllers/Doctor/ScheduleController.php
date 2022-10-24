@@ -125,7 +125,7 @@ class ScheduleController extends Controller
         $doctor_id=Doctor::where('user_id',$user_id)->first()->id;
         $schedules=Schedule::where('doctor_id',$doctor_id)->get();
         // dd($schedules);
-        return view('doctor_panel.Schedule.index',['schedules'=>$schedules]);
+        return view('doctor_panel.schedule.index',['schedules'=>$schedules]);
     }
     //delete single schedule
     public function delete($id){
