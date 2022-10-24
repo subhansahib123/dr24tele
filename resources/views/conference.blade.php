@@ -215,9 +215,10 @@
 
     <script>
         //
-        $('#join-channel').click(function(){
-            $('#main-container').addClass('after_join');
-        })
+         $('#main-container').addClass('after_join');
+        // $('#join-channel').click(function(){
+        //     $('#main-container').addClass('after_join');
+        // })
 
         // UI buttons
         function enableUiControls(localStream) {
