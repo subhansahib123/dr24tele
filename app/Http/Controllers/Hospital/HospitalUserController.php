@@ -36,7 +36,7 @@ class HospitalUserController extends Controller
         $orgId = $userInfo['sessionInfo']['orgId'];
         // dd($orgId);
         curl_setopt_array($curl, array(
-            CURLOPT_URL => $baseUrl . '/rest/admin/orgPersonMapping/persons/' . $orgId,
+            CURLOPT_URL => $baseUrl . 'rest/admin/orgUserMapping/users/' . $orgId. '?pageNo=1&maxRecords=50',
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,

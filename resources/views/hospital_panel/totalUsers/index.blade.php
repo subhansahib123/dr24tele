@@ -55,15 +55,15 @@
                                                 <th scope="col" width="20%">Name</th>
                                                 <th scope="col" width="1%">Guard</th>
                                             </thead>
-                                            @if($all_patients->person)
-                                            @foreach($all_patients->person as $all_patient)
+                                            @if($all_patients->Users)
+                                            @foreach($all_patients->Users as $all_patient)
 
 
                                             <tr>
 
                                                 <td>
 
-                                                {{isset($all_patient->givenName)?$all_patient->givenName:'' }}
+                                                {{isset($all_patient->username)?$all_patient->username:'' }}
 
 
                                                 </td>
