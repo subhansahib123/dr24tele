@@ -69,12 +69,12 @@ client.on('stream-subscribed', function (evt) {
     remoteStream.play('full-screen-video');
     $('#main-stats-btn').show();
     $('#main-stream-stats-btn').show();
-    // addRemoteStreamMiniView(remoteStreams[mainStreamId]); // send the main video stream to a container
+    addRemoteStreamMiniView(remoteStreams[mainStreamId]); // send the main video stream to a container
   } else if (remoteId == 49024) {
     // move the current main stream to miniview
     remoteStreams[mainStreamId].stop(); // stop the main video stream playback
     client.setRemoteVideoStreamType(remoteStreams[mainStreamId], 1); // subscribe to the low stream
-    // addRemoteStreamMiniView(remoteStreams[mainStreamId]); // send the main video stream to a container
+    addRemoteStreamMiniView(remoteStreams[mainStreamId]); // send the main video stream to a container
     // set the screen-share as the main
     mainStreamId = remoteId;
     remoteStream.play('full-screen-video');s
@@ -132,7 +132,8 @@ client.on("unmute-video", function (evt) {
 function joinChannel(channelName, uid, token) {
   client.join(token, channelName, uid, function(uid) {
       console.log("User " + uid + " join channel successfully");
-      createCameraStream(uid);
+      if( $('#local-video').is(':empty') ) 
+        createCameraStream(uid);
       localStreams.camera.id = uid; // keep track of the stream uid
   }, function(err) {
       console.log("[ERROR] : join channel failed", err);
