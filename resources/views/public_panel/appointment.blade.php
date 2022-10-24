@@ -227,7 +227,9 @@
                     })
                     .done(function(data) {
                         // console.log(data);
+
                         send_notification(user_id,'Appointment No.'+data.msg,'You have a new appointment')
+                        window.location=BASE_URL+'/appointments'
                     })
                     .fail(function(error) {
                         console.log(error);
