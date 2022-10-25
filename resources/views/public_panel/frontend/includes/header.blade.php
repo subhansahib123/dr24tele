@@ -23,6 +23,7 @@
                 </div>
                 <div class="col-lg-4">
                     <div class="header-top-right">
+                       
                         <div class="select-lang">
                             <i class="ri-earth-fill"></i>
                             <div class="navbar-option-item navbar-language dropdown language-option">
@@ -34,14 +35,14 @@
                                         <img src="{{asset('public_assets/img/uk.png')}}" alt="flag">
                                         Eng
                                     </a>
-                                    <a class="dropdown-item" href="#">
+                                    {{-- <a class="dropdown-item" href="#">
                                         <img src="{{asset('public_assets/img/china.png')}}" alt="flag">
                                         简体中文
                                     </a>
                                     <a class="dropdown-item" href="#">
                                         <img src="{{asset('public_assets/img/uae.png')}}" alt="flag">
                                         العربيّة
-                                    </a>
+                                    </a> --}}
                                 </div>
                             </div>
                         </div>
@@ -75,7 +76,7 @@
     <div class="header-bottom">
         <div class="container">
             <nav class="navbar navbar-expand-md navbar-light">
-                <a class="navbar-brand" href="index.html">
+                <a class="navbar-brand" href="{{route('home.page')}}">
                     <img class="logo-light" src="{{asset('public_assets/img/logo.png')}}" width="120px" alt="logo">
                     <img class="logo-dark" src="{{asset('public_assets/img/logo.png')}}" width="120px" alt="logo">
                 </a>
@@ -87,7 +88,7 @@
                         <li class="nav-item">
                             <a href="{{route('home.page')}}" class="nav-link active">
                                 Home
-                                <i class="ri-arrow-down-s-line"></i>
+                                {{-- <i class="ri-arrow-down-s-line"></i> --}}
                             </a>
                             <!-- <ul class="dropdown-menu">
                                 <li class="nav-item">
@@ -101,7 +102,7 @@
                                 </li>
                             </ul> -->
                         </li>
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a href="about.html" class="nav-link">
                                 About
                                 <i class="ri-arrow-down-s-line"></i>
@@ -172,19 +173,19 @@
                                             <a href="recover-password.html" class="nav-link">Recover Password</a>
                                         </li>
                                     </ul>
+                                </li> --}}
+                                <li class="nav-item">
+                                    <a href="{{route('hospital.login')}}" class="nav-link">Hospital Login</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{route('termsOfService')}}" class="nav-link">Terms of Service</a>
+                                    <a href="{{route('doctor.login')}}" class="nav-link">Doctor Login</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{route('privacyPolicy')}}" class="nav-link">Privacy Policy</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{route('errorPage')}}" class="nav-link">404 Error Page</a>
+                                    <a href="{{route('patient.login')}}" class="nav-link">Patient Login</a>
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a href="#" class="nav-link">
                                 Blog
                                 <i class="ri-arrow-down-s-line"></i>
@@ -240,7 +241,7 @@
                         <div class="option-item">
                             <a href="appointment.html" class="btn style1">Book Appointment</a>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
             </nav>
             <div class="search-area">

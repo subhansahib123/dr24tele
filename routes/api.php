@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\OrganizationController;
 use App\Http\Controllers\homeController;
 use App\Http\Controllers\PatientAuthenticationController;
-
+use App\Http\Controllers\CurrencyController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -37,4 +37,4 @@ Route::post('/store-token', [homeController::class, 'storeToken'])->name('store.
 Route::post('/send-web-notification', [homeController::class, 'sendWebNotification'])->name('send.web-notification');
 Route::get('/agoraToken',[PatientAuthenticationController::class,'generate_token' ]);
 
-
+Route::get('/convert-currency',[CurrencyController::class,'ConvertCurrency'])->name('convert.currency');

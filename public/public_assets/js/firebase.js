@@ -165,3 +165,20 @@ function generate_token(userId) {
     return {token,channelName};
 
 }
+ function convertCurrency(code) {
+     $(".lang-name").html(code);
+     $.ajax({
+         url: base_url() + "/api/convert-currency",
+         type: "get",
+         data: {
+             to: code,
+         },
+         dataType: "JSON",
+         success: function (response) {
+             console.log(response);
+         },
+         error: function (error) {
+             alert(error);
+         },
+     });
+ }

@@ -316,7 +316,7 @@
                             'Y-M-D HH:mm:ss');
                             var dbDateEnd = moment(element.end).format('Y-M-D HH:mm:ss');
                             htmlSchedules += ` <div class="form-group col-lg-5 schedule_wrapper">
-                                    <label>Appointments Left <span>${element.number_of_people}</span> / ${element.price} INR</label>
+                                    <label>Appointments Left <span>${element.number_of_people}</span> / <span class="amount-converted">${element.price}</span> <span class="currency-code">INR</span></label>
                                     <input class="form-control" type="text" start="${dbDateStart}" end="${dbDateEnd}" readonly value="${startDate} To ${endDate}" />
                                     <input type="hidden" value="${element.id}" />
                                 </div>`;

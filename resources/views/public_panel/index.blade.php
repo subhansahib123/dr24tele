@@ -180,7 +180,7 @@
             <!-- Promo Section End -->
 
             <!-- About Section Start -->
-            <section class="about-wrap style2 ptb-100">
+            {{-- <section class="about-wrap style2 ptb-100">
                 <div class="container">
                     <div class="row">
                         <div class="col-xl-6 offset-xl-3 col-lg-8 offset-lg-2 col-md-10 offset-md-1" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="200">
@@ -239,7 +239,7 @@
                         </div>
                     </div>
                 </div>
-            </section>
+            </section> --}}
             <!-- About Section End -->
 
             <!-- Service Section Start -->
@@ -277,7 +277,7 @@
             <!-- Service Section End -->
 
             <!-- Partner Area Start -->
-            <div class="container  pb-100">
+            {{-- <div class="container  pb-100">
                 <div class="partner-slider-one owl-carousel">
                     <div class="partner-item">
                         <img src="{{asset('public_assets/img/partner/partner-7.png')}}" alt="Image">
@@ -298,11 +298,11 @@
                         <img src="{{asset('public_assets/img/partner/partner-12.png')}}" alt="Image">
                     </div>
                 </div>
-            </div>
+            </div> --}}
             <!-- Partner Area End -->
 
             <!-- Testimonial Section Start -->
-            <section class="testimonial-wrap style2 ptb-100 bg-athens">
+            {{-- <section class="testimonial-wrap style2 ptb-100 bg-athens">
                 <div class="container">
                     <div class="row">
                         <div class="col-xl-6 offset-xl-3 col-lg-8 offset-lg-2  col-md-10 offset-md-1" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="200">
@@ -440,11 +440,11 @@
                         </div>
                     </div>
                 </div>
-            </section>
+            </section> --}}
             <!-- Testimonial Section End -->
 
             <!-- Appointment Section Start -->
-            <section class="appointment-wrap style2 bg-blue pb-100">
+            {{-- <section class="appointment-wrap style2 bg-blue pb-100">
                 <div class="container">
                     <div class="row gx-5">
                         <div class="col-lg-6" >
@@ -474,11 +474,11 @@
                         </div>
                     </div>
                 </div>
-            </section>
+            </section> --}}
             <!-- Appointment Section End -->
 
             <!-- Why Choose Us Section Start -->
-            <section class="wh-wrap style2 pt-100">
+            {{-- <section class="wh-wrap style2 pt-100">
                 <div class="container">
                     <div class="row gx-5 align-items-center">
                         <div class="col-lg-6" data-aos="fade-right" data-aos-duration="1200" data-aos-delay="200">
@@ -538,11 +538,11 @@
                         </div>
                     </div>
                 </div>
-            </section>
+            </section> --}}
             <!-- Why Choose Us Section End -->
 
             <!-- Portfolio Section Start -->
-            <section class="portfolio-wrap ptb-100">
+            {{-- <section class="portfolio-wrap ptb-100">
                 <div class="container">
                     <div class="section-title style1 text-center mb-40">
                         <span>Our Portfolio</span>
@@ -594,11 +594,11 @@
                         </div>
                     </div>
                 </div>
-            </section>
+            </section> --}}
             <!-- Portfolio Section End -->
 
             <!-- Team Section Start -->
-            <section class="team-wrap ptb-100 bg-chathamas">
+            {{-- <section class="team-wrap ptb-100 bg-chathamas">
                 <div class="container">
                     <div class="row">
                         <div class="col-xl-6 offset-xl-3 col-lg-8 offset-lg-2  col-md-10 offset-md-1" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="200">
@@ -791,11 +791,11 @@
                         </div>
                     </div>
                 </div>
-            </section>
+            </section> --}}
             <!-- Team Section End -->
 
             <!-- Blog Section Start -->
-            <section class="blog-wrap pt-100 pb-75">
+            {{-- <section class="blog-wrap pt-100 pb-75">
                 <div class="container">
                     <div class="row">
                         <div class="col-xl-6 offset-xl-3  col-lg-8 offset-lg-2 col-md-10 offset-md-1">
@@ -859,7 +859,7 @@
                         </div>
                     </div>
                 </div>
-            </section>
+            </section> --}}
             <!-- Blog Section End -->
 
 
