@@ -15,8 +15,11 @@ use App\AgoraToken\Src\RtcTokenBuilder;
 
 class homeController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
         $organizations=$this->allHospitals();
+        if ($request->ajax()) {
+            return view('public_panel.index', compact('organizations'));
+        }
         return view('public_panel.index',compact('organizations'));
     }
     protected function allHospitals(){

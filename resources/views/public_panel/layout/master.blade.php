@@ -12,3 +12,4 @@
 </div>
 <!-- Page Wrapper End -->
 @include('public_panel.frontend.includes.foot')
+@stack('js')

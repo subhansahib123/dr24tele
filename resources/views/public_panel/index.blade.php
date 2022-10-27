@@ -280,7 +280,7 @@
                                 </div>
                             @endforeach
                             <div class="d-flex justify-content-center">
-                                {!! $organizations->links() !!}
+                                {!! $organizations->render() !!}
                             </div>
                         </div>
                     </div>
@@ -882,3 +882,36 @@
 
 
 @endsection
+@push('js')
+    <script type="text/javascript">
+        $(document).ready(function()
+        {
+            $(document).on('click', '.pagination a',function(event)
+            {
+                event.preventDefault();
+
+                $('li').removeClass('active');
+                $(this).parent('li').addClass('active');
+                var page=$(this).attr('href').split('page=')[1];
+
+                getData(page);
+            });
+
+        });
+
+        function getData(page){
+            var search = $('#search-hospital').val()
+            $.ajax(
+                {
+                    url: '/?page=' + page,
+                    type: "get",
+                    datatype: "html",
+                    data:search,
+                }).done(function(data){
+                $("body").empty().html(data);
+            }).fail(function(jqXHR, ajaxOptions, thrownError){
+                alert('No response from server');
+            });
+        }
+    </script>
+@endpush
