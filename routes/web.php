@@ -62,6 +62,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
          * Login Routes
          */
         Route::get('/',[homeController::class,'index'])->name('home.page');
+        Route::get('/allHospitals',[homeController::class,'allHospitals'])->name('home.allHospitals');
         //departments
         Route::get('/departments/{orgid}',[homeController::class,'departmentsOfHospital'])->name('departments.of.hospital');
         //doctors

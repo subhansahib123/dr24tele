@@ -257,7 +257,7 @@
                 <div class="col-xl-12">
                     <div class="d-flex justify-content-end">
                         <div class="mb-3 w-25">
-                            <input type="text" class="form-control" id="search-hospital" placeholder="Search ..." name="search" value="{{old('search')}}">
+                            <input type="text" class="form-control" id="search-hospital" placeholder="Search ..." name="search" value="">
                         </div>
                     </div>
                 </div>
@@ -886,39 +886,32 @@
 @push('js')
     <script type="text/javascript">
         $(document).ready(function() {
-            $(document).on('keyup', '#search-hospital', function(event){
+            $(document).on('blur', '#search-hospital', function(event){
                 event.preventDefault();
                 var query = $('#search-hospital').val();
                 var page = $('#hidden_page').val()
                 getData(page, query);
             });
-            $(document).on('click', '.pagination a',function(event)
-            {
+            $(document).on('click', '.pagination a',function(event){
                 event.preventDefault();
 
                 $('li').removeClass('active');
                 $(this).parent('li').addClass('active');
                 var page=$(this).attr('href').split('page=')[1];
-                var query = $('#search-hospital').val()
+                var query = $('#search-hospital').val();
                 getData(page,query);
             });
             function getData(page,query){
                 $.ajax(
                     {
-                        url: '/?page=' + page +'&query='+query,
+                        url: '/allHospitals?page=' + page +'&query='+query,
                         type: "get",
-                        datatype: "html",
-                    }).done(function(data){
-                        if (data.length > 0) {
-                            $("body").empty().html(data);
+                        success:function (data){
+                            if (data.length > 0){
+                                $('body').empty().html(data)
+                            }
                         }
-                        else{
-                            var html = 'No data Found'
-                            $("body").empty().html(html);
-                        }
-                }).fail(function(jqXHR, ajaxOptions, thrownError){
-                    alert('No response from server');
-                });
+                    });
             }
         });
 

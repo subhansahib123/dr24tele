@@ -17,29 +17,25 @@ class homeController extends Controller
 {
     public function index(Request $request){
 
-        $organizations=$this->allHospitals($request);
-        if ($request->ajax()) {
-            return view('public_panel.index', compact('organizations'));
-        }
+        $organizations=Organization::has('department')->paginate(6);
         return view('public_panel.index',compact('organizations'));
     }
     protected function allHospitals(Request $request){
         try{
-            $query = $request->get('query');
-            $organizations=Organization::has('department')->where(function ($q) use ($query){
-                if (!empty($query)) {
-                    $q->where('name', 'like', '%' . $query . '%');
-                }
-            })->paginate(6);
-            //  dd($organizations);
+            if ($request->ajax()){
+                $search = $request->get('query');
+                $organizations=Organization::has('department')->where(function ($q) use ($search){
+                    if (!empty($search)){
+                        $q->where('name','like','%'.$search.'%');
+                    }
+                })->paginate(6);
+                return view('public_panel.index',compact('organizations'))->render();
+            }
         }
         catch (\Exception $e){
             dd($e->getMessage());
 
         }
-        return $organizations;
-
-
     }
     public function departmentsOfHospital($orgid){
         $departments=Department::has('doctor')->where('organization_id',$orgid)->get();
