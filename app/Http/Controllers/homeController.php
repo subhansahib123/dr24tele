@@ -17,14 +17,14 @@ class homeController extends Controller
 {
     public function index(Request $request){
 
-        $organizations=Organization::has('department')->paginate(6);
+        $organizations=Organization::has('department')->orderBy('id','desc')->paginate(6);
         return view('public_panel.index',compact('organizations'));
     }
     protected function allHospitals(Request $request){
         try{
             if ($request->ajax()){
                 $search = $request->get('query');
-                $organizations=Organization::has('department')->where(function ($q) use ($search){
+                $organizations=Organization::has('department')->orderBy('id','desc')->where(function ($q) use ($search){
                     if (!empty($search)){
                         $q->where('name','like','%'.$search.'%');
                     }
