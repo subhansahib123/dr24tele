@@ -254,23 +254,36 @@
                 </div>
             </div>
             <div class="row justify-content-center">
-                @foreach ($organizations as $organization )
-                    <div class="col-xl-4 col-lg-6 col-md-6 mb-3">
-                        <div class="service-card style1 h-100">
-                            <div class="service-img">
-                                <img src="{{asset('public_assets/img/services/service-9.jpg')}}" alt="Image">
-                                <span class="service-icon"><i class="flaticon-hospital-ward"></i></span>
-                            </div>
-                            <div class="service-info">
-                                <h2><a href="">{{strtoupper($organization->name)}}</a></h2>
-                                <h3><a href="">Best Department : {{strtoupper($organization->department[0]->name)}}</a></h3>
-                                <a href="{{route('departments.of.hospital',$organization->id)}}" class="link style2">Explore More Departments</a>
+                <div class="col-xl-12">
+                    <div class="d-flex justify-content-end">
+                        <div class="mb-3 w-25">
+                            <input type="text" class="form-control" id="search-hospital" placeholder="Search ...">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-12">
+                    <div id="get-hospitals">
+                        <div class="row">
+                            @foreach ($organizations as $organization )
+                                <div class="col-xl-4 col-lg-6 col-md-6 mb-3">
+                                    <div class="service-card style1 h-100">
+                                        <div class="service-img">
+                                            <img src="{{asset('public_assets/img/services/service-9.jpg')}}" alt="Image">
+                                            <span class="service-icon"><i class="flaticon-hospital-ward"></i></span>
+                                        </div>
+                                        <div class="service-info">
+                                            <h2><a href="">{{strtoupper($organization->name)}}</a></h2>
+                                            <h3><a href="">Best Department : {{strtoupper($organization->department[0]->name)}}</a></h3>
+                                            <a href="{{route('departments.of.hospital',$organization->id)}}" class="link style2">Explore More Departments</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endforeach
+                            <div class="d-flex justify-content-center">
+                                {!! $organizations->links() !!}
                             </div>
                         </div>
                     </div>
-                @endforeach
-                <div class="d-flex justify-content-center">
-                    {{ $organizations->links() }}
                 </div>
             </div>
         </div>
