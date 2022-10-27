@@ -257,7 +257,7 @@
                 <div class="col-xl-12">
                     <div class="d-flex justify-content-end">
                         <div class="mb-3 w-25">
-                            <input type="text" class="form-control" id="search-hospital" placeholder="Search ...">
+                            <input type="text" class="form-control" id="search-hospital" placeholder="Search ..." name="search" value="{{old('search')}}">
                         </div>
                     </div>
                 </div>
@@ -283,6 +283,7 @@
                                 {!! $organizations->render() !!}
                             </div>
                         </div>
+                        <input type="hidden" name="hidden_page" id="hidden_page" value="1" />
                     </div>
                 </div>
             </div>
@@ -884,8 +885,13 @@
 @endsection
 @push('js')
     <script type="text/javascript">
-        $(document).ready(function()
-        {
+        $(document).ready(function() {
+            $(document).on('keyup', '#search-hospital', function(event){
+                event.preventDefault();
+                var query = $('#search-hospital').val();
+                var page = $('#hidden_page').val()
+                getData(page, query);
+            });
             $(document).on('click', '.pagination a',function(event)
             {
                 event.preventDefault();
@@ -893,25 +899,29 @@
                 $('li').removeClass('active');
                 $(this).parent('li').addClass('active');
                 var page=$(this).attr('href').split('page=')[1];
-
-                getData(page);
+                var query = $('#search-hospital').val()
+                getData(page,query);
             });
-
+            function getData(page,query){
+                $.ajax(
+                    {
+                        url: '/?page=' + page +'&query='+query,
+                        type: "get",
+                        datatype: "html",
+                    }).done(function(data){
+                        if (data.length > 0) {
+                            $("body").empty().html(data);
+                        }
+                        else{
+                            var html = 'No data Found'
+                            $("body").empty().html(html);
+                        }
+                }).fail(function(jqXHR, ajaxOptions, thrownError){
+                    alert('No response from server');
+                });
+            }
         });
 
-        function getData(page){
-            var search = $('#search-hospital').val()
-            $.ajax(
-                {
-                    url: '/?page=' + page,
-                    type: "get",
-                    datatype: "html",
-                    data:search,
-                }).done(function(data){
-                $("body").empty().html(data);
-            }).fail(function(jqXHR, ajaxOptions, thrownError){
-                alert('No response from server');
-            });
-        }
+
     </script>
 @endpush

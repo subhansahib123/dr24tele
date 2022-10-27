@@ -16,15 +16,21 @@ use App\AgoraToken\Src\RtcTokenBuilder;
 class homeController extends Controller
 {
     public function index(Request $request){
-        $organizations=$this->allHospitals();
+
+        $organizations=$this->allHospitals($request);
         if ($request->ajax()) {
             return view('public_panel.index', compact('organizations'));
         }
         return view('public_panel.index',compact('organizations'));
     }
-    protected function allHospitals(){
+    protected function allHospitals(Request $request){
         try{
-             $organizations=Organization::has('department')->paginate(6);
+            $query = $request->get('query');
+            $organizations=Organization::has('department')->where(function ($q) use ($query){
+                if (!empty($query)) {
+                    $q->where('name', 'like', '%' . $query . '%');
+                }
+            })->paginate(6);
             //  dd($organizations);
         }
         catch (\Exception $e){
@@ -51,12 +57,12 @@ class homeController extends Controller
             return redirect()->route('patient.login')->withErrors(['error'=>'Please login!']);
     }
     public function scheduleOfDoctor($doctor_id,$date){
-         $date=$date." 00:00:00";
+        $date=$date." 00:00:00";
         $user_id=Doctor::find($doctor_id);
-         $schdeules=Schedule::whereDate('start', '=', $date." 00:00:00")
+        $schdeules=Schedule::whereDate('start', '=', $date." 00:00:00")
 
-         ->where('doctor_id',$doctor_id)->get();
-         return response()->json( ['schedules'=>$schdeules,'user_id'=>$user_id->user_id]);
+            ->where('doctor_id',$doctor_id)->get();
+        return response()->json( ['schedules'=>$schdeules,'user_id'=>$user_id->user_id]);
     }
     public function bookApppointment(Request $request){
         $data=$request->all();
@@ -64,7 +70,7 @@ class homeController extends Controller
         return response()->json(["msg"=> $appointment->id]);
     }
 
-     public function storeToken(Request $request)
+    public function storeToken(Request $request)
     {
         // dd(Auth::user());
         $id=$request->user_id;
@@ -137,27 +143,27 @@ class homeController extends Controller
 
         return response()->json(['fire_base'=>$result,'conference_link'=>$conference_link]);
     }
-     public function generate_token($channelName)
+    public function generate_token($channelName)
     {
 
 
-            $appID = "e4fc13e59b1d4105b5dd434a56a2bf94";
-            $appCertificate = "46369135cce54217935851efd0844afb";
-            // $channelName = $request->channel;
-            $uid = (int) mt_rand(1000000000, 9999999999);
-            $uidStr = strval($uid);
-            $role = RtcTokenBuilder::RoleAttendee;
-            $expireTimeInSeconds = 2400;
-            $currentTimestamp = (new \DateTime("now", new \DateTimeZone('Asia/Karachi')))->getTimestamp();
-            $privilegeExpiredTs = $currentTimestamp + $expireTimeInSeconds;
+        $appID = "e4fc13e59b1d4105b5dd434a56a2bf94";
+        $appCertificate = "46369135cce54217935851efd0844afb";
+        // $channelName = $request->channel;
+        $uid = (int) mt_rand(1000000000, 9999999999);
+        $uidStr = strval($uid);
+        $role = RtcTokenBuilder::RoleAttendee;
+        $expireTimeInSeconds = 2400;
+        $currentTimestamp = (new \DateTime("now", new \DateTimeZone('Asia/Karachi')))->getTimestamp();
+        $privilegeExpiredTs = $currentTimestamp + $expireTimeInSeconds;
 
-            $token = RtcTokenBuilder::buildTokenWithUid($appID, $appCertificate, $channelName, null, $role, $privilegeExpiredTs);
+        $token = RtcTokenBuilder::buildTokenWithUid($appID, $appCertificate, $channelName, null, $role, $privilegeExpiredTs);
 
 
 
-            // $obj = ["token" => $token];
+        // $obj = ["token" => $token];
 
-            return  $token;
+        return  $token;
 
     }
 }
