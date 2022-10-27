@@ -21,7 +21,7 @@ class homeController extends Controller
     }
     protected function allHospitals(){
         try{
-             $organizations=Organization::has('department')->get();
+             $organizations=Organization::has('department')->paginate(6);
             //  dd($organizations);
         }
         catch (\Exception $e){

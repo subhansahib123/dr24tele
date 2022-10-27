@@ -269,6 +269,9 @@
                         </div>
                     </div>
                 @endforeach
+                <div class="d-flex justify-content-center">
+                    {{ $organizations->links() }}
+                </div>
             </div>
         </div>
     </section>
