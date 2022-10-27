@@ -886,11 +886,13 @@
 @push('js')
     <script type="text/javascript">
         $(document).ready(function() {
-            $(document).on('blur', '#search-hospital', function(event){
-                event.preventDefault();
-                var query = $('#search-hospital').val();
-                var page = $('#hidden_page').val()
-                getData(page, query);
+            $(document).on('keypress', '#search-hospital', function(event){
+                if(event.which == 13) {
+                    event.preventDefault();
+                    var query = $('#search-hospital').val();
+                    var page = $('#hidden_page').val()
+                    getData(page, query);
+                }
             });
             $(document).on('click', '.pagination a',function(event){
                 event.preventDefault();
