@@ -100,6 +100,7 @@
                                         </div>
                                         <div class="service-info">
                                             <h2><a href="">{{strtoupper($department->name)}}</a></h2>
+                                            <h3>Total Doctors: {{count($department->doctor)}}</a></h3>
                                             <a href="}" class="link style2">Explore More</a>
                                         </div>
                                     </div>
