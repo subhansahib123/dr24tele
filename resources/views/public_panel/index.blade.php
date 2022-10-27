@@ -274,7 +274,7 @@
                                         <div class="service-info">
                                             <h2><a href="">{{strtoupper($organization->name)}}</a></h2>
                                             <h3><a href="">Best Department : {{strtoupper($organization->department[0]->name)}}</a></h3>
-                                            <a href="{{route('departments.of.hospital',$organization->id)}}" class="link style2">Explore More Departments</a>
+                                            <a href="{{route('departments.of.hospital',$organization->id)}}" class="link style2">Explore More</a>
                                         </div>
                                     </div>
                                 </div>

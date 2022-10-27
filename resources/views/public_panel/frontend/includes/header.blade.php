@@ -23,7 +23,7 @@
                 </div>
                 <div class="col-lg-4">
                     <div class="header-top-right">
-                       
+
                         <div class="select-lang">
                             <i class="ri-earth-fill"></i>
                             <div class="navbar-option-item navbar-language dropdown language-option">
@@ -175,10 +175,10 @@
                                     </ul>
                                 </li> --}}
                                 <li class="nav-item">
-                                    <a href="{{route('hospital.login')}}" class="nav-link">Hospital Login</a>
+                                    <a href="{{route('home.allDepartments')}}" class="nav-link">All Departments</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{route('doctor.login')}}" class="nav-link">Doctor Login</a>
+                                    <a href="{{route('home.allDoctors')}}" class="nav-link">All Doctors</a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{route('patient.login')}}" class="nav-link">Patient Login</a>

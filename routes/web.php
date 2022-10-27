@@ -63,6 +63,10 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
          */
         Route::get('/',[homeController::class,'index'])->name('home.page');
         Route::get('/allHospitals',[homeController::class,'allHospitals'])->name('home.allHospitals');
+        Route::get('/allDepartments',[homeController::class,'allDepartments'])->name('home.allDepartments');
+        Route::get('/getAllDepartments',[homeController::class,'getAllDepartments'])->name('home.getAllDepartments');
+        Route::get('/allDoctors',[homeController::class,'allDoctors'])->name('home.allDoctors');
+        Route::get('/getAllDoctors',[homeController::class,'getAllDoctors'])->name('home.getAllDoctors');
         //departments
         Route::get('/departments/{orgid}',[homeController::class,'departmentsOfHospital'])->name('departments.of.hospital');
         //doctors

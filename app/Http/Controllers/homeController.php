@@ -37,6 +37,53 @@ class homeController extends Controller
 
         }
     }
+    //All Departments
+    public function allDepartments(Request $request){
+
+        $departments=Department::has('doctor')->orderBy('id','desc')->paginate(6);
+        return view('public_panel.all_departments',compact('departments'));
+    }
+    protected function getAllDepartments(Request $request){
+        try{
+            if ($request->ajax()){
+                $search = $request->get('query');
+                $departments=Department::has('doctor')->orderBy('id','desc')->where(function ($q) use ($search){
+                    if (!empty($search)){
+                        $q->where('name','like','%'.$search.'%');
+                    }
+                })->paginate(6);
+                return view('public_panel.all_departments',compact('departments'))->render();
+            }
+        }
+        catch (\Exception $e){
+            dd($e->getMessage());
+
+        }
+    }
+    //All Doctors
+    public function allDoctors(Request $request){
+
+        $doctors=Doctor::has('department')->orderBy('id','desc')->paginate(6);
+        return view('public_panel.all_doctors',compact('doctors'));
+    }
+    protected function getAllDoctors(Request $request){
+        try{
+            if ($request->ajax()){
+                $search = $request->get('query');
+                $doctors=Doctor::has('department')->orderBy('id','desc')->where(function ($q) use ($search){
+                    if (!empty($search)){
+                        $q->where('name','like','%'.$search.'%');
+                    }
+                })->paginate(6);
+                return view('public_panel.all_doctors',compact('doctors'))->render();
+            }
+        }
+        catch (\Exception $e){
+            dd($e->getMessage());
+
+        }
+    }
+
     public function departmentsOfHospital($orgid){
         $departments=Department::has('doctor')->where('organization_id',$orgid)->get();
         return view('public_panel.departments',compact('departments'));
