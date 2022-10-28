@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Hospital;
 use Illuminate\Http\Request;
 use App\Models\Organization;
 use App\Models\Department;
@@ -37,6 +38,10 @@ class homeController extends Controller
 
         }
     }
+    public function hospitalDetails($slug){
+        $hospital = Organization::where('slug',$slug)->first();
+        return view('public_panel.hospital_details',compact('hospital'));
+    }
     //All Departments
     public function allDepartments(Request $request){
 
@@ -60,6 +65,10 @@ class homeController extends Controller
 
         }
     }
+    public function departmentDetails($slug){
+        $department = Department::where('slug',$slug)->first();
+        return view('public_panel.department_details',compact('department'));
+    }
     //All Doctors
     public function allDoctors(Request $request){
 
@@ -70,10 +79,8 @@ class homeController extends Controller
         try{
             if ($request->ajax()){
                 $search = $request->get('query');
-                $doctors=Doctor::has('department')->orderBy('id','desc')->where(function ($q) use ($search){
-                    if (!empty($search)){
-                        $q->where('name','like','%'.$search.'%');
-                    }
+                $doctors=Doctor::has('department')->orderBy('id','desc')->whereHas('user', function ($query) use ($search){
+                    $query->where('username', 'like', '%'.$search.'%');
                 })->paginate(6);
                 return view('public_panel.all_doctors',compact('doctors'))->render();
             }

@@ -101,9 +101,9 @@
                                             <span class="service-icon"><i class="flaticon-hospital-ward"></i></span>
                                         </div>
                                         <div class="service-info">
-                                            <h2><a href="">{{strtoupper($doctor->name)}}</a></h2>
-                                            <h3><a href="">Department : {{strtoupper($doctor->department->name)}}</a></h3>
-                                            <a href="}" class="link style2">Explore More</a>
+                                            <h3>{{strtoupper($doctor->user->username)}}</h3>
+                                            <h3>{{strtoupper($doctor->user->phone_number)}}</h3>
+                                            <h4>Department : {{strtoupper($doctor->department->name)}}</h4>
                                         </div>
                                     </div>
                                 </div>
