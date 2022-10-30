@@ -302,7 +302,7 @@ function leaveChannel() {
     toggleVisibility("#mute-overlay", false);
     toggleVisibility("#no-local-video", false);
     // show the modal overlay to join
-    $("#modalForm").modal("show");
+    // $("#modalForm").modal("show");
   }, function(err) {
     console.log("client leave failed ", err); //error handling
   });
