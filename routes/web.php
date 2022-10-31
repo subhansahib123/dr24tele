@@ -236,7 +236,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::group(['prefix' => 'hospital', 'middleware' => ['auth']], function () {
         // Routes used for login
 
-        Route::get('/dashboard', [AuthenticationController::class, 'hospitalDashboard'])->name('hospital.dashboard');
+        Route::get('/dashboard/page', [AuthenticationController::class, 'hospitalDashboard'])->name('hospital.dashboard');
 
         //Update Hospital
         Route::get('/update/hospital', [HospitalUserController::class, 'updateHospital'])->name('updateHospital');
@@ -262,14 +262,18 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::post('/role/updated', [HospitalUserController::class, 'updateUserRoleStore'])->name('userUserRole.updated');
 
         //These Route is used to Create Mapped Patients
-        Route::get('/createPatients', [HospitalPatientController::class, 'createHospitalPatients'])->name('createHospital.patients');
+        Route::get('/createPatients/page', [HospitalPatientController::class, 'createHospitalPatients'])->name('createHospital.patients');
         Route::post('/storePatients', [HospitalPatientController::class, 'storeHospitalPatients'])->name('storeHospital.patients');
+
+        //This Route is used to Map Patient with reference to Organization
+        Route::get('/map/patients/page', [HospitalPatientController::class, 'mapPatients'])->name('mapPatients');
+        Route::post('/patient/mapped/page', [HospitalPatientController::class, 'patientMapped'])->name('patientMapped');
 
         //These Route is used to Create Mapped Patients
         Route::get('/all/patients', [HospitalPatientController::class, 'hospitalAllPatients'])->name('hospitalAll.patients');
 
         //This Route is used to view Departments
-        Route::get('/departments', [HospitalDepartmentController::class, 'hospitalDepartmentsList'])->name('hospitalDepartments.list');
+        Route::get('/departments/page', [HospitalDepartmentController::class, 'hospitalDepartmentsList'])->name('hospitalDepartments.list');
 
         //Route to Create Department
         Route::get('/create/department', [HospitalDepartmentController::class, 'createHospitalDepartment'])->name('createHospital.department');
@@ -290,7 +294,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::get('/schedule/edit/{id}',[DoctorSchedule::class,'edit'])->name('edit.schedule');
         Route::post('update/schedule',[DoctorSchedule::class,'update'])->name('update.schedule');
         //list of Schedules
-        Route::get('/schedules',[ScheduleController::class,'schedules'])->name('list.schedules');
+        Route::get('/schedules/page',[ScheduleController::class,'schedules'])->name('list.schedules');
         //Create Schedule For Doctors
         Route::get('/schedule/{id}',[ScheduleController::class,'delete'])->name('delete.schedule');
     });
