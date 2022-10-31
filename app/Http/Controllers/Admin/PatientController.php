@@ -76,7 +76,7 @@ class PatientController extends Controller
                 // dd($user);
                 if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
                     curl_close($curl);
-                    
+                    $UserData=$request->all();
                     User::create([
                         'username' => $user->username,
                         'password' => $request->password,
@@ -88,7 +88,7 @@ class PatientController extends Controller
 
                     ]);
                 
-                    return $this->storePatients($user,$request);
+                    return $this->storePatients($user,$UserData);
                 } else if (isset($user->message) && $user->message == "API rate limit exceeded") {
                     curl_close($curl);
 
@@ -116,9 +116,10 @@ class PatientController extends Controller
         $users = User::all();
         return view('admin_panel.patients.create', ['users' => $users]);
     }
-    public function storePatients($user,$request)
+    public function storePatients($user,$UserData)
     {
-        // dd($user);
+
+        // dd($UserData);
         $curl = curl_init();
         $baseUrl = config('services.ehr.baseUrl');
         $apiKey = config('services.ehr.apiKey');
@@ -132,16 +133,16 @@ class PatientController extends Controller
         }
         $token = $userInfo['sessionInfo']['token'];
         $data = [
-            'givenName' => $request->givenName,
-            'middleName' => $request->middleName,
+            'givenName' => $UserData['username'],
+            'middleName' => $UserData['middlename'],
             'gender' => [
-                'genderCode' => $request->genderCode,
+                'genderCode' => $UserData['gender_code'],
             ],
-            'prefix' => $request->prefix,
-            'phoneExt' => $request->phoneExt,
-            'email' => $request->email,
-            'dateOfBirth' => $request->dateOfBirth,
-            'maritalStatus' => $request->maritalStatus,
+            'prefix' => '',
+            'phoneExt' => '',
+            'email' => $UserData['email'],
+            'dateOfBirth' => $UserData['dateOfBirth'],
+            'maritalStatus' => '',
         ];
         $params = array('userUuid' => $user->uuid);
 
