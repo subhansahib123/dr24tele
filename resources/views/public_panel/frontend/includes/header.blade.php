@@ -27,12 +27,13 @@
                         <div class="select-lang">
                             <i class="ri-earth-fill"></i>
                             <div class="navbar-option-item navbar-language dropdown language-option">
-                                <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
                                     <span class="lang-name"></span>
                                 </button>
                                 <div class="dropdown-menu language-dropdown-menu">
                                     <a class="dropdown-item" href="#">
-                                        <img src="{{asset('public_assets/img/uk.png')}}" alt="flag">
+                                        <img src="{{ asset('public_assets/img/uk.png') }}" alt="flag">
                                         Eng
                                     </a>
                                     {{-- <a class="dropdown-item" href="#">
@@ -76,9 +77,11 @@
     <div class="header-bottom">
         <div class="container">
             <nav class="navbar navbar-expand-md navbar-light">
-                <a class="navbar-brand" href="{{route('home.page')}}">
-                    <img class="logo-light" src="{{asset('public_assets/img/logo.png')}}" width="120px" alt="logo">
-                    <img class="logo-dark" src="{{asset('public_assets/img/logo.png')}}" width="120px" alt="logo">
+                <a class="navbar-brand" href="{{ route('home.page') }}">
+                    <img class="logo-light" src="{{ asset('public_assets/img/logo.png') }}" width="120px"
+                        alt="logo">
+                    <img class="logo-dark" src="{{ asset('public_assets/img/logo.png') }}" width="120px"
+                        alt="logo">
                 </a>
                 <div class="collapse navbar-collapse main-menu-wrap" id="navbarSupportedContent">
                     <div class="menu-close d-lg-none">
@@ -86,7 +89,7 @@
                     </div>
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                             <a href="{{route('home.page')}}" class="nav-link active">
+                            <a href="{{ route('home.page') }}" class="nav-link active">
                                 Home
                                 {{-- <i class="ri-arrow-down-s-line"></i> --}}
                             </a>
@@ -103,10 +106,15 @@
                                 </li>
                             </ul> -->
                         </li>
-                        <li class="nav-item"> <a href="{{route('home.page')}}" class="nav-link">
+                        <li class="nav-item"> <a href="{{ route('home.page') }}" class="nav-link">
                                 Hospitals
 
                             </a></li>
+                        <li class="nav-item"> <a href="#" class="nav-link">
+                                How It works
+
+                            </a></li>
+
                         {{-- <li class="nav-item">
                             <a href="about.html" class="nav-link">
                                 About
@@ -179,22 +187,22 @@
                                         </li>
                                     </ul>
                                 </li> --}}
-                                <li class="nav-item">
-                                    <a href="{{route('home.allDepartments')}}" class="nav-link">Find Departments</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{route('home.allDoctors')}}" class="nav-link">Find Doctors</a>
-                                </li>
-                                {{-- <li class="nav-item">
-                                    <a href="{{route('patient.login')}}" class="nav-link">Login</a>
-                                </li> --}}
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">Contact Us</a>
-                                </li>
-
-                            </ul>
+                        <li class="nav-item">
+                            <a href="{{ route('home.allDepartments') }}" class="nav-link">Find Departments</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('home.allDoctors') }}" class="nav-link">Find Doctors</a>
                         </li>
                         {{-- <li class="nav-item">
+                                    <a href="{{route('patient.login')}}" class="nav-link">Login</a>
+                                </li> --}}
+                        <li class="nav-item">
+                            <a href="#" class="nav-link">Contact Us</a>
+                        </li>
+
+                    </ul>
+                    </li>
+                    {{-- <li class="nav-item">
                             <a href="#" class="nav-link">
                                 Blog
                                 <i class="ri-arrow-down-s-line"></i>
