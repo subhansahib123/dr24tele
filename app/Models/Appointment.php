@@ -33,6 +33,6 @@ class Appointment extends Model
     }
     public function schedule()
     {
-        return $this->hasOne(Schedule::class,'slot_id');
+        return $this->hasOne(Schedule::class,'slot_id','id');
     }
 }

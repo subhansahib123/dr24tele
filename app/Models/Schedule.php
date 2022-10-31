@@ -22,7 +22,7 @@ class Schedule extends Model
     ];
     public function appointments()
     {
-       return $this->belongsTo(Appointment::class,'slot_id');
+       return $this->belongsTo(Appointment::class,'slot_id','id');
     }
     public function doctor()
     {
