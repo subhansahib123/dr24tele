@@ -133,7 +133,7 @@ client.on("unmute-video", function (evt) {
 function joinChannel(channelName, uid, token) {
   client.join(token, channelName, uid, function(uid) {
       console.log("User " + uid + " join channel successfully");
-      createCameraStream(uid);
+     if ($("#local-video video").is(":empty")) createCameraStream(uid);
 
       localStreams.camera.id = uid; // keep track of the stream uid
   }, function(err) {
