@@ -86,8 +86,12 @@
                     </div>
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a href="{{route('home.page')}}" class="nav-link active">
+                             <a href="{{route('home.page')}}" class="nav-link active">
                                 Home
+                                {{-- <i class="ri-arrow-down-s-line"></i> --}}
+                            </a>
+                            <a href="{{route('home.page')}}" class="nav-link active">
+                                Hospitals
                                 {{-- <i class="ri-arrow-down-s-line"></i> --}}
                             </a>
                             <!-- <ul class="dropdown-menu">
@@ -178,11 +182,15 @@
                                     <a href="{{route('home.allDepartments')}}" class="nav-link">All Departments</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{route('home.allDoctors')}}" class="nav-link">All Doctors</a>
+                                    <a href="{{route('home.allDoctors')}}" class="nav-link">Find Doctors</a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{route('patient.login')}}" class="nav-link">Patient Login</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">Contact Us</a>
+                                </li>
+
                             </ul>
                         </li>
                         {{-- <li class="nav-item">
