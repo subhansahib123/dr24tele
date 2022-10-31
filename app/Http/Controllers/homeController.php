@@ -13,7 +13,7 @@ use App\Models\Schedule;
 use App\Models\Appointment;
 use Illuminate\Support\Facades\Auth;
 use App\AgoraToken\Src\RtcTokenBuilder;
-
+use Stripe;
 class homeController extends Controller
 {
     public function index(Request $request){
@@ -116,7 +116,16 @@ class homeController extends Controller
     }
     public function bookApppointment(Request $request){
         $data=$request->all();
+
+         Stripe\Stripe::setApiKey('sk_test_4mIgs731P1pD8aEEO57Ytf5v');
+        Stripe\Charge::create ([
+                "amount" => intval($request->fee) * 100,
+                "currency" => "inr",
+                "source" => $request->stripeToken,
+                "description" => "Making test payment."
+        ]);
         $appointment=Appointment::create($data);
+
         return response()->json(["msg"=> $appointment->id]);
     }
 
@@ -139,9 +148,9 @@ class homeController extends Controller
         // dd($request->link);
         $conference_link='';
         if($request->has('link') && $request->link=='true'){
-            $channelName=rand().$request->user_id;
-            $agoraToken=$this->generate_token($channelName);
-            $conference_link=url('/').'/conference/call/'.$channelName.'/'.urlencode($agoraToken);
+            $channelName="DrTele".rand().$request->user_id."channel";
+            // $agoraToken=$this->generate_token($channelName);
+            $conference_link=url('/').'/conference/call/'.$channelName;
             $data = [
                 "to" => $FcmToken,
                 "notification" => [

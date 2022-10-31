@@ -75,9 +75,11 @@
             <div class="row mt-5">
                 <div class="col-lg-8 mx-auto">
                     <div class="appointment-form-ma">
-                        <form>
+                        <form id="appointmentForm">
 
+                            <div class="col-12 error">
 
+                            </div>
 
                             <div class="row" id="schedules">
                                 <div class="form-group col-12" id='calenderwrapper'>
@@ -93,7 +95,7 @@
 
                                     </textarea>
                                 </div>
-                                <div class="row" id="payment"  style="display: none">
+                                <div class="row" id="payment" style="display: none">
                                     <div class="col-xs-12 col-md-12 col-md-offset-4">
                                         <div class="panel panel-default">
                                             {{-- <div class="panel-heading">
@@ -106,37 +108,45 @@
                                             <div class="panel-body">
                                                 <form role="form">
                                                     <div class="row">
-                                                        <div class="col-xs-12">
+                                                        <div class="col-xs-12 required">
                                                             <div class="form-group">
                                                                 <label>CARD NUMBER</label>
                                                                 <div class="input-group">
-                                                                    <input type="tel" class="form-control"
+                                                                    <input type="text" class="form-control card-num"
                                                                         placeholder="Valid Card Number" />
                                                                     <span class="input-group-addon"><span
-                                                                            class="fa fa-credit-card"></span></span>
+                                                                            class="fa fa-credit-card "></span></span>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="row">
-                                                        <div class="col-xs-7 col-md-7">
+                                                        <div class="col-xs-4 col-md-4 required">
                                                             <div class="form-group">
-                                                                <label><span class="hidden-xs">EXPIRATION</span><span
-                                                                        class="visible-xs-inline">EXP</span> DATE</label>
-                                                                <input type="tel" class="form-control"
-                                                                    placeholder="MM / YY" />
+                                                                <label><span class="hidden-xs">EXPIRATION
+                                                                        Month</span></label>
+                                                                <input type="text" class="form-control card-expiry-month"
+                                                                    placeholder="MM" />
                                                             </div>
                                                         </div>
-                                                        <div class="col-xs-5 col-md-5 pull-right">
+                                                        <div class="col-xs-4 col-md-4 required">
+                                                            <div class="form-group">
+                                                                <label><span class="hidden-xs">EXPIRATION
+                                                                        Year</span></label>
+                                                                <input type="text" class="form-control card-expiry-year"
+                                                                    placeholder="YY" />
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-xs-4 col-md-4 pull-right required">
                                                             <div class="form-group">
                                                                 <label>CV CODE</label>
-                                                                <input type="tel" class="form-control"
+                                                                <input type="text" class="form-control card-cvc"
                                                                     placeholder="CVC" />
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="row">
-                                                        <div class="col-xs-12">
+                                                        <div class="col-xs-12 required">
                                                             <div class="form-group">
                                                                 <label>CARD OWNER</label>
                                                                 <input type="text" class="form-control"
@@ -197,6 +207,7 @@
             cursor: pointer;
         }
     </style>
+    <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
     <script>
         var BASE_URL = `{{ url('') }}`;
         var doctor_id = `{{ request()->segment(count(request()->segments())) }}`;
@@ -205,11 +216,16 @@
         var start;
         var end;
         var user_id;
+        var fee;
+        var paymentToken
 
 
 
         document.addEventListener('DOMContentLoaded', function() {
-            $('#book_appointment_submit').click(function() {
+            var $form = $("#appointmentForm");
+            $('#book_appointment_submit').click(function(e) {
+                validateAndPay(e);
+                // var paymentToken=$form.find('input[name="stripeToken"]').val();
                 $.ajax({
                         url: BASE_URL + "/api/book/appointment",
                         type: "POST",
@@ -219,7 +235,10 @@
                             "slot_id": schedule_id,
                             "start": start,
                             "end": end,
-                            "comments": $('#comments').val()
+                            "fee": fee,
+                            "comments": $('textarea[name="comments"]').val(),
+                            'stripeToken': paymentToken
+
                         },
 
                         cache: false,
@@ -228,8 +247,9 @@
                     .done(function(data) {
                         // console.log(data);
 
-                        send_notification(user_id,'Appointment No.'+data.msg,'You have a new appointment')
-                        window.location=BASE_URL+'/patient/appointments'
+                        send_notification(user_id, 'Appointment No.' + data.msg,
+                            'You have a new appointment')
+                        window.location = BASE_URL + '/patient/appointments'
                     })
                     .fail(function(error) {
                         console.log(error);
@@ -241,6 +261,7 @@
                 schedule_id = $(this).find('input[type="hidden"]').val();
                 start = $(this).find('input[type="text"]').attr('start');
                 end = $(this).find('input[type="text"]').attr('end');
+                fee = $(this).find("span.amount-converted").html()
                 $('#comments').show();
                 $('#payment').show();
 
@@ -302,7 +323,7 @@
 
                     if (data != undefined && data.length != 0) {
                         var htmlSchedules = '';
-                        user_id=data.user_id;
+                        user_id = data.user_id;
                         data.schedules.forEach(element => {
                             console.log(element)
                             let startDate = moment(element.start);
@@ -313,7 +334,7 @@
                             endDate = endDate.tz(userTimeZone).format('h:mm a z');
 
                             var dbDateStart = moment(element.start).format(
-                            'Y-M-D HH:mm:ss');
+                                'Y-M-D HH:mm:ss');
                             var dbDateEnd = moment(element.end).format('Y-M-D HH:mm:ss');
                             htmlSchedules += ` <div class="form-group col-lg-5 schedule_wrapper">
                                     <label>Appointments Left <span>${element.number_of_people}</span> / <span class="amount-converted">${element.price}</span> <span class="currency-code">INR</span></label>
@@ -331,6 +352,50 @@
                 // alert(dateString)
 
             });
+
+            function validateAndPay(e) {
+                // var $form = $(".appointmentForm"),
+                inputVal = ['input[type=text]', 'textarea'].join(', '),
+                    $inputs = $form.find('.required').find(inputVal),
+                    $errorStatus = $form.find('div.error'),
+                    valid = true;
+                $errorStatus.addClass('hide');
+
+                $('.has-error').removeClass('has-error');
+                $inputs.each(function(i, el) {
+                    var $input = $(el);
+                    if ($input.val() === '') {
+                        $input.parent().addClass('has-error');
+                        $errorStatus.removeClass('hide');
+                        e.preventDefault();
+                    }
+                });
+
+                if (!$form.data('cc-on-file')) {
+                    e.preventDefault();
+                    Stripe.setPublishableKey('pk_test_0OgQlXP7CRZ0AzpdcYQfM496');
+                    Stripe.createToken({
+                        number: $('.card-num').val(),
+                        cvc: $('.card-cvc').val(),
+                        exp_month: $('.card-expiry-month').val(),
+                        exp_year: $('.card-expiry-year').val()
+                    }, stripeHandleResponse);
+                }
+
+            }
+
+            function stripeHandleResponse(status, response) {
+                if (response.error) {
+                    $('.error')
+                        .removeClass('hide')
+                        .find('.alert')
+                        .text(response.error.message);
+                } else {
+                    paymentToken = response['id'];
+                    $form.find('input[type=text]').empty();
+
+                }
+            }
         });
     </script>
 @endsection

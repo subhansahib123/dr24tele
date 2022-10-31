@@ -21,12 +21,14 @@
                                 <div class="col-xl-4 col-lg-6 col-md-6 mb-3">
                                     <div class="service-card style1 h-100">
                                         <div class="service-img">
-                                            <img src="{{asset('public_assets/img/services/service-9.jpg')}}" alt="Image">
+                                           <a href="{{route('load.appointment',$doctor->id)}}"><img src="{{asset('public_assets/img/services/service-9.jpg')}}" alt="Image">
                                             <span class="service-icon"><i class="flaticon-hospital-ward"></i></span>
+                                            </a>
                                         </div>
                                         <div class="service-info">
-                                            <h3>{{strtoupper($doctor->user->username)}}</a></h3>
-                                            <h4>{{strtoupper($doctor->user->phone_number)}}</a></h4>
+
+                                            <h3><a href="{{route('load.appointment',$doctor->id)}}">{{strtoupper($doctor->user->username)}}</a></h3>
+                                            {{-- <h4>{{strtoupper($doctor->user->phone_number)}}</a></h4> --}}
                                         </div>
                                     </div>
                                 </div>

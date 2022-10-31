@@ -302,7 +302,8 @@ function leaveChannel() {
     toggleVisibility("#mute-overlay", false);
     toggleVisibility("#no-local-video", false);
     // show the modal overlay to join
-    $("#modalForm").modal("show");
+    // $("#modalForm").modal("show");
+      window.location = '/';
   }, function(err) {
     console.log("client leave failed ", err); //error handling
   });
@@ -310,5 +311,23 @@ function leaveChannel() {
 
 // use tokens for added security
 function generateToken() {
-  return null; // TODO: add a token generation
+    var token;
+      $.ajax({
+          url: "/api/agoraToken",
+          type: "GET",
+          data: {
+              channel: "first-channel",
+          },
+
+          cache: false,
+          timeout: 800000,
+      })
+          .done(function (data) {
+              token=data.token;
+            //   $("#form-token").val(data.token);
+          })
+          .fail(function (error) {
+              console.log(error);
+          });
+    return token;
 }

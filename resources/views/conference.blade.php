@@ -82,10 +82,10 @@
                             class="form-control">
                         <label for="form-appid">Agora AppId</label>
                     </div>
-                    <div class="md-form mb-4">
+                    {{-- <div class="md-form mb-4">
                         <input type="text" id="form-token" value="{{$token}}" class="form-control">
                         <label for="form-token">Agora Token</label>
-                    </div>
+                    </div> --}}
                     <div class="md-form mb-4">
                         <input type="text" id="form-channel" value="{{$channelname}}" class="form-control">
                         <label for="form-channel">Channel</label>
