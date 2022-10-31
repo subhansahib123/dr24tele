@@ -253,6 +253,7 @@ class AuthenticationController extends Controller
     }
     public function showHospitalLogin()
     {
+    
 
         return view('hospital_panel.login');
     }
