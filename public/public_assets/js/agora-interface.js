@@ -133,8 +133,7 @@ var camCount = 0;
 function joinChannel(channelName, uid, token) {
   client.join(token, channelName, uid, function(uid) {
       console.log("User " + uid + " join channel successfully");
-      if (camCount==0) createCameraStream(uid);
-      camCount++;
+      
       localStreams.camera.id = uid; // keep track of the stream uid
   }, function(err) {
       console.log("[ERROR] : join channel failed", err);
@@ -311,23 +310,6 @@ function leaveChannel() {
 
 // use tokens for added security
 function generateToken() {
-    var token;
-      $.ajax({
-          url: "/api/agoraToken",
-          type: "GET",
-          data: {
-              channel: "first-channel",
-          },
 
-          cache: false,
-          timeout: 800000,
-      })
-          .done(function (data) {
-              token=data.token;
-            //   $("#form-token").val(data.token);
-          })
-          .fail(function (error) {
-              console.log(error);
-          });
-    return token;
+    return null;
 }
