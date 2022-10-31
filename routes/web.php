@@ -124,7 +124,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         Route::post('/admin/login', [AuthenticationController::class, 'login'])->name('login.perform');
 
         //hospital login
-        Route::get('/hospital/login', [AuthenticationController::class, 'showHospitalLogin'])->name('hospital.login');
+        Route::get('/hospital/login/page', [AuthenticationController::class, 'showHospitalLogin'])->name('hospital.login');
         Route::post('/hospital/logined', [AuthenticationController::class, 'hospitalLogin'])->name('hospital.loggedin');
 
         //doctor login
