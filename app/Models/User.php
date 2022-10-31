@@ -26,6 +26,7 @@ class User extends Authenticatable
         'status',
         'uuid',
         'PersonId',
+        'PersonUuid',
         'device_key',
     ];
 

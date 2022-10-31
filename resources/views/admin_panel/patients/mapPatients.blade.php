@@ -29,7 +29,7 @@
                         <option value="">Select</option>
                         @if($users)
                         @foreach ($users as $user)
-                        <option value="{{$user->PersonId}}">{{$user->username}}</option>
+                        <option value="{{$user->PersonUuid}}">{{$user->username}}</option>
                         @endforeach
                         @endif
                     </select>

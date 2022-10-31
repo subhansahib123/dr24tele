@@ -62,7 +62,7 @@
 
                                             <td>
 
-                                                {{isset($patients->givenName)?$patients->givenName:''}}
+                                                {{isset($patients->personId)?$patients->personId:''}}
 
 
                                             </td>

@@ -369,7 +369,7 @@ class UserController extends Controller
                 return redirect()->back()->withErrors(['error' => $error]);
             } else {
                 $user = json_decode($response);
-                // dd($users);
+                // dd($user);
                 if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
                     curl_close($curl);
                     // dd(1);
@@ -379,6 +379,7 @@ class UserController extends Controller
                         'email' => $request->name,
                         'phone_number' => $request->phoneNumber,
                         'uuid' => $user->uuid,
+                        'PersonId' => $user->personId,
                         'status' => 1
 
                     ]);
@@ -562,6 +563,7 @@ class UserController extends Controller
     public function mapUserRole(Request $request)
     {
 
+
         $curl = curl_init();
         $uuid = '';
         if ($request->department != '') {
@@ -583,8 +585,7 @@ class UserController extends Controller
         $token = $userInfo['sessionInfo']['token'];
         $data = [['useruuid' => $request->user, 'rolename' => $request->role]];
         $req_url = $baseUrl . '/rest/admin/orgUserMapping/role/add/' . $uuid;
-        // dd($req_url);
-        // dd($uuid);
+        // dd($request->all());
         curl_setopt_array($curl, array(
             CURLOPT_URL => $req_url,
             CURLOPT_RETURNTRANSFER => true,
@@ -604,7 +605,7 @@ class UserController extends Controller
         ));
         try {
             $response = curl_exec($curl);
-            // dd($response);
+           
 
             if ($response == false) {
                 $error = curl_error($curl);
@@ -612,15 +613,17 @@ class UserController extends Controller
                 return redirect()->back()->withErrors(['error' => $error]);
             } else {
                 $userRole = json_decode($response);
+                // dd($userRole);
                 // dd(curl_getinfo($curl, CURLINFO_HTTP_CODE));
                 if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
-                    $user = User::where('uuid', $request->user)->first();
-                    $role = Role::where('name', $request->role)->first();
+                    $user = User::where('uuid', $userRole[0]->useruuid)->first();
+                    $role = Role::where('name', $userRole[0]->rolename)->first();
                     $department = Department::where('uuid', $request->department)->first();
-                    $organization = Organization::where('uuid', $request->organizations)->first();;
+                    $organization = Organization::where('uuid', $request->organizations)->first();
+                    // dd($department->id,$user->id,$role->id ,$organization->id);  
                     curl_close($curl);
-                    if ($request->role == 'Practitioner') {
-
+                    if ($userRole[0]->rolename == 'Practitioner') {
+                        // dd(1);
                         Doctor::firstOrCreate([
 
                             'status' => 1,
@@ -634,12 +637,13 @@ class UserController extends Controller
                             'user_id' => $user->id,
                             'organization_id' => $organization->id
                         ]);
+                        // dd(1);
                         User_Role::firstOrCreate([
                             'user_id' => $user->id,
                             'role_id' => $role->id
                         ]);
-                    } else if ($request->role == 'OrgSuperAdmin') {
-
+                    } else if ($userRole[0]->rolename == 'OrgSuperAdmin') {
+                        // dd(2);
                         UsersOrganization::firstOrCreate([
 
                             'status' => 1,
@@ -654,8 +658,8 @@ class UserController extends Controller
 
                         // dd($user->id,$role->id,$organization->id);
 
-                    } else if ($request->role == 'FrontOffice ') {
-
+                    } else if ($userRole[0]->rolename == 'FrontOffice ') {
+                        // dd(3);
                         UsersOrganization::firstOrCreate([
 
                             'status' => 1,
@@ -695,6 +699,9 @@ class UserController extends Controller
 
                     curl_close($curl);
                     return redirect()->route('login.show')->withErrors(['error' => $userRole->message]);
+                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400)  {
+                    curl_close($curl);
+                    return redirect()->route('updatingRole', [$uuid]);
                 } else {
                     curl_close($curl);
 
@@ -763,9 +770,8 @@ class UserController extends Controller
                     // dd($UpdatedRole[0]->useruuid);
                     $user = User::where('uuid', $UpdatedRole[0]->useruuid)->first();
                     $role = Role::where('name', $UpdatedRole[0]->rolename)->first();
-                    $userRole = User_Role::where('user_id', $user->id)->first();
                     // dd($userRole->id);
-                    $userRole->update(['role_id' => $role->id]);
+                    User_Role::firstOrCreate(['role_id' => $role->id,'user_id' => $user->id]);
                     return redirect()->back()->withSuccess(__('Successfully User Role Updated'));
                 } else if (isset($UpdatedRole->message) && $UpdatedRole->message == "API rate limit exceeded") {
                     curl_close($curl);
@@ -1002,7 +1008,7 @@ class UserController extends Controller
 
         return view('admin_panel.user.updateUser', ['uuid' => $uuid, 'username' => $username, 'name' => $name]);
     }
-    public function userUpdated(Request $request)
+    public function  userUpdated(Request $request)
     {
         // dd($request->all());
         if (isset($request->username) && isset($request->name) && isset($request->password)) {

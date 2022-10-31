@@ -47,7 +47,7 @@
                 <div class="form-group">
                     <!-- <label for="role">Roles</label> -->
                     <button type="submit" class="btn btn-primary">Update</button>
-                    <a href="{{route('users.unmapped')}}" class="btn btn-info">Back</a>
+                    <a href="{{route('dashboard')}}" class="btn btn-info">Back</a>
 
                 </div>
             </form>
