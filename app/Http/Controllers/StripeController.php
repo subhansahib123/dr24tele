@@ -25,8 +25,8 @@ class StripeController extends Controller
                 "description" => "Making test payment."
         ]);
 
-        Session::flash('success', 'Payment has been successfully processed.');
+        // Session::flash('success', 'Payment has been successfully processed.');
 
-        return back();
+        return response()->json(['success'=>'Payment has been successfully processed.']);
     }
 }
