@@ -90,10 +90,7 @@
                                 Home
                                 {{-- <i class="ri-arrow-down-s-line"></i> --}}
                             </a>
-                            <a href="{{route('home.page')}}" class="nav-link active">
-                                Hospitals
-                                {{-- <i class="ri-arrow-down-s-line"></i> --}}
-                            </a>
+
                             <!-- <ul class="dropdown-menu">
                                 <li class="nav-item">
                                     <a href="index.html" class="nav-link">Home One</a>
@@ -106,6 +103,10 @@
                                 </li>
                             </ul> -->
                         </li>
+                        <li class="nav-item"> <a href="{{route('home.page')}}" class="nav-link">
+                                Hospitals
+
+                            </a></li>
                         {{-- <li class="nav-item">
                             <a href="about.html" class="nav-link">
                                 About
@@ -179,14 +180,14 @@
                                     </ul>
                                 </li> --}}
                                 <li class="nav-item">
-                                    <a href="{{route('home.allDepartments')}}" class="nav-link">All Departments</a>
+                                    <a href="{{route('home.allDepartments')}}" class="nav-link">Find Departments</a>
                                 </li>
                                 <li class="nav-item">
                                     <a href="{{route('home.allDoctors')}}" class="nav-link">Find Doctors</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a href="{{route('patient.login')}}" class="nav-link">Patient Login</a>
-                                </li>
+                                {{-- <li class="nav-item">
+                                    <a href="{{route('patient.login')}}" class="nav-link">Login</a>
+                                </li> --}}
                                 <li class="nav-item">
                                     <a href="#" class="nav-link">Contact Us</a>
                                 </li>
