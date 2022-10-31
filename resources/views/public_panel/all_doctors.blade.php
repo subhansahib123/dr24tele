@@ -97,11 +97,11 @@
                                 <div class="col-xl-4 col-lg-6 col-md-6 mb-3">
                                     <div class="service-card style1 h-100">
                                         <div class="service-img">
-                                           <a href="{{roue('load.appointment',$doctor->id)}}">   <img src="{{asset('public_assets/img/services/service-9.jpg')}}" alt="Image"></a>
+                                           <a href="{{route('load.appointment',$doctor->id)}}">   <img src="{{asset('public_assets/img/services/service-9.jpg')}}" alt="Image"></a>
                                             <span class="service-icon"><i class="flaticon-hospital-ward"></i></span>
                                         </div>
                                         <div class="service-info">
-                                          <a href="{{roue('load.appointment',$doctor->id)}}">  <h3>{{strtoupper($doctor->user->username)}}</h3></a>
+                                          <a href="{{route('load.appointment',$doctor->id)}}">  <h3>{{strtoupper($doctor->user->username)}}</h3></a>
                                             {{-- <h3>{{strtoupper($doctor->user->phone_number)}}</h3> --}}
                                             <h4>Department : {{strtoupper($doctor->department->name)}}</h4>
                                         </div>
