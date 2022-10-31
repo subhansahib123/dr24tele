@@ -18,8 +18,10 @@ class PatientAuthenticationController extends Controller
         $appointements=Appointment::where('patient_id', $patient_id)->get();
         return view('patient_panel.appointement.index',compact('appointements'));
     }
-    public function conference_call($channelname){
-        return view('conference',compact('channelname'));
+    public function conference_call(Request $request){
+       $channelname= $request->channelName;
+       $token= $request->token;
+        return view('conference',compact('channelname','token'));
     }
 
 

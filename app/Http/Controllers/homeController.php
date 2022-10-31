@@ -149,17 +149,18 @@ class homeController extends Controller
         $conference_link='';
         if($request->has('link') && $request->link=='true'){
             $channelName="DrTele".rand().$request->user_id."channel";
-            // $agoraToken=$this->generate_token($channelName);
-            $conference_link=url('/').'/conference/call/'.$channelName;
+            $agoraToken=$this->generate_token($channelName);
+            $conference_link=url('/').'/conference/call?channelName='.$channelName.'&token='.$agoraToken;
             $data = [
                 "to" => $FcmToken,
                 "notification" => [
                     "title" => $request->title,
                     "body" => $request->body,
                     "data"=> $conference_link
+                    ]
 
 
-                ]
+
             ];
         }else {
             $data = [

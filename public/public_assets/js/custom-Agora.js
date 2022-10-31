@@ -7,7 +7,7 @@ $("#exit-btn").prop("disabled", true);
 //     $("#modalForm").modal("show");
 // });
 var agoraAppId = $("#form-appid").val();
-var token = generateToken();
+var token = $("#form-token").val();
 var channelName = $("#form-channel").val();
 var uid = parseInt($("#form-uid").val());
 // $("#modalForm").modal("hide");
