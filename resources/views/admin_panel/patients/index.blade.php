@@ -53,7 +53,6 @@
                                         <table class="table table-striped">
                                             <thead>
                                                 <th scope="col" width="20%">Name</th>
-                                                <th scope="col" width="1%">Action</th>
                                             </thead>
                                             @if($all_patients->person)
                                             @foreach($all_patients->person as $all_patient)
@@ -66,10 +65,7 @@
                                                     {{$all_patient->givenName}}
 
 
-                                                </td>                                                 
-                                                 <td>
-                                                    <a href="{{route('patient.delete',[$all_patient->personIdentifiers->identifier])}}" class="btn btn-danger">Delete</a>
-                                                </td>
+                                                </td>     
 
 
 

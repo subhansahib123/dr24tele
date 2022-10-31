@@ -86,7 +86,7 @@
                                 </div>
                                 <div class="mt-4">
                                     <!-- <a href="" class="btn btn-info">Edit</a> -->
-                                    <a href="{{url()->previous()}}" class="btn btn-info">Back</a>
+                                    <a href="{{route('dashboard')}}" class="btn btn-info">Back</a>
 
                                 </div>
                             </div>

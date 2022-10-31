@@ -13,13 +13,112 @@ use Illuminate\Support\Facades\Hash;
 
 class PatientController extends Controller
 {
+    public function patient(Request $request)
+    {
+        // dd($request->all());
+        $curl = curl_init();
+        $baseUrl = config('services.ehr.baseUrl');
+        $apiKey = config('services.ehr.apiKey');
+
+        $data = [
+            'user' => [
+                'username' => $request->username,
+                'password' => $request->password
+            ],
+            'person' => [
+                'givenName' => $request->name,
+                'middleName' => $request->middlename,
+                'email' => $request->email,
+                'gender' => [
+                    'genderCode' => $request->gender_code,
+                ],
+                'phoneNumber' => $request->phoneNumber,
+                'dateOfBirth' => $request->dateOfBirth,
+
+            ]
+        ];
+        // dd($data);
+        $userInfo = session('loggedInUser');
+        $userInfo = json_decode(json_encode($userInfo), true);
+        if (is_null($userInfo)) {
+
+            return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
+        }
+        $token = $userInfo['sessionInfo']['token'];
+        curl_setopt_array($curl, array(
+            CURLOPT_URL => $baseUrl . '/rest/admin/user',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => json_encode($data),
+            CURLOPT_HTTPHEADER => array(
+                'Content-Type: application/json',
+                'Accept: application/json',
+                'Authorization: ' . $token,
+                'apikey:' . $apiKey
+            ),
+        ));
+
+        try {
+            $response = curl_exec($curl);
+
+
+            if ($response == false) {
+                $error = curl_error($curl);
+                curl_close($curl);
+                return redirect()->back()->withErrors(['error' => $error]);
+            } else {
+                $user = json_decode($response);
+                // dd($user);
+                if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
+                    curl_close($curl);
+                    
+                    User::create([
+                        'username' => $user->username,
+                        'password' => $request->password,
+                        'email' => $request->name,
+                        'phone_number' => $request->phoneNumber,
+                        'uuid' => $user->uuid,
+                        'PersonId' => $user->personId,
+                        'status' => 1
+
+                    ]);
+                
+                    return $this->storePatients($user,$request);
+                } else if (isset($user->message) && $user->message == "API rate limit exceeded") {
+                    curl_close($curl);
+
+                    return redirect()->route('login.show')->withErrors(['error' => $user->message]);
+                } else if (isset($user->message) && $user->message == "Invalid User") {
+
+                    curl_close($curl);
+                    return redirect()->route('login.show')->withErrors(['error' => $user->message]);
+                } else if (isset($user->message) && $user->message == "Invalid Token") {
+
+                    curl_close($curl);
+                    return redirect()->route('login.show')->withErrors(['error' => $user->message]);
+                } else {
+                    curl_close($curl);
+
+                    return redirect()->back()->withErrors(['error' => $user->message]);
+                }
+            }
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => __($e->getMessage())]);
+        }
+    }
     public function createPatients()
     {
         $users = User::all();
         return view('admin_panel.patients.create', ['users' => $users]);
     }
-    public function storePatients(Request $request)
+    public function storePatients($user,$request)
     {
+        // dd($user);
         $curl = curl_init();
         $baseUrl = config('services.ehr.baseUrl');
         $apiKey = config('services.ehr.apiKey');
@@ -44,7 +143,7 @@ class PatientController extends Controller
             'dateOfBirth' => $request->dateOfBirth,
             'maritalStatus' => $request->maritalStatus,
         ];
-        $params = array('userUuid' => $request->userUuid);
+        $params = array('userUuid' => $user->uuid);
 
 
         curl_setopt_array($curl, array(
@@ -76,10 +175,10 @@ class PatientController extends Controller
                 $patients = json_decode($response);
 
                 if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
-                    $user = User::where('uuid', $request->userUuid)->first();
+                    $user = User::where('uuid', $user->uuid)->first();
                     curl_close($curl);
                     $user->update([
-                        'PersonId' => $patients->PersonId,
+                        'PersonUuid' => $patients->PersonId,
                     ]);
                     return redirect()->back()->withSuccess(__('Patient Successfully Created'));
                 } else if (isset($patients->message) && $patients->message == "API rate limit exceeded") {
@@ -106,7 +205,7 @@ class PatientController extends Controller
     }
     public function mapPatients()
     {
-        $users = User::whereNotNull('PersonId')->get();
+        $users = User::whereNotNull('PersonUuid')->get();
         $organizations = Organization::all();
         return view('admin_panel.patients.mapPatients', ['users' => $users, 'organizations' => $organizations]);
     }
@@ -125,7 +224,6 @@ class PatientController extends Controller
         }
         // dd($request->PersonId);
         $token = $userInfo['sessionInfo']['token'];
-        $params = array('personUuid' => $request->PersonId, 'orgUuid' => $request->uuid);
         $req_url = $baseUrl . 'rest/admin/orgPersonMapping/add/' . $request->user . '/' . $request->organisation;
         // dd($req_url);
         curl_setopt_array($curl, array(
@@ -157,7 +255,7 @@ class PatientController extends Controller
 
 
                 if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
-                    $users = User::where('PersonId', $request->user)->first();
+                    $users = User::where('PersonUuid', $request->user)->first();
                     $org = Organization::where('uuid', $request->organisation)->first();
                     Patient::firstOrCreate([
                         'user_id' => $users->id,
@@ -241,7 +339,7 @@ class PatientController extends Controller
                 // dd($request->all());
                 $patients = json_decode($response);
 
-                // dd($patients);
+                
                 if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
                     curl_close($curl);
                     // dd($patients);

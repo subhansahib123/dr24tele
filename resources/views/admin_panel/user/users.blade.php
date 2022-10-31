@@ -53,7 +53,6 @@
                                                 <th scope="col" width="20%">Name</th>
                                                  <th scope="col" width="18%">Username</th>
                                                <th scope="col" width="2%"></th>
-                                               <th scope="col" width="1%"></th>
                                             </thead>
                                             @if(isset($all_patients) && $all_patients->Users)
                                             @foreach($all_patients->Users as $all_patient)
@@ -76,9 +75,6 @@
 
 
 
-                                                </td>
-                                                <td>
-                                                    <a href="{{route('updateUser',[$all_patient->uuid,$all_patient->username,$all_patient->name])}}" class="btn btn-info">Update</a>
                                                 </td>
                                                 <td>
                                                     <a href="{{route('user.delete',[$all_patient->uuid])}}" class="btn btn-danger">Delete</a>

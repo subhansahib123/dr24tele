@@ -42,7 +42,7 @@
 
                 <li class="slide">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
-                            class="side-menu__icon fe fe-users"></i><span class="side-menu__label">Total Users</span><i
+                            class="side-menu__icon fe fe-users"></i><span class="side-menu__label"> Users</span><i
                             class="angle fe fe-chevron-right"></i></a>
                     <ul class="slide-menu nav-tree">
                         <li><a href="{{ route('create.user') }}" class="slide-item"> Create User</a></li>
@@ -53,7 +53,7 @@
                 </li>
                 <li class="slide">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
-                            class="side-menu__icon fa fa-wheelchair"></i><span class="side-menu__label">Total
+                            class="side-menu__icon fa fa-wheelchair"></i><span class="side-menu__label">
                             Patients</span><i class="angle fe fe-chevron-right"></i></a>
                     <ul class="slide-menu nav-tree">
                         <li><a href="{{ route('create.patients') }}" class="slide-item"> Create Patient</a></li>
