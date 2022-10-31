@@ -77,10 +77,10 @@ client.on('stream-subscribed', function (evt) {
     addRemoteStreamMiniView(remoteStreams[mainStreamId]); // send the main video stream to a container
     // set the screen-share as the main
     mainStreamId = remoteId;
-    remoteStream.play('full-screen-video');s
+    remoteStream.play('full-screen-video');
   } else {
     client.setRemoteVideoStreamType(remoteStream, 1); // subscribe to the low stream
-    addRemoteStreamMiniView(remoteStream);
+    addRemoteStreamMiniView(remoteStreams[mainStreamId]);
   }
 });
 
