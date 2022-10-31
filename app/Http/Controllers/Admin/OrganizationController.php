@@ -213,7 +213,7 @@ class OrganizationController extends Controller
                     $org = Organization::where('uuid',  $parent_org_uuid)->first();
                     if ($request->level == 'Department') {
 
-                        // dd($request->organization);
+                        // dd($organization);
                         Department::Create([
                             'name' => $organization->displayname,
                             'organization_id' => $org->id,
@@ -230,7 +230,7 @@ class OrganizationController extends Controller
                             'slug' => $organization->displayname,
                             'status' => $organization->status,
                             'level' => "SubOrg",
-                            'organization_id' => 1
+                            'organization_id' => 2
                         ]);
                         return redirect()->back()->withSuccess(__('Successfully Organization Created'));
                     }
