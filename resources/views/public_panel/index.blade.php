@@ -272,7 +272,7 @@
                                             <span class="service-icon"><i class="flaticon-hospital-ward"></i></span>
                                         </div>
                                         <div class="service-info">
-                                            <h2><a href="{{route('home.hospital_details',$organization->slug)}}">{{strtoupper($organization->name)}}</a></h2>
+                                            <h2><a href="{{route('home.hospital_details',$organization->slug)}}">{{strtoupper($organization->slug)}}</a></h2>
                                             <h3>Total Departments: {{count($organization->department)}}</h3>
                                             <h3>Best Department : {{strtoupper($organization->department[0]->name)}}</h3>
 {{--                                            <a href="{{route('departments.of.hospital',$organization->id)}}" class="link style2">Explore More</a>--}}
