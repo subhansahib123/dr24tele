@@ -149,7 +149,7 @@ class homeController extends Controller
         $conference_link='';
         if($request->has('link') && $request->link=='true'){
             $channelName="DrTele".rand().$request->user_id."channel";
-            $agoraToken=$this->generate_token($channelName,$request->user_id);
+            $agoraToken=$this->generate_token($channelName,auth()->user()->id);
             $conference_link=url('/').'/conference/call?channelName='.$channelName.'&token='.$agoraToken;
             $data = [
                 "to" => $FcmToken,
@@ -209,7 +209,7 @@ class homeController extends Controller
 
         $appID = "e4fc13e59b1d4105b5dd434a56a2bf94";
         $appCertificate = "46369135cce54217935851efd0844afb";
-        
+
         $uidStr = strval($user_id);
         $role = RtcTokenBuilder::RoleAttendee;
         $expireTimeInSeconds = 2400;
