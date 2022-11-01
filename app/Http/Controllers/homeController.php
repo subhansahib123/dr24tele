@@ -218,7 +218,7 @@ class homeController extends Controller
         $currentTimestamp = (new \DateTime("now", new \DateTimeZone('Asia/Karachi')))->getTimestamp();
         $privilegeExpiredTs = $currentTimestamp + $expireTimeInSeconds;
 
-        $token = RtcTokenBuilder::buildTokenWithUid($appID, $appCertificate, $channelName, $uidStr, $role, $privilegeExpiredTs);
+        $token = RtcTokenBuilder::buildTokenWithUid($appID, $appCertificate, $channelName,0, $role, $privilegeExpiredTs);
 
 
 
