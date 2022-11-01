@@ -150,7 +150,7 @@ class homeController extends Controller
         $conference_link='';
         if($request->has('link') && $request->link=='true'){
             $channelName="DrTele".rand().$request->user_id."channel";
-            $owner_id=Auth::user()->id;
+            $owner_id=$request->owner;
             $agoraToken=$this->generate_token($channelName,$owner_id);
             $conference_link=url('/').'/conference/call?channelName='.$channelName.'&token='.$agoraToken;
             $data = [

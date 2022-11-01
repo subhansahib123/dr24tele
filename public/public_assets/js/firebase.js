@@ -114,7 +114,7 @@ function base_url() {
     }
     return url;
 }
-function send_notification(userId, title, body, Islink = false) {
+function send_notification(userId, title, body, Islink = false,owner=null) {
 
 
     $.ajax({
@@ -125,12 +125,13 @@ function send_notification(userId, title, body, Islink = false) {
             user_id: userId,
             title: title,
             body: body,
-            link:Islink
+            link: Islink,
+            owner: owner,
         },
         dataType: "JSON",
         success: function (response) {
             console.log(response.fire_base);
-            if (response.conference_link != '')
+            if (response.conference_link != "")
                 window.open(response.conference_link, "_blank");
         },
         error: function (error) {
