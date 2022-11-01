@@ -34,7 +34,7 @@ Route::get('/get/schedules/{doctor_id}/{date}',[homeController::class,'scheduleO
 Route::post('/book/appointment',[homeController::class,'bookApppointment'])->name('book.appointment');
 Route::post('/store-token', [homeController::class, 'storeToken'])->name('store.token');
 
-Route::middleware(['auth:api'])->post('/send-web-notification', [homeController::class, 'sendWebNotification'])->name('send.web-notification');
+Route::middleware(['auth'])->post('/send-web-notification', [homeController::class, 'sendWebNotification'])->name('send.web-notification');
 Route::get('/agoraToken',[PatientAuthenticationController::class,'generate_token' ]);
 
 Route::get('/convert-currency',[CurrencyController::class,'ConvertCurrency'])->name('convert.currency');
