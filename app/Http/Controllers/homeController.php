@@ -14,6 +14,7 @@ use App\Models\Appointment;
 use Illuminate\Support\Facades\Auth;
 use App\AgoraToken\Src\RtcTokenBuilder;
 use Stripe;
+
 class homeController extends Controller
 {
     public function index(Request $request){
@@ -149,7 +150,8 @@ class homeController extends Controller
         $conference_link='';
         if($request->has('link') && $request->link=='true'){
             $channelName="DrTele".rand().$request->user_id."channel";
-            $agoraToken=$this->generate_token($channelName,auth()->user()->id);
+            $owner_id=auth()->user()->id;
+            $agoraToken=$this->generate_token($channelName,$owner_id);
             $conference_link=url('/').'/conference/call?channelName='.$channelName.'&token='.$agoraToken;
             $data = [
                 "to" => $FcmToken,
