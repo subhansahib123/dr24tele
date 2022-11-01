@@ -149,7 +149,7 @@ class homeController extends Controller
         $conference_link='';
         if($request->has('link') && $request->link=='true'){
             $channelName="DrTele".rand().$request->user_id."channel";
-            $agoraToken=$this->generate_token($channelName);
+            $agoraToken=$this->generate_token($channelName,$request->user_id);
             $conference_link=url('/').'/conference/call?channelName='.$channelName.'&token='.$agoraToken;
             $data = [
                 "to" => $FcmToken,
@@ -203,15 +203,14 @@ class homeController extends Controller
 
         return response()->json(['fire_base'=>$result,'conference_link'=>$conference_link]);
     }
-    public function generate_token($channelName)
+    public function generate_token($channelName,$user_id)
     {
 
 
         $appID = "e4fc13e59b1d4105b5dd434a56a2bf94";
         $appCertificate = "46369135cce54217935851efd0844afb";
-        // $channelName = $request->channel;
-        $uid = (int) mt_rand(1000000000, 9999999999);
-        $uidStr = strval($uid);
+        
+        $uidStr = strval($user_id);
         $role = RtcTokenBuilder::RoleAttendee;
         $expireTimeInSeconds = 2400;
         $currentTimestamp = (new \DateTime("now", new \DateTimeZone('Asia/Karachi')))->getTimestamp();
