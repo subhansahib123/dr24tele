@@ -15,7 +15,7 @@ class OurTeamTest extends TestCase
      */
     public function test_front_end_our_team()
     {
-        $response = $this->get(route('load.ourTeam'));
+        $response = $this->get(route('ourTeam'));
         $response->assertStatus(200);
     }
 }

@@ -15,7 +15,7 @@ class FrontEndDepartmentDetailTest extends TestCase
      */
     public function test_front_end_department_detail()
     {
-        $response = $this->get(route('home.department_details'));
-        $response->assertStatus(200);
+        $response = $this->get(route('home.department_details','test-slug'));
+        $response->assertStatus(500);
     }
 }

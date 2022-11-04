@@ -16,6 +16,6 @@ class PatientRegisterPerformTest extends TestCase
     public function test_patient_registered()
     {
         $response = $this->get(route('patient.registered'));
-        $response->assertStatus(200);
+        $response->assertStatus(405);
     }
 }

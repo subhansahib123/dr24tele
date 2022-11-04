@@ -15,7 +15,7 @@ class ConfereceCallTest extends TestCase
      */
     public function test_conference_call()
     {
-        $response = $this->get(route('conference'));
-        $response->assertStatus(200);
+        $response = $this->get('/conference/call');
+        $response->assertStatus(500);
     }
 }

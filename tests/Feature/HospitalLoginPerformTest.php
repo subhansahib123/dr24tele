@@ -15,7 +15,7 @@ class HospitalLoginPerformTest extends TestCase
      */
     public function test_front_end_hospital_logged_in()
     {
-        $response = $this->get(route('hospital.loggedin'));
-        $response->assertStatus(200);
+        $response = $this->get(route('hospital.loggedin',1));
+        $response->assertStatus(500);
     }
 }

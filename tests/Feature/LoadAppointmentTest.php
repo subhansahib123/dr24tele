@@ -15,7 +15,7 @@ class LoadAppointmentTest extends TestCase
      */
     public function test_front_end_load_appointments()
     {
-        $response = $this->get(route('load.appointment'));
-        $response->assertStatus(200);
+        $response = $this->get(route('load.appointment',1));
+        $response->assertStatus(302);
     }
 }

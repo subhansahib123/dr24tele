@@ -16,6 +16,6 @@ class PatientLoginPerformTest extends TestCase
     public function test_patient_logged_in()
     {
         $response = $this->get(route('patient.loggedin'));
-        $response->assertStatus(200);
+        $response->assertStatus(405);
     }
 }

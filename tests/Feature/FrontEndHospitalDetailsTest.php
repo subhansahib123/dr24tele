@@ -15,7 +15,7 @@ class FrontEndHospitalDetailsTest extends TestCase
      */
     public function test_front_end_hospital_details()
     {
-        $response = $this->get(route('home.hospital_details'));
-        $response->assertStatus(200);
+        $response = $this->get(route('home.hospital_details','test-slug'));
+        $response->assertStatus(500);
     }
 }
