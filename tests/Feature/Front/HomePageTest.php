@@ -1,21 +1,21 @@
 <?php
 
-namespace Tests\Feature\Doctor;
+namespace Tests\Feature\Front;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
-class ScheduleListTest extends TestCase
+class HomePageTest extends TestCase
 {
     /**
      * A basic feature test example.
      *
      * @return void
      */
-    public function test_schedule_list()
+    public function test_home()
     {
-        $response = $this->get('list.schedules.doctor');
-        $response->assertStatus(404);
+        $response = $this->get(route('home.page'));
+        $response->assertStatus(200);
     }
 }

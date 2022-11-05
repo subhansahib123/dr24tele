@@ -13,10 +13,10 @@ class ScheduleStoreTest extends TestCase
      *
      * @return void
      */
-    public function test_example()
+    public function test_schedule_list()
     {
-        $response = $this->get('/');
+        $response = $this->get('store.schedule.doctor');
 
-        $response->assertStatus(200);
+        $response->assertStatus(404);
     }
 }
