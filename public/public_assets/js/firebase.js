@@ -57,11 +57,15 @@ window.onload = function () {
 };
 function render() {
     window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
-        "recaptcha-container"
+        "recaptcha-container",
+        {
+            size: "invisible",
+        }
     );
     recaptchaVerifier.render();
 }
 function sendOTP() {
+
     var number = $("#number").val();
     firebase
         .auth()
