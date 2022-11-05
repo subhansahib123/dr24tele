@@ -16,6 +16,6 @@ class AdminUsersTest extends TestCase
     public function test_admin_actual_users()
     {
         $response = $this->get(route('users.all.actual'));
-        $response->assertStatus(405);
+        $response->assertStatus(302);
     }
 }

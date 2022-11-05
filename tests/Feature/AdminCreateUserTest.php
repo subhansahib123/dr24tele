@@ -16,6 +16,6 @@ class AdminCreateUserTest extends TestCase
     public function test_admin_create_user()
     {
         $response = $this->get(route('create.user'));
-        $response->assertStatus(405);
+        $response->assertStatus(302);
     }
 }

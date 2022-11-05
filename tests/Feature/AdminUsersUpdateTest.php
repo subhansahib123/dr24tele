@@ -15,7 +15,7 @@ class AdminUsersUpdateTest extends TestCase
      */
     public function test_update_user_page()
     {
-        $response = $this->get(route('updateUser'));
-        $response->assertStatus(405);
+        $response = $this->get(route('updateUser',['uuid','username','name']));
+        $response->assertStatus(302);
     }
 }

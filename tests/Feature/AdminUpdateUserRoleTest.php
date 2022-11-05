@@ -16,6 +16,6 @@ class AdminUpdateUserRoleTest extends TestCase
     public function test_admin_update_user_role_store()
     {
         $response = $this->get(route('updatingRole','uuid'));
-        $response->assertStatus(405);
+        $response->assertStatus(302);
     }
 }

@@ -16,6 +16,6 @@ class AdminMapUserTest extends TestCase
     public function test_admin_map_user()
     {
         $response = $this->get(route('mappingRole'));
-        $response->assertStatus(405);
+        $response->assertStatus(302);
     }
 }

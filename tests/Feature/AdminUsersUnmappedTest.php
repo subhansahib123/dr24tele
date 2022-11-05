@@ -16,6 +16,6 @@ class AdminUsersUnmappedTest extends TestCase
     public function test_unmapped_users()
     {
         $response = $this->get(route('users.unmapped'));
-        $response->assertStatus(405);
+        $response->assertStatus(302);
     }
 }

@@ -16,6 +16,6 @@ class AdminAllUsersTest extends TestCase
     public function test_admin_all_users()
     {
         $response = $this->get(route('all.users'));
-        $response->assertStatus(405);
+        $response->assertStatus(302);
     }
 }
