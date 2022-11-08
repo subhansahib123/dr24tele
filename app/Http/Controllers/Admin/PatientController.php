@@ -79,7 +79,7 @@ class PatientController extends Controller
                     $UserData=$request->all();
                     User::create([
                         'username' => $user->username,
-                        'password' => $request->password,
+                        'password' => Hash::make($request->password),
                         'email' => $request->name,
                         'phone_number' => $request->phoneNumber,
                         'uuid' => $user->uuid,

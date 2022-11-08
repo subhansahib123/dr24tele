@@ -312,6 +312,8 @@ class UserController extends Controller
     }
     public function store_user(Request $request)
     {
+
+        // dd($request->all());?
         $curl = curl_init();
         $baseUrl = config('services.ehr.baseUrl');
         $apiKey = config('services.ehr.apiKey');
@@ -375,7 +377,7 @@ class UserController extends Controller
                     // dd(1);
                     User::create([
                         'username' => $user->username,
-                        'password' => $request->password,
+                        'password' => Hash::make($request->password),
                         'email' => $request->name,
                         'phone_number' => $request->phoneNumber,
                         'uuid' => $user->uuid,
