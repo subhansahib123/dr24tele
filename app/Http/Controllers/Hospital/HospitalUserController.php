@@ -158,9 +158,7 @@ class HospitalUserController extends Controller
     public function createHospitalUser()
     {
 
-        if(Count($_COOKIE)>0){
-            dd($_COOKIE);
-        }
+        
         return view('hospital_panel.user.create');
 
     }
