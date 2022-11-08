@@ -57,14 +57,19 @@ window.onload = function () {
 };
 function render() {
     window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
-        "recaptcha-container"
+        "recaptcha-container",
+        {
+            size: "invisible",
+        }
     );
     recaptchaVerifier.render();
 }
 function sendOTP() {
+
     var number = $("#txtPhone").intlTelInput('getNumber');
     // var phoneCode=$(".selected-dial-code").html();
     // var client_number=phoneCode+number;
+
     firebase
         .auth()
         .signInWithPhoneNumber(number, window.recaptchaVerifier)
