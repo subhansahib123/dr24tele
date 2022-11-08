@@ -16,7 +16,6 @@ class HospitalDepartmentController extends Controller
     public function createHospitalDepartment()
     {
         $organizations = Organization::all();
-        $countries = Country::all();
 
         return view(
             'hospital_panel.departments.create',
@@ -37,11 +36,6 @@ class HospitalDepartmentController extends Controller
             'status' => 'required|string',
             'email' => 'required|string',
             'level' => 'string',
-            'contactperson' => 'required|string',
-            'phone' => 'required|string',
-            'building' => 'string',
-            'postalCode' => 'required|string',
-            'district' => 'required|string',
         ]);
         $curl = curl_init();
         $baseUrl = config('services.ehr.baseUrl');
@@ -331,8 +325,6 @@ class HospitalDepartmentController extends Controller
             'status' => 'required|string',
             'email' => 'required|string',
             'level' => 'SubOrg',
-            'contactperson' => 'required|string',
-            'phone' => 'required|string',
         ]);
         $data = [
             "displayname" => $request->displayname,
@@ -345,13 +337,13 @@ class HospitalDepartmentController extends Controller
             ],
             "email" => $request->email,
             "contactperson" => '',
-            "phone" => $request->phone,
+            "phone" => '',
             "address" => [
                 [
                     "type" => "permanent",
-                    "building" => $request->building,
-                    "district" => $request->district,
-                    "postalCode" => $request->postalCode
+                    "building" => '',
+                    "district" => '',
+                    "postalCode" => ''
                 ]
             ],
             "level" => 'SubOrg',

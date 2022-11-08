@@ -52,7 +52,7 @@
                                     @endif
                                 </div>
 
-                                <div class=" row mb-4">
+                                <div class=" row mb-4 address">
                                     <label for="email" class="col-md-3 form-label"> Contact Person Designation</label>
                                     <div class="col-md-9">
                                         <input type="text" class="form-control" value="{{old('contactperson')}}" name="contactperson" id="contactperson" placeholder="Contact Person Designation" autocomplete="contactperson">
@@ -61,7 +61,7 @@
                                     <span class="text-danger text-left">{{ $errors->first('contactperson') }}</span>
                                     @endif
                                 </div>
-                                <div class=" row mb-4">
+                                <div class=" row mb-4 address">
                                     <label for="phone" class="col-md-3 form-label"> Phone Number</label>
                                     <div class="col-md-9">
                                         <input type="number" class="form-control" value="{{old('phone')}}" name="phone" id="phone" placeholder="Phone Number" autocomplete="contactperson">
@@ -70,7 +70,7 @@
                                     <span class="text-danger text-left">{{ $errors->first('contactperson') }}</span>
                                     @endif
                                 </div>
-                                <div class=" row mb-4 addresss">
+                                <div class=" row mb-4 address">
                                     <label for="country" class="col-md-3 form-label"> Select Country </label>
                                     <div class="col-md-9">
                                         <input type="hidden" value="" name="country" id="country_value" />
@@ -85,7 +85,7 @@
                                     <span class="text-danger text-left">{{ $errors->first('contactperson') }}</span>
                                     @endif
                                 </div>
-                                <div class=" row mb-4 addresss">
+                                <div class=" row mb-4 address">
                                     <label for="country" class="col-md-3 form-label"> Select State </label>
                                     <input type="hidden" value="" name="state" id="state_value" />
                                     <div class="col-md-9">
@@ -98,7 +98,7 @@
                                     <span class="text-danger text-left">{{ $errors->first('contactperson') }}</span>
                                     @endif
                                 </div>
-                                <div class=" row mb-4 addresss">
+                                <div class=" row mb-4 address">
                                     <label for="country" class="col-md-3 form-label"> Select City </label>
                                     <input type="hidden" value="" name="city" id="city_value" />
                                     <div class="col-md-9">
@@ -117,19 +117,19 @@
                                         <input type="email" class="form-control" value="{{old('email')}}" name="email" placeholder="Email" autocomplete="username">
                                     </div>
                                 </div>
-                                <div class=" row mb-4 addresss">
+                                <div class=" row mb-4 address">
                                     <label for="building" class="col-md-3 form-label">Building</label>
                                     <div class="col-md-9">
                                         <input type="text" class="form-control" value="{{old('building')}}" id="building" name="building" placeholder="Building Address">
                                     </div>
                                 </div>
-                                <div class=" row mb-4 addresss">
+                                <div class=" row mb-4 address">
                                     <label for="district" class="col-md-3 form-label">District</label>
                                     <div class="col-md-9">
                                         <input type="text" class="form-control" value="{{old('district')}}" id="district" name="district" placeholder="District">
                                     </div>
                                 </div>
-                                <div class=" row mb-4 addresss">
+                                <div class=" row mb-4 address">
                                     <label for="postalCode" class="col-md-3 form-label">Postal Code</label>
                                     <div class="col-md-9">
                                         <input type="number" class="form-control" value="{{old('postalCode')}}" id="postalCode" name="postalCode" placeholder="Postal Code">
@@ -199,14 +199,14 @@
     var baseUrl = `{{url('/')}}`;
     $('#level').change(function(){
         if($(this).val()=="Hospital"){
-            $('.addresss').show();
+            $('.address').show();
             $('#no-need').hide();
             $('#organization').attr('name','org');
             var input_organization='<input type="hidden" id="input_org" name="input_org" value="c6bc6265-e876-414a-9672-a85e09280059">';
             $('#add').html(input_organization);
             return false;
         }else if($(this).val()=="Department"){
-            $('.addresss').hide();
+            $('.address').hide();
             $('#add').html('');
             $('#no-need').show();
             $('#organization').attr('name','organization');

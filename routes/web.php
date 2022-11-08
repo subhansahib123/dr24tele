@@ -23,8 +23,10 @@ use App\Http\Controllers\FrontEnd\TemplateController;
 
 use App\Http\Controllers\Patient\AuthController;
 use App\Http\Controllers\Doctor\ScheduleController as DoctorSchedule;
+use App\Http\Controllers\Doctor\PersonalDetails;
 use App\Http\Controllers\homeController;
 use App\Http\Controllers\PatientAuthenticationController;
+use App\Http\Controllers\Patient\PersonalDetails as PatientDetails;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -301,6 +303,9 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::group(['prefix' => 'doctor', 'middleware' => ['auth']], function () {
         Route::get('/dashboard', [AuthenticationController::class, 'DoctorDashboard'])->name('doctor.dashboard');
 
+        //Update User name 
+        Route::get('/update/displayName',[PersonalDetails::class,'updateDisplayName'])->name('updateDisplayName');
+
         //Create Schedule
         Route::get('/create/schedule',[DoctorSchedule::class,'createSchedule'])->name('create.schedule.doctor');
         //store Schedule
@@ -316,6 +321,11 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
       Route::group(['prefix' => 'patient', 'middleware' => ['auth']], function () {
         Route::get('/logout',[PatientAuthenticationController::class,'logout'])->name('patient.logout');
         Route::get('/dashboard', [PatientAuthenticationController::class, 'patientDashboard'])->name('patient.dashboard');
+        
+        Route::get('/displayName/update',[PatientDetails::class, 'displayNameUpdate'])->name('displayNameUpdate');
+        
+        
+        Route::get('/phoneNumber/update',[PatientDetails::class, 'phoneNumberUpdate'])->name('phoneNumberUpdate');
         Route::get('/appointments',[PatientAuthenticationController::class, 'appointments'])->name('appointments');
       });
 

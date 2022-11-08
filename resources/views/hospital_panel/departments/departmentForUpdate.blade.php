@@ -49,48 +49,12 @@
                         
 
                                 <div class=" row mb-4">
-                                    <label for="email" class="col-md-3 form-label"> Contact Person Designation</label>
-                                    <div class="col-md-9">
-                                        <input type="text" class="form-control" value="{{$organization->contactperson}}" name="contactperson" id="contactperson" placeholder="Contact Person Designation" autocomplete="contactperson">
-                                    </div>
-                                    @if ($errors->has('contactperson'))
-                                    <span class="text-danger text-left">{{ $errors->first('contactperson') }}</span>
-                                    @endif
-                                </div>
-                                <div class=" row mb-4">
-                                    <label for="phone" class="col-md-3 form-label"> Phone Number</label>
-                                    <div class="col-md-9">
-                                        <input type="number" class="form-control" value="{{$organization->phone}}" name="phone" id="phone" placeholder="Phone Number" autocomplete="contactperson">
-                                    </div>
-                                    @if ($errors->has('contactperson'))
-                                    <span class="text-danger text-left">{{ $errors->first('contactperson') }}</span>
-                                    @endif
-                                </div>
-                                <div class=" row mb-4">
                                     <label for="inputEmail3" class="col-md-3 form-label">Email</label>
                                     <div class="col-md-9">
                                         <input type="email" class="form-control" value="{{$organization->email}}" name="email" placeholder="Email" autocomplete="username">
                                     </div>
                                 </div>
-                                
-                                <div class=" row mb-4 addresss">
-                                    <label for="building" class="col-md-3 form-label">Building</label>
-                                    <div class="col-md-9">
-                                        <input type="text" class="form-control" value="{{$organization->address[0]->building}}" id="building" name="building" placeholder="Building Address">
-                                    </div>
-                                </div>
-                                <div class=" row mb-4 addresss">
-                                    <label for="district" class="col-md-3 form-label">District</label>
-                                    <div class="col-md-9">
-                                        <input type="text" class="form-control" value="{{$organization->address[0]->district}}" id="district" name="district" placeholder="District">
-                                    </div>
-                                </div>
-                                <div class=" row mb-4 addresss">
-                                    <label for="postalCode" class="col-md-3 form-label">Postal Code</label>
-                                    <div class="col-md-9">
-                                        <input type="number" class="form-control" value="{{$organization->address[0]->postalCode}}" id="postalCode" name="postalCode" placeholder="Postal Code">
-                                    </div>
-                                </div>
+
                                 <div class=" row mb-4">
                                     <label for="country" class="col-md-3 form-label"> Select Status </label>
                                     <div class="col-md-9">

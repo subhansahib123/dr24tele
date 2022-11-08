@@ -62,7 +62,7 @@ class PatientAuthenticationController extends Controller
 
 
 
-
+        dd($request->phone);
         $user = User::where('phone_number',  $request->phone)->first();
 
 

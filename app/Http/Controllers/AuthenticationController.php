@@ -460,6 +460,7 @@ class AuthenticationController extends Controller
     }
     public function DoctorDashboard()
     {
+        
         return view('doctor_panel.dashboard');
     }
 }

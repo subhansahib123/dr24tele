@@ -121,8 +121,6 @@ class DepartmentController extends Controller
             'name' => 'required|string',
             'status' => 'required|string',
             'email' => 'required|string',
-            'contactperson' => 'required|string',
-            'phone' => 'required|string',
         ]);
         $data = [
             "displayname" => $request->displayname,
@@ -135,16 +133,16 @@ class DepartmentController extends Controller
             ],
             "email" => $request->email,
             "contactperson" => '',
-            "phone" => $request->phone,
+            "phone" =>'',
             "address" => [
                 [
                     "type" => "permanent",
-                    "building" => $request->building,
-                    "district" => $request->district,
+                    "building" => '',
+                    "district" => '',
                     "city" => '',
                     "state" => '',
                     "country" => '',
-                    "postalCode" => $request->postalCode
+                    "postalCode" => ''
                 ]
             ],
             "level" => 'SubOrg',

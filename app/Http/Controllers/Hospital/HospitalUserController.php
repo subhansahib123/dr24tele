@@ -158,8 +158,11 @@ class HospitalUserController extends Controller
     public function createHospitalUser()
     {
 
-
+        if(Count($_COOKIE)>0){
+            dd($_COOKIE);
+        }
         return view('hospital_panel.user.create');
+
     }
     public function storeHospitalUser(Request $request)
     {
@@ -227,13 +230,14 @@ class HospitalUserController extends Controller
                 if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
                     curl_close($curl);
 
-
+                    
                     $user = User::firstOrCreate([
                         'username' => $user->username,
-                        'password' => $request->password,
+                        'password' => Hash::make($request->password),
                         'email' => $user->username,
                         'phone_number' => $request->phoneNumber,
                         'uuid' => $user->uuid,
+                        'PersonId' => $user->personId,
                         'status' => 1
 
                     ]);
