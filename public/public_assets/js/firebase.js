@@ -62,7 +62,9 @@ function render() {
     recaptchaVerifier.render();
 }
 function sendOTP() {
-    var number = $("#number").val();
+    var number = $("#txtPhone").intlTelInput('getNumber');
+    // var phoneCode=$(".selected-dial-code").html();
+    // var client_number=phoneCode+number;
     firebase
         .auth()
         .signInWithPhoneNumber(number, window.recaptchaVerifier)

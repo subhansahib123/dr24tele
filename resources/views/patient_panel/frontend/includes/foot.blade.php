@@ -80,6 +80,8 @@
     <script src="{{asset('/assets/datetimepicker/build/jquery.datetimepicker.full.js')}}"></script>
 
     <script src="{{asset('/assets/js/form-wizard.js')}}"></script>
+   
+    
 <!--Firebase---->
 
 <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase.js"></script>
@@ -117,6 +119,8 @@ var user_id='';
 
 
     </script>
+    
+
     <!----Custom Function To Manage-->
     @yield('foot_script');
 </body>

@@ -37,7 +37,6 @@
     <link href="{{ asset('assets/datetimepicker/jquery.datetimepicker.css') }}" rel="stylesheet" />
 
 </head>
-
 <body class="app sidebar-mini ltr light-mode">
 
     <!-- GLOBAL-LOADER -->
