@@ -73,7 +73,7 @@
                                         <div class="form-group">
                                             <label for="exampleInputnumber">Contact Number</label>
                                             <input type="text" id="txtPhone" name="" class="form-control">
-                                               <input type="hidden" class="form-control" id="phoneNumber" value="" id="exampleInputnumber" placeholder="">
+                                               <input type="hidden" class="form-control" id="phoneNumber" >
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6">

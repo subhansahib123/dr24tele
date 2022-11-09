@@ -105,7 +105,6 @@
                 $('#txtPhone').val(formattedNumber.slice(formattedNumber.indexOf(' ') + 1, formattedNumber.length));
             }
         });
-        var number = $("#txtPhone").intlTelInput('getNumber');
     </script>
     @yield('foot_script')
 

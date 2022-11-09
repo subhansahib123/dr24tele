@@ -51,7 +51,7 @@
                 autoPlaceholder: "ON",
                 dropdownContainer: document.body,
                 formatOnDisplay: true,
-                hiddenInput: "full_number",
+                hiddenInput: "phoneNumber",
                 initialCountry: "auto",
                 nationalMode: true,
                 placeholderNumberType: "MOBILE",

@@ -8,6 +8,8 @@ use App\Models\User;
 use App\Models\Role;
 use App\Models\Organization;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
+
 
 class AuthenticationController extends Controller
 {
@@ -374,8 +376,8 @@ class AuthenticationController extends Controller
 
 
 
-        $user = User::with('doctor')->where('phone_number',  $request->phone)->first();
-        // dd  ($user->user_organization);
+        $user = User::with('doctor')->where('phone_number',  $request->phoneNumber)->first();
+        // dd($user); 
         if (!isset($user->doctor))
             return redirect()->back()->withErrors(['error' => 'User is not associated with any Department']);
 
@@ -392,7 +394,8 @@ class AuthenticationController extends Controller
             Auth::login($user);
 
             $data = ['username' => $user->username, 'password' => $user->password];
-
+            
+            // dd($user->password);
             $params = array('orgName' => $organisation->slug, 'tenantId' => 'ehrn');
             curl_setopt_array($curl, array(
                 CURLOPT_URL => $baseUrl . 'rest/admin/v1/login?' . http_build_query($params),
@@ -417,6 +420,7 @@ class AuthenticationController extends Controller
                 // dd($response);
                 if ($response == false || isset($response->status)) {
                     curl_close($curl);
+                    dd(1);
 
                     return curl_error($curl);
                 } else {
@@ -446,11 +450,13 @@ class AuthenticationController extends Controller
                         return redirect()->route('doctor.show')->withErrors(['error' => $result_data->message]);
                     } else {
                         curl_close($curl);
+                        dd($result_data);
                         return redirect()->back()->withErrors(['error' => $result_data->message]);
                     }
                 }
             } catch (\Exception $e) {
 
+                dd(3);
 
                 return redirect()->back()->withErrors(['error' => __($e->getMessage())]);
             }
