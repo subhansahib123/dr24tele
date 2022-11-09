@@ -11,11 +11,11 @@
 
             <!-- PAGE-HEADER -->
             <div class="page-header">
-                <h1 class="page-title">Update Display Name</h1>
+                <h1 class="page-title">Update Phone Number</h1>
                 <div>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">Pages</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Display Name</li>
+                        <li class="breadcrumb-item active" aria-current="page">Phone Number</li>
                     </ol>
                 </div>
             </div>
@@ -28,10 +28,10 @@
                 </div>
                 <div class="col-xl-8">
                     <div class="card">
-                        <form action="{{ route('displayNameUpdated') }}" method="POST">
+                        <form action="{{ route('phoneNumberUpdated') }}" method="POST">
                             @csrf
                             <div class="card-header">
-                                <h3 class="card-title">Update Display Name</h3>
+                                <h3 class="card-title">Update Phone Number</h3>
                             </div>
                             <div class="card-body">
                                 <div class="row">
@@ -39,14 +39,16 @@
                                     <div class="col-lg-12 col-md-12">
                                         <div class="form-group">
 
-                                            <label for="currentPassword">Current Display Name</label>
-                                            <input type="text" disabled class="form-control" value="{{$name}}" id="currentPassword" >
-                                        </div>
+                                            <label for="currentPhoneNumber">Current Phone Number</label>
+                                            <input type="text" id="txtPhone" name="" class="form-control" placeholder="+91 *** ******">
+                                               <input type="hidden" class="form-control" id="phoneNumber" >
+                                            </div>
                                     </div>
                                     <div class="col-lg-6 col-md-12">
                                         <div class="form-group">
-                                            <label for="newPassword">New Display Name</label>
-                                            <input type="text" class="form-control" name="newpassword" id="newPassword" placeholder="New Display Name">
+                                            <label for="newPhoneNumber">New Phone Number</label>
+                                            <input type="text" id="txtPhoneNew"  class="form-control" placeholder="New Phone Number">
+                                               <input type="hidden" class="form-control" id="newPhoneNumber"  >
                                         </div>
                                     </div>
                                 </div>

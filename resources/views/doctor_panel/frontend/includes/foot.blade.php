@@ -103,6 +103,70 @@
 
 
     </script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/12.1.5/css/intlTelInput.css" />
+<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>  -->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/12.1.5/js/intlTelInput.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/12.1.5/js/utils.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            
+            var code = "+911234567890";
+            $('#txtPhoneNew').val(code);
+            $('#txtPhoneNew').intlTelInput({
+                autoHideDialCode: true,
+                autoPlaceholder: "ON",
+                dropdownContainer: document.body,
+                formatOnDisplay: true,
+                hiddenInput: "newPhoneNumber",
+                initialCountry: "auto",
+                nationalMode: true,
+                placeholderNumberType: "MOBILE",
+                preferredCountries: ['US'],
+                separateDialCode: true
+            });
+            FormatNumber();
+            $('#txtPhoneNew').keyup(function () {
+                FormatNumber();
+            });
+            function FormatNumber() {
+                var number = $('#txtPhoneNew').val();
+                var classf = $(".selected-flag > div").attr("class");
+                var flag = classf.slice(-2);
+                var formattedNumber = intlTelInputUtils.formatNumber(number, flag, intlTelInputUtils.numberFormat.INTERNATIONAL);
+                $('#txtPhoneNew').val(formattedNumber.slice(formattedNumber.indexOf(' ') + 1, formattedNumber.length));
+            }
+        });
+    </script>
+    <script type="text/javascript">
+        $(function () {
+            
+            var code = "+911234567890";
+            $('#txtPhone').val(code);
+            $('#txtPhone').intlTelInput({
+                autoHideDialCode: true,
+                autoPlaceholder: "ON",
+                dropdownContainer: document.body,
+                formatOnDisplay: true,
+                hiddenInput: "phoneNumber",
+                initialCountry: "auto",
+                nationalMode: true,
+                placeholderNumberType: "MOBILE",
+                preferredCountries: ['US'],
+                separateDialCode: true
+            });
+            FormatNumber();
+            $('#txtPhone').keyup(function () {
+                FormatNumber();
+            });
+            function FormatNumber() {
+                var number = $('#txtPhone').val();
+                var classf = $(".selected-flag > div").attr("class");
+                var flag = classf.slice(-2);
+                var formattedNumber = intlTelInputUtils.formatNumber(number, flag, intlTelInputUtils.numberFormat.INTERNATIONAL);
+                $('#txtPhone').val(formattedNumber.slice(formattedNumber.indexOf(' ') + 1, formattedNumber.length));
+            }
+        });
+    </script>
     <!--Firebase---->
     <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase.js"></script>
 <script>
