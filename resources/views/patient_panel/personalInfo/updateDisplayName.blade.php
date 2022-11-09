@@ -28,7 +28,7 @@
                 </div>
                 <div class="col-xl-8">
                     <div class="card">
-                        <form action="{{ route('passwordUpdated') }}" method="POST">
+                        <form action="{{ route('displayNameUpdated') }}" method="POST">
                             @csrf
                             <div class="card-header">
                                 <h3 class="card-title">Update Display Name</h3>
