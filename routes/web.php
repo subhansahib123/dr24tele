@@ -22,6 +22,7 @@ use App\Http\Controllers\Hospital\ScheduleController;
 use App\Http\Controllers\FrontEnd\TemplateController;
 
 use App\Http\Controllers\Patient\AuthController;
+use App\Http\Controllers\Patient\PatientsFeedbackController;
 use App\Http\Controllers\Doctor\ScheduleController as DoctorSchedule;
 use App\Http\Controllers\Doctor\PersonalDetails;
 use App\Http\Controllers\homeController;
@@ -82,6 +83,10 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
         //About_Us Page
         Route::get('/contact-us',[TemplateController::class,'contactUs'])->name('contactUs');
 
+        //Rating page
+
+        Route::get('/rate-doctor',[PatientsFeedbackController::class,'index'])->name('rateDoctor');
+        Route::post('/doctor/rated',[PatientsFeedbackController::class,'store'])->name('doctorRated');
         //Bl0g Grid Page
         Route::get('/blog-grid',[TemplateController::class,'blogGrid'])->name('blogGrid');
         //Blog Left Sidebar Page

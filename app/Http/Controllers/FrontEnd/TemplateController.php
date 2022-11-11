@@ -15,6 +15,7 @@ class TemplateController extends Controller
  {
     return view('public_panel.template_pages.contactUs');
  }   
+  
  public function blogGrid()
  {
     return view('public_panel.template_pages.blogLayout.blogGrid');
