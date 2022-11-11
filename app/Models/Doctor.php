@@ -31,4 +31,8 @@ class Doctor extends Model
     {
        return $this->hasMany(Schedule::class,'doctor_id');
     }
+    public function feedback()
+    {
+        return $this->hasMany(PatientsFeedback::class,'doctor_id');
+    }
 }
