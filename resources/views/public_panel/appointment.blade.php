@@ -91,10 +91,42 @@
 
                                 <div class="form-group col-lg-12" id="comments" style="display: none">
                                     <label>Comments</label>
-                                    <textarea rows="5" cols="5" class="form-control" name="comments">
+                                    <textarea rows="5" cols="5" class="form-control" name="comments" required>
 
                                     </textarea>
+                                    <div class="row">
+                                        <div class="col-lg-1 offset-11 mt-1 text-right text-primary" style="cursor: pointer;"  id="next-comment">
+                                                Next
+                                        </div>
+                                    </div>
                                 </div>
+
+                                <div class="form-group col-lg-12" id="membership" style="display: none">
+                                    <label>Do You Have a MemberShip Card For This Hospital?</label>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="yes" id="exampleRadios1" value="option1">
+                                                <label class="form-check-label" for="yes">
+                                                    Yes
+                                                </label>
+                                            </div>
+                                            <div class="form-check">
+                                                <input class="form-check-input" type="radio" name="no" id="exampleRadios2" value="option2">
+                                                <label class="form-check-label" for="no">
+                                                    No
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-lg-1 offset-11 mt-1 text-right text-primary" id="next-payment" style="cursor: pointer;">
+                                                Next
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
                                 <div class="row" id="payment" style="display: none">
                                     <div class="col-xs-12 col-md-12 col-md-offset-4">
                                         <div class="panel panel-default">
@@ -263,11 +295,26 @@
                 end = $(this).find('input[type="text"]').attr('end');
                 fee = $(this).find("span.amount-converted").html()
                 $('#comments').show();
-                $('#payment').show();
+                $('#calenderwrapper').hide();
+                $('#scheduleDoctor').hide();
 
-                $('#book_appointment_submit').show();
+                // $('#payment').show();
+
+                // $('#book_appointment_submit').show();
             });
-            var calendarEl = document.getElementById('calendar');
+            $('#next-comment').on("click", function() {
+                $('#membership').show();
+                $('#comments').hide();
+            });
+
+            $('#next-payment').on("click", function() {
+                    $('#membership').hide();
+                    $('#payment').show();
+                    $('#book_appointment_submit').show();
+            });
+
+
+                var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 // themeSystem: 'bootstrap5',
                 allDaySlot: false,
