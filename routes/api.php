@@ -38,3 +38,4 @@ Route::post('/send-web-notification', [homeController::class, 'sendWebNotificati
 Route::get('/agoraToken',[PatientAuthenticationController::class,'generate_token' ]);
 
 Route::get('/convert-currency',[CurrencyController::class,'ConvertCurrency'])->name('convert.currency');
+
