@@ -16,7 +16,7 @@
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/images/brand/favicon.ico') }}" />
 
     <!-- TITLE -->
-    <title>DrTele | Hospital </title>
+    <title>DrTele | Doctor </title>
 
     <!-- BOOTSTRAP CSS -->
 

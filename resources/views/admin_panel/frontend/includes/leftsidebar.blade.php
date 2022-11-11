@@ -53,6 +53,15 @@
                 </li>
                 <li class="slide">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
+                            class="side-menu__icon fa fa-id-card-o"></i><span class="side-menu__label">
+                            Specialization</span><i class="angle fe fe-chevron-right"></i></a>
+                    <ul class="slide-menu nav-tree">
+                        <li><a href="{{ route('createSpecialization') }}" class="slide-item"> Create </a></li>
+                        <li><a href="{{ route('showSpecialization') }}" class="slide-item">list</a></li>
+                    </ul>
+                </li>
+                <li class="slide">
+                    <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
                             class="side-menu__icon fa fa-wheelchair"></i><span class="side-menu__label">
                             Patients</span><i class="angle fe fe-chevron-right"></i></a>
                     <ul class="slide-menu nav-tree">

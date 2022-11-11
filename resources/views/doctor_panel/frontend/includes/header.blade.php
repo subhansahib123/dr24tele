@@ -333,8 +333,12 @@
                                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                                     <a class="dropdown-item" href="{{route('updateDisplayName')}}">
                                         <i class="dropdown-icon fe fe-user"></i> Update Name
-                                    </a><a class="dropdown-item" href="{{route('updatePhoneNumber')}}">
+                                    </a>
+                                    <a class="dropdown-item" href="{{route('updatePhoneNumber')}}">
                                         <i class="dropdown-icon fe fe-user"></i> Update Phone No
+                                    </a>
+                                    <a class="dropdown-item" href="{{route('doctorSpecialization')}}">
+                                        <i class="dropdown-icon fe fe-user"></i> Specialization
                                     </a>
                                     <div class="drop-heading">
                                         <div class="text-center">

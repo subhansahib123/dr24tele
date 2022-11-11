@@ -12,7 +12,8 @@ class Doctor extends Model
     protected $fillable=[
         "status",
         'user_id',
-        'department_id'
+        'department_id',
+        'specialization_id',
     ];
     public function user()
     {
@@ -34,5 +35,9 @@ class Doctor extends Model
     public function feedback()
     {
         return $this->hasMany(PatientsFeedback::class,'doctor_id');
+    }
+    public function specialization()
+    {
+        return $this->hasOne(DoctorSpecialization::class,'doctor_specializations');
     }
 }
