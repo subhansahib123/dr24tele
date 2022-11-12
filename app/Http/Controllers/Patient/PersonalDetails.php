@@ -27,7 +27,6 @@ class PersonalDetails extends Controller
 
             return redirect()->route('patient.login')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
-        $name=$userInfo['name'];
-        return view('patient_panel.personalInfo.updatePhoneNumber',['name'=>$name]);
+        return view('patient_panel.personalInfo.updatePhoneNumber');
     }
 }

@@ -9,6 +9,7 @@ use App\Models\Role;
 use App\Models\Organization;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
+use Session;
 
 
 class AuthenticationController extends Controller
@@ -121,7 +122,7 @@ class AuthenticationController extends Controller
 
                     if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
                         unset($userInfo);
-                        session_destroy();
+                        Session::flush();
                         Auth::logout();
                         curl_close($curl);
                         // dd($userInfo);

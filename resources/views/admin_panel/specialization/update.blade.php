@@ -33,7 +33,7 @@
                                 <div class=" row mb-4">
                                     <label for="inputName" class="col-md-3 form-label">Specialization Current Name</label>
                                     <div class="col-md-2">
-                                        <input type="text" class="form-control" value="{{$specialization->name}}" name="name" id="inputName" >
+                                        <input type="text" class="form-control" disabled value="{{$specialization->name}}" name="name" id="inputName" >
                                     </div>
                                     @if ($errors->has('name'))
                                     <span class="text-danger text-left">{{ $errors->first('name') }}</span>
