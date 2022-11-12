@@ -15,6 +15,7 @@ class ProfessionController extends Controller
         $baseUrl = config('services.ehr.baseUrl');
         $apiKey = config('services.ehr.apiKey');
         $userInfo = session('loggedInUser');
+        dd(session('loggedInUser'));
         if (!empty($userInfo)) {
             $userInfo = json_decode(json_encode($userInfo), true);
             $token = $userInfo['sessionInfo']['token'];

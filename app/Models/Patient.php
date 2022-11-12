@@ -26,4 +26,8 @@ class Patient extends Model
     {
         return $this->hasMany(PatientsFeedback::class,'patient_id');
     }
+    public function familyMembers()
+    {
+        return $this->hasMany(FamilyMembers::class,'patient_id');
+    }
 }

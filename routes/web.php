@@ -24,6 +24,7 @@ use App\Http\Controllers\FrontEnd\TemplateController;
 
 use App\Http\Controllers\Patient\AuthController;
 use App\Http\Controllers\Patient\PatientsFeedbackController;
+use App\Http\Controllers\Patient\FamilyMembersController;
 use App\Http\Controllers\Doctor\ScheduleController as DoctorSchedule;
 use App\Http\Controllers\Doctor\PersonalDetails;
 use App\Http\Controllers\Doctor\Specialization;
@@ -348,6 +349,15 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::get('/logout', [PatientAuthenticationController::class, 'logout'])->name('patient.logout');
     Route::get('/dashboard', [PatientAuthenticationController::class, 'patientDashboard'])->name('patient.dashboard');
 
+     //Create Members
+     Route::get('/create/member', [FamilyMembersController::class, 'index'])->name('createMembers');
+     Route::post('/member/created', [FamilyMembersController::class, 'create'])->name('membersCreated');
+     //List of Members
+     Route::get('/show/members', [FamilyMembersController::class, 'show'])->name('showMembers');
+     //Create Members
+     Route::get('/update/members/{id}', [FamilyMembersController::class, 'updateView'])->name('updateMembers');
+     Route::post('/members/updated', [FamilyMembersController::class, 'update'])->name('membersUpdated');
+ 
     Route::get('/displayName/update', [PatientDetails::class, 'displayNameUpdate'])->name('displayNameUpdate');
 
 
