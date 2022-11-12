@@ -69,6 +69,15 @@
                             class="side-menu__icon fe fe-calender"></i><span
                             class="side-menu__label">Appointments</span></a>
                 </li>
+                <li class="slide">
+                    <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
+                            class="side-menu__icon fa fa-id-card-o"></i><span class="side-menu__label">
+                            Family Members</span><i class="angle fe fe-chevron-right"></i></a>
+                    <ul class="slide-menu nav-tree">
+                        <li><a href="{{ route('createMembers') }}" class="slide-item"> Create </a></li>
+                        <li><a href="{{ route('showMembers') }}" class="slide-item">list</a></li>
+                    </ul>
+                </li>
 
 
 
