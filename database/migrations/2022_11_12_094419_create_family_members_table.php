@@ -18,7 +18,7 @@ class CreateFamilyMembersTable extends Migration
             $table->string('name');
             $table->string('email');
             $table->string('relation');
-            $table->integer('phone_number');
+            $table->string('phone_number');
             $table->unsignedBigInteger('patient_id');
             $table->foreign('patient_id')->references('id')->on('patients')->cascadeOnDelete();            $table->timestamps();
         });

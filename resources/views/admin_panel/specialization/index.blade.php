@@ -15,7 +15,7 @@
                 <div>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Unmapped Users List</li>
+                        <li class="breadcrumb-item active" aria-current="page">Specializations</li>
                     </ol>
                 </div>
             </div>

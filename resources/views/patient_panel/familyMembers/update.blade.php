@@ -1,4 +1,4 @@
-@extends('admin_panel.layout.master');
+@extends('patient_panel.layout.master');
 
 @section('content')
 
@@ -11,11 +11,11 @@
 
             <!-- PAGE-HEADER -->
             <div class="page-header">
-                <h1 class="page-title"> Update Specialization</h1>
+                <h1 class="page-title"> Update Member Details</h1>
                 <div>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Update Specialization</li>
+                        <li class="breadcrumb-item active" aria-current="page">Update Member Details</li>
                     </ol>
                 </div>
             </div>
@@ -27,31 +27,66 @@
                     <div class="card">
                         @include('admin_panel.frontend.includes.messages')
                         <div class="card-body">
-                            <form class="form-horizontal" action="{{route('specializationUpdated')}}" method="POST">
+                        <form class="form-horizontal" action="{{route('membersUpdated')}}" method="POST">
                                 @csrf
-                                <input type="hidden" value="{{$specialization->id}}" name="id">
                                 <div class=" row mb-4">
-                                    <label for="inputName" class="col-md-3 form-label">Specialization Current Name</label>
+                                    <label for="memberName" class="col-md-3 form-label">Members Name</label>
                                     <div class="col-md-2">
-                                        <input type="text" class="form-control" value="{{$specialization->name}}" name="name" id="inputName" >
+                                        <input type="text" class="form-control" value="{{$member->name}}" name="memberName" id="memberName" placeholder="Name">
                                     </div>
                                     @if ($errors->has('name'))
                                     <span class="text-danger text-left">{{ $errors->first('name') }}</span>
                                     @endif
                                 </div>
                                 <div class=" row mb-4">
-                                    <label for="newName" class="col-md-3 form-label">Specialization New Name</label>
+                                    <label for="email" class="col-md-3 form-label">Members E-mail</label>
                                     <div class="col-md-2">
-                                        <input type="text" class="form-control" value="{{old('newName')}}" name="newName" id="newName" placeholder="New Name">
+                                        <input type="text" class="form-control" value="{{$member->email}}" name="email" id="email" placeholder="email@gmail.com">
                                     </div>
-                                    @if ($errors->has('newName'))
-                                    <span class="text-danger text-left">{{ $errors->first('newName') }}</span>
+                                    @if ($errors->has('email'))
+                                    <span class="text-danger text-left">{{ $errors->first('email') }}</span>
                                     @endif
                                 </div>
+
+                                
+
+                                <div class=" row mb-4">
+                                    <label for="relation" class="col-md-3 form-label">Relation with Members</label>
+                                    <div class="col-md-2">
+                                        <select name="relation"  id="relation" class="form-control">
+                                            <option value="">Select</option>
+                                            <option value="spouse">Spouse/Wife</option>
+                                            <option value="husband">Husband</option>
+                                            <option value="sister">Sister</option>
+                                            <option value="brother">Brother</option>
+                                            <option value="mother">Mother</option>
+                                            <option value="father">Father</option>
+                                            <option value="son">Son</option>
+                                            <option value="daughter">Daughter</option>
+                                            <option value="cousin">Cousin</option>
+                                            <option value="other">Other</option>
+                                        </select>
+                                    </div>
+                                    @if ($errors->has('phoneNumber'))
+                                    <span class="text-danger text-left">{{ $errors->first('phoneNumber') }}</span>
+                                    @endif
+                                </div>
+                                <input type="hidden" value="{{$member->id}}" name="id">
+                                <div class="row mb-4">
+                                    <div class="form-group">
+
+                                        <label for="currentPhoneNumber">Member Phone Number :</label>
+                                        <input type="text"  id="txtPhone" class="form-control" placeholder="+91 *** ******">
+                                        <input type="hidden" class="form-control" id="  ">
+                                    </div>
+                                </div>
+
                                 <div class="form-group">
                                     <!-- <label for="role">Roles</label> -->
                                     <button type="submit" class="btn btn-success">Update</button>
-                                    <a href="{{route('dashboard')}}" class="btn btn-info">Back</a>
+
+
+                                    <a href="{{route('patient.dashboard')}}" class="btn btn-info">Back</a>
 
                                 </div>
                             </form>
