@@ -320,10 +320,10 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
   Route::group(['prefix' => 'doctor', 'middleware' => ['auth']], function () {
     Route::get('/dashboard', [AuthenticationController::class, 'DoctorDashboard'])->name('doctor.dashboard');
 
-    //Update User name 
+    //Update User name
     Route::get('/update/displayName', [PersonalDetails::class, 'updateDisplayName'])->name('updateDisplayName');
     Route::post('/displayName/updated', [PersonalDetails::class, 'displayNameUpdated'])->name('displayNameUpdated');
-    //Update Phone Number 
+    //Update Phone Number
     Route::get('/update/phoneNumber', [PersonalDetails::class, 'updatePhoneNumber'])->name('updatePhoneNumber');
     Route::post('/phoneNumber/updated', [PersonalDetails::class, 'phoneNumberUpdated'])->name('phoneNumberUpdated');
 
