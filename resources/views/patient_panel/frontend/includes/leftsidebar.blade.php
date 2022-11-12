@@ -66,12 +66,12 @@
                 <li class="slide">
 
                     <a class="side-menu__item has-link" data-bs-toggle="slide" href="{{ route('appointments') }}"><i
-                            class="side-menu__icon fe fe-calender"></i><span
+                            class="side-menu__icon fa fa-calculator"></i><span
                             class="side-menu__label">Appointments</span></a>
                 </li>
                 <li class="slide">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
-                            class="side-menu__icon fa fa-id-card-o"></i><span class="side-menu__label">
+                            class="side-menu__icon fa fa-users"></i><span class="side-menu__label">
                             Family Members</span><i class="angle fe fe-chevron-right"></i></a>
                     <ul class="slide-menu nav-tree">
                         <li><a href="{{ route('createMembers') }}" class="slide-item"> Create </a></li>
