@@ -95,18 +95,19 @@
                                     <textarea rows="5" cols="5" class="form-control" name="comments" required>
 
                                     </textarea>
-                                    <div class="row">
-                                        <div class="col-lg-1 offset-11 mt-1 text-right text-primary" style="cursor: pointer;"  id="next-comment">
+                                    <div class="col-12 text-center mt-3">
+                                       <div class="btn btn-primary btn-sm" style="cursor: pointer;"  id="next-comment">
                                                 Next
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="form-group col-lg-12" id="membership" style="display: none">
-                                    <label>Do You Have a MemberShip Card For This Hospital?</label>
+
                                     <div class="row">
-                                        <div class="col-12">
+                                        <div class="col-12 ">
                                             <div class="form-check">
+
                                                 <input type="checkbox" name="hospital-check" value="1">
                                                 <label class="form-check-label" for="hospital-check">Yes</label>
                                             </div>
@@ -125,6 +126,7 @@
 
                                         <div class="row">
                                             <div class="col-lg-1 offset-11 mt-1 text-right text-primary" id="next-payment" style="cursor: pointer;">
+
                                                 Next
                                             </div>
                                         </div>
@@ -359,6 +361,10 @@
             $('#next-comment').on("click", function() {
                 $('#membership').show();
                 $('#comments').hide();
+            });
+            $('#yes_has_reg').click(function(){
+
+                $('#has_reg').toggle();
             });
 
             $('#next-payment').on("click", function() {

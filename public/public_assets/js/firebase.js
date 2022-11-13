@@ -139,7 +139,8 @@ function send_notification(userId, title, body, Islink = false,owner=null) {
         },
         dataType: "JSON",
         success: function (response) {
-            console.log(response.fire_base);
+            // console.log(response.fire_base);
+            console.log(response);
             if (response.conference_link != "")
                 window.open(response.conference_link, "_blank");
         },
