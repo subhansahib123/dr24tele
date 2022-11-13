@@ -35,11 +35,10 @@
                             </div>
                             <div class="card-body">
                                 <div class="row">
-                                    <h3>User</h3>
                                     <div class="col-lg-12 col-md-12">
                                         <div class="form-group">
 
-                                            <label for="currentPassword">Display Name</label>
+                                            <label for="currentPassword"> Name</label>
                                             <input type="text" name="name" class="form-control" value="{{$name}}" id="currentPassword" >
                                         </div>
                                     </div>
@@ -48,7 +47,8 @@
 
                             </div>
                             <div class="card-footer text-start">
-                                <button type="submit" class="btn btn-info my-1">Update</button>
+                                <button type="submit" class="btn btn-success my-1">Update</button>
+                                <a href="{{route('patient.dashboard')}}" class="btn btn-info">Back</a>
                                 {{-- <a href="javascript:void(0)" class="btn btn-danger my-1">Cancel</a> --}}
                             </div>
                         </form>

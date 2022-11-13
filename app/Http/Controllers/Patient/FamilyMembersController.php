@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Patient;
 
 use App\Http\Controllers\Controller;
 use App\Models\FamilyMembers;
-use App\Models\User;
 use Auth;
 use Illuminate\Http\Request;
 
@@ -44,20 +43,11 @@ class FamilyMembersController extends Controller
     public function show()
     {
         $userInfo = Auth::user()->patient->id;
-
-
-
-
         $all_members = FamilyMembers::where('patient_id', $userInfo)->get();
         return view('patient_panel.familyMembers.index', ['all_members' => $all_members]);
     }
     public function updateView($id)
     {
-        $userInfo = Auth::user()->patient->id;
-
-        // dd($userInfo);
-
-
         $member = FamilyMembers::find($id);
         return view('patient_panel.familyMembers.update', ['member' => $member]);
     }
@@ -70,8 +60,6 @@ class FamilyMembersController extends Controller
             'phoneNumber' => 'required|integer',
             'relation' => 'required|string',
         ]);
-        $userInfo = Auth::user()->patient->id;
-
 
         $member = FamilyMembers::find($request->id);
         // dd($member);
@@ -85,9 +73,6 @@ class FamilyMembersController extends Controller
     }
     public function delete($id)
     {
-        $userInfo = Auth::user()->patient->id;
-
-
         $member = FamilyMembers::find($id);
         // dd($member);
         $member->delete();
