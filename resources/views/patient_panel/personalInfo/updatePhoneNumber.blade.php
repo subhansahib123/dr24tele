@@ -28,7 +28,7 @@
                 </div>
                 <div class="col-xl-8">
                     <div class="card">
-                        <form action="{{ route('phoneNumberUpdated') }}" method="POST">
+                        <form action="{{ route('phone.NumberUpdated') }}" method="POST">
                             @csrf
                             <div class="card-header">
                                 <h3 class="card-title">Update Phone Number</h3>

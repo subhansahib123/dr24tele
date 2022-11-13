@@ -12,13 +12,7 @@ class FamilyMembersController extends Controller
 {
     public function index()
     {
-        // dd(Auth::user());
-        $userInfo = session('loggedInUser');
 
-        if (is_null($userInfo)) {
-
-            return redirect()->route('patient.login')->withErrors(['error' => 'Token Expired Please Login Again !']);
-        }
         return view('patient_panel.familyMembers.create');
     }
     public function create(Request $request)
@@ -30,11 +24,8 @@ class FamilyMembersController extends Controller
             'phoneNumber' => 'required|integer',
             'relation' => 'required|string',
         ]);
-        $userInfo = session('loggedInUser');
-        if (is_null($userInfo)) {
-
-            return redirect()->route('patient.login')->withErrors(['error' => 'Token Expired Please Login Again !']);
-        }
+        $userInfo = Auth::user()->patient->id;
+        // dd(Auth::user()->patient->id);
         $user = FamilyMembers::where('name', $request->memberName)->where('patient_id', $userInfo)->first();
 
         if ($user) {
@@ -52,27 +43,21 @@ class FamilyMembersController extends Controller
     }
     public function show()
     {
-        $userInfo = session('loggedInUser');
+        $userInfo = Auth::user()->patient->id;
 
-        // dd($userInfo);
 
-        if (is_null($userInfo)) {
 
-            return redirect()->route('patient.login')->withErrors(['error' => 'Token Expired Please Login Again !']);
-        }
+
         $all_members = FamilyMembers::where('patient_id', $userInfo)->get();
         return view('patient_panel.familyMembers.index', ['all_members' => $all_members]);
     }
     public function updateView($id)
     {
-        $userInfo = session('loggedInUser');
+        $userInfo = Auth::user()->patient->id;
 
         // dd($userInfo);
 
-        if (is_null($userInfo)) {
 
-            return redirect()->route('patient.login')->withErrors(['error' => 'Token Expired Please Login Again !']);
-        }
         $member = FamilyMembers::find($id);
         return view('patient_panel.familyMembers.update', ['member' => $member]);
     }
@@ -85,14 +70,9 @@ class FamilyMembersController extends Controller
             'phoneNumber' => 'required|integer',
             'relation' => 'required|string',
         ]);
-        $userInfo = session('loggedInUser');
+        $userInfo = Auth::user()->patient->id;
 
-        // dd($userInfo);
 
-        if (is_null($userInfo)) {
-
-            return redirect()->route('patient.login')->withErrors(['error' => 'Token Expired Please Login Again !']);
-        }
         $member = FamilyMembers::find($request->id);
         // dd($member);
         $member->update([
@@ -105,18 +85,13 @@ class FamilyMembersController extends Controller
     }
     public function delete($id)
     {
-        $userInfo = session('loggedInUser');
+        $userInfo = Auth::user()->patient->id;
 
-        // dd($userInfo);
 
-        if (is_null($userInfo)) {
-
-            return redirect()->route('patient.login')->withErrors(['error' => 'Token Expired Please Login Again !']);
-        }
         $member = FamilyMembers::find($id);
         // dd($member);
         $member->delete();
         return redirect()->back()->withSuccess(__('Member is  Successfully Deleted'));
     }
-    
+
 }

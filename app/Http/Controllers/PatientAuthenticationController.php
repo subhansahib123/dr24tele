@@ -60,6 +60,7 @@ class PatientAuthenticationController extends Controller
     }
     public function performLogin(Request $request)
     {
+        // dd($request->all());
         $user = User::where('phone_number',  $request->phoneNumber)->first();
 
         if ($user) {

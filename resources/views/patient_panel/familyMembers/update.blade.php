@@ -48,23 +48,23 @@
                                     @endif
                                 </div>
 
-                                
+
 
                                 <div class=" row mb-4">
                                     <label for="relation" class="col-md-3 form-label">Relation with Members</label>
                                     <div class="col-md-2">
                                         <select name="relation"  id="relation" class="form-control">
                                             <option value="">Select</option>
-                                            <option value="spouse">Spouse/Wife</option>
-                                            <option value="husband">Husband</option>
-                                            <option value="sister">Sister</option>
-                                            <option value="brother">Brother</option>
-                                            <option value="mother">Mother</option>
-                                            <option value="father">Father</option>
-                                            <option value="son">Son</option>
-                                            <option value="daughter">Daughter</option>
-                                            <option value="cousin">Cousin</option>
-                                            <option value="other">Other</option>
+                                            <option value="spouse" {{($member->relation=='spouse')?'selected':''}}>Spouse/Wife</option>
+                                            <option value="husband" {{($member->relation=='husband')?'selected':''}}>Husband</option>
+                                            <option value="sister" {{($member->relation=='sister')?'selected':''}}>Sister</option>
+                                            <option value="brother" {{($member->relation=='brother')?'selected':''}}>Brother</option>
+                                            <option value="mother" {{($member->relation=='mother')?'selected':''}}>Mother</option>
+                                            <option value="father" {{($member->relation=='father')?'selected':''}}>Father</option>
+                                            <option value="son" {{($member->relation=='son')?'selected':''}}>Son</option>
+                                            <option value="daughter" {{($member->relation=='daughter')?'selected':''}}>Daughter</option>
+                                            <option value="cousin" {{($member->relation=='cousin')?'selected':''}}>Cousin</option>
+                                            <option value="other" {{($member->relation=='other')?'selected':''}}>Other</option>
                                         </select>
                                     </div>
                                     @if ($errors->has('phoneNumber'))

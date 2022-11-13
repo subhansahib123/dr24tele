@@ -361,9 +361,11 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::get('/delete/members/{id}', [FamilyMembersController::class, 'delete'])->name('deleteMembers');
 
     Route::get('/displayName/update', [PatientDetails::class, 'displayNameUpdate'])->name('displayNameUpdate');
+    Route::post('/Name/updated', [PatientDetails::class, 'displayNameUpdated'])->name('display.NameUpdated');
 
 
     Route::get('/phoneNumber/update', [PatientDetails::class, 'phoneNumberUpdate'])->name('phoneNumberUpdate');
+    Route::post('/Number/updated', [PatientDetails::class, 'phoneNumberUpdated'])->name('phone.NumberUpdated');
 
 
     Route::get('/appointments', [PatientAuthenticationController::class, 'appointments'])->name('appointments');
