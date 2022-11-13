@@ -311,7 +311,7 @@
             });
             $('#book_appointment_submit').click(function(e) {
                 validateAndPay(e);
-                // var paymentToken=$form.find('input[name="stripeToken"]').val();
+                paymentToken=$form.find('input[name="stripeToken"]').val();
                 $.ajax({
                         url: BASE_URL + "/api/book/appointment",
                         type: "POST",
