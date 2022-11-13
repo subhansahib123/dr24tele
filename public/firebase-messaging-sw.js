@@ -48,12 +48,13 @@ self.addEventListener("push", (event) => {
 
     if (JSON.parse(response).data) {
         let link = JSON.parse(response).data["gcm.notification.data"];
+
         event.waitUntil(
             self.registration.showNotification(title, {
                 body,
                 icon,
                 image,
-                data: { url: link },
+                data: { url: link.patient_link },
             })
         );
     } else {

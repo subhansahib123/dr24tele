@@ -112,7 +112,7 @@ class homeController extends Controller
     public function scheduleOfDoctor($doctor_id,$date){
         $date=$date." 00:00:00";
         $user_id=Doctor::find($doctor_id);
-        $schdeules=Schedule::whereDate('start', '=', $date." 00:00:00")
+        $schdeules=Schedule::whereDate('start', '>=', $date." 00:00:00")
 
             ->where('doctor_id',$doctor_id)->get();
         return response()->json( ['schedules'=>$schdeules,'user_id'=>$user_id->user_id]);
@@ -169,13 +169,14 @@ class homeController extends Controller
             $channelName="DrTele".rand().$request->user_id."channel";
             $owner_id=$request->owner;
             $agoraToken=$this->generate_token($channelName,$owner_id);
-            $conference_link=url('/').'/conference/call?channelName='.$channelName.'&token='.$agoraToken;
+            $conference_link='https://virtual-care.drtele.co/token?identity=tilde_'.$channelName;
+            $patient_link='https://virtual-care.drtele.co/patient';
             $data = [
                 "to" => $FcmToken,
                 "notification" => [
                     "title" => $request->title,
                     "body" => $request->body,
-                    "data"=> $conference_link
+                    "data"=> ['conference_link'=>$conference_link,'patient_link'=>$patient_link]
                     ]
 
 
