@@ -131,13 +131,13 @@ class homeController extends Controller
     public function bookApppointment(Request $request){
         $data=$request->all();
 
-         Stripe\Stripe::setApiKey('sk_test_4mIgs731P1pD8aEEO57Ytf5v');
-        Stripe\Charge::create ([
-                "amount" => intval($request->fee) * 100,
-                "currency" => "inr",
-                "source" => $request->stripeToken,
-                "description" => "Making test payment."
-        ]);
+        //  Stripe\Stripe::setApiKey('sk_test_4mIgs731P1pD8aEEO57Ytf5v');
+        // Stripe\Charge::create ([
+        //         "amount" => intval($request->fee) * 100,
+        //         "currency" => "inr",
+        //         "source" => $request->stripeToken,
+        //         "description" => "Making test payment."
+        // ]);
         $appointment=Appointment::create($data);
         // $coupon = Coupon::where('title', '=', $data->coupon)->first();
         // PatientCoupon::create(['organization_id' => $data->hospital,
