@@ -10,7 +10,7 @@ use App\Http\Controllers\Admin\DepartmentController;
 use App\Http\Controllers\Admin\SpecializationController;
 use App\Http\Controllers\Admin\PatientController;
 // Hospital Controller
-
+use App\Http\Controllers\Hospital\HospitalCouponController;
 use App\Http\Controllers\Hospital\HospitalUserController;
 use App\Http\Controllers\Hospital\HospitalPatientController;
 use App\Http\Controllers\Hospital\HospitalDepartmentController;
@@ -316,7 +316,12 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::get('/schedules/page', [ScheduleController::class, 'schedules'])->name('list.schedules');
     //Create Schedule For Doctors
     Route::get('/schedule/{id}', [ScheduleController::class, 'delete'])->name('delete.schedule');
-  });
+
+
+      Route::get('/hospital-coupon/create', [HospitalCouponController::class, 'create'])->name('hospital.coupon.create');
+      Route::get('/hospital-coupon/index', [HospitalCouponController::class, 'index'])->name('hospital.coupon.index');
+      Route::post('/hospital-coupon/create', [HospitalCouponController::class, 'store'])->name('hospital.coupon.store');
+   });
   Route::group(['prefix' => 'doctor', 'middleware' => ['auth']], function () {
     Route::get('/dashboard', [AuthenticationController::class, 'DoctorDashboard'])->name('doctor.dashboard');
 
@@ -357,7 +362,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
      //Create Members
      Route::get('/update/members/{id}', [FamilyMembersController::class, 'updateView'])->name('updateMembers');
      Route::post('/members/updated', [FamilyMembersController::class, 'update'])->name('membersUpdated');
- 
+
     Route::get('/displayName/update', [PatientDetails::class, 'displayNameUpdate'])->name('displayNameUpdate');
 
 

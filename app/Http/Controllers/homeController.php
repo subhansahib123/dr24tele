@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Coupon;
 use App\Models\Hospital;
 use Illuminate\Http\Request;
 use App\Models\Organization;
@@ -113,6 +114,17 @@ class homeController extends Controller
         $schdeules=Schedule::whereDate('start', '=', $date." 00:00:00")
 
             ->where('doctor_id',$doctor_id)->get();
+        return response()->json( ['schedules'=>$schdeules,'user_id'=>$user_id->user_id]);
+    }
+    public function scheduleOfDoctorCoupon($doctor_id,$date,$coupon){
+
+        $cop = Coupon::where('title', '=', $coupon)->first();
+        $date=$date." 00:00:00";
+        $user_id=Doctor::find($doctor_id);
+        $schdeules=Schedule::whereDate('start', '=', $date." 00:00:00")
+
+            ->where('doctor_id',$doctor_id)->get();
+        $schdeules[0]->price = $schdeules[0]->price - $cop->discount;
         return response()->json( ['schedules'=>$schdeules,'user_id'=>$user_id->user_id]);
     }
     public function bookApppointment(Request $request){
