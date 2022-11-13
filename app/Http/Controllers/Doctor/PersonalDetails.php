@@ -8,31 +8,19 @@ use Illuminate\Http\Request;
 
 class PersonalDetails extends Controller
 {
-    public function displayNameUpdated()
+    public function displayNameUpdated(Request $request)
     {
-        $userInfo = session('loggedInUser');
-        $userInfo = json_decode(json_encode($userInfo), true);
-        // dd($userInfo);
+        $id=Auth::user()->id;
 
-        if (is_null($userInfo)) {
+        $user=User::where('id',$id);
 
-            return redirect()->route('doctor.login')->withErrors(['error' => 'Token Expired Please Login Again !']);
-        }
-        return redirect()->back()->withErrors(['error' => 'This portion is in development phase. Try again later.']);
+        $user->update(['name'=>$request->name]);
+        return redirect()->back()->withSuccess(__('Display Name is Successfully Updated'));
     }
     public function updateDisplayName()
     {
-        // dd($userInfo);
 
-        $userInfo = session('loggedInUser');
-        $userInfo = json_decode(json_encode($userInfo), true);
-        // dd($userInfo);
-
-        if (is_null($userInfo)) {
-
-            return redirect()->route('doctor.login')->withErrors(['error' => 'Token Expired Please Login Again !']);
-        }
-        $name = $userInfo['name'];
+        $name = Auth::user()->name;
         return view('doctor_panel.personalInfo.updateDisplayName', ['name' => $name]);
     }
     public function phoneNumberUpdated(Request $request)
@@ -54,17 +42,9 @@ class PersonalDetails extends Controller
     }
     public function updatePhoneNumber()
     {
-        $userInfo = session('loggedInUser');
-        $userInfo = json_decode(json_encode($userInfo), true);
 
-        if (is_null($userInfo)) {
 
-            return redirect()->route('doctor.login')->withErrors(['error' => 'Token Expired Please Login Again !']);
-        }
-        $uuid = $userInfo['uuid'];
-        $user = User::with('doctor')->where('uuid', $uuid)->first();
-
-        $phoneNumber = $user->phone_number;
+        $phoneNumber = Auth::user()->phone_number;
         return view('doctor_panel.personalInfo.updatePhoneNumber', ['name' => $phoneNumber]);
     }
 }

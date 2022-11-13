@@ -67,6 +67,8 @@ function render() {
 function sendOTP() {
 
     var number = $("#txtPhone").intlTelInput('getNumber');
+    // var number = $("#txtPhone").val();
+    // console.warn(number);
     // var phoneCode=$(".selected-dial-code").html();
     // var client_number=phoneCode+number;
 
