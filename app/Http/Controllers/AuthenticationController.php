@@ -179,7 +179,8 @@ class AuthenticationController extends Controller
     }
     public function dashboard()
     {
-        // dd(session('loggedInUser'));
+        if (!Auth::check())
+            return redirect()->route('logout')->withErrors(['error' => 'Login Token Expired ! Please login Again']);
         return view('admin_panel.index');
     }
     public function roles(Request $request)
