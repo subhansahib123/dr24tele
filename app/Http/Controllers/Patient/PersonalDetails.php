@@ -15,7 +15,6 @@ class PersonalDetails extends Controller
 
             return redirect()->route('patient.login')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
-        // dd($userInfo);
         $name=$userInfo['name'];
         return view('patient_panel.personalInfo.updateDisplayName',['name'=>$name]);
     }
@@ -24,7 +23,6 @@ class PersonalDetails extends Controller
         $userInfo=session('loggedInUser');
         $userInfo=json_decode(json_encode($userInfo),true);
         if (is_null($userInfo)) {
-
             return redirect()->route('patient.login')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
         return view('patient_panel.personalInfo.updatePhoneNumber');
