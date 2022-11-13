@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Coupon;
 use App\Models\Hospital;
+use App\Models\PatientCoupon;
 use Illuminate\Http\Request;
 use App\Models\Organization;
 use App\Models\Department;
@@ -115,6 +117,17 @@ class homeController extends Controller
             ->where('doctor_id',$doctor_id)->get();
         return response()->json( ['schedules'=>$schdeules,'user_id'=>$user_id->user_id]);
     }
+    public function scheduleOfDoctorCoupon($doctor_id,$date,$coupon){
+
+        $cop = Coupon::where('title', '=', $coupon)->first();
+        $date=$date." 00:00:00";
+        $user_id=Doctor::find($doctor_id);
+        $schdeules=Schedule::whereDate('start', '=', $date." 00:00:00")
+
+            ->where('doctor_id',$doctor_id)->get();
+        $schdeules[0]->price = $schdeules[0]->price - $cop->discount;
+        return response()->json( ['schedules'=>$schdeules,'user_id'=>$user_id->user_id]);
+    }
     public function bookApppointment(Request $request){
         $data=$request->all();
 
@@ -126,7 +139,11 @@ class homeController extends Controller
                 "description" => "Making test payment."
         ]);
         $appointment=Appointment::create($data);
-
+        $coupon = Coupon::where('title', '=', $data->coupon)->first();
+        PatientCoupon::create(['organization_id' => $data->hospital,
+            'patienet_id'=> $data->patient_id,
+            'coupon_id' => $coupon->id,
+            'used_date' => Carbon\Carbon::now()]);
         return response()->json(["msg"=> $appointment->id]);
     }
 

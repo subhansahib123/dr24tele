@@ -85,6 +85,7 @@
                                 <div class="form-group col-12" id='calenderwrapper'>
                                     <div id='calendar'></div>
                                 </div>
+
                                 <div class="col-12" id="scheduleDoctor">
 
                                 </div>
@@ -106,18 +107,22 @@
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="yes" id="exampleRadios1" value="option1">
-                                                <label class="form-check-label" for="yes">
-                                                    Yes
-                                                </label>
-                                            </div>
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="no" id="exampleRadios2" value="option2">
-                                                <label class="form-check-label" for="no">
-                                                    No
-                                                </label>
+                                                <input type="checkbox" name="hospital-check" value="1">
+                                                <label class="form-check-label" for="hospital-check">Yes</label>
                                             </div>
                                         </div>
+                                        <form role="form">
+                                            <div class="col-12">
+                                                <div class="form-group">
+                                                    <label>Coupon</label>
+                                                    <div class="input-group">
+                                                        <input type="text" id="coupon" class="form-control" placeholder="Coupon Code" />
+                                                        <button type="button" id="coupon-btn" class="btn btn-apfm">Apply</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </form>
+
                                         <div class="row">
                                             <div class="col-lg-1 offset-11 mt-1 text-right text-primary" id="next-payment" style="cursor: pointer;">
                                                 Next
@@ -250,11 +255,58 @@
         var user_id;
         var fee;
         var paymentToken
-
-
+        var public_date;
+        var coupon;
+        var hospital;
 
         document.addEventListener('DOMContentLoaded', function() {
+
             var $form = $("#appointmentForm");
+            $("#coupon-btn").click(function(e){
+
+                coupon = $('#coupon').val();
+                hospital = 1;
+                $.ajax({
+                    url: `/api/get/schedules/${doctor_id}/${public_date}/${coupon}/coupon`,
+                    type: "GET",
+                    processData: false,
+                    contentType: false,
+                    cache: false,
+                    timeout: 800000,
+                }).done(function(data) {
+
+                    if (data != undefined && data.length != 0) {
+                        var htmlSchedules = '';
+                        user_id = data.user_id;
+                        data.schedules.forEach(element => {
+                            console.log(element)
+                            let startDate = moment(element.start);
+                            let endDate = moment(element.end);
+                            let userTimeZone = Intl.DateTimeFormat().resolvedOptions()
+                                .timeZone;
+                            startDate = startDate.tz(userTimeZone).format('h:mm a z');
+                            endDate = endDate.tz(userTimeZone).format('h:mm a z');
+
+                            var dbDateStart = moment(element.start).format(
+                                'Y-M-D HH:mm:ss');
+                            var dbDateEnd = moment(element.end).format('Y-M-D HH:mm:ss');
+                            htmlSchedules += ` <div class="form-group col-lg-5 schedule_wrapper">
+                                    <label>Appointments Left <span>${element.number_of_people}</span> / <span class="amount-converted">${element.price}</span> <span class="currency-code">INR</span></label>
+                                    <input class="form-control" type="text" start="${dbDateStart}" end="${dbDateEnd}" readonly value="${startDate} To ${endDate}" />
+                                    <input type="hidden" value="${element.id}" />
+                                </div>`;
+
+                            fee = $(this).find("span.amount-converted").html()
+                        });
+
+                        $('#scheduleDoctor').html(htmlSchedules);
+                    } else {
+                        $('#scheduleDoctor').html("<h3>No Schedule found !</h3>");
+                    }
+                });
+                // alert(dateString)
+
+            });
             $('#book_appointment_submit').click(function(e) {
                 validateAndPay(e);
                 // var paymentToken=$form.find('input[name="stripeToken"]').val();
@@ -268,6 +320,8 @@
                             "start": start,
                             "end": end,
                             "fee": fee,
+                            "coupon" : coupon,
+                            "hospital": hospital,
                             "comments": $('textarea[name="comments"]').val(),
                             'stripeToken': paymentToken
 
@@ -296,7 +350,7 @@
                 fee = $(this).find("span.amount-converted").html()
                 $('#comments').show();
                 $('#calenderwrapper').hide();
-                $('#scheduleDoctor').hide();
+                // $('#scheduleDoctor').hide();
 
                 // $('#payment').show();
 
@@ -355,6 +409,7 @@
                 const offset = yourDate.getTimezoneOffset()
                 yourDate = new Date(yourDate.getTime() - (offset * 60 * 1000))
                 var userDatetimeZone = yourDate.toISOString().split("T")[0];
+                public_date = userDatetimeZone;
                 $.ajax({
                     url: `/api/get/schedules/${doctor_id}/${userDatetimeZone}`,
                     type: "GET",
@@ -443,6 +498,9 @@
 
                 }
             }
+
+
+
         });
     </script>
 @endsection
