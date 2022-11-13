@@ -295,6 +295,7 @@
                                     <input type="hidden" value="${element.id}" />
                                 </div>`;
 
+                            fee = $(this).find("span.amount-converted").html()
                         });
 
                         $('#scheduleDoctor').html(htmlSchedules);
