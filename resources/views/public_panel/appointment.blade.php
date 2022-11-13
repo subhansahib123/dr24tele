@@ -256,15 +256,16 @@
         var fee;
         var paymentToken
         var public_date;
-
-
+        var coupon;
+        var hospital;
 
         document.addEventListener('DOMContentLoaded', function() {
 
             var $form = $("#appointmentForm");
             $("#coupon-btn").click(function(e){
 
-                var coupon = $('#coupon').val();
+                coupon = $('#coupon').val();
+                hospital = 1;
                 $.ajax({
                     url: `/api/get/schedules/${doctor_id}/${public_date}/${coupon}/coupon`,
                     type: "GET",
@@ -319,6 +320,8 @@
                             "start": start,
                             "end": end,
                             "fee": fee,
+                            "coupon" : coupon,
+                            "hospital": hospital,
                             "comments": $('textarea[name="comments"]').val(),
                             'stripeToken': paymentToken
 
