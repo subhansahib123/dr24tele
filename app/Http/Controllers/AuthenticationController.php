@@ -467,7 +467,12 @@ class AuthenticationController extends Controller
     }
     public function DoctorDashboard()
     {
-        
+        $userInfo = session('loggedInUser');
+        $userInfo = json_decode(json_encode($userInfo), true);
+        if (is_null($userInfo)) {
+
+            return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
+        }
         return view('doctor_panel.dashboard');
     }
 }

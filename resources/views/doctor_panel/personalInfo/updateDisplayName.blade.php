@@ -31,29 +31,22 @@
                         <form action="{{ route('displayNameUpdated') }}" method="POST">
                             @csrf
                             <div class="card-header">
-                                <h3 class="card-title">Update Display Name</h3>
                             </div>
                             <div class="card-body">
                                 <div class="row">
-                                    <h3>User</h3>
                                     <div class="col-lg-12 col-md-12">
                                         <div class="form-group">
 
-                                            <label for="currentPassword">Current Display Name</label>
-                                            <input type="text" disabled class="form-control" value="{{$name}}" id="currentPassword" >
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-12">
-                                        <div class="form-group">
-                                            <label for="newPassword">New Display Name</label>
-                                            <input type="text" class="form-control" name="newpassword" id="newPassword" placeholder="New Display Name">
+                                            <label for="displayName"> Display Name</label>
+                                            <input type="text" class="form-control" name="displayName" placeholder="Name" id="displayName">
                                         </div>
                                     </div>
                                 </div>
 
                             </div>
                             <div class="card-footer text-start">
-                                <button type="submit" class="btn btn-info my-1">Update</button>
+                                <button type="submit" class="btn btn-success my-1">Update</button>
+                                <a href="{{route('doctor.dashboard')}}" class="btn btn-info">Back</a>
                                 {{-- <a href="javascript:void(0)" class="btn btn-danger my-1">Cancel</a> --}}
                             </div>
                         </form>
