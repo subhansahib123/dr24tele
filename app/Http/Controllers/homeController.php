@@ -139,11 +139,11 @@ class homeController extends Controller
                 "description" => "Making test payment."
         ]);
         $appointment=Appointment::create($data);
-        $coupon = Coupon::where('title', '=', $data->coupon)->first();
-        PatientCoupon::create(['organization_id' => $data->hospital,
-            'patienet_id'=> $data->patient_id,
-            'coupon_id' => $coupon->id,
-            'used_date' => Carbon\Carbon::now()]);
+        // $coupon = Coupon::where('title', '=', $data->coupon)->first();
+        // PatientCoupon::create(['organization_id' => $data->hospital,
+        //     'patienet_id'=> $data->patient_id,
+        //     'coupon_id' => $coupon->id,
+        //     'used_date' => Carbon\Carbon::now()]);
         return response()->json(["msg"=> $appointment->id]);
     }
 
@@ -171,7 +171,7 @@ class homeController extends Controller
             $agoraToken=$this->generate_token($channelName,$owner_id);
             $conference_link='https://virtual-care.drtele.co/token?identity=tilde_'.$channelName;
             $patient_link='https://virtual-care.drtele.co/patient';
-            
+
             $data = [
                 "to" => $FcmToken,
                 "notification" => [
