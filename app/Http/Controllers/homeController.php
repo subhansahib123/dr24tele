@@ -171,6 +171,7 @@ class homeController extends Controller
             $agoraToken=$this->generate_token($channelName,$owner_id);
             $conference_link='https://virtual-care.drtele.co/token?identity=tilde_'.$channelName;
             $patient_link='https://virtual-care.drtele.co/patient';
+            
             $data = [
                 "to" => $FcmToken,
                 "notification" => [
