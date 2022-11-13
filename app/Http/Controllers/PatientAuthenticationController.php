@@ -10,11 +10,13 @@ use App\Models\Patient;
 use App\Models\UsersOrganization;
 use App\Models\Appointment;
 use App\AgoraToken\Src\RtcTokenBuilder;
+use Session;
 
 class PatientAuthenticationController extends Controller
 {
     public function appointments(){
         $patient_id=auth()->user()->patient->id;
+        // dd(Auth::user()->patient->id);
         $appointements=Appointment::where('patient_id', $patient_id)->get();
         return view('patient_panel.appointement.index',compact('appointements'));
     }
@@ -50,6 +52,7 @@ class PatientAuthenticationController extends Controller
     }
     public function logout(){
         Auth::logout();
+        Session::flush();
         return redirect()->route('patient.login')->withSucess(__('Successfully logged out!'));
     }
     public function patientDashboard(){
@@ -60,13 +63,15 @@ class PatientAuthenticationController extends Controller
     }
     public function performLogin(Request $request)
     {
+        // dd($request->all());
         $user = User::where('phone_number',  $request->phoneNumber)->first();
 
+        
         if ($user) {
 
 
             Auth::login($user);
-
+            // dd(Auth::user());
             return redirect()->route('patient.dashboard')->withSuccess(__('Successfully Login'));
 
 

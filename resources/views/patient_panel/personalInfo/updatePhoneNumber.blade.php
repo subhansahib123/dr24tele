@@ -28,7 +28,7 @@
                 </div>
                 <div class="col-xl-8">
                     <div class="card">
-                        <form action="{{ route('phoneNumberUpdated') }}" method="POST">
+                        <form action="{{ route('phone.NumberUpdated') }}" method="POST">
                             @csrf
                             <div class="card-header">
                                 <h3 class="card-title">Update Phone Number</h3>
@@ -41,21 +41,22 @@
 
                                             <label for="currentPhoneNumber">Current Phone Number</label>
                                             <input type="text" id="txtPhone" name="" class="form-control" placeholder="+91 *** ******">
-                                               <input type="hidden" class="form-control" id="phoneNumber" >
-                                            </div>
+                                            <input type="hidden" class="form-control" id="phoneNumber">
+                                        </div>
                                     </div>
-                                    <div class="col-lg-6 col-md-12">
+                                    <div class="col-lg-12 col-md-12">
                                         <div class="form-group">
                                             <label for="newPhoneNumber">New Phone Number</label>
-                                            <input type="text" id="txtPhoneNew"  class="form-control" placeholder="New Phone Number">
-                                               <input type="hidden" class="form-control" id="newPhoneNumber"  >
+                                            <input type="text" id="txtPhoneNew" class="form-control" placeholder="New Phone Number">
+                                            <input type="hidden" class="form-control" id="newPhoneNumber">
                                         </div>
                                     </div>
                                 </div>
 
                             </div>
                             <div class="card-footer text-start">
-                                <button type="submit" class="btn btn-info my-1">Update</button>
+                                <button type="submit" class="btn btn-success my-1">Update</button>
+                                <a href="{{route('patient.dashboard')}}" class="btn btn-info">Back</a>
                                 {{-- <a href="javascript:void(0)" class="btn btn-danger my-1">Cancel</a> --}}
                             </div>
                         </form>

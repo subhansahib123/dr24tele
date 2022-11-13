@@ -18,7 +18,7 @@ class Specialization extends Controller
 
         if (is_null($userInfo)) {
 
-            return redirect()->route('doctor.login')->withErrors(['error' => 'Token Expired Please Login Again !']);
+            return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
         $specializations = DoctorSpecialization::all();
         $uuid = $userInfo['uuid'];
@@ -35,7 +35,7 @@ class Specialization extends Controller
         $userInfo = json_decode(json_encode($userInfo), true);
         if (is_null($userInfo)) {
 
-            return redirect()->route('doctor.login')->withErrors(['error' => 'Token Expired Please Login Again !']);
+            return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
         //  dd($userInfo);
         $uuid = $userInfo['uuid'];
@@ -55,7 +55,7 @@ class Specialization extends Controller
         $userInfo = json_decode(json_encode($userInfo), true);
         if (is_null($userInfo)) {
 
-            return redirect()->route('doctor.login')->withErrors(['error' => 'Token Expired Please Login Again !']);
+            return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
         //  dd($userInfo);
         $uuid = $userInfo['uuid'];
