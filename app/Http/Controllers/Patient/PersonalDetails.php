@@ -48,6 +48,7 @@ class PersonalDetails extends Controller
             return redirect()->back()->withSuccess(__('Phone Number Successfully Updated'));
         } else {
             return redirect()->back()->withErrors(['error' => 'Current Phone Number is not correct']);
+
         }
     }
 }
