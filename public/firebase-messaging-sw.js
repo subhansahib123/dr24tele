@@ -48,13 +48,12 @@ self.addEventListener("push", (event) => {
 
     if (JSON.parse(response).data) {
         let link = JSON.parse(response).data["gcm.notification.data"];
-
         event.waitUntil(
             self.registration.showNotification(title, {
                 body,
                 icon,
                 image,
-                data: { url: link.patient_link },
+                data: { url: "https://virtual-care.drtele.co/patient" },
             })
         );
     } else {
