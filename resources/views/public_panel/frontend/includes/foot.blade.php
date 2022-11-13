@@ -53,7 +53,24 @@
         $(function() {
             var code = "+911234567890";
 
-             if ($('#txtPhone').length) {
+             if ($('#txtPhone').length && $('#txtPhoneNew').length) {
+                $('#txtPhoneNew').val(code);
+                $('#txtPhoneNew').intlTelInput({
+                    autoHideDialCode: true,
+                    autoPlaceholder: "ON",
+                    dropdownContainer: document.body,
+                    formatOnDisplay: true,
+                    hiddenInput: "newPhoneNumber",
+                    initialCountry: "auto",
+                    nationalMode: true,
+                    placeholderNumberType: "MOBILE",
+                    preferredCountries: ['US'],
+                    separateDialCode: true
+                });
+                FormatNumber();
+                $('#txtPhoneNew').keyup(function() {
+                    FormatNumber();
+                });
                 $('#txtPhone').val(code);
                 $('#txtPhone').intlTelInput({
                     autoHideDialCode: true,
@@ -71,7 +88,26 @@
                 $('#txtPhone').keyup(function() {
                     FormatNumber();
                 });
-            } 
+            }
+            else if($('#txtPhone').length){
+                     $('#txtPhone').val(code);
+                $('#txtPhone').intlTelInput({
+                    autoHideDialCode: true,
+                    autoPlaceholder: "ON",
+                    dropdownContainer: document.body,
+                    formatOnDisplay: true,
+                    hiddenInput: "phoneNumber",
+                    initialCountry: "auto",
+                    nationalMode: true,
+                    placeholderNumberType: "MOBILE",
+                    preferredCountries: ['US'],
+                    separateDialCode: true
+                });
+                FormatNumber();
+                $('#txtPhone').keyup(function() {
+                    FormatNumber();
+                });
+            }
 
 
         });

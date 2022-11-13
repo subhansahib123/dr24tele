@@ -5,27 +5,31 @@ namespace App\Http\Controllers\Doctor;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PersonalDetails extends Controller
 {
     public function displayNameUpdated(Request $request)
     {
+        if (!Auth::check())
+            return redirect()->route('logout')->withErrors(['error' => 'Login Token Expired ! Please login Again']);
         $id=Auth::user()->id;
 
         $user=User::where('id',$id);
 
-        $user->update(['name'=>$request->name]);
+        $user->update(['name'=>$request->displayName]);
         return redirect()->back()->withSuccess(__('Display Name is Successfully Updated'));
     }
     public function updateDisplayName()
     {
-
-        $name = Auth::user()->name;
-        return view('doctor_panel.personalInfo.updateDisplayName', ['name' => $name]);
+        if (!Auth::check())
+            return redirect()->route('logout')->withErrors(['error' => 'Login Token Expired ! Please login Again']);
+        return view('doctor_panel.personalInfo.updateDisplayName');
     }
     public function phoneNumberUpdated(Request $request)
     {
-        // dd($request->all());
+        if (!Auth::check())
+            return redirect()->route('logout')->withErrors(['error' => 'Login Token Expired ! Please login Again']);
         $request->validate([
             'phoneNumber' => 'required|string',
             'newPhoneNumber' => 'required|string',
@@ -42,8 +46,8 @@ class PersonalDetails extends Controller
     }
     public function updatePhoneNumber()
     {
-
-
+        if (!Auth::check())
+            return redirect()->route('logout')->withErrors(['error' => 'Login Token Expired ! Please login Again']);
         $phoneNumber = Auth::user()->phone_number;
         return view('doctor_panel.personalInfo.updatePhoneNumber', ['name' => $phoneNumber]);
     }
