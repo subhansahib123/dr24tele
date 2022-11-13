@@ -1,4 +1,4 @@
-@extends('admin_panel.layout.master');
+@extends('patient_panel.layout.master');
 
 @section('content')
 
@@ -11,11 +11,11 @@
 
             <!-- PAGE-HEADER -->
             <div class="page-header">
-                <h1 class="page-title">Specializations list</h1>
+                <h1 class="page-title">Family Members</h1>
                 <div>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Unmapped Users List</li>
+                        <li class="breadcrumb-item active" aria-current="page">Members List</li>
                     </ol>
                 </div>
             </div>
@@ -33,16 +33,25 @@
                                         <table class="table table-striped">
                                             <thead>
                                                 <th scope="col" width="20%">Name</th>
+                                                <th scope="col" width="1%">Relation</th>
+                                               <th scope="col" width="1%"></th>
                                                <th scope="col" width="1%"></th>
                                             </thead>
-                                            @if(isset($specializations))
-                                            @foreach($specializations as $specialization)
+                                            @if(isset($all_members))
+                                            @foreach($all_members as $all_member)
                                             <tr>
                                                 <td>
-                                                    {{$specialization->name}}
+                                                    {{$all_member->name}}
                                                 </td>
                                                 <td>
-                                                    <a href="{{route('updateSpecialization',[$specialization->id])}}" class="btn btn-primary">Update</a>
+                                                    {{$all_member->relation}}
+                                                </td>
+                                                
+                                                <td>
+                                                    <a href="{{route('updateMembers',[$all_member->id])}}" class="btn btn-primary">Update</a>
+                                                </td>
+                                                <td>
+                                                    <a href="{{route('deleteMembers',[$all_member->id])}}" class="btn btn-danger">delete</a>
                                                 </td>
                                             </tr>
                                             @endforeach
@@ -57,7 +66,7 @@
                                     </div>
                                 </div>
                                 <div class="mt-4">
-                                    <a href="{{route('dashboard')}}" class="btn btn-info">Back</a>
+                                    <a href="{{route('patient.dashboard')}}" class="btn btn-info">Back</a>
                                 </div>
                             </div>
                         </div>
