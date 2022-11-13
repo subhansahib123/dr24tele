@@ -66,13 +66,13 @@
                 <li class="slide">
 
                     <a class="side-menu__item has-link" data-bs-toggle="slide"
-                        href="{{ route('list.schedules.doctor') }}"><i class="side-menu__icon fe fe-calender"></i><span
+                        href="{{ route('list.schedules.doctor') }}"><i class="side-menu__icon fa fa-calculator"></i><span
                             class="side-menu__label">Schedules</span></a>
                 </li>
                 <li class="slide">
 
                     <a class="side-menu__item has-link" data-bs-toggle="slide"
-                        href="{{ route('doctor.appointments') }}"><i class="side-menu__icon fe fe-calender"></i><span
+                        href="{{ route('doctor.appointments') }}"><i class="side-menu__icon fa fa-codiepie"></i><span
                             class="side-menu__label">Appointments</span></a>
                 </li>
 

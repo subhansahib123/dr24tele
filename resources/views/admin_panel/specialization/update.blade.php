@@ -31,18 +31,9 @@
                                 @csrf
                                 <input type="hidden" value="{{$specialization->id}}" name="id">
                                 <div class=" row mb-4">
-                                    <label for="inputName" class="col-md-3 form-label">Specialization Current Name</label>
-                                    <div class="col-md-2">
-                                        <input type="text" class="form-control" disabled value="{{$specialization->name}}" name="name" id="inputName" >
-                                    </div>
-                                    @if ($errors->has('name'))
-                                    <span class="text-danger text-left">{{ $errors->first('name') }}</span>
-                                    @endif
-                                </div>
-                                <div class=" row mb-4">
                                     <label for="newName" class="col-md-3 form-label">Specialization New Name</label>
                                     <div class="col-md-2">
-                                        <input type="text" class="form-control" value="{{old('newName')}}" name="newName" id="newName" placeholder="New Name">
+                                        <input type="text" class="form-control"  name="newName" id="newName" placeholder="New Name">
                                     </div>
                                     @if ($errors->has('newName'))
                                     <span class="text-danger text-left">{{ $errors->first('newName') }}</span>

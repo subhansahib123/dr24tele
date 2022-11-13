@@ -161,8 +161,6 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
     // This Route shows list of All Registered roles
     Route::get('/roles', [AuthenticationController::class, 'roles'])->name('roles');
-    // This Route shows list of All Registered roles
-    Route::get('/roles', [AuthenticationController::class, 'roles'])->name('roles');
     //Create Specialization
     Route::get('/create/specialization', [SpecializationController::class, 'index'])->name('createSpecialization');
     Route::post('/specialization/created', [SpecializationController::class, 'create'])->name('specializationCreated');
