@@ -23,37 +23,34 @@
             <!-- PAGE-HEADER END -->
             <form action="{{route('patient.mapped')}}" method="POST">
                 @csrf
-                <div class="form-group">
-                    <label for="user">Patient</label>
-                    <select class="form-control" value="{{old('user')}}" name="user" id="user">
-                        <option value="">Select</option>
-                        @if($users)
-                        @foreach ($users as $user)
-                        <option value="{{$user->PersonUuid}}">{{$user->username}}</option>
-                        @endforeach
-                        @endif
-                    </select>
-                </div>
-                <div class="form-group">
-                    <input type="hidden" value="{{$orgId}}" name="organisation" >
-                  
-                </div>
-                <div class="form-group">
-                    <!-- <label for="role">Roles</label> -->
-                    <button type="submit" class="btn btn-primary">Map</button>
-
-
-                    <a href="{{route('dashboard')}}" class="btn btn-info">Back</a>
-
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="user">Patient</label>
+                            <select class="form-control" value="{{old('user')}}" name="user" id="user">
+                                <option value="">Select</option>
+                                @if($users)
+                                    @foreach ($users as $user)
+                                        <option value="{{$user->PersonUuid}}">{{$user->username}}</option>
+                                    @endforeach
+                                @endif
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <input type="hidden" value="{{$orgId}}" name="organisation" >
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <!-- <label for="role">Roles</label> -->
+                            <button type="submit" class="btn btn-primary">Map</button>
+                            <a href="{{route('dashboard')}}" class="btn btn-info">Back</a>
+                        </div>
+                    </div>
                 </div>
             </form>
-
         </div>
         <!-- CONTAINER CLOSED -->
-
     </div>
 </div>
-
-
-
 @endsection

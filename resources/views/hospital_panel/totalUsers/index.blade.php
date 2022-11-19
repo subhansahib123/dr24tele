@@ -6,11 +6,11 @@
             <div class="main-container container-fluid">
                 <!-- PAGE-HEADER -->
                 <div class="page-header">
-                    <h1 class="page-title">ALL Users </h1>
+                    <h1 class="page-title">All Mapped and Unmapped Users</h1>
                     <div>
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">ALL Users </li>
+                            <li class="breadcrumb-item active" aria-current="page">All Mapped and Unmapped Users</li>
                         </ol>
                     </div>
                 </div>
@@ -21,7 +21,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <div class="col-5">
-                                    <span class="card-title"><a href="{{route('hospital.dashboard')}}" class="btn btn-info"  title="Go Back"><i class="fa fa-reply"></i></a> Mapped and Unmapped Users</span>
+                                    <span class="card-title"><a href="{{route('hospital.dashboard')}}" class="btn btn-sm btn-info"  title="Go Back">Back <i class="fa fa-reply"></i></a></span>
                                 </div>
                                 <div class="col-5 align-self-center"></div>
                                 <div class="col-2">
