@@ -28,30 +28,41 @@
                 </div>
                 <div class="col-xl-8">
                     <div class="card">
-                        <form action="{{ route('phoneNumberUpdated') }}" id="login_form" method="POST">
+                        <form action="{{ route('phoneNumberVerified') }}" id="login_form" method="POST">
                             @csrf
                             <div class="card-header">
-                                <h3 class="card-title">Update Phone Number</h3>
+                                <h3 class="card-title">Verifying Phone Number</h3>
                             </div>
                             <div class="card-body">
                                 <div class="row">
-                                    <h3>User</h3>
                                     <input type="hidden" name="role" value="doctor" />
 
                                     <div class="col-lg-12 col-md-12" id="numbercon">
-                                        <div class="form-group">
+                                        <div class="form-group row">
+                                            <div class="col-6 px-1">
+                                                <label for="currentPhoneNumber"><strong> Enter Current Number</strong> </label>
+                                            </div>
+                                            <div class="col-6 px-0">
+                                                <input type="text" id="txtPhone" name="" class="form-control" placeholder="+91 *** ******">
+                                                <input type="hidden" class="form-control" id="phoneNumber">
+                                            </div>
 
-                                            <label for="currentPhoneNumber">Current Phone Number</label>
-                                            <input type="text" id="txtPhone" name="" class="form-control" placeholder="+91 *** ******">
-                                            <input type="hidden" class="form-control" id="phoneNumber">
+
                                         </div>
                                     </div>
-                                    <div class="col-lg-12 col-md-12" id="verfiycon">
+                                    <div class="col-lg-12 col-md-12" style="display: none" class="secondary" id="verfiycon">
                                         <div class="form-group">
 
                                             <label for="verification">Enter Code</label>
                                             <input type="number" class="form-control" required="" id="verification" placeholder="code" maxlength="6">
                                         </div>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+
+
+                                        <div id="recaptcha-container"></div>
+
+
                                     </div>
                                     <div class="col-lg-12 col-md-12" id="sendoptbtn">
                                         <div class="form-group">
@@ -59,8 +70,8 @@
                                             <a href="{{route('doctor.dashboard')}}" class="btn btn-info">Back</a>
                                         </div>
                                     </div>
-                                    
-                                    <div class="col-lg-12 col-md-12" id="verifyoptbtn">
+
+                                    <div class="col-lg-12 col-md-12" style="display: none" class="secondary" id="verifyoptbtn">
                                         <div class="form-group">
                                             <button type="button" class="btn btn-secondary my-1" onclick="verify();">Verify Code</button>
                                             <a href="{{route('doctor.dashboard')}}" class="btn btn-info">Back</a>
