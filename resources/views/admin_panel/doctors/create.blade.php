@@ -11,11 +11,11 @@
 
             <!-- PAGE-HEADER -->
             <div class="page-header">
-                <h1 class="page-title">Create User</h1>
+                <h1 class="page-title">Create Doctor</h1>
                 <div>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">Pages</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Create User</li>
+                        <li class="breadcrumb-item active" aria-current="page">Create Doctor</li>
                     </ol>
                 </div>
             </div>
@@ -28,10 +28,10 @@
                 </div>
                 <div class="col-xl-8">
                     <div class="card">
-                        <form action="{{ route('store.user') }}" method="POST">
+                        <form action="{{route('storeHospital.patients')}}" method="POST">
                             @csrf
                             <div class="card-header">
-                                <!-- <h3 class="card-title">Create User</h3> -->
+                                <h3 class="card-title">Doctor Details </h3>
                             </div>
                             <div class="card-body">
                                 <div class="row">
@@ -72,6 +72,7 @@
                                     <div class="col-lg-6 col-md-6 col-sm-12">
                                         <div class="form-group">
                                             <label for="exampleInputnumber">Contact Number</label>
+                                            
                                             <input type="text" id="txtPhone" name="" class="form-control">
                                                <input type="hidden" class="form-control" id="phoneNumber" >
                                         </div>
@@ -82,7 +83,7 @@
                                             <input type="date" class="form-control" id="Birth" placeholder="Date of Birth" name="dateOfBirth" value="">
                                         </div>
                                     </div>
-                                    <div class="col-lg-12 col-md-12">
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
                                         <div class="form-group">
                                             <label class="form-label" for="gender">Gender</label>
                                             <select class="form-select" name="gender_code" id="gender">
@@ -105,7 +106,6 @@
                                                 Others
                                                 </option>
                                             </select>
-
                                             <!-- <input type="text" class="form-control" name="" id="gender" value=""> -->
                                         </div>
                                     </div>
@@ -114,7 +114,7 @@
                             </div>
                             <div class="card-footer ">
                                 <button type="submit" class="btn btn-primary my-1">Create</button>
-                                <span><a href="{{route('dashboard')}}" class="btn btn-secondary  ">Cancel</a></span>                             
+                                <span><a href="{{route('hospital.dashboard')}}" class="btn btn-secondary  ">Cancel</a></span>                             
 
                                 {{-- <a href="javascript:void(0)" class="btn btn-danger my-1">Cancel</a> --}}
                             </div>
@@ -129,6 +129,9 @@
 
     </div>
 </div>
+
+
+
+
+
 @endsection
-
-

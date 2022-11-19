@@ -220,8 +220,12 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
 
     //This Route is used to Create Patient
-    Route::get('/create/patient', [PatientController::class, 'createPatients'])->name('create.patients');
-    Route::post('/store/patient', [PatientController::class, 'patient'])->name('store.patients');
+    Route::get('/create/patients', [PatientController::class, 'createPatients'])->name('create.patients');
+    Route::post('/store/patients', [PatientController::class, 'patient'])->name('store.patients');
+
+    //This Route is used to Map Patient with reference to Organization
+    Route::get('/map/patients', [PatientController::class, 'mapPatients'])->name('map.patients');
+    Route::post('/patient/mapped', [PatientController::class, 'patientMapped'])->name('patient.mapped');
 
     //This Route is used to show departments list
     Route::get('/departments/list/{uuid}', [DepartmentController::class, 'departmentsList'])->name('departments.list');
@@ -314,10 +318,10 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::get('/schedule/{id}', [ScheduleController::class, 'delete'])->name('delete.schedule');
 
 
-      Route::get('/hospital-coupon/create', [HospitalCouponController::class, 'create'])->name('hospital.coupon.create');
-      Route::get('/hospital-coupon/index', [HospitalCouponController::class, 'index'])->name('hospital.coupon.index');
-      Route::post('/hospital-coupon/create', [HospitalCouponController::class, 'store'])->name('hospital.coupon.store');
-   });
+    Route::get('/hospital-coupon/create', [HospitalCouponController::class, 'create'])->name('hospital.coupon.create');
+    Route::get('/hospital-coupon/index', [HospitalCouponController::class, 'index'])->name('hospital.coupon.index');
+    Route::post('/hospital-coupon/create', [HospitalCouponController::class, 'store'])->name('hospital.coupon.store');
+  });
   Route::group(['prefix' => 'doctor', 'middleware' => ['auth']], function () {
     Route::get('/dashboard', [AuthenticationController::class, 'DoctorDashboard'])->name('doctor.dashboard');
 
@@ -337,7 +341,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     //Doctor Specialization
     Route::get('/doctor/specialization', [Specialization::class, 'index'])->name('doctorSpecialization');
     Route::post('/doctor/specialized', [Specialization::class, 'store'])->name('doctorSpecialized');
-    
+
     //list of Schedules
     Route::get('/schedules', [DoctorSchedule::class, 'schedules'])->name('list.schedules.doctor');
     //Create Schedule

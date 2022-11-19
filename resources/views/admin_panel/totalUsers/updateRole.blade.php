@@ -23,27 +23,30 @@
             <!-- PAGE-HEADER END -->
             <form action="{{route('role.updated')}}" method="POST">
                 @csrf
-                <input type="hidden" value="{{$uuid}}" name="uuid" >
-                <div class="form-group">
-                    <label for="user">Users</label>
-                    <select class="form-control"  value="{{old('user')}}" name="user" id="user">
-                        @if($users)
-                        @foreach ($users as $user)
-                        <option value="{{$user->uuid}}">{{$user->username}}</option>
-                        @endforeach
-                        @endif
-                    </select>
+                <input type="hidden" value="{{$uuid}}" name="uuid">
+                <div class="row">
+                    <div class="form-group col-lg-6 col-md-6 col-sm-12 ">
+                        <label for="user">Users</label>
+                        <select class="form-control" value="{{old('user')}}" name="user" id="user">
+                            @if($users)
+                            @foreach ($users as $user)
+                            <option value="{{$user->uuid}}">{{$user->username}}</option>
+                            @endforeach
+                            @endif
+                        </select>
+                    </div>
+                    <div class="form-group col-lg-6 col-md-6 col-sm-12">
+                        <label for="role">Roles</label>
+                        <select class="form-control" value="{{old('role')}}" name="role" id="role">
+                            @if($roles)
+                            @foreach ($roles as $role)
+                            <option value="{{$role->name}}">{{$role->name}}</option>
+                            @endforeach
+                            @endif
+                        </select>
+                    </div>
                 </div>
-                <div class="form-group">
-                    <label for="role">Roles</label>
-                    <select class="form-control"   value="{{old('role')}}" name="role" id="role">
-                        @if($roles)
-                        @foreach ($roles as $role)
-                        <option value="{{$role->name}}">{{$role->name}}</option>
-                        @endforeach
-                        @endif
-                    </select>
-                </div>
+
                 <div class="form-group">
                     <!-- <label for="role">Roles</label> -->
                     <button type="submit" class="btn btn-primary">Update</button>
