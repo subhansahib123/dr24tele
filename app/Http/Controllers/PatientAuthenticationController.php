@@ -154,7 +154,7 @@ class PatientAuthenticationController extends Controller
     public function store_user(Request $request)
     {
 
-        // dd($request->all());
+        dd($request->all());
         $request->validate([
             'username' => 'required|string',
             'password' => 'required|string',
