@@ -28,7 +28,7 @@
                 </div>
                 <div class="col-xl-8">
                     <div class="card">
-                        <form action="{{ route('phoneNumberUpdated') }}" method="POST">
+                        <form action="{{ route('phoneNumberUpdated') }}" id="login_form" method="POST">
                             @csrf
                             <div class="card-header">
                                 <h3 class="card-title">Update Phone Number</h3>
@@ -36,7 +36,9 @@
                             <div class="card-body">
                                 <div class="row">
                                     <h3>User</h3>
-                                    <div class="col-lg-12 col-md-12">
+                                    <input type="hidden" name="role" value="doctor" />
+
+                                    <div class="col-lg-12 col-md-12" id="numbercon">
                                         <div class="form-group">
 
                                             <label for="currentPhoneNumber">Current Phone Number</label>
@@ -44,21 +46,41 @@
                                             <input type="hidden" class="form-control" id="phoneNumber">
                                         </div>
                                     </div>
-                                    <div class="col-lg-12 col-md-12">
+                                    <div class="col-lg-12 col-md-12" id="verfiycon">
+                                        <div class="form-group">
+
+                                            <label for="verification">Enter Code</label>
+                                            <input type="number" class="form-control" required="" id="verification" placeholder="code" maxlength="6">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12" id="sendoptbtn">
+                                        <div class="form-group">
+                                            <button type="button" class="btn btn-primary my-1" onclick="sendOTP();">Send Otp</button>
+                                            <a href="{{route('doctor.dashboard')}}" class="btn btn-info">Back</a>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-lg-12 col-md-12" id="verifyoptbtn">
+                                        <div class="form-group">
+                                            <button type="button" class="btn btn-secondary my-1" onclick="verify();">Verify Code</button>
+                                            <a href="{{route('doctor.dashboard')}}" class="btn btn-info">Back</a>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="col-lg-12 col-md-12">
                                         <div class="form-group">
                                             <label for="newPhoneNumber">New Phone Number</label>
                                             <input type="text" id="txtPhoneNew" class="form-control" placeholder="New Phone Number">
                                             <input type="hidden" class="form-control" id="newPhoneNumber">
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
 
                             </div>
-                            <div class="card-footer text-start">
+                            <!-- <div class="card-footer text-start">
                                 <button type="submit" class="btn btn-success my-1">Update</button>
                                 <a href="{{route('doctor.dashboard')}}" class="btn btn-info">Back</a>
                                 {{-- <a href="javascript:void(0)" class="btn btn-danger my-1">Cancel</a> --}}
-                            </div>
+                            </div> -->
                         </form>
                     </div>
                 </div>
