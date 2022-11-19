@@ -288,10 +288,6 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::get('/createPatients/page', [HospitalPatientController::class, 'createHospitalPatients'])->name('createHospital.patients');
     Route::post('/storePatients', [HospitalPatientController::class, 'storeHospitalPatients'])->name('storeHospital.patients');
 
-    //This Route is used to Map Patient with reference to Organization
-    Route::get('/map/patients/page', [HospitalPatientController::class, 'mapPatients'])->name('mapPatients');
-    Route::post('/patient/mapped/page', [HospitalPatientController::class, 'patientMapped'])->name('patientMapped');
-
     //These Route is used to Create Mapped Patients
     Route::get('/all/patients', [HospitalPatientController::class, 'hospitalAllPatients'])->name('hospitalAll.patients');
 

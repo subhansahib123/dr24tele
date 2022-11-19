@@ -21,7 +21,7 @@
             </div>
             @include('admin_panel.frontend.includes.messages')
             <!-- PAGE-HEADER END -->
-            <form action="{{route('patient.mapped')}}" method="POST">
+            <form action="{{route('patientMapped')}}" method="POST">
                 @csrf
                 <div class="form-group">
                     <label for="user">Patient</label>

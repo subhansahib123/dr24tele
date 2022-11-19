@@ -70,8 +70,7 @@
                             class="side-menu__label">Patients</span><i class="angle fe fe-chevron-right"></i></a>
                     <ul class="slide-menu nav-tree">
                         <li><a href="{{ route('createHospital.patients') }}" class="slide-item"> Create</a></li>
-                        <li><a href="{{ route('mapPatients') }}" class="slide-item"> Map Patients</a></li>
-                        <li><a href="{{ route('hospitalAll.patients') }}" class="slide-item"> All Patients</a></li>
+                        <li><a href="{{ route('hospitalAll.patients') }}" class="slide-item"> List</a></li>
 
                     </ul>
                 </li>

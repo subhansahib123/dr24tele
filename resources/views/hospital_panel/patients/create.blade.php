@@ -28,7 +28,7 @@
                 </div>
                 <div class="col-xl-8">
                     <div class="card">
-                        <form action="{{route('store.patients')}}" method="POST">
+                        <form action="{{route('storeHospital.patients')}}" method="POST">
                             @csrf
                             <div class="card-header">
                                 <h3 class="card-title">Create Patient </h3>

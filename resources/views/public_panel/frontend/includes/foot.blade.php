@@ -113,6 +113,30 @@
         });
     </script>
 
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#reg_Organization').change(function() {
+            if ($(this).is(":checked"))
+                $('#ORG,#reg_img,#card').show();
+            else {
+                $('#ORG,#reg_img,#card,#atm_card').hide();
+            }
+        });
+    });
+</script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#pay_by_atmCard').change(function() {
+            if ($(this).is(":checked"))
+                $('#atm_card').show(),
+                $('#reg_img').hide()
+            else {
+                $('#reg_img').show(),
+                $('#atm_card').hide()
+            }
+        });
+    });
+</script>
 
 
     <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase.js"></script>
