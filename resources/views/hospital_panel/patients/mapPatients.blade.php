@@ -44,9 +44,10 @@
                         <div class="form-group">
                             <!-- <label for="role">Roles</label> -->
                             <button type="submit" class="btn btn-primary">Map</button>
-                            <a href="{{route('dashboard')}}" class="btn btn-info">Back</a>
+                            <a href="{{route('hospital.dashboard')}}" class="btn btn-info">Back</a>
                         </div>
                     </div>
+
                 </div>
             </form>
         </div>

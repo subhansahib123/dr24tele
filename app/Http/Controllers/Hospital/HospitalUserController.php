@@ -158,11 +158,13 @@ class HospitalUserController extends Controller
     public function createHospitalUser()
     {
 
-
+        
         return view('hospital_panel.user.create');
+
     }
     public function storeHospitalUser(Request $request)
     {
+        // dd($request->all());
         $curl = curl_init();
         $baseUrl = config('services.ehr.baseUrl');
         $apiKey = config('services.ehr.apiKey');
@@ -223,17 +225,19 @@ class HospitalUserController extends Controller
                 return redirect()->back()->withErrors(['error' => $error]);
             } else {
                 $user = json_decode($response);
-                // dd($users);
+                // dd($user);
                 if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
                     curl_close($curl);
 
-
+                    
                     $user = User::firstOrCreate([
                         'username' => $user->username,
                         'password' => $request->password,
-                        'email' => $user->username,
+                        'name' => $user->name,
                         'phone_number' => $request->phoneNumber,
                         'uuid' => $user->uuid,
+                        'email' => $request->email,
+                        'PersonId' => $user->personId,
                         'status' => 1
 
                     ]);

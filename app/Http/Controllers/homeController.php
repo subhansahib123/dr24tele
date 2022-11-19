@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Coupon;
 use App\Models\Hospital;
+use App\Models\PatientCoupon;
 use Illuminate\Http\Request;
 use App\Models\Organization;
 use App\Models\Department;
@@ -110,23 +112,38 @@ class homeController extends Controller
     public function scheduleOfDoctor($doctor_id,$date){
         $date=$date." 00:00:00";
         $user_id=Doctor::find($doctor_id);
+        $schdeules=Schedule::whereDate('start', '>=', $date." 00:00:00")
+
+            ->where('doctor_id',$doctor_id)->get();
+        return response()->json( ['schedules'=>$schdeules,'user_id'=>$user_id->user_id]);
+    }
+    public function scheduleOfDoctorCoupon($doctor_id,$date,$coupon){
+
+        $cop = Coupon::where('title', '=', $coupon)->first();
+        $date=$date." 00:00:00";
+        $user_id=Doctor::find($doctor_id);
         $schdeules=Schedule::whereDate('start', '=', $date." 00:00:00")
 
             ->where('doctor_id',$doctor_id)->get();
+        $schdeules[0]->price = $schdeules[0]->price - $cop->discount;
         return response()->json( ['schedules'=>$schdeules,'user_id'=>$user_id->user_id]);
     }
     public function bookApppointment(Request $request){
         $data=$request->all();
 
-         Stripe\Stripe::setApiKey('sk_test_4mIgs731P1pD8aEEO57Ytf5v');
-        Stripe\Charge::create ([
-                "amount" => intval($request->fee) * 100,
-                "currency" => "inr",
-                "source" => $request->stripeToken,
-                "description" => "Making test payment."
-        ]);
+        //  Stripe\Stripe::setApiKey('sk_test_4mIgs731P1pD8aEEO57Ytf5v');
+        // Stripe\Charge::create ([
+        //         "amount" => intval($request->fee) * 100,
+        //         "currency" => "inr",
+        //         "source" => $request->stripeToken,
+        //         "description" => "Making test payment."
+        // ]);
         $appointment=Appointment::create($data);
-
+        // $coupon = Coupon::where('title', '=', $data->coupon)->first();
+        // PatientCoupon::create(['organization_id' => $data->hospital,
+        //     'patienet_id'=> $data->patient_id,
+        //     'coupon_id' => $coupon->id,
+        //     'used_date' => Carbon\Carbon::now()]);
         return response()->json(["msg"=> $appointment->id]);
     }
 
@@ -152,13 +169,15 @@ class homeController extends Controller
             $channelName="DrTele".rand().$request->user_id."channel";
             $owner_id=$request->owner;
             $agoraToken=$this->generate_token($channelName,$owner_id);
-            $conference_link=url('/').'/conference/call?channelName='.$channelName.'&token='.$agoraToken;
+            $conference_link='https://virtual-care.drtele.co/token?identity=tilde_'.$channelName;
+            $patient_link='https://virtual-care.drtele.co/patient';
+
             $data = [
                 "to" => $FcmToken,
                 "notification" => [
                     "title" => $request->title,
                     "body" => $request->body,
-                    "data"=> $conference_link
+                    "data"=> ['conference_link'=>$conference_link,'patient_link'=>$patient_link]
                     ]
 
 

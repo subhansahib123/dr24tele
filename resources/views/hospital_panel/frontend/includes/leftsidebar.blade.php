@@ -75,21 +75,21 @@
 
                     </ul>
                 </li>
+                <li class="slide">
+                    <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
+                            class="side-menu__icon fa fa-wheelchair"></i><span
+                            class="side-menu__label">Coupon</span><i class="angle fe fe-chevron-right"></i></a>
+                    <ul class="slide-menu nav-tree">
+                        <li><a href="{{ route('hospital.coupon.create') }}" class="slide-item"> Create</a></li>
+                        <li><a href="{{ route('hospital.coupon.index') }}" class="slide-item">All Coupon</a></li>
+                    </ul>
+                </li>
 
                 <li class="slide">
                     <a class="side-menu__item has-link" data-bs-toggle="slide" href="{{ route('list.schedules') }}"><i
                             class="side-menu__icon fa fa-calendar"></i><span
                             class="side-menu__label">Schedules</span></a>
                 </li>
-
-
-
-
-
-
-
-
-
             </ul>
             <div class="slide-right" id="slide-right"><svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191"
                     width="24" height="24" viewBox="0 0 24 24">

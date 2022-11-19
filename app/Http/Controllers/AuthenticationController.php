@@ -8,6 +8,9 @@ use App\Models\User;
 use App\Models\Role;
 use App\Models\Organization;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Hash;
+use Session;
+
 
 class AuthenticationController extends Controller
 {
@@ -119,7 +122,7 @@ class AuthenticationController extends Controller
 
                     if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
                         unset($userInfo);
-                        session_destroy();
+                        Session::flush();
                         Auth::logout();
                         curl_close($curl);
                         // dd($userInfo);
@@ -176,7 +179,8 @@ class AuthenticationController extends Controller
     }
     public function dashboard()
     {
-        // dd(session('loggedInUser'));
+        if (!Auth::check())
+            return redirect()->route('logout')->withErrors(['error' => 'Login Token Expired ! Please login Again']);
         return view('admin_panel.index');
     }
     public function roles(Request $request)
@@ -366,7 +370,7 @@ class AuthenticationController extends Controller
     }
     public function doctorLogin(Request $request)
     {
-        // dd(1);
+        // dd($request->all());
         $curl = curl_init();
         $baseUrl = config('services.ehr.baseUrl');
         $apiKey = config('services.ehr.apiKey');
@@ -374,8 +378,8 @@ class AuthenticationController extends Controller
 
 
 
-        $user = User::with('doctor')->where('phone_number',  $request->phone)->first();
-        // dd  ($user->user_organization);
+        $user = User::with('doctor')->where('phone_number',  $request->phoneNumber)->first();
+        // dd($user); 
         if (!isset($user->doctor))
             return redirect()->back()->withErrors(['error' => 'User is not associated with any Department']);
 
@@ -392,8 +396,9 @@ class AuthenticationController extends Controller
             Auth::login($user);
 
             $data = ['username' => $user->username, 'password' => $user->password];
-
-            $params = array('orgName' => $organisation->slug, 'tenantId' => 'ehrn');
+            
+            // dd($user->password);
+            $params = array('orgName' => $organisation->name, 'tenantId' => 'ehrn');
             curl_setopt_array($curl, array(
                 CURLOPT_URL => $baseUrl . 'rest/admin/v1/login?' . http_build_query($params),
                 CURLOPT_RETURNTRANSFER => true,
@@ -417,6 +422,7 @@ class AuthenticationController extends Controller
                 // dd($response);
                 if ($response == false || isset($response->status)) {
                     curl_close($curl);
+                    // dd(1);
 
                     return curl_error($curl);
                 } else {
@@ -446,11 +452,13 @@ class AuthenticationController extends Controller
                         return redirect()->route('doctor.show')->withErrors(['error' => $result_data->message]);
                     } else {
                         curl_close($curl);
+                        // dd($result_data);
                         return redirect()->back()->withErrors(['error' => $result_data->message]);
                     }
                 }
             } catch (\Exception $e) {
 
+                // dd(3);
 
                 return redirect()->back()->withErrors(['error' => __($e->getMessage())]);
             }
@@ -460,6 +468,12 @@ class AuthenticationController extends Controller
     }
     public function DoctorDashboard()
     {
+        $userInfo = session('loggedInUser');
+        $userInfo = json_decode(json_encode($userInfo), true);
+        if (is_null($userInfo)) {
+
+            return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
+        }
         return view('doctor_panel.dashboard');
     }
 }
