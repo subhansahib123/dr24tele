@@ -60,6 +60,8 @@
     <!-- SIDE-MENU JS-->
     <script src="{{asset('assets/plugins/sidemenu/sidemenu.js')}}"></script>
 
+    <!-- Adding Fire base -->
+    <script src="{{asset('public_assets/js/firebase.js')}}"></script>
 	<!-- TypeHead js -->
 	{{-- <script src="../assets/plugins/bootstrap5-typehead/autocomplete.js"></script>
     <script src="../assets/js/typehead.js"></script> --}}

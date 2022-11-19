@@ -370,7 +370,7 @@ class AuthenticationController extends Controller
     }
     public function doctorLogin(Request $request)
     {
-        // dd(1);
+        // dd($request->all());
         $curl = curl_init();
         $baseUrl = config('services.ehr.baseUrl');
         $apiKey = config('services.ehr.apiKey');
@@ -398,7 +398,7 @@ class AuthenticationController extends Controller
             $data = ['username' => $user->username, 'password' => $user->password];
             
             // dd($user->password);
-            $params = array('orgName' => $organisation->slug, 'tenantId' => 'ehrn');
+            $params = array('orgName' => $organisation->name, 'tenantId' => 'ehrn');
             curl_setopt_array($curl, array(
                 CURLOPT_URL => $baseUrl . 'rest/admin/v1/login?' . http_build_query($params),
                 CURLOPT_RETURNTRANSFER => true,
@@ -422,7 +422,7 @@ class AuthenticationController extends Controller
                 // dd($response);
                 if ($response == false || isset($response->status)) {
                     curl_close($curl);
-                    dd(1);
+                    // dd(1);
 
                     return curl_error($curl);
                 } else {
@@ -452,13 +452,13 @@ class AuthenticationController extends Controller
                         return redirect()->route('doctor.show')->withErrors(['error' => $result_data->message]);
                     } else {
                         curl_close($curl);
-                        dd($result_data);
+                        // dd($result_data);
                         return redirect()->back()->withErrors(['error' => $result_data->message]);
                     }
                 }
             } catch (\Exception $e) {
 
-                dd(3);
+                // dd(3);
 
                 return redirect()->back()->withErrors(['error' => __($e->getMessage())]);
             }

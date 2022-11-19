@@ -28,8 +28,10 @@ class PersonalDetails extends Controller
         $displayName=Auth::user()->name;
         return view('doctor_panel.personalInfo.updateDisplayName',['displayName'=>$displayName]);
     }
+
     public function phoneNumberUpdated(Request $request)
     {
+        dd(1);
         if (!Auth::check())
             return redirect()->route('logout')->withErrors(['error' => 'Login Token Expired ! Please login Again']);
         $request->validate([
@@ -48,9 +50,10 @@ class PersonalDetails extends Controller
     }
     public function updatePhoneNumber()
     {
+        
         if (!Auth::check())
             return redirect()->route('logout')->withErrors(['error' => 'Login Token Expired ! Please login Again']);
-        $phoneNumber = Auth::user()->phone_number;
-        return view('doctor_panel.personalInfo.updatePhoneNumber', ['name' => $phoneNumber]);
+        
+        return view('doctor_panel.personalInfo.updatePhoneNumber');
     }
 }

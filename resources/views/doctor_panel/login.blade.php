@@ -48,11 +48,6 @@
                                                 placeholder="Enter your code">
                                         </div>
                                     </div>
-                                    {{-- <div class="col-lg-12">
-                                                <div class="form-group">
-                                                    <input id="pwd" name="pwd" placeholder="Password" type="password">
-                                                </div>
-                                            </div> --}}
                                     <div class="col-lg-12 col-md-12 col-sm-12 col-12">
 
 
