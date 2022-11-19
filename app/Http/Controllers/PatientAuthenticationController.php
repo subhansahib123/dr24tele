@@ -87,17 +87,19 @@ class PatientAuthenticationController extends Controller
     }
     protected function adminLogin($orguuid){
 
+        // dd(1);
         // session(['ApiUserAction' => null]);
          $curl = curl_init();
         $baseUrl = config('services.ehr.baseUrl');
         $apiKey = config('services.ehr.apiKey');
         $organisation=Organization::where('uuid',$orguuid)->first();
+        // dd($organisation);
         $user=UsersOrganization::with(['user'=>function($q){
             $q->with(['user_role'=>function($qu){
                 $qu->where('role_id',1);
             }]);
         }])->where('organization_id',$organisation->id)->first();
-        // dd($organisation->slug);
+        dd($user);
         $data = ['username' => $user->user->username, 'password' => $user->user->password];
 
         $params = array('orgName' =>  $organisation->name, 'tenantId' => 'ehrn');
@@ -152,6 +154,7 @@ class PatientAuthenticationController extends Controller
     public function store_user(Request $request)
     {
 
+        // dd($request->all());
         $request->validate([
             'username' => 'required|string',
             'password' => 'required|string',
@@ -187,15 +190,17 @@ class PatientAuthenticationController extends Controller
         // $this->adminLogin($orguuid);
         $adminUserInfo = session('ApiUserAction');
         $adminUserInfo = json_decode(json_encode($adminUserInfo), true);
+        // dd(session());
         if ($adminUserInfo==null) {
             $this->adminLogin($orguuid);
             $adminUserInfo = session('ApiUserAction');
-            // dd($adminUserInfo );
+            dd($adminUserInfo );
             $adminUserInfo = json_decode(json_encode($adminUserInfo), true);
 
         }
         // dd($adminUserInfo);
         $token = $adminUserInfo['sessionInfo']['token'];
+        dd(2);
 
         curl_setopt_array($curl, array(
             CURLOPT_URL => $baseUrl . '/rest/admin/user',
@@ -214,6 +219,7 @@ class PatientAuthenticationController extends Controller
                 'apikey:' . $apiKey
             ),
         ));
+        dd(1);
 
         try {
             $response = curl_exec($curl);
@@ -225,7 +231,7 @@ class PatientAuthenticationController extends Controller
                 return ['error' => $error];
             } else {
                 $user = json_decode($response);
-
+                dd($user);
                 if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
                     curl_close($curl);
                     //create patient here
@@ -237,8 +243,9 @@ class PatientAuthenticationController extends Controller
 
                     $user=User::create([
                         'username' => $user->username,
+                        'name' => $request->givenName,
                         'password' => $request->password,
-                        'email' => $request->name,
+                        'email' => $request->email,
                         'phone_number' => $request->phoneNumber,
                         'uuid' => $user->uuid,
                         'PersonId'=>$personId,
