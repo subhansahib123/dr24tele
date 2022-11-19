@@ -24,7 +24,9 @@ class PersonalDetails extends Controller
     {
         if (!Auth::check())
             return redirect()->route('logout')->withErrors(['error' => 'Login Token Expired ! Please login Again']);
-        return view('doctor_panel.personalInfo.updateDisplayName');
+
+        $displayName=Auth::user()->name;
+        return view('doctor_panel.personalInfo.updateDisplayName',['displayName'=>$displayName]);
     }
     public function phoneNumberUpdated(Request $request)
     {

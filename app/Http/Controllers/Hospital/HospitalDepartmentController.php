@@ -30,6 +30,7 @@ class HospitalDepartmentController extends Controller
     {
 
 
+        // dd($request->all());
 
         $request->validate([
             'name' => 'required|string',
@@ -51,23 +52,24 @@ class HospitalDepartmentController extends Controller
         $token = $userInfo['sessionInfo']['token'];
         $orgId = $userInfo['sessionInfo']['orgId'];
         $org = Organization::where('uuid', $orgId)->first();
+        // dd($org->name);
         $data = [
             "displayname" => $request->displayname,
-            "name" => $request->name,
+            "name" => $request->name.'_'.$org->name,
             "type" => 'company',
             "status" => $request->status,
             "pparent" => [
                 "uuid" => $orgId
             ],
             "email" => $request->email,
-            "contactperson" => $request->contactperson,
-            "phone" => $request->phone,
+            "contactperson" => '',
+            "phone" => '',
             "address" => [
                 [
                     "type" => "permanent",
-                    "building" => $request->building,
-                    "district" => $request->district,
-                    "postalCode" => $request->postalCode
+                    "building" => '',
+                    "district" => '',
+                    "postalCode" => ''
                 ]
             ],
             "level" => 'SubOrg',
@@ -111,13 +113,18 @@ class HospitalDepartmentController extends Controller
 
 
                     Department::Create([
-                        'name' => $request->name,
+                        'name' => $request->name.'_'.$org->name,
                         'organization_id' => $org->id,
-                        'slug' => $organization->displayname,
+                        'slug' => $request->displayname,
                         'level' => "SubOrg",
                         'uuid' => $organization->uuid,
                     ]);
                     return redirect()->back()->withSuccess(__('Successfully Department Created'));
+                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 409){
+                    curl_close($curl);
+
+
+                    return redirect()->back()->withErrors(['error' => 'Provided Username already exist']);
                 }
                 else if (isset($organization->message) && $organization->message == "API rate limit exceeded") {
                     curl_close($curl);
@@ -307,14 +314,17 @@ class HospitalDepartmentController extends Controller
     }
     public function hospitalDepartmentUpdated(Request $request)
     {
+
         $curl = curl_init();
 
         $baseUrl = config('services.ehr.baseUrl');
         $apiKey = config('services.ehr.apiKey');
 
         $userInfo = session('loggedInUser');
+        
+
         $userInfo = json_decode(json_encode($userInfo), true);
-        // dd($request->all());
+        $organization=Organization::where('uuid',$request->parentOrgId)->first('name');
         if (is_null($userInfo)) {
 
             return redirect()->route('hospital.login')->withErrors(['error' => 'Token Expired Please Login Again !']);
@@ -322,13 +332,14 @@ class HospitalDepartmentController extends Controller
         $token = $userInfo['sessionInfo']['token'];
         $request->validate([
             'name' => 'required|string',
+            'displayname' => 'required|string',
             'status' => 'required|string',
             'email' => 'required|string',
             'level' => 'SubOrg',
         ]);
         $data = [
             "displayname" => $request->displayname,
-            "name" => $request->name,
+            "name" => $request->name.'_'.$organization->name,
             "uuid" => $request->DepUuid,
             "type" => 'company',
             "status" => $request->status,
@@ -379,7 +390,7 @@ class HospitalDepartmentController extends Controller
                 curl_close($curl);
                     $dep=Department::where('uuid',$request->DepUuid)->first();
                     $dep->update([
-                        'name' => $organization->displayname,
+                        'slug' => $organization->displayname,
 
                     ]);
                     return redirect()->back()->withSuccess(__('Department Successfully Updated'));

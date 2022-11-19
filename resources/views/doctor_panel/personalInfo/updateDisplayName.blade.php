@@ -36,6 +36,14 @@
                                 <div class="row">
                                     <div class="col-lg-12 col-md-12">
                                         <div class="form-group">
+                                            <label for="CurrentDisplayName">Current Display Name</label>
+                                            <input type="text" class="form-control" value="{{$displayName}}" disabled name="CurrentDisplayName" id="CurrentDisplayName">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-12 col-md-12">
+                                        <div class="form-group">
 
                                             <label for="displayName"> Display Name</label>
                                             <input type="text" class="form-control" name="displayName" placeholder="Name" id="displayName">

@@ -25,8 +25,8 @@
             <div class="row">
                 <div class="col-md-12 col-xl-12">
                     <div class="card">
-                        <div class="card-header">
-                            <h4 class="">
+                        <div class="card-header row">
+                            <h4 class=""> Organization Details
                             </h4>
                         </div>
                         @include('admin_panel.frontend.includes.messages')
@@ -57,10 +57,13 @@
                                     <span class="text-danger text-left">{{ $errors->first('contactperson') }}</span>
                                     @endif
                                 </div>
-                                <div class=" row mb-4">
-                                    <label for="phone" class="col-md-3 form-label"> Phone Number</label>
-                                    <div class="col-md-9">
-                                        <input type="number" class="form-control" value="{{$organization->phone}}" name="phone" id="phone" placeholder="Phone Number" autocomplete="contactperson">
+                                <div class="row address">
+                                    <div class="col-3 pt-2">
+                                        <label for="exampleInputnumber"><Strong> Contact Number</Strong></label>
+                                    </div>
+                                    <div class="col-9 form-group">
+                                        <input type="text" id="txtPhone"  class="form-control">
+                                        <input type="hidden" class="form-control" id="phoneNumber">
                                     </div>
                                     @if ($errors->has('contactperson'))
                                     <span class="text-danger text-left">{{ $errors->first('contactperson') }}</span>
@@ -77,9 +80,6 @@
                                             @endforeach
                                         </select>
                                     </div>
-                                    @if ($errors->has('contactperson'))
-                                    <span class="text-danger text-left">{{ $errors->first('contactperson') }}</span>
-                                    @endif
                                 </div>
                                 <div class=" row mb-4 addresss">
                                     <label for="country" class="col-md-3 form-label"> Select State </label>
@@ -90,9 +90,6 @@
 
                                         </select>
                                     </div>
-                                    @if ($errors->has('contactperson'))
-                                    <span class="text-danger text-left">{{ $errors->first('contactperson') }}</span>
-                                    @endif
                                 </div>
                                 <div class=" row mb-4 addresss">
                                     <label for="country" class="col-md-3 form-label"> Select City </label>
@@ -102,9 +99,6 @@
                                             <option >Select City</option>
                                         </select>
                                     </div>
-                                    @if ($errors->has('contactperson'))
-                                    <span class="text-danger text-left">{{ $errors->first('contactperson') }}</span>
-                                    @endif
                                 </div> 
                                 <div class=" row mb-4">
                                     <label for="inputEmail3" class="col-md-3 form-label">Email</label>
@@ -145,7 +139,7 @@
                                 <div class="mb-0 mt-4 row justify-content-end">
                                     <div class="col">
                                         <button class="btn btn-primary" type="submit">Update</button>
-                                        <span><a href="{{route('organization')}}" class="btn btn-secondary  ">Cancel</a></span>                             
+                                        <span><a href="{{route('dashboard')}}" class="btn btn-secondary  ">Cancel</a></span>                             
 
                                     </div>
                                 </div>
