@@ -28,9 +28,9 @@
                         <div class="card-header row">
                             <div class="col-3"><span class="card-title">List</span></div>
                             <div class="col-7 align-self-center"></div>
+               
                             <div class="col-2">
-                                <a href="{{route('create.organization')}}"><button class="btn btn-primary">ADD Organizations</button></a>
-
+                                <a href="{{route('create.newDepartment')}}"><button class="btn btn-primary">ADD Departments</button></a>
                             </div>
 
                             {{-- <span class="card-title "><a href="{{route('roles.create')}}"> Add New Permission</a></span> --}}

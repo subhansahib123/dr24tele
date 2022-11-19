@@ -11,11 +11,11 @@
 
             <!-- PAGE-HEADER -->
             <div class="page-header">
-                <h1 class="page-title"> Create Organization/Department</h1>
+                <h1 class="page-title"> Create Organization</h1>
                 <div>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page"> Create Organization/Department</li>
+                        <li class="breadcrumb-item active" aria-current="page"> Create Organization</li>
                     </ol>
                 </div>
             </div>
@@ -26,7 +26,7 @@
                 <div class="col-md-12 col-xl-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class=""> Create New Organization/Department
+                            <h4 class=""> Organization  Details
                             </h4>
                         </div>
                         @include('admin_panel.frontend.includes.messages')
@@ -61,10 +61,13 @@
                                     <span class="text-danger text-left">{{ $errors->first('contactperson') }}</span>
                                     @endif
                                 </div>
-                                <div class=" row mb-4 address">
-                                    <label for="phone" class="col-md-3 form-label"> Phone Number</label>
-                                    <div class="col-md-9">
-                                        <input type="number" class="form-control" value="{{old('phone')}}" name="phone" id="phone" placeholder="Phone Number" autocomplete="contactperson">
+                                <div class="row address">
+                                    <div class="col-3 pt-2">
+                                        <label for="exampleInputnumber"><Strong> Contact Number</Strong></label>
+                                    </div>
+                                    <div class="col-9 form-group">
+                                        <input type="text" id="txtPhone" name="" class="form-control">
+                                        <input type="hidden" class="form-control" id="phoneNumber">
                                     </div>
                                     @if ($errors->has('contactperson'))
                                     <span class="text-danger text-left">{{ $errors->first('contactperson') }}</span>
@@ -114,7 +117,7 @@
                                 <div class=" row mb-4">
                                     <label for="inputEmail3" class="col-md-3 form-label">Email</label>
                                     <div class="col-md-9">
-                                        <input type="email" class="form-control" value="{{old('email')}}" name="email" placeholder="Email" autocomplete="username">
+                                        <input type="email" class="form-control" value="{{old('email')}}" name="email" placeholder="Email">
                                     </div>
                                 </div>
                                 <div class=" row mb-4 address">
@@ -146,37 +149,22 @@
                                         </select>
                                     </div>
                                 </div>
-                                <h6 class="text-blue">If you want to create Department select Level <strong> SubOrg</strong> an then Select <strong>Organization</strong></h6>
-                                <h6 class="text-blue">If you want to create New Organization select level <strong> Master</strong> </h6>
-
-                                <div class=" row mb-4" >
+                                <div class=" row mb-4" id="no-need">
                                     <span id="add"></span>
                                     <label for="level" class="col-md-3 form-label"> Select Level </label>
                                     <div class="col-md-9">
-                                        <select class="form-control"  name="level" id="level">
-                                            <option value="">Select</option>
-                                            <option value="Hospital">Hospital</option>
-                                            <option value="Department">Department</option>
+                                        <select class="form-control" name="level" id="level">
+                                            <option value="Hospital" selected>Hospital</option>
                                         </select>
                                     </div>
                                 </div>
                                 
-                                <div class="form-group" id="no-need">
-                                    <label for="organization">Organizations</label>
-                                    <select class="form-control"  name="organization" id="organization">
-                                        <option value="">Select</option>
-                                        @if($organizations)
-                                        @foreach ($organizations as $organization)
-                                        <option value="{{$organization->uuid}}">{{$organization->name}}</option>
-                                        @endforeach
-                                        @endif
-                                    </select>
-                                </div>
+                                
                                 <div class="mb-0 mt-4 row justify-content-end">
                                     <div class="col">
                                         <button class="btn btn-primary" type="submit">Create</button>
 
-                                        <span><a href="{{route('organization')}}" class="btn btn-secondary  ">Cancel</a></span>                             
+                                        <span><a href="{{route('dashboard')}}" class="btn btn-secondary  ">Cancel</a></span>
                                     </div>
                                 </div>
                             </form>
@@ -197,23 +185,16 @@
 @section('foot_script')
 <script type="text/javascript">
     var baseUrl = `{{url('/')}}`;
-    $('#level').change(function(){
-        if($(this).val()=="Hospital"){
-            $('.address').show();
+    $('#level').change(function() {
+        if ($(this).val() == "Hospital") {
             $('#no-need').hide();
-            $('#organization').attr('name','org');
-            var input_organization='<input type="hidden" id="input_org" name="input_org" value="c6bc6265-e876-414a-9672-a85e09280059">';
+            $('#organization').attr('name', 'org');
+            var input_organization = '<input type="hidden" id="input_org" name="input_org" value="c6bc6265-e876-414a-9672-a85e09280059">';
             $('#add').html(input_organization);
             return false;
-        }else if($(this).val()=="Department"){
-            $('.address').hide();
-            $('#add').html('');
-            $('#no-need').show();
-            $('#organization').attr('name','organization');
-            return false;
         }
-
     });
+
     function loadStates(country_id, context) {
 
         if (country_id == '')

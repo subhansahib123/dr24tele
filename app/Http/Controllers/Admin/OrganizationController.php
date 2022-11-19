@@ -57,7 +57,7 @@ class OrganizationController extends Controller
             $response = curl_exec($curl);
             // dd($response);
             $organizations = json_decode($response);
-            // dd($response);
+            // dd($organizations);
             if ($response == false) {
                 $error = curl_error($curl);
                 curl_close($curl);
@@ -68,12 +68,12 @@ class OrganizationController extends Controller
 
                     // dd($organizations);
                     foreach ($organizations->childlist as $organization) {
-                        Organization::firstOrNew(['name'=>$organization->name],[
+                        Organization::firstOrNew(['name' => $organization->name], [
                             'name' => $organization->name,
                             'slug' => Str::slug($organization->name),
                             'uuid' => $organization->uuid,
                             'status' => $organization->status,
-                            'organization_id'=>1
+                            'organization_id' => 1
                         ]);
                     }
 
@@ -102,49 +102,30 @@ class OrganizationController extends Controller
     }
     public function create()
     {
-        $organizations = Organization::all();
+
         $countries = Country::all();
-
-        return view(
-            'admin_panel.organization.create',
-            [
-                'organizations' => $organizations,
-                'countries' => $countries
-
-            ]
-        );
+        $organizations = Organization::all();
+        return view('admin_panel.organization.create', ['countries' => $countries, 'organizations' => $organizations]);
     }
     public function createOrganization(Request $request)
     {
-
-
-
+        // dd($request->all());
         $request->validate([
-            'name' => 'required|string',
+            'name'  => 'required|string',
             'status' => 'required|string',
             'email' => 'required|string',
             'level' => 'required|string',
-            // 'contactperson' => 'required|string',
-            // 'phone' => 'required|string',
-            // 'building' => 'string',
-            // 'postalCode' => 'required|string',
-            // 'district' => 'required|string',
-            // 'city' => 'required|string',
-            // 'state' => 'required|string',
-            // 'country' => 'required|string',
         ]);
         $curl = curl_init();
         $baseUrl = config('services.ehr.baseUrl');
         $apiKey = config('services.ehr.apiKey');
-
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
-        // dd($userInfo);
         if (is_null($userInfo)) {
-
             return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
         $parent_org_uuid = $request->has('input_org') ? $request->input_org : $request->organization;
+        // dd($parent_org_uuid);
         $token = $userInfo['sessionInfo']['token'];
         $data = [
             "displayname" => $request->displayname,
@@ -155,7 +136,7 @@ class OrganizationController extends Controller
                 "uuid" => $parent_org_uuid
             ],
             "email" => $request->email,
-            "contactperson" => $request->contactperson,
+            "contactperson" => $request->phoneNumber,
             "phone" => $request->phone,
             "address" => [
                 [
@@ -169,9 +150,7 @@ class OrganizationController extends Controller
                 ]
             ],
             "level" => 'SubOrg',
-            // "uuid" => $request->organization,
         ];
-        // dd($data);
         curl_setopt_array($curl, array(
             CURLOPT_URL =>  $baseUrl . 'rest/admin/organisation/v2',
             CURLOPT_RETURNTRANSFER => true,
@@ -186,22 +165,17 @@ class OrganizationController extends Controller
                 'Content-Type: application/json',
                 'Accept: application/json',
                 'Authorization:' . $token,
-                'apikey: ' . $apiKey,
+                'apikey:' . $apiKey,
             ),
         ));
         try {
             $response = curl_exec($curl);
-            // dd($data );
-            //  var_dump(curl_getinfo($curl, CURLINFO_HTTP_CODE));
             if ($response == false) {
                 $error = curl_error($curl);
                 curl_close($curl);
-
                 return redirect()->back()->withErrors(['error' => __($error)]);;
             } else {
-
                 $organization = json_decode($response);
-                // dd($organization);
                 if (
                     isset($organization->displayname)
                     && $organization->displayname
@@ -211,31 +185,16 @@ class OrganizationController extends Controller
                     curl_close($curl);
                     // // dd($request->level);
                     $org = Organization::where('uuid',  $parent_org_uuid)->first();
-                    if ($request->level == 'Department') {
-
-                        // dd($organization);
-                        Department::Create([
-                            'name' => $organization->displayname,
-                            'organization_id' => $org->id,
-                            'slug' => $request->name,
-                            'level' => "SubOrg",
-                            'uuid' => $organization->uuid,
-                            
-                        ]);
-                        return redirect()->back()->withSuccess(__('Successfully Department Created'));
-                    } else if($request->level == 'Hospital') {
-                        Organization::Create([
-                            'name' => $request->name,
-                            'uuid' => $organization->uuid,
-                            'slug' => $organization->displayname,
-                            'status' => $organization->status,
-                            'level' => "SubOrg",
-                            'organization_id' => 2
-                        ]);
-                        return redirect()->back()->withSuccess(__('Successfully Organization Created'));
-                    }
-
-
+                    // dd($org->id );
+                    Organization::Create([
+                        'name' => $request->name,
+                        'uuid' => $organization->uuid,
+                        'slug' => $organization->displayname,
+                        'status' => $organization->status,
+                        'level' => "SubOrg",
+                        'organization_id' => $org->id
+                    ]);
+                    return redirect()->back()->withSuccess(__('Successfully Organization Created'));
                 } else if ($organization->message == "Provided organization name already exist") {
                     curl_close($curl);
                     return redirect()->back()->withErrors(['error' => $organization->message]);
@@ -461,7 +420,7 @@ class OrganizationController extends Controller
             'email' => 'required|string',
             'level' => 'SubOrg',
             'contactperson' => 'required|string',
-            'phone' => 'required|string',
+            'phoneNumber' => 'required|string',
         ]);
         $data = [
             "displayname" => $request->displayname,
@@ -474,7 +433,7 @@ class OrganizationController extends Controller
             ],
             "email" => $request->email,
             "contactperson" => $request->contactperson,
-            "phone" => $request->phone,
+            "phone" => $request->phoneNumber,
             "address" => [
                 [
                     "type" => "permanent",
@@ -527,7 +486,6 @@ class OrganizationController extends Controller
                     curl_close($curl);
                     $org = Organization::where('uuid', $request->OrgUuid)->first();
                     $org->update([
-                        'name' => $request->name,
                         'slug' => $organization->displayname,
                         'status' => $organization->status,
                     ]);

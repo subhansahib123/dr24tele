@@ -31,6 +31,8 @@ use App\Http\Controllers\Doctor\Specialization;
 use App\Http\Controllers\homeController;
 use App\Http\Controllers\PatientAuthenticationController;
 use App\Http\Controllers\Patient\PersonalDetails as PatientDetails;
+use App\Models\Department;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -186,6 +188,10 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::post('/update/organization', [OrganizationController::class, 'updateOrganization'])->name('update.organization');
 
 
+    //create Department
+    Route::get('/create/new-departments', [DepartmentController::class, 'index'])->name('create.newDepartment');
+    Route::post('/new-department/created', [DepartmentController::class, 'create'])->name('newDepartment.created');
+
 
     // This Route shows list Unmapped User (roles are not assigned)
     Route::get('/users/unmapped', [UserController::class, 'usersUnmapped'])->name('users.unmapped');
@@ -337,9 +343,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     //Doctor Specialization
     Route::get('/doctor/specialization', [Specialization::class, 'index'])->name('doctorSpecialization');
     Route::post('/doctor/specialized', [Specialization::class, 'store'])->name('doctorSpecialized');
-    //Update Doctor Specialization
-    Route::post('/doctor-specialization/updated', [Specialization::class, 'update'])->name('doctor.updateSpecialization');
-
+    
     //list of Schedules
     Route::get('/schedules', [DoctorSchedule::class, 'schedules'])->name('list.schedules.doctor');
     //Create Schedule
