@@ -70,9 +70,8 @@
                             class="side-menu__icon fa fa-wheelchair"></i><span class="side-menu__label">
                             Patients</span><i class="angle fe fe-chevron-right"></i></a>
                     <ul class="slide-menu nav-tree">
-                        <li><a href="{{ route('create.patients') }}" class="slide-item"> Create Patient</a></li>
-                        <li><a href="{{ route('map.patients') }}" class="slide-item">Map Patients</a></li>
-                        <li><a href="{{ route('all.users') }}" class="slide-item"> All Patients</a></li>
+                        <li><a href="{{ route('create.patients') }}" class="slide-item"> Create</a></li>
+                        <li><a href="{{ route('all.users') }}" class="slide-item"> List</a></li>
                     </ul>
                 </li>
 
