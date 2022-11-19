@@ -207,6 +207,7 @@ class PatientController extends Controller
     }
     public function mapPatients($user)
     {
+        // dd(1);
         $organizations = Organization::all();
         return view('admin_panel.patients.mapPatients', ['user' => $user, 'organizations' => $organizations]);
     }
