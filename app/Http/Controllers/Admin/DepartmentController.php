@@ -35,7 +35,7 @@ class DepartmentController extends Controller
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
         if (is_null($userInfo)) {
-            return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
+            return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
         $parent_org_uuid = $request->has('input_org') ? $request->input_org : $request->organization;
         $token = $userInfo['sessionInfo']['token'];
@@ -111,15 +111,15 @@ class DepartmentController extends Controller
                     return redirect()->back()->withErrors(['error' => 'This Hospital is already having this department']);
                 } else if (isset($organization->message) && $organization->message == "API rate limit exceeded") {
                     curl_close($curl);
-                    return redirect()->route('login.show')->withErrors(['error' => $organization->message]);
+                    return redirect()->route('logout')->withErrors(['error' => $organization->message]);
                 } else if (isset($organization->message) && $organization->message == "Invalid User") {
 
                     curl_close($curl);
-                    return redirect()->route('login.show')->withErrors(['error' => $organization->message]);
+                    return redirect()->route('logout')->withErrors(['error' => $organization->message]);
                 } else if (isset($organization->message) && $organization->message == "Invalid Token") {
 
                     curl_close($curl);
-                    return redirect()->route('login.show')->withErrors(['error' => $organization->message]);
+                    return redirect()->route('logout')->withErrors(['error' => $organization->message]);
                 } else {
                     curl_close($curl);
                     return redirect()->back()->withErrors(['error' => $organization->message]);
@@ -197,15 +197,15 @@ class DepartmentController extends Controller
                     }
                 } else if (isset($departments->message) && $departments->message == "API rate limit exceeded") {
                     curl_close($curl);
-                    return redirect()->route('login.show')->withErrors(['error' => $departments->message]);
+                    return redirect()->route('logout')->withErrors(['error' => $departments->message]);
                 } else if (isset($departments->message) && $departments->message == "Invalid User") {
 
                     curl_close($curl);
-                    return redirect()->route('login.show')->withErrors(['error' => $departments->message]);
+                    return redirect()->route('logout')->withErrors(['error' => $departments->message]);
                 } else if (isset($departments->message) && $departments->message == "Invalid Token") {
 
                     curl_close($curl);
-                    return redirect()->route('login.show')->withErrors(['error' => $departments->message]);
+                    return redirect()->route('logout')->withErrors(['error' => $departments->message]);
                 } else {
                     curl_close($curl);
                     return redirect()->back()->withErrors(['error' => $departments->message]);
@@ -304,15 +304,15 @@ class DepartmentController extends Controller
                 return redirect()->back()->withSuccess(__('Department Successfully Updated'));
             } else if (isset($organization->message) && $organization->message == "API rate limit exceeded") {
                 curl_close($curl);
-                return redirect()->route('login.show')->withErrors(['error' => $organization->message]);
+                return redirect()->route('logout')->withErrors(['error' => $organization->message]);
             } else if (isset($organization->message) && $organization->message == "Invalid User") {
 
                 curl_close($curl);
-                return redirect()->route('login.show')->withErrors(['error' => $organization->message]);
+                return redirect()->route('logout')->withErrors(['error' => $organization->message]);
             } else if (isset($organization->message) && $organization->message == "Invalid Token") {
 
                 curl_close($curl);
-                return redirect()->route('login.show')->withErrors(['error' => $organization->message]);
+                return redirect()->route('logout')->withErrors(['error' => $organization->message]);
             } else {
                 curl_close($curl);
                 return redirect()->back()->withErrors(['error' => $organization->message]);
