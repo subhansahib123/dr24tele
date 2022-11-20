@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Models\Organization;
 use App\Models\Country;
 use App\Models\Department;
+use App\Models\DepartmentSpecializations;
+use App\Models\SpecializedDepartment;
 use Illuminate\Support\Str;
 
 
@@ -16,11 +18,12 @@ class HospitalDepartmentController extends Controller
     public function createHospitalDepartment()
     {
         $organizations = Organization::all();
-
+        $specializations = DepartmentSpecializations::all();
         return view(
             'hospital_panel.departments.create',
             [
                 'organizations' => $organizations,
+                'specializations' => $specializations,
 
             ]
         );
@@ -36,6 +39,8 @@ class HospitalDepartmentController extends Controller
             'status' => 'required|string',
             'email' => 'required|string',
             'level' => 'string',
+            'specialization_id' => 'required|string',
+
         ]);
         $curl = curl_init();
         $baseUrl = config('services.ehr.baseUrl');
@@ -117,6 +122,13 @@ class HospitalDepartmentController extends Controller
                         'slug' => $request->displayname,
                         'level' => "SubOrg",
                         'uuid' => $organization->uuid,
+                    ]);
+                    $department=Department::where('name',$request->name.'_'.$org->name)->first();
+                    // dd($department);
+
+                    SpecializedDepartment::Create([
+                        'specialization_id'=>$request->specialization_id,
+                        'department_id'=>$department->id,
                     ]);
                     return redirect()->back()->withSuccess(__('Successfully Department Created'));
                 } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 409) {
