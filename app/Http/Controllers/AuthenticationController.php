@@ -264,7 +264,7 @@ class AuthenticationController extends Controller
 
     public function hospitalLogin(Request $request)
     {
-        // dd(1);
+        // dd($request->all());
         $curl = curl_init();
         $baseUrl = config('services.ehr.baseUrl');
         $apiKey = config('services.ehr.apiKey');

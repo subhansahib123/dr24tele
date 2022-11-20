@@ -46,6 +46,16 @@
                         </select>
                     </div>
                     <div class="form-group col-lg-6 col-md-6 col-sm-12">
+                        <label for="role">Roles</label>
+                        <select class="form-control" value="{{old('role')}}" name="role" id="role">
+                            @if($roles)
+                            @foreach ($roles as $role)
+                            <option value="{{$role->name}}">{{$role->name}}</option>
+                            @endforeach
+                            @endif
+                        </select>
+                    </div>
+                    <div class="form-group col-lg-6 col-md-6 col-sm-12">
                         <label for="organizations">Map In Organisation
 
                             <input type="checkbox" id="onlyinOrg" />
@@ -58,16 +68,7 @@
                             <option value='' selected>Select Department</option>
                         </select>
                     </div>
-                    <div class="form-group col-lg-6 col-md-6 col-sm-12">
-                        <label for="role">Roles</label>
-                        <select class="form-control" value="{{old('role')}}" name="role" id="role">
-                            @if($roles)
-                            @foreach ($roles as $role)
-                            <option value="{{$role->name}}">{{$role->name}}</option>
-                            @endforeach
-                            @endif
-                        </select>
-                    </div>
+                    
                 </div>
 
                 <div class="form-group">

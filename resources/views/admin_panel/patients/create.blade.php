@@ -49,7 +49,7 @@
                                         </div>
                                     </div>
                                     <h3>Person</h3>
-                                    
+
                                     <div class="col-lg-6 col-md-6 col-sm-12">
                                         <div class="form-group">
                                             <label for="Name">Name</label>
@@ -70,10 +70,14 @@
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-12">
                                         <div class="form-group">
-                                            <label for="exampleInputnumber">Contact Number</label>
-                                            
-                                            <input type="text" id="txtPhone" name="" class="form-control">
-                                               <input type="hidden" class="form-control" id="phoneNumber" >
+                                            <div class="row mx-0">
+                                                <label for="exampleInputnumber"><strong> Contact Number</strong></label>
+                                            </div>
+                                            <div class="row mx-1">
+
+                                                <input type="text" id="txtPhone" name="" class="form-control">
+                                                <input type="hidden" class="form-control" id="phoneNumber">
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-12">
@@ -96,13 +100,13 @@
                                                     Male
                                                 </option>
                                                 <option value="IND">
-                                                Indeterminate Sex
+                                                    Indeterminate Sex
                                                 </option>
                                                 <option value="TRA">
-                                                Transsexual
+                                                    Transsexual
                                                 </option>
                                                 <option value="O">
-                                                Others
+                                                    Others
                                                 </option>
                                             </select>
 
@@ -114,7 +118,7 @@
                             </div>
                             <div class="card-footer ">
                                 <button type="submit" class="btn btn-primary my-1">Create</button>
-                                <span><a href="{{route('dashboard')}}" class="btn btn-secondary  ">Cancel</a></span>                             
+                                <span><a href="{{route('dashboard')}}" class="btn btn-secondary  ">Cancel</a></span>
 
                                 {{-- <a href="javascript:void(0)" class="btn btn-danger my-1">Cancel</a> --}}
                             </div>

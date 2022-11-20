@@ -370,7 +370,7 @@ class UserController extends Controller
                     // dd(1);
                     User::create([
                         'username' => $user->username,
-                        'name'=>$user->name,
+                        'name' => $user->name,
                         'password' => $request->password,
                         'email' => $request->email,
                         'phone_number' => $request->phoneNumber,
@@ -560,6 +560,7 @@ class UserController extends Controller
     {
 
 
+        // dd($request->all());
         $curl = curl_init();
         $uuid = '';
         if ($request->department != '') {
@@ -567,7 +568,7 @@ class UserController extends Controller
         } else {
             $uuid = $request->organizations;
         }
-
+        $orgUuid=$request->organizations;
         // dd($uuid);
         $baseUrl = config('services.ehr.baseUrl');
         $apiKey = config('services.ehr.apiKey');
@@ -601,7 +602,7 @@ class UserController extends Controller
         ));
         try {
             $response = curl_exec($curl);
-           
+
 
             if ($response == false) {
                 $error = curl_error($curl);
@@ -610,79 +611,37 @@ class UserController extends Controller
             } else {
                 $userRole = json_decode($response);
                 // dd($userRole);
+
                 // dd(curl_getinfo($curl, CURLINFO_HTTP_CODE));
                 if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
                     $user = User::where('uuid', $userRole[0]->useruuid)->first();
                     $role = Role::where('name', $userRole[0]->rolename)->first();
                     $department = Department::where('uuid', $request->department)->first();
                     $organization = Organization::where('uuid', $request->organizations)->first();
-                    // dd($department->id,$user->id,$role->id ,$organization->id);  
+                    // dd($user->id, $role->id, $organization->id);
                     curl_close($curl);
-                    if ($userRole[0]->rolename == 'Practitioner') {
-                        // dd(1);
-                        Doctor::firstOrCreate([
+                    UsersOrganization::firstOrCreate([
 
-                            'status' => 1,
-                            'user_id' => $user->id,
-                            'department_id' => $department->id
-                        ]);
-                        UsersOrganization::firstOrCreate([
+                        'status' => 1,
+                        'registration_code' => '123ABC',
+                        'user_id' => $user->id,
+                        'organization_id' => $organization->id
+                    ]);
+                    User_Role::firstOrCreate([
+                        'user_id' => $user->id,
+                        'role_id' => $role->id
+                    ]);
 
-                            'status' => 1,
-                            'registration_code' => '123ABC',
-                            'user_id' => $user->id,
-                            'organization_id' => $organization->id
-                        ]);
-                        // dd(1);
-                        User_Role::firstOrCreate([
-                            'user_id' => $user->id,
-                            'role_id' => $role->id
-                        ]);
-                    } else if ($userRole[0]->rolename == 'OrgSuperAdmin') {
-                        // dd(2);
-                        UsersOrganization::firstOrCreate([
+                    // dd($user->id,$role->id,$organization->id);
 
-                            'status' => 1,
-                            'registration_code' => '123ABC',
-                            'user_id' => $user->id,
-                            'organization_id' => $organization->id
-                        ]);
-                        User_Role::firstOrCreate([
-                            'user_id' => $user->id,
-                            'role_id' => $role->id
-                        ]);
 
-                        // dd($user->id,$role->id,$organization->id);
-
-                    } else if ($userRole[0]->rolename == 'FrontOffice ') {
-                        // dd(3);
-                        UsersOrganization::firstOrCreate([
-
-                            'status' => 1,
-                            'registration_code' => '123ABC',
-                            'user_id' => $user->id,
-                            'organization_id' => $organization->id
-                        ]);
-                        User_Role::firstOrCreate([
-                            'user_id' => $user->id,
-                            'role_id' => $role->id
-                        ]);
-                    } else {
-
-                        UsersOrganization::firstOrCreate([
-
-                            'status' => 1,
-                            'registration_code' => '123ABC',
-                            'user_id' => $user->id,
-                            'organization_id' => $organization->id
-                        ]);
-                        User_Role::firstOrCreate([
-                            'user_id' => $user->id,
-                            'role_id' => $role->id
-                        ]);
-                    }
 
                     return redirect()->back()->withSuccess(__('Successfully Mapped User Role'));
+                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
+                    curl_close($curl);
+                    $userUuid=$request->user;
+                    // dd($userUuid,$orgUuid);
+                    return redirect()->route('updatingRole', [$orgUuid, $userUuid]);
                 } else if (isset($userRole->message) && $userRole->message == "API rate limit exceeded") {
                     curl_close($curl);
 
@@ -695,9 +654,6 @@ class UserController extends Controller
 
                     curl_close($curl);
                     return redirect()->route('logout')->withErrors(['error' => $userRole->message]);
-                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400)  {
-                    curl_close($curl);
-                    return redirect()->route('updatingRole', [$uuid]);
                 } else {
                     curl_close($curl);
 
@@ -709,12 +665,13 @@ class UserController extends Controller
             return redirect()->back()->withErrors(['error' => __($e->getMessage())]);
         }
     }
-    public function updateUserRole($uuid)
+    public function updateUserRole($orgUuid, $userUuid)
     {
-        $users = User::all();
+        $user = User::where('uuid',$userUuid)->first();
         $roles = Role::all();
-
-        return view('admin_panel.totalUsers.updateRole', ['users' => $users, 'roles' => $roles, 'uuid' => $uuid]);
+        $uuid=$orgUuid;
+        // dd($uuid,$user);
+        return view('admin_panel.totalUsers.updateRole', ['user' => $user, 'roles' => $roles, 'uuid' => $uuid]);
     }
     public function updateUserRoleStore(Request $request)
     {
@@ -761,13 +718,14 @@ class UserController extends Controller
                 return redirect()->back()->withErrors(['error' => $error]);
             } else {
                 $UpdatedRole = json_decode($response);
+                // dd($UpdatedRole);
                 if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
                     curl_close($curl);
                     // dd($UpdatedRole[0]->useruuid);
                     $user = User::where('uuid', $UpdatedRole[0]->useruuid)->first();
                     $role = Role::where('name', $UpdatedRole[0]->rolename)->first();
                     // dd($userRole->id);
-                    User_Role::firstOrCreate(['role_id' => $role->id,'user_id' => $user->id]);
+                    User_Role::firstOrCreate(['role_id' => $role->id, 'user_id' => $user->id]);
                     return redirect()->back()->withSuccess(__('Successfully User Role Updated'));
                 } else if (isset($UpdatedRole->message) && $UpdatedRole->message == "API rate limit exceeded") {
                     curl_close($curl);

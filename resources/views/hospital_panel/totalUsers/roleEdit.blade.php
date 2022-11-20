@@ -23,82 +23,81 @@
             <!-- PAGE-HEADER END -->
             <form action="{{route('hospitalUser.mapped')}}" method="POST">
                 @csrf
-                <div class="form-group">
-                    <label for="user">User</label>
-                    <select class="form-control" value="{{old('user')}}" name="user" id="user">
-                <option value="">select</option>
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <div class="form-group">
+                            <label for="user">User</label>
+                            <select class="form-control" value="{{old('user')}}" name="user" id="user">
+                                <option value="">select</option>
 
-                    @if($users)
-                        @foreach ($users as $user)
-                        <option value="{{$user->uuid}}">{{$user->username}}</option>
-                        @endforeach
-                        @endif
-                    </select>
+                                @if($users)
+                                @foreach ($users as $user)
+                                <option value="{{$user->uuid}}">{{$user->username}}</option>
+                                @endforeach
+                                @endif
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <div class="form-group">
+                            <label for="role">Roles</label>
+                            <select class="form-control" value="{{old('role')}}" name="role" id="role">
+                                <option value="">select</option>
+                                @if($roles)
+                                @foreach ($roles as $role)
+                                <option value="{{$role->name}}">{{$role->name}}</option>
+                                @endforeach
+                                @endif
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 mb-5 mt-2 col-sm-12">
+                        <div class="form-group mb-3">
+                            <label for="organizations">Map In Organisation
+
+                                <input type="checkbox" id="onlyinOrg" />
+                            </label>
+
+
+
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <div class="form-group" id="dep">
+                            <label for="department">Departments</label>
+                            <select class="form-control" value="{{old('department')}}" name="department" id="department">
+                                <option value="">select</option>
+
+                                @if($departments)
+                                @foreach ($departments as $department)
+                                <option value="{{$department->uuid}}">{{$department->name}}</option>
+                                @endforeach
+                                @endif
+                            </select>
+                        </div>
+                    </div>
                 </div>
-                {{-- <div class="form-group">
-                    <label for="organizations">Organization</label>
-                    <select class="form-control"   name="organizations" id="organization">
-                        @if($organizations)
-                        @foreach ($organizations as $organization)
-                        <option value="{{$organization->uuid}}">{{$organization->name}}</option>
-                @endforeach
-                @endif
-                </select>
-        </div>
-        <div class="form-group">
-            <label for="organizations">Departments</label>
-            <select class="form-control" name="department" id="departments">
-                <option value='' selected>Select Department</option>
-            </select>
-        </div>--}}
-        <div class="form-group">
-            <label for="organizations">Map In Organisation
-
-                <input type="checkbox" id="onlyinOrg" />
-            </label>
 
 
+
+                <input type="hidden" value="{{$org->id}}" name="org">
+
+
+
+                <div class="form-group">
+                    <!-- <label for="role">Roles</label> -->
+                    <button type="submit" class="btn btn-primary">Map User Role</button>
+
+
+                    <a href="{{route('hospital.dashboard')}}" class="btn btn-info">Back</a>
+
+                </div>
+            </form>
 
         </div>
-        <input type="hidden" value="{{$org->id}}" name="org">
-
-        <div class="form-group" id="dep">
-            <label for="department">Departments</label>
-            <select class="form-control" value="{{old('department')}}" name="department" id="department">
-                <option value="">select</option>
-
-                @if($departments)
-                @foreach ($departments as $department)
-                <option value="{{$department->uuid}}">{{$department->name}}</option>
-                @endforeach
-                @endif
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="role">Roles</label>
-            <select class="form-control" value="{{old('role')}}" name="role" id="role">
-            <option value="">select</option>
-                @if($roles)
-                @foreach ($roles as $role)
-                <option value="{{$role->name}}">{{$role->name}}</option>
-                @endforeach
-                @endif
-            </select>
-        </div>
-        <div class="form-group">
-            <!-- <label for="role">Roles</label> -->
-            <button type="submit" class="btn btn-primary">Map User Role</button>
-
-
-            <a href="{{route('hospital.dashboard')}}" class="btn btn-info">Back</a>
-
-        </div>
-        </form>
+        <!-- CONTAINER CLOSED -->
 
     </div>
-    <!-- CONTAINER CLOSED -->
-
-</div>
 </div>
 
 

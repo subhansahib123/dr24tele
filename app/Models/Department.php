@@ -24,4 +24,8 @@ class Department extends Model
     {
        return $this->hasMany(Doctor::class,'department_id');
     }
+    public function specialization()
+    {
+        return $this->hasOne(SpecializedDepartment::class,'department_id');
+    }
 }
