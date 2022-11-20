@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Role;
 use App\Models\Organization;
+use Illuminate\Contracts\Session\Session as SessionSession;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 use Session;
@@ -119,7 +120,6 @@ class AuthenticationController extends Controller
 
                     return redirect()->back()->withErrors(['error' => $error]);
                 } else {
-
                     if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
                         unset($userInfo);
                         Session::flush();

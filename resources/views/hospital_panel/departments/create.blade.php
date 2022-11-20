@@ -26,7 +26,7 @@
                 <div class="col-md-12 col-xl-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="">  Department Details
+                            <h4 class=""> Department Details
                             </h4>
                         </div>
                         @include('admin_panel.frontend.includes.messages')
@@ -54,10 +54,25 @@
                                 <div class=" row mb-4">
                                     <label for="inputEmail3" class="col-md-3 form-label">Email</label>
                                     <div class="col-md-9">
-                                        <input type="email" class="form-control"  name="email" placeholder="Email" >
+                                        <input type="email" class="form-control" name="email" placeholder="Email">
                                     </div>
                                 </div>
-                                
+                                <div class=" row mb-4">
+                                    <label for="specialization" class="col-md-3 form-label"> Select Specialization</label>
+                                    <div class="col-md-9">
+                                        <select class="form-control" name="specialization_id" id="specialization">
+                                            <option value="">Select</option>
+                                            @if($specializations)
+                                            @foreach($specializations as $specialization)
+                                            <option value="{{$specialization->id}}">{{$specialization->name}}</option>
+                                            @endforeach
+                                            @endif
+                                        </select>
+                                    </div>
+                                    @if ($errors->has('name'))
+                                    <span class="text-danger text-left">{{ $errors->first('name') }}</span>
+                                    @endif
+                                </div>
                                 <div class=" row mb-4">
                                     <label for="country" class="col-md-3 form-label"> Select Status </label>
                                     <div class="col-md-9">

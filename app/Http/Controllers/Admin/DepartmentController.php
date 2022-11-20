@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Department;
+use App\Models\DepartmentSpecializations;
 use App\Models\Organization;
+use App\Models\SpecializedDepartment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,7 +18,9 @@ class DepartmentController extends Controller
     public function index()
     {
         $organizations = Organization::all();
-        return view('admin_panel.departments.create', ['organizations' => $organizations]);
+        $specializations = DepartmentSpecializations::all();
+        // dd($specializations);
+        return view('admin_panel.departments.create', ['organizations' => $organizations,'specializations'=>$specializations]);
     }
     public function create(Request $request)
     {
@@ -28,6 +32,7 @@ class DepartmentController extends Controller
             'status' => 'required|string',
             'email' => 'required|string',
             'level' => 'required|string',
+            'specialization_id' => 'required|string',
         ]);
         $curl = curl_init();
         $baseUrl = config('services.ehr.baseUrl');
@@ -104,6 +109,12 @@ class DepartmentController extends Controller
                         'slug' => $request->displayname,
                         'level' => "SubOrg",
                         'uuid' => $organization->uuid,
+                    ]);
+                    $department=Department::where('name',$request->name.'_'.$orgName->name)->first();
+                    // dd($department);
+                    SpecializedDepartment::Create([
+                        'specialization_id'=>$request->specialization_id,
+                        'department_id'=>$department->id,
                     ]);
                     return redirect()->back()->withSuccess(__('Successfully Department Created'));
                 } else if (isset($organization->message) && $organization->message == "Provided organization name already exist") {
