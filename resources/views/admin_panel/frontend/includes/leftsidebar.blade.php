@@ -40,6 +40,11 @@
                             class="side-menu__icon fa fa-universal-access"></i><span
                             class="side-menu__label">Roles</span></a>
                 </li>
+                <li class="slide">
+                    <a class="side-menu__item has-link" data-bs-toggle="slide" href="{{ route('createDoctor') }}"><i
+                            class="side-menu__icon fa fa-user-md"></i><span
+                            class="side-menu__label">Doctors</span></a>
+                </li>
 
 
 
@@ -67,7 +72,7 @@
                 </li>
                 <li class="slide">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
-                            class="side-menu__icon fa fa-id-card-o"></i><span class="side-menu__label">
+                            class="side-menu__icon fa fa-stethoscope"></i><span class="side-menu__label">
                             Depart's Specialization</span><i class="angle fe fe-chevron-right"></i></a>
                     <ul class="slide-menu nav-tree">
                         <li><a href="{{ route('create.departmentSpecialization') }}" class="slide-item"> Create </a></li>
