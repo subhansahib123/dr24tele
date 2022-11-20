@@ -25,7 +25,7 @@
                         <div class="card">
 
                             <div class="row card-header">
-                                <div class="col-md-3 p-3 px-3 text-center"><span class="card-title">Schedules List</span>
+                                <div class="col-md-3 p-3 px-3"><span class="card-title">Schedules List</span>
                                 </div>
                                 <div class="col-md-7 algn-self-center"></div>
                                 <div class="col-md-2 p-3 px-3 text-center"><span class=""><a class="btn btn-primary"
@@ -38,7 +38,7 @@
                                 @include('admin_panel.frontend.includes.messages')
                                 {{-- <p>Use <code class="highlighter-rouge">.table-striped</code>to add zebra-striping to any table row within the <code class="highlighter-rouge">.tbody</code>.</p> --}}
                                 <div class="table-responsive">
-                                    <table class="table border text-nowrap text-md-nowrap table-striped mb-0">
+                                    <table class="table text-nowrap text-md-nowrap table-striped mb-0" id="datatable">
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
@@ -62,11 +62,10 @@
                                                     <td>{{ $schedule->doctor->user->username }}</td>
                                                     {{-- <td>{{$schedule->doctor->department->name}}</td> --}}
                                                     <td>
-
+                                                        <a href="{{ route('edit.schedule', $schedule->id) }}"
+                                                           class="btn btn-primary btn-sm" data-toggle="Edit"><i class="fa fa-edit"></i></a>
                                                         <a href="{{ route('delete.schedule', $schedule->id) }}"
-                                                            class="btn btn-danger btn-sm">Delete</a>
-                                                            <a href="{{ route('edit.schedule', $schedule->id) }}"
-                                                            class="btn btn-primary btn-sm">Edit</a>
+                                                            class="btn btn-danger btn-sm" data-toggle="Delete"><i class="fa fa-trash"></i></a>
 
                                                     </td>
                                                 </tr>
@@ -89,3 +88,10 @@
         </div>
     </div>
 @endsection
+@push('js')
+    <script>
+        $(document).ready(function () {
+            $('#datatable').DataTable();
+        });
+    </script>
+@endpush

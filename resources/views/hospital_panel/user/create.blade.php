@@ -5,10 +5,8 @@
 
 <div class="main-content app-content mt-0">
     <div class="side-app">
-
         <!-- CONTAINER -->
         <div class="main-container container-fluid">
-
             <!-- PAGE-HEADER -->
             <div class="page-header">
                 <h1 class="page-title">Create User</h1>
@@ -20,13 +18,12 @@
                 </div>
             </div>
             <!-- PAGE-HEADER END -->
-
             <!-- ROW-1 OPEN -->
             <div class="row">
                 <div class="form-group">
                     @include('admin_panel.frontend.includes.messages')
                 </div>
-                <div class="col-xl-8">
+                <div class="col-xl-12">
                     <div class="card">
                         <form action="{{ route('storeHospital.user') }}" method="POST">
                             @csrf
@@ -36,9 +33,10 @@
                             <div class="card-body">
                                 <div class="row">
                                     <h3>User</h3>
-                                    <div class="col-lg-6 col-md-6 col-sm-12">
-                                        <div class="form-group">
 
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+
+                                        <div class="form-group">
                                             <label for="Username">Username</label>
                                             <input type="text" class="form-control" name="username" value="" id="Username" placeholder="Username">
                                         </div>
@@ -86,9 +84,12 @@
                                             <input type="date" class="form-control" id="Birth" placeholder="Date of Birth" name="dateOfBirth" value="">
                                         </div>
                                     </div>
+
                                     <div class="col-lg-6 col-md-6 col-sm-12">
+
                                         <div class="form-group">
                                             <label class="form-label" for="gender">Gender</label>
+
                                             <select class="form-select" name="gender_code" id="gender">
                                                 <option value="">
                                                     Select

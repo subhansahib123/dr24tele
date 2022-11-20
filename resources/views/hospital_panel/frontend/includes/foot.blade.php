@@ -140,6 +140,7 @@
     </script>
     <!----Custom Function To Manage-->
     @yield('foot_script');
+    @stack('js')
 </body>
 
 </html>
