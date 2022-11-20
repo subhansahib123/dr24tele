@@ -5,45 +5,6 @@
     {{--    </div>--}}
     <section id="appointment" class="section-padding pt-100 pb-50 mt-100">
         <div class="auto-container">
-            {{--            <div class="appointment-line">--}}
-            {{--                <div class="row">--}}
-            {{--                    <div class="col-lg-3 col-md-3 col-sm-12 col-12 mb-2">--}}
-            {{--                        <div class="single-step text-center">--}}
-            {{--                            <div class="single-step-icon">--}}
-            {{--                                <i class="icofont icofont-hospital"></i>--}}
-            {{--                            </div>--}}
-            {{--                            <h5>Search For A Hospital</h5>--}}
-            {{--                        </div>--}}
-            {{--                    </div>--}}
-            {{--                    <!-- end single step -->--}}
-            {{--                    <div class="col-lg-3 col-md-3 col-sm-12 col-12 mb-5">--}}
-            {{--                        <div class="single-step text-center">--}}
-            {{--                            <div class="single-step-icon">--}}
-            {{--                                <i class="icofont icofont-job-search"></i>--}}
-            {{--                            </div>--}}
-            {{--                            <h5>Search For A Doctor</h5>--}}
-            {{--                        </div>--}}
-            {{--                    </div>--}}
-            {{--                    <!-- end single step -->--}}
-            {{--                    <div class="col-lg-3 col-md-3 col-sm-12 col-12 mb-5">--}}
-            {{--                        <div class="single-step text-center">--}}
-            {{--                            <div class="single-step-icon">--}}
-            {{--                                <i class="icofont icofont-pencil"></i>--}}
-            {{--                            </div>--}}
-            {{--                            <h5>Fill Out The From</h5>--}}
-            {{--                        </div>--}}
-            {{--                    </div>--}}
-            {{--                    <!-- end single step -->--}}
-            {{--                    <div class="col-lg-3 col-md-3 col-sm-12 col-12 mb-5">--}}
-            {{--                        <div class="single-step text-center">--}}
-            {{--                            <div class="single-step-icon">--}}
-            {{--                                <i class="icofont icofont-verification-check"></i>--}}
-            {{--                            </div>--}}
-            {{--                            <h5>Appointment Done</h5>--}}
-            {{--                        </div>--}}
-            {{--                    </div>--}}
-            {{--                    <!-- end single step -->--}}
-            {{--                </div>--}}
             <div class="row">
                 <div class="col-12">
                     <div style="text-align:center;">
@@ -54,7 +15,6 @@
                     </div>
                 </div>
             </div>
-            {{--            </div>--}}
             <div class="row mt-5">
                 <div class="col-lg-8 mx-auto">
                     <div class="appointment-form-ma">
@@ -62,52 +22,11 @@
                             <div class="col-12 error">
                             </div>
                         </div>
-
-
-                        <form id="appointmentForm">
+                        <form id="appointmentForms">
                             <div class="col-12 error">
                             </div>
                             <div class="row" id="schedules">
-                                {{--                                <div class="form-group col-12" id='calenderwrapper'>--}}
-                                {{--                                    <div id='calendar'></div>--}}
-                                {{--                                </div>--}}
                                 <div class="col-12" id="scheduleDoctor">
-                                </div>
-                                {{--                                <div class="form-group col-lg-12" id="comments" style="display: none">--}}
-                                {{--                                    <label>Comments</label>--}}
-                                {{--                                    <textarea rows="5" cols="5" class="form-control" name="comments" required></textarea>--}}
-                                {{--                                    <div class="col-12 text-center mt-3">--}}
-                                {{--                                       <div class="btn btn-primary btn-sm" style="cursor: pointer;"  id="next-comment">Next</div>--}}
-                                {{--                                    </div>--}}
-                                {{--                                </div>--}}
-                                <div class="form-group col-lg-12" id="membership" style="display: none">
-                                    <div class="row">
-                                        {{--                                        <div class="col-12 ">--}}
-                                        {{--                                            <div class="form-check">--}}
-                                        {{--                                                <input type="checkbox" name="hospital-check" value="1">--}}
-                                        {{--                                                <label class="form-check-label" for="hospital-check">Are you already registered with this hospital?</label>--}}
-                                        {{--                                            </div>--}}
-                                        {{--                                        </div>--}}
-                                        {{--                                        <form role="form">--}}
-                                        {{--                                            <div class="col-12">--}}
-                                        {{--                                                <div class="form-group">--}}
-                                        {{--                                                    <label>Coupon</label>--}}
-                                        {{--                                                    <div class="input-group">--}}
-                                        {{--                                                        <input type="text" id="coupon" class="form-control" placeholder="Coupon Code" />--}}
-                                        {{--                                                        <button type="button" id="coupon-btn" class="btn btn-apfm">Apply</button>--}}
-                                        {{--                                                    </div>--}}
-                                        {{--                                                </div>--}}
-                                        {{--                                            </div>--}}
-                                        {{--                                        </form>--}}
-                                        {{--                                        <div class="row">--}}
-                                        {{--                                            <div class="col-lg-1 offset-11 mt-1 text-right text-primary" id="next-payment" style="cursor: pointer;">Next</div>--}}
-                                        {{--                                        </div>--}}
-                                    </div>
-                                </div>
-                                <div class="row" id="payment" style="display: none">
-                                    <div class="col-xs-12 col-md-12 col-md-offset-4">
-
-                                    </div>
                                 </div>
                                 <div class="form-group col-lg-12" style="display: none" id="book_appointment_submit">
                                     <button type="button" class="btn btn-apfm">Book Appointment <i class="icofont icofont-thin-right"></i></button>
@@ -116,8 +35,6 @@
                         </form>
 
                         <form id="appointmentForm">
-                            {{--                        <form id="regForm" action="">--}}
-                            <!-- One "tab" for each step in the form: -->
                             <div class="tab">
                                 <p><div id='calendar'></div></p>
                             </div>
@@ -125,12 +42,17 @@
                             <div class="tab">
                                 <p><label>Comments</label></p>
                                 <p><textarea rows="5" cols="5" class="form-control" name="comments" required></textarea></p>
-                                <div class="row">
+                                <div class="row" id="hospital-check-is">
                                     <div class="col-1">
-                                        <input type="checkbox" name="hospital-check" value="1">
+                                        <input type="checkbox" name="hospital-check" id="hospital-check" value="1">
                                     </div>
                                     <div class="col-11 pl-0">
                                         <label class="form-check-label" for="hospital-check">Are you already registered with this hospital?</label>
+                                    </div>
+                                </div>
+                                <div class="row" id="hospital-check-file" style="display: none">
+                                    <div class="col-12">
+                                        <input type="file" id="hospital-register-id">
                                     </div>
                                 </div>
                             </div>
@@ -141,8 +63,14 @@
                                         <div class="form-group">
                                             <label>Coupon</label>
                                             <div class="input-group">
-                                                <input type="text" id="coupon" name="coupon" class="form-control" placeholder="Coupon Code" />
-                                                <button type="button" id="coupon-btn" class="btn btn-apfm">Apply</button>
+{{--                                                <div class="row">--}}
+{{--                                                    <div class="col-12">--}}
+                                                        <input type="text" id="coupon" name="coupon" class="form-control mb-1" placeholder="Coupon Code" />
+{{--                                                    </div>--}}
+{{--                                                    <div class="col-12">--}}
+                                                        <button type="button" id="coupon-btn" class="btn btn-apfm">Apply</button>
+{{--                                                    </div>--}}
+{{--                                                </div>--}}
                                             </div>
                                         </div>
                                     </div>
@@ -310,6 +238,12 @@
         document.addEventListener('DOMContentLoaded', function() {
 
             var $form = $("#appointmentForm");
+
+            $('#hospital-check').click(function (e){
+                // $('#hospital-check-is').toggle();
+                $('#hospital-check-file').toggle();
+
+            });
             $("#coupon-btn").click(function(e){
 
                 coupon = $('#coupon').val();
@@ -382,10 +316,8 @@
                     timeout: 800000,
                 })
                     .done(function(data) {
-                        // console.log(data);
-
-                        send_notification(user_id, 'Appointment No.' + data.msg,
-                            'You have a new appointment')
+                        send_notification(user_id, 'Appointment No.' + data.msg, 'You have a new appointment');
+                        document.getElementById("appointmentForm").reset();
                         window.location = BASE_URL + '/patient/appointments'
                     })
                     .fail(function(error) {
@@ -468,10 +400,6 @@
                 $.ajax({
                     url: `/api/get/schedules/${doctor_id}/${userDatetimeZone}`,
                     type: "GET",
-                    // data: {
-                    //     'doctor_id':doctor_id,
-                    //     'date':yourDate.toISOString()
-                    // },
                     processData: false,
                     contentType: false,
                     cache: false,
@@ -580,10 +508,8 @@
             x[currentTab].style.display = "none";
             currentTab = currentTab + n;
             if (currentTab >= x.length) {
-                //...the form gets submitted:
                 var buttonforclick = document.getElementById("book_appointment_submit");
                 buttonforclick.click();
-                // document.getElementById("regForm").submit();
                 return false;
             }
             // Otherwise, display the correct tab:
@@ -595,9 +521,11 @@
             x = document.getElementsByClassName("tab");
             y = x[currentTab].getElementsByTagName("input");
             for (i = 0; i < y.length; i++) {
-                if (y[i].value == "" && y[i].getAttribute("name") != "coupon") {
-                    y[i].className += " invalid";
-                    valid = false;
+                if(y[i].getAttribute("id") != "hospital-register-id"){
+                    if(y[i].value == "" && y[i].getAttribute("name") != "coupon") {
+                        y[i].className += " invalid";
+                        valid = false;
+                    }
                 }
             }
             if (valid) {
