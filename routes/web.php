@@ -33,6 +33,7 @@ use App\Http\Controllers\Patient\PersonalDetails as PatientDetails;
 
 use App\Http\Controllers\DoctorSpecializationController;
 use App\Http\Controllers\DepartmentSpecializationController;
+use App\Http\Controllers\Doctor\CreationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -180,8 +181,13 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     //Update Department Specialization
     Route::get('/update/department-specialization/{id}', [DepartmentSpecializationController::class, 'updateView'])->name('update.departmentSpecialization');
     Route::post('/department-specialization/updated', [DepartmentSpecializationController::class, 'update'])->name('departmentSpecialization.Updated');
-
-
+    //Create Doctor 
+    Route::get('/create/doctor', [CreationController::class, 'create'])->name('createDoctor');
+    Route::post('/doctor/created', [CreationController::class, 'store'])->name('doctorCreated');
+     //This Route is used to Map Patient with reference to Organization
+     Route::get('/map/doctor/{$userUuid}', [CreationController::class, 'mapDoctor'])->name('mapDoctor');
+     Route::post('/doctor/mapped', [CreationController::class, 'doctorMapped'])->name('doctorMapped');
+ 
     // This Route shows list of All Registered Professions
     Route::get('/professions', [ProfessionController::class, 'professions'])->name('professions');
 
@@ -194,6 +200,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     //Get single record of organization and update it
     Route::get('/single/organization/{uuid}', [OrganizationController::class, 'singleOrganization'])->name('single.organization');
     Route::post('/update/organization', [OrganizationController::class, 'updateOrganization'])->name('update.organization');
+
 
 
     //create Department
@@ -300,6 +307,13 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::get('/update/doctor-specialization/{id}', [DoctorSpecializationController::class, 'updateView'])->name('update.specialization');
     Route::post('/doctor-specialization/updated', [DoctorSpecializationController::class, 'update'])->name('specialization.updated');
 
+    //Create Doctor 
+    Route::get('/create/doctor', [CreationController::class, 'create'])->name('create.doctor');
+    Route::post('/doctor/created', [CreationController::class, 'store'])->name('doctor.created');
+     //This Route is used to Map Patient with reference to Organization
+     Route::get('/map/doctor/{$userUuid}', [CreationController::class, 'mapDoctor'])->name('map.doctor');
+     Route::post('/doctor/mapped', [CreationController::class, 'doctorMapped'])->name('doctor.mapped');
+ 
     // These Routes are used to Map Roles to Users
     Route::get('/mapping/role', [HospitalUserController::class, 'mapHospitalUser'])->name('mapHospital.user');
     Route::post('/role/mapped', [HospitalUserController::class, 'hospitalUserMapped'])->name('hospitalUser.mapped');

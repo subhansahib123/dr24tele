@@ -1,4 +1,4 @@
-@extends('admin_panel.layout.master');
+@extends('hospital_panel.layout.master');
 
 @section('content')
 
@@ -28,7 +28,7 @@
                 </div>
                 <div class="col-xl-8">
                     <div class="card">
-                        <form action="{{route('doctorCreated')}}" method="POST">
+                        <form action="{{route('doctor.created')}}" method="POST">
                             @csrf
                             <div class="card-header">
                                 <h3 class="card-title">Doctor Details </h3>
@@ -120,7 +120,7 @@
                             </div>
                             <div class="card-footer ">
                                 <button type="submit" class="btn btn-primary my-1">Create</button>
-                                <span><a href="{{route('dashboard')}}" class="btn btn-secondary  ">Cancel</a></span>
+                                <span><a href="{{route('hospital.dashboard')}}" class="btn btn-secondary  ">Cancel</a></span>
 
                                 {{-- <a href="javascript:void(0)" class="btn btn-danger my-1">Cancel</a> --}}
                             </div>

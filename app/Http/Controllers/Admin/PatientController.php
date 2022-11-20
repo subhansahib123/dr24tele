@@ -211,7 +211,7 @@ class PatientController extends Controller
         $organizations = Organization::all();
         return view('admin_panel.patients.mapPatients', ['user' => $user, 'organizations' => $organizations]);
     }
-    public function patientMapped(Request $request)
+    public function     patientMapped(Request $request)
     {
         // dd($request->all());
         $curl = curl_init();
