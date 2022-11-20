@@ -1,209 +1,141 @@
 @extends('public_panel.layout.master')
 @section('content')
     <link rel="stylesheet" href="{{ asset('public_assets/css/appointment_page.css') }}">
-    <div class="content-wrapper">
-
-        <!-- Breadcrumb Start -->
-        <div class="breadcrumb-wrap bg-f br-2">
-            <div class="container">
-                <div class="breadcrumb-title">
-                    <h2>Book Appointment</h2>
-                    <ul class="breadcrumb-menu list-style">
-                        <li><a href="{{ route('home.page') }}">Home </a></li>
-                        <li>Book Appointment</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-    <section id="appointment" class="section-padding ptb-100">
+    {{--    <div class="content-wrapper m-6">--}}
+    {{--    </div>--}}
+    <section id="appointment" class="section-padding pt-100 pb-50 mt-100">
         <div class="auto-container">
             <div class="row">
-                <div class="col-lg-8 text-center mx-autocol-xl-6 offset-xl-3 col-lg-8 offset-lg-2 col-md-10 offset-md-1 aos-init aos-animate"
-                    data-aos="fade-up" data-aos-duration="1200" data-aos-delay="200">
-                    <div class="section-title style2 text-center mb-40">
-                        <h3>Get Appointment <span>In 4 Simple Step</span></h3>
-                        <span class="line"></span>
+                <div class="col-12">
+                    <div style="text-align:center;">
+                        <span class="step"></span>
+                        <span class="step"></span>
+                        <span class="step"></span>
+                        <span class="step"></span>
                     </div>
-                </div>
-                <!-- end section title -->
-            </div>
-            <div class="appointment-line">
-                <div class="row">
-                    <div class="col-lg-3 col-md-3 col-sm-12 col-12 mb-5">
-                        <div class="single-step text-center">
-                            <div class="single-step-icon">
-                                <i class="icofont icofont-hospital"></i>
-                            </div>
-                            <h5>Search For A Hospital</h5>
-                            <p>Lorem ipsum dolor sit consectetur adipiscing elit sed do.</p>
-                        </div>
-                    </div>
-                    <!-- end single step -->
-                    <div class="col-lg-3 col-md-3 col-sm-12 col-12 mb-5">
-                        <div class="single-step text-center">
-                            <div class="single-step-icon">
-                                <i class="icofont icofont-job-search"></i>
-                            </div>
-                            <h5>Search For A Doctor</h5>
-                            <p>Lorem ipsum dolor sit consectetur adipiscing elit sed do.</p>
-                        </div>
-                    </div>
-                    <!-- end single step -->
-                    <div class="col-lg-3 col-md-3 col-sm-12 col-12 mb-5">
-                        <div class="single-step text-center">
-                            <div class="single-step-icon">
-                                <i class="icofont icofont-pencil"></i>
-                            </div>
-                            <h5>Fill Out The From</h5>
-                            <p>Lorem ipsum dolor sit consectetur adipiscing elit sed do.</p>
-                        </div>
-                    </div>
-                    <!-- end single step -->
-                    <div class="col-lg-3 col-md-3 col-sm-12 col-12 mb-5">
-                        <div class="single-step text-center">
-                            <div class="single-step-icon">
-                                <i class="icofont icofont-verification-check"></i>
-                            </div>
-                            <h5>Appointment Done</h5>
-                            <p>Lorem ipsum dolor sit consectetur adipiscing elit sed do.</p>
-                        </div>
-                    </div>
-                    <!-- end single step -->
                 </div>
             </div>
             <div class="row mt-5">
                 <div class="col-lg-8 mx-auto">
                     <div class="appointment-form-ma">
-                        <form id="appointmentForm">
-
+                        <div class="row">
                             <div class="col-12 error">
+                            </div>
+                        </div>
+                        <form id="appointmentForms">
+                            <div class="col-12 error">
+                            </div>
+                            <div class="row" id="schedules">
+                                <div class="col-12" id="scheduleDoctor">
+                                </div>
+                                <div class="form-group col-lg-12" style="display: none" id="book_appointment_submit">
+                                    <button type="button" class="btn btn-apfm">Book Appointment <i class="icofont icofont-thin-right"></i></button>
+                                </div>
+                            </div>
+                        </form>
 
+                        <form id="appointmentForm">
+                            <div class="tab">
+                                <p><div id='calendar'></div></p>
                             </div>
 
-                            <div class="row" id="schedules">
-                                <div class="form-group col-12" id='calenderwrapper'>
-                                    <div id='calendar'></div>
-                                </div>
-
-                                <div class="col-12" id="scheduleDoctor">
-
-                                </div>
-
-                                <div class="form-group col-lg-12" id="comments" style="display: none">
-                                    <label>Comments</label>
-                                    <textarea rows="5" cols="5" class="form-control" name="comments" required>
-
-                                    </textarea>
-                                    <div class="col-12 text-center mt-3">
-                                       <div class="btn btn-primary btn-sm" style="cursor: pointer;"  id="next-comment">
-                                                Next
-                                        </div>
+                            <div class="tab">
+                                <p><label>Comments</label></p>
+                                <p><textarea rows="5" cols="5" class="form-control" name="comments" required></textarea></p>
+                                <div class="row" id="hospital-check-is">
+                                    <div class="col-1">
+                                        <input type="checkbox" name="hospital-check" id="hospital-check" value="1">
+                                    </div>
+                                    <div class="col-11 pl-0">
+                                        <label class="form-check-label" for="hospital-check">Are you already registered with this hospital?</label>
                                     </div>
                                 </div>
+                                <div class="row" id="hospital-check-file" style="display: none">
+                                    <div class="col-12">
+                                        <input type="file" id="hospital-register-id">
+                                    </div>
+                                </div>
+                            </div>
 
-                                <div class="form-group col-lg-12" id="membership" style="display: none">
-
-                                    <div class="row">
-                                        <div class="col-12 ">
-                                            <div class="form-check">
-
-                                                <input type="checkbox" name="hospital-check" value="1">
-                                                <label class="form-check-label" for="hospital-check">Yes</label>
+                            <div class="tab">
+                                <form role="form">
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            <label>Coupon</label>
+                                            <div class="input-group">
+{{--                                                <div class="row">--}}
+{{--                                                    <div class="col-12">--}}
+                                                        <input type="text" id="coupon" name="coupon" class="form-control mb-1" placeholder="Coupon Code" />
+{{--                                                    </div>--}}
+{{--                                                    <div class="col-12">--}}
+                                                        <button type="button" id="coupon-btn" class="btn btn-apfm">Apply</button>
+{{--                                                    </div>--}}
+{{--                                                </div>--}}
                                             </div>
                                         </div>
+                                    </div>
+                                </form>
+                            </div>
+
+                            <div class="tab">
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
                                         <form role="form">
-                                            <div class="col-12">
-                                                <div class="form-group">
-                                                    <label>Coupon</label>
-                                                    <div class="input-group">
-                                                        <input type="text" id="coupon" class="form-control" placeholder="Coupon Code" />
-                                                        <button type="button" id="coupon-btn" class="btn btn-apfm">Apply</button>
+                                            <div class="row">
+                                                <div class="col-xs-12 required">
+                                                    <div class="form-group">
+                                                        <label>CARD NUMBER</label>
+                                                        <div class="input-group">
+                                                            <input type="text" class="form-control card-num"
+                                                                   placeholder="Valid Card Number" />
+                                                            <span class="input-group-addon"><span
+                                                                    class="fa fa-credit-card "></span></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-4 col-md-4 required">
+                                                    <div class="form-group">
+                                                        <label><span class="hidden-xs">EXPIRATION MONTH</span></label>
+                                                        <input type="text" class="form-control card-expiry-month" placeholder="MM" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-4 col-md-4 required">
+                                                    <div class="form-group">
+                                                        <label><span class="hidden-xs">EXPIRATION YEAR</span></label>
+                                                        <input type="text" class="form-control card-expiry-year" placeholder="YY" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-4 col-md-4 pull-right required">
+                                                    <div class="form-group">
+                                                        <label>CV CODE</label>
+                                                        <input type="text" class="form-control card-cvc" placeholder="CVC" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-xs-12 required">
+                                                    <div class="form-group">
+                                                        <label>CARD OWNER</label>
+                                                        <input type="text" class="form-control" placeholder="Card Owner Names" />
                                                     </div>
                                                 </div>
                                             </div>
                                         </form>
-
-                                        <div class="row">
-                                            <div class="col-lg-1 offset-11 mt-1 text-right text-primary" id="next-payment" style="cursor: pointer;">
-
-                                                Next
-                                            </div>
-                                        </div>
                                     </div>
-                                </div>
 
-
-                                <div class="row" id="payment" style="display: none">
-                                    <div class="col-xs-12 col-md-12 col-md-offset-4">
-                                        <div class="panel panel-default">
-                                            {{-- <div class="panel-heading">
-                                                <div class="row">
-                                                    <h3 class="text-center">Payment Details</h3>
-                                                    <img class="img-responsive cc-img"
-                                                        src="http://www.prepbootstrap.com/Content/images/shared/misc/creditcardicons.png">
-                                                </div>
-                                            </div> --}}
-                                            <div class="panel-body">
-                                                <form role="form">
-                                                    <div class="row">
-                                                        <div class="col-xs-12 required">
-                                                            <div class="form-group">
-                                                                <label>CARD NUMBER</label>
-                                                                <div class="input-group">
-                                                                    <input type="text" class="form-control card-num"
-                                                                        placeholder="Valid Card Number" />
-                                                                    <span class="input-group-addon"><span
-                                                                            class="fa fa-credit-card "></span></span>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-xs-4 col-md-4 required">
-                                                            <div class="form-group">
-                                                                <label><span class="hidden-xs">EXPIRATION
-                                                                        Month</span></label>
-                                                                <input type="text" class="form-control card-expiry-month"
-                                                                    placeholder="MM" />
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-xs-4 col-md-4 required">
-                                                            <div class="form-group">
-                                                                <label><span class="hidden-xs">EXPIRATION
-                                                                        Year</span></label>
-                                                                <input type="text" class="form-control card-expiry-year"
-                                                                    placeholder="YY" />
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-xs-4 col-md-4 pull-right required">
-                                                            <div class="form-group">
-                                                                <label>CV CODE</label>
-                                                                <input type="text" class="form-control card-cvc"
-                                                                    placeholder="CVC" />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="row">
-                                                        <div class="col-xs-12 required">
-                                                            <div class="form-group">
-                                                                <label>CARD OWNER</label>
-                                                                <input type="text" class="form-control"
-                                                                    placeholder="Card Owner Names" />
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </form>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group col-lg-12" style="display: none" id="book_appointment_submit">
-                                    <button type="button" class="btn btn-apfm">Book Appointment <i
-                                            class="icofont icofont-thin-right"></i></button>
                                 </div>
                             </div>
+
+                            <div style="overflow:auto;" class="mt-5">
+                                <div style="float:right;">
+                                    <button type="button" class="btn btn-primary" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                                    <button type="button" class="btn btn-primary" id="nextBtn" onclick="nextPrev(1)">Next</button>
+                                </div>
+
+                            </div>
+
                         </form>
                     </div>
                 </div>
@@ -218,6 +150,47 @@
     <script src='{{ asset('public_assets/js/moment.js') }}'></script>
     <script src='{{ asset('public_assets/js/timezone_moment.js') }}'></script>
     <style>
+
+        input {
+            padding: 10px;
+            width: 100%;
+            font-size: 17px;
+            font-family: Raleway;
+            border: 1px solid #aaaaaa;
+        }
+
+        /* Mark input boxes that gets an error on validation: */
+        input.invalid {
+            background-color: #ffdddd;
+        }
+
+        /* Hide all steps by default: */
+        .tab {
+            display: none;
+        }
+
+        /* Make circles that indicate the steps of the form: */
+        .step {
+            height: 50px;
+            width: 50px;
+            margin: 0 20px;
+            background-color: #bbbbbb;
+            border: none;
+            border-radius: 50%;
+            display: inline-block;
+            opacity: 0.5;
+        }
+
+        /* Mark the active step: */
+        .step.active {
+            opacity: 1;
+        }
+
+        /* Mark the steps that are finished and valid: */
+        .step.finish {
+            background-color: blue;
+        }
+
         .selected-date {
             background-color: green;
         }
@@ -261,12 +234,22 @@
         var coupon;
         var hospital;
 
+
         document.addEventListener('DOMContentLoaded', function() {
 
             var $form = $("#appointmentForm");
+
+            $('#hospital-check').click(function (e){
+                // $('#hospital-check-is').toggle();
+                $('#hospital-check-file').toggle();
+
+            });
             $("#coupon-btn").click(function(e){
 
                 coupon = $('#coupon').val();
+                if(coupon == '') {
+                    coupon = 'coupon';
+                }
                 hospital = 1;
                 $.ajax({
                     url: `/api/get/schedules/${doctor_id}/${public_date}/${coupon}/coupon`,
@@ -313,30 +296,28 @@
                 validateAndPay(e);
                 paymentToken=$form.find('input[name="stripeToken"]').val();
                 $.ajax({
-                        url: BASE_URL + "/api/book/appointment",
-                        type: "POST",
-                        data: {
-                            'doctor_id': doctor_id,
-                            'patient_id': patient_id,
-                            "slot_id": schedule_id,
-                            "start": start,
-                            "end": end,
-                            "fee": fee,
-                            "coupon" : coupon,
-                            "hospital": hospital,
-                            "comments": $('textarea[name="comments"]').val(),
-                            'stripeToken': paymentToken
+                    url: BASE_URL + "/api/book/appointment",
+                    type: "POST",
+                    data: {
+                        'doctor_id': doctor_id,
+                        'patient_id': patient_id,
+                        "slot_id": schedule_id,
+                        "start": start,
+                        "end": end,
+                        "fee": fee,
+                        "coupon" : coupon,
+                        "hospital": hospital,
+                        "comments": $('textarea[name="comments"]').val(),
+                        'stripeToken': paymentToken
 
-                        },
+                    },
 
-                        cache: false,
-                        timeout: 800000,
-                    })
+                    cache: false,
+                    timeout: 800000,
+                })
                     .done(function(data) {
-                        // console.log(data);
-
-                        send_notification(user_id, 'Appointment No.' + data.msg,
-                            'You have a new appointment')
+                        send_notification(user_id, 'Appointment No.' + data.msg, 'You have a new appointment');
+                        document.getElementById("appointmentForm").reset();
                         window.location = BASE_URL + '/patient/appointments'
                     })
                     .fail(function(error) {
@@ -368,13 +349,13 @@
             });
 
             $('#next-payment').on("click", function() {
-                    $('#membership').hide();
-                    $('#payment').show();
-                    $('#book_appointment_submit').show();
+                $('#membership').hide();
+                $('#payment').show();
+                $('#book_appointment_submit').show();
             });
 
 
-                var calendarEl = document.getElementById('calendar');
+            var calendarEl = document.getElementById('calendar');
             var calendar = new FullCalendar.Calendar(calendarEl, {
                 // themeSystem: 'bootstrap5',
                 allDaySlot: false,
@@ -419,10 +400,6 @@
                 $.ajax({
                     url: `/api/get/schedules/${doctor_id}/${userDatetimeZone}`,
                     type: "GET",
-                    // data: {
-                    //     'doctor_id':doctor_id,
-                    //     'date':yourDate.toISOString()
-                    // },
                     processData: false,
                     contentType: false,
                     cache: false,
@@ -489,7 +466,6 @@
                         exp_year: $('.card-expiry-year').val()
                     }, stripeHandleResponse);
                 }
-
             }
 
             function stripeHandleResponse(status, response) {
@@ -505,8 +481,67 @@
                 }
             }
 
-
-
         });
+
+        var currentTab = 0; // Current tab is set to be the first tab (0)
+        showTab(currentTab); // Display the current tab
+
+        function showTab(n) {
+            var x = document.getElementsByClassName("tab");
+            x[n].style.display = "block";
+            if (n == 0) {
+                document.getElementById("prevBtn").style.display = "none";
+            } else {
+                document.getElementById("prevBtn").style.display = "inline";
+            }
+            if (n == (x.length - 1)) {
+                document.getElementById("nextBtn").innerHTML = "Submit";
+            } else {
+                document.getElementById("nextBtn").innerHTML = "Next";
+            }
+            fixStepIndicator(n)
+        }
+
+        function nextPrev(n) {
+            var x = document.getElementsByClassName("tab");
+            if (n == 1 && !validateForm()) return false;
+            x[currentTab].style.display = "none";
+            currentTab = currentTab + n;
+            if (currentTab >= x.length) {
+                var buttonforclick = document.getElementById("book_appointment_submit");
+                buttonforclick.click();
+                return false;
+            }
+            // Otherwise, display the correct tab:
+            showTab(currentTab);
+        }
+
+        function validateForm() {
+            var x, y, i, valid = true;
+            x = document.getElementsByClassName("tab");
+            y = x[currentTab].getElementsByTagName("input");
+            for (i = 0; i < y.length; i++) {
+                if(y[i].getAttribute("id") != "hospital-register-id"){
+                    if(y[i].value == "" && y[i].getAttribute("name") != "coupon") {
+                        y[i].className += " invalid";
+                        valid = false;
+                    }
+                }
+            }
+            if (valid) {
+                document.getElementsByClassName("step")[currentTab].className += " finish";
+            }
+            return valid;
+        }
+
+        function fixStepIndicator(n) {
+            var i, x = document.getElementsByClassName("step");
+            for (i = 0; i < x.length; i++) {
+                x[i].className = x[i].className.replace(" active", "");
+            }
+            x[n].className += " active";
+        }
+
+
     </script>
 @endsection

@@ -119,13 +119,18 @@ class homeController extends Controller
     }
     public function scheduleOfDoctorCoupon($doctor_id,$date,$coupon){
 
-        $cop = Coupon::where('title', '=', $coupon)->first();
-        $date=$date." 00:00:00";
-        $user_id=Doctor::find($doctor_id);
-        $schdeules=Schedule::whereDate('start', '=', $date." 00:00:00")
 
-            ->where('doctor_id',$doctor_id)->get();
-        $schdeules[0]->price = $schdeules[0]->price - $cop->discount;
+        if($coupon != 'coupon'){
+            $cop = Coupon::where('title', '=', $coupon)->first();
+            $date=$date." 00:00:00";
+            $user_id=Doctor::find($doctor_id);
+            $schdeules=Schedule::whereDate('start', '=', $date." 00:00:00")
+                ->where('doctor_id',$doctor_id)->get();
+
+            if($cop){
+                $schdeules[0]->price = $schdeules[0]->price - $cop->discount;
+            }
+        }
         return response()->json( ['schedules'=>$schdeules,'user_id'=>$user_id->user_id]);
     }
     public function bookApppointment(Request $request){
