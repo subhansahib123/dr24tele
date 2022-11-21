@@ -379,7 +379,7 @@ class UserController extends Controller
                         'status' => 1
 
                     ]);
-                    return redirect()->back()->withSuccess(__('Successfully Created User'));
+                    return $this->mapUser() ;
                 } else if (isset($user->message) && $user->message == "API rate limit exceeded") {
                     curl_close($curl);
 
@@ -636,7 +636,7 @@ class UserController extends Controller
 
 
 
-                    return redirect()->back()->withSuccess(__('Successfully Mapped User Role'));
+                    return redirect()->route('create.user')->withSuccess(__('Successfully Created User'));
                 } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
                     curl_close($curl);
                     $userUuid=$request->user;
