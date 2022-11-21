@@ -28,32 +28,44 @@ class PersonalDetails extends Controller
         $displayName=Auth::user()->name;
         return view('doctor_panel.personalInfo.updateDisplayName',['displayName'=>$displayName]);
     }
-
     public function phoneNumberUpdated(Request $request)
     {
-        dd(1);
+        $user = User::with('doctor')->where('phone_number', auth()->user()->phone_number)->first();
+        // dd($user);
+
+        if (!Auth::check())
+            return redirect()->route('logout')->withErrors(['error' => 'Login Token Expired ! Please login Again']);
+        $request->validate([
+            'phoneNumberNew' => 'required|string',
+        ]);
+        $user->update(['phone_number'=>$request->phoneNumberNew]);
+        // dd($user->phone_number);
+        return redirect()->route('doctor.dashboard')->withSuccess(__('Phone Number is Successfully Updated'));
+        
+    }
+
+    public function phoneNumberVerified(Request $request)
+    {
+        // dd($request->all());
         if (!Auth::check())
             return redirect()->route('logout')->withErrors(['error' => 'Login Token Expired ! Please login Again']);
         $request->validate([
             'phoneNumber' => 'required|string',
-            'newPhoneNumber' => 'required|string',
+            'role' => 'required|string',
         ]);
-        $user = User::where('phone_number', $request->phoneNumber)->first();
+        $user = User::with('doctor')->where('phone_number', $request->phoneNumber)->first();
         if ($user) {
-            $user->update([
-                'phone_number' => $request->newPhoneNumber,
-            ]);
-            return redirect()->back()->withSuccess(__('Phone Number Successfully Updated'));
+            return view('doctor_panel.personalInfo.updatingNumber');
         } else {
             return redirect()->back()->withErrors(['error' => 'Current Phone Number is not correct']);
         }
     }
-    public function updatePhoneNumber()
+    public function verifyPhoneNumber()
     {
         
         if (!Auth::check())
             return redirect()->route('logout')->withErrors(['error' => 'Login Token Expired ! Please login Again']);
         
-        return view('doctor_panel.personalInfo.updatePhoneNumber');
+        return view('doctor_panel.personalInfo.phoneNumberVerifcation');
     }
 }

@@ -24,36 +24,37 @@
             <form action="{{route('patient.mapped')}}" method="POST">
                 @csrf
                 <div class="row">
-                    <div class="col-md-6">
+                    <div class="col-lg-6 col-md-6 col-sm-12">
                         <div class="form-group">
-                            <label for="user">Patient</label>
-                            <select class="form-control" value="{{old('user')}}" name="user" id="user">
-                                <option value="">Select</option>
-                                @if($users)
-                                    @foreach ($users as $user)
-                                        <option value="{{$user->PersonUuid}}">{{$user->username}}</option>
-                                    @endforeach
-                                @endif
-                            </select>
+                            <label class="form-control" for="user">Patient Name</label>
+                            <input class="form-control" type="text" disabled value="{{$user->username}}">
+                            <input type="hidden" value="{{$user->id}}" name="userId">
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+
                         <div class="form-group">
                             <label for="role">Organization</label>
                             <select class="form-control" value="{{old('role')}}" name="organisation" id="role">
                                 <option value="">Select</option>
                                 @if($organizations)
-                                    @foreach ($organizations as $organization)
-                                        <option value="{{$organization->uuid}}">{{$organization->name}}</option>
-                                    @endforeach
+
+                                @foreach ($organizations as $organization)
+                                <option value="{{$organization->uuid}}">{{$organization->name}}</option>
+                                @endforeach
+
                                 @endif
                             </select>
                         </div>
                     </div>
-                    <div class="col-md-12">
-                        <div class="form-group">
-                            <!-- <label for="role">Roles</label> -->
-                            <button type="submit" class="btn btn-primary">Map</button>
+
+                </div>
+
+
+                <div class="form-group">
+                    <!-- <label for="role">Roles</label> -->
+                    <button type="submit" class="btn btn-primary">Map</button>
+
 
 
                             <a href="{{route('dashboard')}}" class="btn btn-info">Back</a>
