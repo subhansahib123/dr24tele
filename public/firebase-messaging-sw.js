@@ -53,7 +53,7 @@ self.addEventListener("push", (event) => {
                 body,
                 icon,
                 image,
-                data: { url: link },
+                data: { url: "https://virtual-care.drtele.co/patient" },
             })
         );
     } else {

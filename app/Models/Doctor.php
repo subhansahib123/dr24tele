@@ -12,7 +12,8 @@ class Doctor extends Model
     protected $fillable=[
         "status",
         'user_id',
-        'department_id'
+        'department_id',
+        'specialization_id',
     ];
     public function user()
     {
@@ -30,5 +31,13 @@ class Doctor extends Model
     public function schedule()
     {
        return $this->hasMany(Schedule::class,'doctor_id');
+    }
+    public function feedback()
+    {
+        return $this->hasMany(PatientsFeedback::class,'doctor_id');
+    }
+    public function specialization()
+    {
+        return $this->hasMany(SpecializedDoctor::class,'doctor_id');
     }
 }

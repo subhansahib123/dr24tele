@@ -15,6 +15,7 @@ class ProfessionController extends Controller
         $baseUrl = config('services.ehr.baseUrl');
         $apiKey = config('services.ehr.apiKey');
         $userInfo = session('loggedInUser');
+        // dd(session());
         if (!empty($userInfo)) {
             $userInfo = json_decode(json_encode($userInfo), true);
             $token = $userInfo['sessionInfo']['token'];
@@ -51,15 +52,15 @@ class ProfessionController extends Controller
                             return  view('admin_panel.profession.show', ["professions" => $professions]);
                         } else if (isset($profession->message) && $profession->message == "API rate limit exceeded") {
                             curl_close($curl);
-                            return redirect()->route('login.show')->withErrors(['error' => $profession->message]);
+                            return redirect()->route('logout')->withErrors(['error' => $profession->message]);
                         } else if (isset($profession->message) && $profession->message == "Invalid User") {
                         
                             curl_close($curl);
-                            return redirect()->route('login.show')->withErrors(['error' => $profession->message]);
+                            return redirect()->route('logout')->withErrors(['error' => $profession->message]);
                         } else if (isset($profession->message) && $profession->message == "Invalid Token") {
                         
                             curl_close($curl);
-                            return redirect()->route('login.show')->withErrors(['error' => $profession->message]);
+                            return redirect()->route('logout')->withErrors(['error' => $profession->message]);
                         } else {
                             curl_close($curl);
                             return redirect()->back()->withErrors(['error' => $profession->message]);

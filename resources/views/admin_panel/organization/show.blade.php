@@ -26,9 +26,17 @@
                 <div class="col-xl-12 col-md-12 col-sm-6">
                     <div class="card">
                         <div class="card-header row">
+<<<<<<< HEAD
                             <div class="col-3">
                                 <a href="{{route('dashboard')}}" class="btn btn-sm btn-info" data-toggle="Go Back">Back <i class="fa fa-reply"></i></a>
                                 <a href="{{route('create.organization')}}" class="btn btn-sm btn-success">Add <i class="fa fa-plus" data-toggle="tooltip" data-placement="top" title="Add New"></i></a>
+=======
+                            <div class="col-3"><span class="card-title">List</span></div>
+                            <div class="col-7 align-self-center"></div>
+               
+                            <div class="col-2">
+                                <a href="{{route('create.newDepartment')}}"><button class="btn btn-primary">ADD Departments</button></a>
+>>>>>>> eb70d3dfb4d34faaa3cdabc1231e6725104e092c
                             </div>
                         </div>
                         <div class="card-body">

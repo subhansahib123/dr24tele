@@ -57,12 +57,21 @@ window.onload = function () {
 };
 function render() {
     window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier(
-        "recaptcha-container"
+        "recaptcha-container",
+        {
+            size: "invisible",
+        }
     );
     recaptchaVerifier.render();
 }
 function sendOTP() {
-    var number = $("#number").val();
+
+    var number = $("#txtPhone").intlTelInput('getNumber');
+    // var number = $("#txtPhone").val();
+    // console.warn(number);
+    // var phoneCode=$(".selected-dial-code").html();
+    // var client_number=phoneCode+number;
+
     firebase
         .auth()
         .signInWithPhoneNumber(number, window.recaptchaVerifier)
@@ -130,7 +139,8 @@ function send_notification(userId, title, body, Islink = false,owner=null) {
         },
         dataType: "JSON",
         success: function (response) {
-            console.log(response.fire_base);
+            // console.log(response.fire_base);
+            console.log(response);
             if (response.conference_link != "")
                 window.open(response.conference_link, "_blank");
         },

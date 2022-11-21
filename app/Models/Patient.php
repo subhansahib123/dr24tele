@@ -22,4 +22,12 @@ class Patient extends Model
     {
        return $this->hasMany(Appointment::class,'patient_id');
     }
+    public function feedback()
+    {
+        return $this->hasMany(PatientsFeedback::class,'patient_id');
+    }
+    public function familyMembers()
+    {
+        return $this->hasMany(FamilyMembers::class,'patient_id');
+    }
 }

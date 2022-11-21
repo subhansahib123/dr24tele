@@ -36,8 +36,8 @@
                                     <div class="col-lg-12" id="numbercon">
                                         <div class="form-group">
                                             {{-- <input id="text" name="fname" type="text" placeholder="Username Or Email Address" required=""> --}}
-                                            <input type="text" id="number" name="phone" class="form-control"
-                                                placeholder="+91 ********">
+                                            <input type="text" id="txtPhone"  value="+9113231" class="form-control" placeholder="+91 *** ******">
+                                               <input type="hidden" class="form-control" id="phoneNumber" >
                                         </div>
                                     </div>
                                     <div class="col-lg-12" style="display: none" id="verfiycon">
@@ -102,4 +102,7 @@
         <!-- Account Section end -->
 
     </div>
+
 @endsection
+
+

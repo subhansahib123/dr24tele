@@ -68,7 +68,9 @@
                                     <div class="col-lg-6 col-md-6">
                                         <div class="form-group">
                                             <label for="exampleInputnumber">Contact Number</label>
-                                            <input type="number" class="form-control" name="phoneNumber" value="" id="exampleInputnumber" placeholder="Contact number">
+                                            
+                                            <input type="text" id="txtPhone" name="" class="form-control">
+                                               <input type="hidden" class="form-control" id="phoneNumber" >
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6">
@@ -80,12 +82,26 @@
                                     <div class="col-lg-6 col-md-6">
                                         <div class="form-group">
                                             <label class="form-label" for="gender">Gender</label>
-                                            <select name="gender_code" id="gender" class="form-control">
+
+                                            <select class="form-select" name="gender_code" id="gender">
+                                                <option value="">
+                                                    Select
+                                                </option>
+
                                                 <option value="F">
                                                     Female
                                                 </option>
                                                 <option value="M">
                                                     Male
+                                                </option>
+                                                <option value="IND">
+                                                Indeterminate Sex
+                                                </option>
+                                                <option value="TRA">
+                                                Transsexual
+                                                </option>
+                                                <option value="O">
+                                                Others
                                                 </option>
                                             </select>
                                             <!-- <input type="text" class="form-control" name="" id="gender" value=""> -->
@@ -95,7 +111,8 @@
                             </div>
                             <div class="card-footer ">
                                 <button type="submit" class="btn btn-primary my-1">Create</button>
-                                <span><a href="{{route('dashboard')}}" class="btn btn-secondary  ">Cancel</a></span>
+              <span><a href="{{route('hospital.dashboard')}}" class="btn btn-secondary  ">Cancel</a></span>                             
+
 
                                 {{-- <a href="javascript:void(0)" class="btn btn-danger my-1">Cancel</a> --}}
                             </div>

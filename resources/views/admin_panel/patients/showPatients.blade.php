@@ -56,7 +56,7 @@
 
                                             <td>
 
-                                                {{isset($patients->personId)?$patients->personId:''}}
+                                                {{isset($patients->givenName)?$patients->givenName:''}}
 
 
                                             </td>
@@ -71,6 +71,14 @@
 
 
                                 </div>
+<<<<<<< HEAD
+=======
+                                <div class="mt-4">
+                                    <!-- <a href="" class="btn btn-info">Edit</a> -->
+                                    <a href="{{route('dashboard')}}" class="btn btn-info">Back</a>
+
+                                </div>
+>>>>>>> eb70d3dfb4d34faaa3cdabc1231e6725104e092c
                             </div>
 
                         </div>

@@ -13,6 +13,124 @@ use Illuminate\Support\Str;
 
 class DepartmentController extends Controller
 {
+    public function index()
+    {
+        $organizations = Organization::all();
+        return view('admin_panel.departments.create', ['organizations' => $organizations]);
+    }
+    public function create(Request $request)
+    {
+        // dd($request->all());
+        $orgName = Organization::where('uuid', $request->organization)->first();
+        // dd( $request->name . ' ' . $orgName->name);
+        $request->validate([
+            'name'  => 'required|string',
+            'status' => 'required|string',
+            'email' => 'required|string',
+            'level' => 'required|string',
+        ]);
+        $curl = curl_init();
+        $baseUrl = config('services.ehr.baseUrl');
+        $apiKey = config('services.ehr.apiKey');
+        $userInfo = session('loggedInUser');
+        $userInfo = json_decode(json_encode($userInfo), true);
+        if (is_null($userInfo)) {
+            return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
+        }
+        $parent_org_uuid = $request->has('input_org') ? $request->input_org : $request->organization;
+        $token = $userInfo['sessionInfo']['token'];
+        $data = [
+            "displayname" => $request->displayname,
+            "name" => $request->name . '_' . $orgName->name,
+            "type" => 'company',
+            "status" => $request->status,
+            "pparent" => [
+                "uuid" => $parent_org_uuid
+            ],
+            "email" => $request->email,
+            "contactperson" => '',
+            "phone" => '',
+            "address" => [
+                [
+                    "type" => "permanent",
+                    "building" => '',
+                    "district" => '',
+                    "city" => '',
+                    "state" => '',
+                    "country" => '',
+                    "postalCode" => ''
+                ]
+            ],
+            "level" => 'SubOrg',
+        ];
+        curl_setopt_array($curl, array(
+            CURLOPT_URL =>  $baseUrl . 'rest/admin/organisation/v2',
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_ENCODING => '',
+            CURLOPT_MAXREDIRS => 10,
+            CURLOPT_TIMEOUT => 0,
+            CURLOPT_FOLLOWLOCATION => true,
+            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+            CURLOPT_CUSTOMREQUEST => 'POST',
+            CURLOPT_POSTFIELDS => json_encode($data),
+            CURLOPT_HTTPHEADER => array(
+                'Content-Type: application/json',
+                'Accept: application/json',
+                'Authorization:' . $token,
+                'apikey:' . $apiKey,
+            ),
+        ));
+        try {
+            $response = curl_exec($curl);
+            if ($response == false) {
+                $error = curl_error($curl);
+                curl_close($curl);
+                return redirect()->back()->withErrors(['error' => __($error)]);;
+            } else {
+                $organization = json_decode($response);
+                // dd($organization,$request->all());
+                if (
+                    isset($organization->displayname)
+                    && $organization->displayname
+                    || curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200
+                    || curl_getinfo($curl, CURLINFO_HTTP_CODE) == 201
+                 ) {
+                    curl_close($curl);
+                    // // dd($request->level);
+                    $org = Organization::where('uuid',  $parent_org_uuid)->first();
+                    Department::Create([
+                        'name' => $request->name.'_'.$orgName->name,
+                        'organization_id' => $org->id,
+                        'slug' => $request->displayname,
+                        'level' => "SubOrg",
+                        'uuid' => $organization->uuid,
+                    ]);
+                    return redirect()->back()->withSuccess(__('Successfully Department Created'));
+                } else if (isset($organization->message) && $organization->message == "Provided organization name already exist") {
+                    curl_close($curl);
+                    return redirect()->back()->withErrors(['error' => 'This Hospital is already having this department']);
+                } else if (isset($organization->message) && $organization->message == "API rate limit exceeded") {
+                    curl_close($curl);
+                    return redirect()->route('login.show')->withErrors(['error' => $organization->message]);
+                } else if (isset($organization->message) && $organization->message == "Invalid User") {
+
+                    curl_close($curl);
+                    return redirect()->route('login.show')->withErrors(['error' => $organization->message]);
+                } else if (isset($organization->message) && $organization->message == "Invalid Token") {
+
+                    curl_close($curl);
+                    return redirect()->route('login.show')->withErrors(['error' => $organization->message]);
+                } else {
+                    curl_close($curl);
+                    return redirect()->back()->withErrors(['error' => $organization->message]);
+                }
+            }
+        } catch (\Exception $e) {
+
+
+            return redirect()->back()->withErrors(['error' => __($e->getMessage())]);
+        }
+    }
     public function departmentsList($uuid)
     {
 
@@ -64,15 +182,15 @@ class DepartmentController extends Controller
                     curl_close($curl);
                     if (isset($departments->childlist)) {
                         $org = Organization::where('uuid', $uuid)->first();
-                        foreach ($departments->childlist as $department) {
-                            Department::firstOrCreate([
-                                'name' => $department->name,
-                                'slug' => Str::slug($department->name),
-                                'organization_id' => $org->id,
-                                'level' => 'SubOrg',
-                                'uuid' => $department->uuid
-                            ]);
-                        }
+                        // foreach ($departments->childlist as $department) {
+                        //     Department::firstOrCreate([
+                        //         'name' => $department->name,
+                        //         'slug' => Str::slug($department->name),
+                        //         'organization_id' => $org->id,
+                        //         'level' => 'SubOrg',
+                        //         'uuid' => $department->uuid
+                        //     ]);
+                        // }
                         return view('admin_panel.departments.show', ['departments' => $departments]);
                     } else {
                         return redirect()->back()->withErrors(['error' => __('No Record Found')]);
@@ -121,8 +239,6 @@ class DepartmentController extends Controller
             'name' => 'required|string',
             'status' => 'required|string',
             'email' => 'required|string',
-            'contactperson' => 'required|string',
-            'phone' => 'required|string',
         ]);
         $data = [
             "displayname" => $request->displayname,
@@ -135,16 +251,16 @@ class DepartmentController extends Controller
             ],
             "email" => $request->email,
             "contactperson" => '',
-            "phone" => $request->phone,
+            "phone" => '',
             "address" => [
                 [
                     "type" => "permanent",
-                    "building" => $request->building,
-                    "district" => $request->district,
+                    "building" => '',
+                    "district" => '',
                     "city" => '',
                     "state" => '',
                     "country" => '',
-                    "postalCode" => $request->postalCode
+                    "postalCode" => ''
                 ]
             ],
             "level" => 'SubOrg',
@@ -182,7 +298,7 @@ class DepartmentController extends Controller
                 curl_close($curl);
                 $dep = Department::where('uuid', $request->DepUuid)->first();
                 $dep->update([
-                    'name' => $organization->displayname,
+                    'slug' => $request->displayname,
 
                 ]);
                 return redirect()->back()->withSuccess(__('Department Successfully Updated'));
