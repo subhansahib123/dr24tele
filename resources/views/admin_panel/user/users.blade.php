@@ -25,15 +25,11 @@
             <div class="row">
                 <div class="col-xl-12 col-md-12 col-sm-6">
                     <div class="card">
-                        <!-- <div class="card-header">
+                        <div class="card-header row">
                             <div class="col-3">
-                                <span class="card-title">Users</span>
-
+                                <a href="{{url()->previous()}}" class="btn btn-sm btn-info" data-toggle="Go Back">Back <i class="fa fa-reply"></i></a>
                             </div>
-                            <div class="col-7 align-self-center"></div>
-                            
-                            {{--<span class="card-title "><a href="#"> Add New Patient</a></span>--}}
-                        </div> -->
+                        </div>
                         <div class="card-body">
 
                             @include('admin_panel.frontend.includes.messages')
@@ -44,15 +40,15 @@
 
                                     </div>
 
-                                    <div class="container mt-4">
+                                    <div class="mt-4">
 
 
 
-                                        <table class="table table-striped">
+                                        <table class="table table-striped" id="datatable">
                                             <thead>
                                                 <th scope="col" width="20%">Name</th>
                                                  <th scope="col" width="18%">Username</th>
-                                               <th scope="col" width="2%"></th>
+                                               <th scope="col" width="2%">Action</th>
                                             </thead>
                                             @if(isset($all_patients) && $all_patients->Users)
                                             @foreach($all_patients->Users as $all_patient)
@@ -77,7 +73,7 @@
 
                                                 </td>
                                                 <td>
-                                                    <a href="{{route('user.delete',[$all_patient->uuid])}}" class="btn btn-danger">Delete</a>
+                                                    <a href="{{route('user.delete',[$all_patient->uuid])}}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
                                                 </td>
 
 
@@ -122,3 +118,10 @@
 
 
 @endsection
+@push('js')
+    <script>
+        $(document).ready(function () {
+            $('#datatable').DataTable();
+        });
+    </script>
+@endpush

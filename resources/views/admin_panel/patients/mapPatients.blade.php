@@ -32,18 +32,22 @@
                         </div>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12">
+
                         <div class="form-group">
                             <label for="role">Organization</label>
                             <select class="form-control" value="{{old('role')}}" name="organisation" id="role">
                                 <option value="">Select</option>
                                 @if($organizations)
+
                                 @foreach ($organizations as $organization)
                                 <option value="{{$organization->uuid}}">{{$organization->name}}</option>
                                 @endforeach
+
                                 @endif
                             </select>
                         </div>
                     </div>
+
                 </div>
 
 
@@ -52,9 +56,15 @@
                     <button type="submit" class="btn btn-primary">Map</button>
 
 
-                    <a href="{{route('dashboard')}}" class="btn btn-info">Back</a>
 
+                            <a href="{{route('dashboard')}}" class="btn btn-info">Back</a>
+
+                        </div>
+                    </div>
                 </div>
+
+
+
             </form>
 
         </div>

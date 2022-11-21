@@ -133,6 +133,11 @@
 
     </script>
     <!----Custom Function To Manage-->
+<<<<<<< HEAD
+    @yield('foot_script');
+    @stack('js');
+=======
+>>>>>>> eb70d3dfb4d34faaa3cdabc1231e6725104e092c
 </body>
 
 </html>
