@@ -25,16 +25,11 @@
             <div class="row">
                 <div class="col-xl-12 col-md-12 col-sm-6">
                     <div class="card">
-                        <!-- <div class="card-header row">
-                            <div class="col-3"><span class="card-title">List</span></div>
-                            <div class="col-7 align-self-center"></div>
-                            <div class="col-2">
-                                <a href="{{route('create.organization')}}"><button class="btn btn-primary">ADD Organizations</button></a>
-
-                            </div> 
-
-                            {{-- <span class="card-title "><a href="{{route('roles.create')}}"> Add New Permission</a></span> --}}
-                        </div> -->
+                        <div class="card-header row">
+                            <div class="col-3">
+                                <a href="{{route('dashboard')}}" class="btn btn-sm btn-info" data-toggle="Go Back">Back <i class="fa fa-reply"></i></a>
+                            </div>
+                        </div>
                         <div class="card-body">
 
                             @include('admin_panel.frontend.includes.messages')
@@ -42,52 +37,30 @@
                             <div class="table-responsive">
                                 <div class="bg-light p-4">
 
-
-
-
-
-
-                                    <h3></h3>
-
-                                    <table class="table table-striped">
+                                    <table class="table table-striped" id="datatable">
                                         <thead>
-                                            <th scope="col" width="10%">User Name</th>
-                                             <th scope="col" width="10%">Name</th>
-                                             <th scope="col" width="4%">Action</th>
+                                            <th scope="col" >User Name</th>
+                                             <th scope="col" >Name</th>
+                                             <th scope="col" class="text-end">Action</th>
                                         </thead>
 
 
                                         @foreach($users->Users as $user)
                                         <tr>
-
                                             <td>
-
                                                 {{$user->username}}
 
-
                                             </td>
                                             <td>
-
                                                 {{$user->name}}
 
-
                                             </td>
-                                            <td>
-                                                <a href="{{route('user.delete',[$user->uuid])}}" class="btn btn-danger">Delete</a>
+                                            <td class="text-end">
+                                                <a href="{{route('user.delete',[$user->uuid])}}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
                                             </td>
-
                                         </tr>
                                         @endforeach
-
                                     </table>
-
-
-
-                                </div>
-                                <div class="mt-4">
-                                    <!-- <a href="" class="btn btn-info">Edit</a> -->
-                                    <a href="{{route('dashboard')}}" class="btn btn-info">Back</a>
-
                                 </div>
                             </div>
 
@@ -104,3 +77,10 @@
 
 
 @endsection
+@push('js')
+    <script>
+        $(document).ready(function () {
+            $('#datatable').DataTable();
+        });
+    </script>
+@endpush

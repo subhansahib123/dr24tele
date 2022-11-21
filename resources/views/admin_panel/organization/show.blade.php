@@ -26,14 +26,10 @@
                 <div class="col-xl-12 col-md-12 col-sm-6">
                     <div class="card">
                         <div class="card-header row">
-                            <div class="col-3"><span class="card-title">List</span></div>
-                            <div class="col-7 align-self-center"></div>
-                            <div class="col-2">
-                                <a href="{{route('create.organization')}}"><button class="btn btn-primary">ADD Organizations</button></a>
-
+                            <div class="col-3">
+                                <a href="{{route('dashboard')}}" class="btn btn-sm btn-info" data-toggle="Go Back">Back <i class="fa fa-reply"></i></a>
+                                <a href="{{route('create.organization')}}" class="btn btn-sm btn-success">Add <i class="fa fa-plus" data-toggle="tooltip" data-placement="top" title="Add New"></i></a>
                             </div>
-
-                            {{-- <span class="card-title "><a href="{{route('roles.create')}}"> Add New Permission</a></span> --}}
                         </div>
                         <div class="card-body">
 
@@ -42,72 +38,40 @@
                             <div class="table-responsive">
                                 <div class="bg-light p-4 ">
 
-
-
-
-
-
-                                    <h3></h3>
-
-                                    <table class="table table-striped">
+                                    <table class="table table-striped" id="datatable">
                                         <thead>
-                                            <th scope="col"  width="29%">Name</th>
-                                            <th scope="col" class="text-center" width="3%"></th>
-                                            <th scope="col" class="text-center" width="3%"></th>
-                                            <th scope="col" class="text-center" width="3%"></th>
-                                            <th scope="col" class="text-center" width="3%"></th>
-                                            <th scope="col" class="text-center" width="3%"></th>
+                                            <th scope="col">Name</th>
+                                            <th scope="col" class="text-end">Action</th>
                                         </thead>
-
-
                                         @foreach($organizations->childlist as $organization)
                                         <tr>
-
                                             <td>
-
                                                 {{$organization->name}}
-
-
                                             </td>
-                                            <td>
-                                                <a href="{{route('single.organization',['uuid'=>$organization->uuid])}}"><button class="btn btn-info">Update</button></a>
+                                            <td class="text-end">
+                                                <a href="{{route('single.organization',['uuid'=>$organization->uuid])}}"><button class="btn btn-info" title="Update"><i class="fa fa-edit"></i></button></a>
 
-                                            </td>
-                                            <td>
-                                                <a href="{{route('users.list',['uuid'=>$organization->uuid])}}"><button class="btn btn-primary">Users</button></a>
+                                                <a href="{{route('users.list',['uuid'=>$organization->uuid])}}"><button class="btn btn-primary" title="Users"><i class="fa fa-users"></i></button></a>
 
-                                            </td>
-                                            <td>
-                                                <a href="{{route('patients.list',['uuid'=>$organization->uuid])}}"><button class="btn btn-primary">Patients</button></a>
+                                                <a href="{{route('patients.list',['uuid'=>$organization->uuid])}}"><button class="btn btn-warning" title="Patients"><i class="fa fa-user-plus"></i></button></a>
 
-                                            </td>
-                                            <td>
-                                                <a href="{{route('departments.list',['uuid'=>$organization->uuid])}}"><button class="btn btn-primary">Departments</button></a>
+                                                <a href="{{route('departments.list',['uuid'=>$organization->uuid])}}"><button class="btn btn-success" title="Departments"><i class="fa fa-building"></i></button></a>
 
-                                            </td>
                                             @if($organization->status == 'Enabled')
-                                            <td>
 
-                                                <a href="{{route('delete.organisation',['uuid'=>$organization->uuid])}}"><button class="btn btn-danger">Inactive</button></a>
+                                                <a href="{{route('delete.organisation',['uuid'=>$organization->uuid])}}"><button class="btn btn-danger" title="Inactive"><i class="fa fa-eye-slash"></i></button></a>
 
-                                            </td>
                                             @else
-                                            <td>
-                                                <a href="{{route('delete.organisation',['uuid'=>$organization->uuid])}}"><button class="btn btn-info"> Active</button></a>
+                                                <a href="{{route('delete.organisation',['uuid'=>$organization->uuid])}}"><button class="btn btn-info" title="Active"><i class="fa fa-eye"></i></button></a>
 
                                             </td>
-                                            
+
                                             @endif
                                         </tr>
                                         @endforeach
 
                                     </table>
 
-
-                                </div>
-                                <div class="mt-4">
-                                    <!-- <a href="" class="btn btn-info">Edit</a> -->
-                                    <a href="{{route('dashboard')}}" class="btn btn-info">Back</a>
 
                                 </div>
                             </div>
@@ -125,3 +89,10 @@
 
 
 @endsection
+@push('js')
+    <script>
+        $(document).ready(function () {
+            $('#datatable').DataTable();
+        });
+    </script>
+@endpush

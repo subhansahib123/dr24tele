@@ -25,69 +25,38 @@
             <div class="row">
                 <div class="col-xl-12 col-md-12 col-sm-6">
                     <div class="card">
-                        <!-- <div class="card-header row">
-                            <div class="col-3"><span class="card-title">List</span></div>
-                            <div class="col-7 align-self-center"></div>
-                          <div class="col-2">
-                                <a href="{{route('create.organization')}}"><button class="btn btn-primary">ADD Organizations</button></a>
-
+                        <div class="card-header row">
+                            <div class="col-3">
+                                <a href="{{url()->previous()}}" class="btn btn-sm btn-info" data-toggle="Go Back">Back <i class="fa fa-reply"></i></a>
                             </div>
-
-                            {{-- <span class="card-title "><a href="{{route('roles.create')}}"> Add New Permission</a></span> --}}
-                        </div> -->
+                        </div>
                         <div class="card-body">
 
                             @include('admin_panel.frontend.includes.messages')
                             {{-- <p>Use <code class="highlighter-rouge">.table-striped</code>to add zebra-striping to any table row within the <code class="highlighter-rouge">.tbody</code>.</p> --}}
                             <div class="table-responsive">
                                 <div class="bg-light p-4 ">
-
-
-
-
-
-
-                                    <h3></h3>
-
-                                    <table class="table table-striped">
+                                    <table class="table table-striped" id="datatable">
                                         <thead>
-                                            <th scope="col" width="20%">Name</th>
-                                             <th scope="col" width="21%">User Name</th>
-                                             <th scope="col" width="1%">Action</th>
+                                            <th scope="col">Name</th>
+                                             <th scope="col">User Name</th>
+                                             <th scope="col" class="text-end">Action</th>
                                         </thead>
-
-
                                         @foreach($doctors->Users as $doctor)
-                                        <tr>
-
+                                            <tr>
                                             <td>
-
                                                 {{$doctor->username}}
 
-
                                             </td>
-                                            <td>
-
+                                                <td>
                                                 {{$doctor->name}}
-
-
                                             </td>
-                                            <td>
-                                                <a href="{{route('user.delete',[$doctor->uuid])}}" class="btn btn-danger">Delete</a>
+                                            <td class="text-end">
+                                                <a href="{{route('user.delete',[$doctor->uuid])}}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
                                             </td>
-
                                         </tr>
                                         @endforeach
-
                                     </table>
-
-
-
-                                </div>
-                                <div class="mt-4">
-                                    <!-- <a href="" class="btn btn-info">Edit</a> -->
-                                    <a href="{{route('organization')}}" class="btn btn-info">Back</a>
-
                                 </div>
                             </div>
 
@@ -104,3 +73,10 @@
 
 
 @endsection
+@push('js')
+    <script>
+        $(document).ready(function () {
+            $('#datatable').DataTable();
+        });
+    </script>
+@endpush

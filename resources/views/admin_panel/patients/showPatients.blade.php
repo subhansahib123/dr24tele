@@ -25,16 +25,11 @@
             <div class="row">
                 <div class="col-xl-12 col-md-12 col-sm-6">
                     <div class="card">
-                        <!-- <div class="card-header row">
-                            <div class="col-3"><span class="card-title">List</span></div>
-                            <div class="col-7 align-self-center"></div>
-                            <div class="col-2">
-                                <a href="{{route('create.organization')}}"><button class="btn btn-primary">ADD Organizations</button></a>
-
+                        <div class="card-header row">
+                            <div class="col-3">
+                                <a href="{{url()->previous()}}" class="btn btn-sm btn-info" data-toggle="Go Back">Back <i class="fa fa-reply"></i></a>
                             </div>
-
-                            {{-- <span class="card-title "><a href="{{route('roles.create')}}"> Add New Permission</a></span> --}}
-                        </div> -->
+                        </div>
                         <div class="card-body">
 
                             @include('admin_panel.frontend.includes.messages')
@@ -49,11 +44,10 @@
 
                                     <h3></h3>
 
-                                    <table class="table table-striped">
+                                    <table class="table table-striped" id="datatable">
                                         <thead>
-                                            <th scope="col" width="35%">Name</th>
-                                           <th scope="col" width="3%"></th>
-                                           <th scope="col" width="3%"></th>
+                                            <th scope="col">Name</th>
+                                            <th class="text-end">Action</th>
                                         </thead>
 
 
@@ -66,22 +60,15 @@
 
 
                                             </td>
-                                            <td>
-                                                <a href="{{route('update.patient',[$patients->personIdentifiers->identifier])}}" class="btn btn-info">Update</a>
-                                            </td>
-                                            <td>
-                                                <a href="{{route('patient.delete',[$patients->personIdentifiers->identifier])}}" class="btn btn-danger">Delete</a>
+                                            <td class="text-end">
+                                                <a href="{{route('update.patient',[$patients->personIdentifiers->identifier])}}" class="btn btn-info"><i class="fa fa-edit"></i></a>
+                                                <a href="{{route('patient.delete',[$patients->personIdentifiers->identifier])}}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
                                             </td>
                                         </tr>
                                         @endforeach
 
                                     </table>
 
-
-                                </div>
-                                <div class="mt-4">
-                                    <!-- <a href="" class="btn btn-info">Edit</a> -->
-                                    <a href="{{url()->previous()}}" class="btn btn-info">Back</a>
 
                                 </div>
                             </div>
@@ -99,3 +86,10 @@
 
 
 @endsection
+@push('js')
+    <script>
+        $(document).ready(function () {
+            $('#datatable').DataTable();
+        });
+    </script>
+@endpush
