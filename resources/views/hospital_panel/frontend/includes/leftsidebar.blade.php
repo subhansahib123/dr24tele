@@ -83,13 +83,9 @@
                     </ul>
                 </li>
                 <li class="slide">
-                    <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
-                            class="side-menu__icon fa fa-user-md"></i><span class="side-menu__label">
-                            Doctor</span><i class="angle fe fe-chevron-right"></i></a>
-                    <ul class="slide-menu nav-tree">
-                        <li><a href="{{ route('create.doctor') }}" class="slide-item"> Create </a></li>
-                        <!-- <li><a href="{{ route('showDepartment.specialization') }}" class="slide-item">list</a></li> -->
-                    </ul>
+                    <a class="side-menu__item has-link" data-bs-toggle="slide" href="{{ route('create.doctor') }}"><i
+                            class="side-menu__icon fa fa-user-md"></i><span
+                            class="side-menu__label">Doctors</span></a>
                 </li>
                 <li class="slide">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
