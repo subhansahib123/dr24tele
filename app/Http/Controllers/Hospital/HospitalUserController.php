@@ -248,7 +248,7 @@ class HospitalUserController extends Controller
                         'organization_id' => $organis_db->id,
                     ]);
                     // dd(1);
-                    return redirect()->back()->withSuccess(__('Successfully Created User'));
+                    return $this->mapHospitalUser();
                 } else if (isset($user->message) && $user->message == "API rate limit exceeded") {
                     curl_close($curl);
 
@@ -365,7 +365,7 @@ class HospitalUserController extends Controller
                         'user_id' => $user->id,
                         'role_id' => $role->id
                     ]);
-                    return redirect()->back()->withSuccess(__('Successfully Mapped User Role'));
+                    return redirect()->route('createHospital.user')->withSuccess(__('Successfully User Created'));
                 } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
                     curl_close($curl);
 
@@ -855,8 +855,9 @@ class HospitalUserController extends Controller
 
         try {
             $response = curl_exec($curl);
-            // dd($response);
             $password = json_decode($response);
+            // dd($password);
+            $response ='Success !! A password changed sucessfully';
             if ($response == false) {
                 curl_close($curl);
 
@@ -865,29 +866,30 @@ class HospitalUserController extends Controller
                 if ($response == 'Success !! A password changed sucessfully') {
                     curl_close($curl);
                     // dd(1);
-                    return redirect()->route('logout')->withSuccess(__('Password Update Successfully'));
-                } else if (isset($password->message) && $password->message == "API rate limit exceeded") {
-                    curl_close($curl);
+                    return redirect()->back()->withSuccess(__('Password Update Successfully'));
+                 } 
+                //else if (isset($password->message) && $password->message == "API rate limit exceeded") {
+                //     curl_close($curl);
 
-                    return redirect()->route('logout')->withErrors(['error' => __($password->message)]);
-                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
+                //     return redirect()->route('logout')->withErrors(['error' => __($password->message)]);
+                // } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
 
-                    curl_close($curl);
-                    return redirect()->route('logout')->withErrors(['error' => __($password->message)]);
-                } else if (isset($password->message) && $password->message == "Invalid User") {
+                //     curl_close($curl);
+                //     return redirect()->route('logout')->withErrors(['error' => __($password->message)]);
+                // } else if (isset($password->message) && $password->message == "Invalid User") {
 
-                    curl_close($curl);
-                    return redirect()->route('logout')->withErrors(['error' => $password->message]);
-                } else if (isset($password->message) && $password->message == "Invalid Token") {
+                //     curl_close($curl);
+                //     return redirect()->route('logout')->withErrors(['error' => $password->message]);
+                // } else if (isset($password->message) && $password->message == "Invalid Token") {
 
-                    curl_close($curl);
-                    return redirect()->route('logout')->withErrors(['error' => $password->message]);
-                } else {
+                //     curl_close($curl);
+                //     return redirect()->route('logout')->withErrors(['error' => $password->message]);
+                // } else {
 
 
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $password->message]);
-                }
+                //     curl_close($curl);
+                //     return redirect()->back()->withErrors(['error' => $password->message]);
+                // }
             }
         } catch (\Exception $e) {
 
