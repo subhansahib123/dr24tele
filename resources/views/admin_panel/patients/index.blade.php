@@ -25,16 +25,11 @@
             <div class="row">
                 <div class="col-xl-12 col-md-12 col-sm-6">
                     <div class="card">
-                        <div class="card-header">
-                            <div class="col-5">
-                                <span class="card-title">Mapped and Unmapped Patients</span>
-
+                        <div class="card-header row">
+                            <div class="col-3">
+                                <a href="{{url()->previous()}}" class="btn btn-sm btn-info" data-toggle="Go Back">Back <i class="fa fa-reply"></i></a>
+                                <a href="{{route('create.patients')}}" class="btn btn-sm btn-success" data-toggle="Add">Add <i class="fa fa-plus"></i></a>
                             </div>
-                            <div class="col-5 align-self-center"></div>
-                            <div class="col-2">
-
-                            </div>
-                            {{--<span class="card-title "><a href="#"> Add New use</a></span>--}}
                         </div>
                         <div class="card-body">
 
@@ -46,11 +41,11 @@
 
                                     </div>
 
-                                    <div class="container mt-4">
+                                    <div class="mt-4">
 
 
 
-                                        <table class="table table-striped">
+                                        <table class="table table-striped" id="datatable">
                                             <thead>
                                                 <th scope="col" width="20%">Name</th>
                                             </thead>
@@ -65,7 +60,7 @@
                                                     {{$all_patient->givenName}}
 
 
-                                                </td>     
+                                                </td>
 
 
 
@@ -109,3 +104,10 @@
 
 
 @endsection
+@push('js')
+    <script>
+        $(document).ready(function () {
+            $('#datatable').DataTable();
+        });
+    </script>
+@endpush

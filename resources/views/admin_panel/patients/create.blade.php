@@ -26,7 +26,7 @@
                 <div class="form-group">
                     @include('admin_panel.frontend.includes.messages')
                 </div>
-                <div class="col-xl-8">
+                <div class="col-xl-12">
                     <div class="card">
                         <form action="{{route('store.patients')}}" method="POST">
                             @csrf
@@ -36,7 +36,7 @@
                             <div class="card-body">
                                 <div class="row">
                                     <h3>User</h3>
-                                    <div class="col-lg-12 col-md-12">
+                                    <div class="col-lg-6 col-md-6">
                                         <div class="form-group">
 
                                             <label for="Username">Username</label>
@@ -50,7 +50,7 @@
                                         </div>
                                     </div>
                                     <h3>Person</h3>
-                                    
+
                                     <div class="col-lg-6 col-md-6">
                                         <div class="form-group">
                                             <label for="Name">Name</label>
@@ -72,7 +72,8 @@
                                     <div class="col-lg-6 col-md-6">
                                         <div class="form-group">
                                             <label for="exampleInputnumber">Contact Number</label>
-                                            
+                                            <br>
+
                                             <input type="text" id="txtPhone" name="" class="form-control">
                                                <input type="hidden" class="form-control" id="phoneNumber" >
                                         </div>
@@ -83,7 +84,7 @@
                                             <input type="date" class="form-control" id="Birth" placeholder="Date of Birth" name="dateOfBirth" value="">
                                         </div>
                                     </div>
-                                    <div class="col-lg-12 col-md-12">
+                                    <div class="col-lg-6 col-md-6">
                                         <div class="form-group">
                                             <label class="form-label" for="gender">Gender</label>
                                             <select class="form-select" name="gender_code" id="gender">
@@ -115,7 +116,7 @@
                             </div>
                             <div class="card-footer ">
                                 <button type="submit" class="btn btn-primary my-1">Create</button>
-                                <span><a href="{{route('dashboard')}}" class="btn btn-secondary  ">Cancel</a></span>                             
+                                <span><a href="{{route('dashboard')}}" class="btn btn-secondary  ">Cancel</a></span>
 
                                 {{-- <a href="javascript:void(0)" class="btn btn-danger my-1">Cancel</a> --}}
                             </div>
