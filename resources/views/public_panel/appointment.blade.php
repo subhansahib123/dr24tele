@@ -16,131 +16,149 @@
                 </div>
             </div>
             <div class="row mt-5">
-                <div class="col-lg-8 mx-auto">
-                    <div class="appointment-form-ma">
-                        <div class="row">
-                            <div class="col-12 error">
-                            </div>
-                        </div>
-                        <form id="appointmentForms">
-                            <div class="col-12 error">
-                            </div>
-                            <div class="row" id="schedules">
-                                <div class="col-12" id="scheduleDoctor">
-                                </div>
-                                <div class="form-group col-lg-12" style="display: none" id="book_appointment_submit">
-                                    <button type="button" class="btn btn-apfm">Book Appointment <i class="icofont icofont-thin-right"></i></button>
+                <div class="col-lg-10 mx-auto">
+                    <div class="row appointment-form-ma">
+                        <div class="col-md-8">
+                            <div class="row">
+                                <div class="col-12 error">
                                 </div>
                             </div>
-                        </form>
-
-                        <form id="appointmentForm">
-                            <div class="tab">
-                                <p><div id='calendar'></div></p>
-                            </div>
-
-                            <div class="tab">
-                                <p><label>Comments</label></p>
-                                <p><textarea rows="5" cols="5" class="form-control" name="comments" required></textarea></p>
-                                <div class="row" id="hospital-check-is">
-                                    <div class="col-1">
-                                        <input type="checkbox" name="hospital-check" id="hospital-check" value="1">
+                            <form id="appointmentForms">
+                                <div class="col-12 error">
+                                </div>
+                                <div class="row" id="schedules">
+                                    <div class="col-12" id="scheduleDoctor">
                                     </div>
-                                    <div class="col-11 pl-0">
-                                        <label class="form-check-label" for="hospital-check">Are you already registered with this hospital?</label>
+                                    <div class="form-group col-lg-12" style="display: none" id="book_appointment_submit">
+                                        <button type="button" class="btn btn-apfm">Book Appointment <i class="icofont icofont-thin-right"></i></button>
                                     </div>
                                 </div>
-                                <div class="row" id="hospital-check-file" style="display: none">
-                                    <div class="col-12">
-                                        <input type="file" id="hospital-register-id">
-                                    </div>
-                                </div>
-                            </div>
+                            </form>
 
-                            <div class="tab">
-                                <form role="form">
-                                    <div class="col-12">
-                                        <div class="form-group">
-                                            <label>Coupon</label>
-                                            <div class="input-group">
-{{--                                                <div class="row">--}}
-{{--                                                    <div class="col-12">--}}
-                                                        <input type="text" id="coupon" name="coupon" class="form-control mb-1" placeholder="Coupon Code" />
-{{--                                                    </div>--}}
-{{--                                                    <div class="col-12">--}}
-                                                        <button type="button" id="coupon-btn" class="btn btn-apfm">Apply</button>
-{{--                                                    </div>--}}
-{{--                                                </div>--}}
-                                            </div>
+                            <form id="appointmentForm">
+                                <div class="tab">
+                                    <p><div id='calendar'></div></p>
+                                </div>
+
+                                <div class="tab">
+                                    <p><label>Comments</label></p>
+                                    <p><textarea rows="5" cols="5" class="form-control" name="comments" required></textarea></p>
+                                    <div class="row ms-2 my-2" id="hospital-check-is">
+                                        <div class="mb-3 form-check">
+                                            <input type="checkbox" class="form-check-input me-2 p-0" name="hospital-check" id="hospital-check" value="1">
+                                            <label class="form-check-label" for="hospital-check">Are you already registered with this hospital?</label>
                                         </div>
                                     </div>
-                                </form>
-                            </div>
+                                    <div class="row" id="hospital-check-file" style="display: none">
+                                        <div class="col-md-6">
+                                            <input type="file" id="hospital-register-id" hidden>
+                                            <label for="hospital-register-id"><i class="ri-add-line"></i></label>
+                                            <p>Please upload your registration card</p>
+                                        </div>
+                                    </div>
+                                </div>
 
-                            <div class="tab">
-                                <div class="panel panel-default">
-                                    <div class="panel-body">
-                                        <form role="form">
-                                            <div class="row">
-                                                <div class="col-xs-12 required">
-                                                    <div class="form-group">
-                                                        <label>CARD NUMBER</label>
-                                                        <div class="input-group">
-                                                            <input type="text" class="form-control card-num"
-                                                                   placeholder="Valid Card Number" />
-                                                            <span class="input-group-addon"><span
-                                                                    class="fa fa-credit-card "></span></span>
+                                <div class="tab">
+                                    <form role="form">
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label>Coupon</label>
+                                                <div class="input-group">
+                                                    {{--                                                <div class="row">--}}
+                                                    {{--                                                    <div class="col-12">--}}
+                                                    <input type="text" id="coupon" name="coupon" class="form-control mb-3" placeholder="Coupon Code" />
+                                                    {{--                                                    </div>--}}
+                                                    {{--                                                    <div class="col-12">--}}
+                                                    <button type="button" id="coupon-btn" class="btn btn-apfm">Apply</button>
+                                                    {{--                                                    </div>--}}
+                                                    {{--                                                </div>--}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <div class="tab">
+                                    <div class="panel panel-default">
+                                        <div class="panel-body">
+                                            <form role="form">
+                                                <div class="row">
+                                                    <div class="col-xs-12 required">
+                                                        <div class="form-group">
+                                                            <label>CARD NUMBER</label>
+                                                            <div class="input-group">
+                                                                <input type="text" class="form-control card-num"
+                                                                       placeholder="Valid Card Number" />
+                                                                <span class="input-group-addon"><span
+                                                                        class="fa fa-credit-card "></span></span>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-xs-4 col-md-4 required">
-                                                    <div class="form-group">
-                                                        <label><span class="hidden-xs">EXPIRATION MONTH</span></label>
-                                                        <input type="text" class="form-control card-expiry-month" placeholder="MM" />
+                                                <div class="row">
+                                                    <div class="col-xs-4 col-md-4 required">
+                                                        <div class="form-group">
+                                                            <label><span class="hidden-xs">EXPIRATION MONTH</span></label>
+                                                            <input type="text" class="form-control card-expiry-month" placeholder="MM" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-4 col-md-4 required">
+                                                        <div class="form-group">
+                                                            <label><span class="hidden-xs">EXPIRATION YEAR</span></label>
+                                                            <input type="text" class="form-control card-expiry-year" placeholder="YY" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xs-4 col-md-4 pull-right required">
+                                                        <div class="form-group">
+                                                            <label>CV CODE</label>
+                                                            <input type="text" class="form-control card-cvc" placeholder="CVC" />
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-xs-4 col-md-4 required">
-                                                    <div class="form-group">
-                                                        <label><span class="hidden-xs">EXPIRATION YEAR</span></label>
-                                                        <input type="text" class="form-control card-expiry-year" placeholder="YY" />
+                                                <div class="row">
+                                                    <div class="col-xs-12 required">
+                                                        <div class="form-group">
+                                                            <label>CARD OWNER</label>
+                                                            <input type="text" class="form-control" placeholder="Card Owner Names" />
+                                                        </div>
                                                     </div>
                                                 </div>
-                                                <div class="col-xs-4 col-md-4 pull-right required">
-                                                    <div class="form-group">
-                                                        <label>CV CODE</label>
-                                                        <input type="text" class="form-control card-cvc" placeholder="CVC" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-xs-12 required">
-                                                    <div class="form-group">
-                                                        <label>CARD OWNER</label>
-                                                        <input type="text" class="form-control" placeholder="Card Owner Names" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </form>
+                                            </form>
+                                        </div>
+
                                     </div>
-
-                                </div>
-                            </div>
-
-                            <div style="overflow:auto;" class="mt-5">
-                                <div style="float:right;">
-                                    <button type="button" class="btn btn-primary" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-                                    <button type="button" class="btn btn-primary" id="nextBtn" onclick="nextPrev(1)">Next</button>
                                 </div>
 
-                            </div>
+                                <div style="overflow:auto;" class="mt-5">
+                                    <div style="text-align:right;">
+                                        <button type="button" class="btn btn-primary" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
+                                        <button type="button" class="btn btn-primary" id="nextBtn" onclick="nextPrev(1)">Next</button>
+                                    </div>
+                                </div>
 
-                        </form>
+                            </form>
+                        </div>
+                        <div class="d-none d-md-block col-md-4">
+                            <div class="dr-details">
+                                <div class="dr-image">
+                                    <img src="{{asset('public_assets/img/services/service-9.jpg')}}" alt="Image">
+                                </div>
+                                <div class="dr-info">
+                                    <h6>Dr. Jintdra Raut</h6>
+                                    <p>B.Sc, M.B.B.S</p>
+                                </div>
+                            </div>
+                            <div class="fee-details">
+                                <h6>Doctor Fee</h6>
+                                <p>$600</p>
+                            </div>
+                        </div>
                     </div>
+
                 </div>
-                <!-- end col -->
             </div>
+            <!-- end col -->
+        </div>
         </div>
         <!--- END CONTAINER -->
     </section>
@@ -150,7 +168,15 @@
     <script src='{{ asset('public_assets/js/moment.js') }}'></script>
     <script src='{{ asset('public_assets/js/timezone_moment.js') }}'></script>
     <style>
-
+        .section-padding{
+            background: #135aa5;
+        }
+        .appointment-form-ma{
+            box-shadow: none;
+        }
+        .auto-container{
+            counter-reset: section;
+        }
         input {
             padding: 10px;
             width: 100%;
@@ -163,7 +189,17 @@
         input.invalid {
             background-color: #ffdddd;
         }
-
+        #hospital-register-id + label {
+            background-color: #42c0fb;
+            color: white;
+            border-radius: 50%;
+            cursor: pointer;
+            height: 40px;
+            width: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
         /* Hide all steps by default: */
         .tab {
             display: none;
@@ -171,16 +207,32 @@
 
         /* Make circles that indicate the steps of the form: */
         .step {
+            color: #000000;
             height: 50px;
             width: 50px;
             margin: 0 20px;
-            background-color: #bbbbbb;
+            background-color: #42c0fb;
             border: none;
             border-radius: 50%;
-            display: inline-block;
-            opacity: 0.5;
+            display: inline-flex;
+            font-weight: bold;
+            /*opacity: 0.5;*/
+            justify-content: center;
+            align-items: center;
+            position: relative;
         }
-
+        .step::before {
+            counter-increment: section;
+            content: counter(section);
+        }
+        .step:not(:last-of-type)::after {
+            content: '';
+            border-bottom: 2px solid #42c0fb;
+            position: absolute;
+            top: 25px;
+            left: 50px;
+            width: 100%;
+        }
         /* Mark the active step: */
         .step.active {
             opacity: 1;
@@ -188,9 +240,11 @@
 
         /* Mark the steps that are finished and valid: */
         .step.finish {
-            background-color: blue;
+            background-color: #42c0fb;
         }
-
+        .step.finish::before{
+            content: '\2713';
+        }
         .selected-date {
             background-color: green;
         }
@@ -217,6 +271,52 @@
 
         .appointment-form-ma .form-control {
             cursor: pointer;
+            border-radius: 10px;
+            background: transparent;
+        }
+        #nextBtn,
+        #prevBtn{
+            border-radius: 3px;
+            line-height: 10px;
+            border:1px solid #14467b;
+        }
+        #prevBtn{
+            background-color: #ffffff;
+            color: #14467b;
+        }
+        #nextBtn{
+            background-color: #14467b;
+            color: #ffffff;
+        }
+        .dr-details{
+            display: flex;
+            align-items: center;
+        }
+        .dr-image{
+            width: 60px;
+            height: 60px;
+        }
+        .dr-image img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+        .dr-info{
+            margin-left: .75rem;
+        }
+        .dr-info h6{
+            margin-bottom: 0;
+        }
+        .fee-details{
+            margin-top: 1rem;
+        }
+        .fee-details h6{
+            color: #8f8d8d;
+            margin-bottom: 0;
+        }
+        .fee-details p{
+            color: indigo;
         }
     </style>
     <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
