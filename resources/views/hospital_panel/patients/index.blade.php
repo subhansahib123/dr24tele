@@ -30,6 +30,11 @@
                             {{--<span class="card-title "><a href="#"> Add New use</a></span>--}}
                         </div>
                         <div class="card-body">
+                            <div class="card-header row">
+                                <div class="col-3">
+                                    <a href="{{route('hospital.dashboard')}}" class="btn btn-sm btn-info" data-toggle="Go Back">Back <i class="fa fa-reply"></i></a>
+                                </div>
+                            </div>
                             @include('admin_panel.frontend.includes.messages')
                             {{-- <p>Use <code class="highlighter-rouge">.table-striped</code>to add zebra-striping to any table row within the <code class="highlighter-rouge">.tbody</code>.</p> --}}
                             <div class="table-responsive">
@@ -47,7 +52,7 @@
                                             <tr>
                                                 <td>{{$loop->index+1}}</td>
                                                 <td>
-                                                {{isset($all_patient->givenName)?$all_patient->givenName:'' }}
+                                                    {{isset($all_patient->givenName)?$all_patient->givenName:'' }}
                                                 </td>
                                             </tr>
                                             @endforeach
@@ -61,9 +66,6 @@
                                         </table>
                                     </div>
                                 </div>
-                                <div class="mt-4">
-                                    <a href="{{route('hospital.dashboard')}}" class="btn btn-info">Back</a>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -75,9 +77,9 @@
 </div>
 @endsection
 @push('js')
-    <script>
-        $(document).ready(function () {
-            $('#datatable').DataTable();
-        });
-    </script>
+<script>
+    $(document).ready(function() {
+        $('#datatable').DataTable();
+    });
+</script>
 @endpush

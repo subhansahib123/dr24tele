@@ -32,16 +32,16 @@ class HospitalDepartmentController extends Controller
     {
 
 
-        // dd($request->all());
 
         $request->validate([
             'name' => 'required|string',
             'status' => 'required|string',
             'email' => 'required|string',
             'level' => 'string',
-            'specialization_id' => 'required|string',
+            'specialization_id.*' => 'required|string',
 
         ]);
+        
         $curl = curl_init();
         $baseUrl = config('services.ehr.baseUrl');
         $apiKey = config('services.ehr.apiKey');
@@ -125,11 +125,17 @@ class HospitalDepartmentController extends Controller
                     ]);
                     $department=Department::where('name',$request->name.'_'.$org->name)->first();
                     // dd($department);
-
-                    SpecializedDepartment::Create([
-                        'specialization_id'=>$request->specialization_id,
-                        'department_id'=>$department->id,
-                    ]);
+                    $specializations=$request->specialization_id;
+                    // dd($specializations);
+                    foreach($specializations as $specialization){
+                        // dd($specialization);
+                        SpecializedDepartment::Create([
+                            'specialization_id'=>$specialization,
+                            'department_id'=>$department->id,
+                        ]);
+                    };
+                    
+                    
                     return redirect()->back()->withSuccess(__('Successfully Department Created'));
                 } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 409) {
                     curl_close($curl);

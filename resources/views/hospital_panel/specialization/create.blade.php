@@ -25,15 +25,16 @@
             <div class="row">
                 <div class="col-md-12 col-xl-12">
                     <div class="card">
+                        
                         @include('admin_panel.frontend.includes.messages')
                         <div class="card-body">
                             <form class="form-horizontal" action="{{route('specialization.created')}}" method="POST">
                                 @csrf
                                 <div class=" row mb-4">
                                     <label for="inputName" class="col-md-3 form-label">Specialization Name</label>
-                                    <div class="col-md-2">
-                                        <input type="text" class="form-control" value="{{old('name')}}" name="name" id="inputName" placeholder="Name">
-                                    </div>
+
+                                    <input type="text" class="form-control" value="{{old('name')}}" name="name" id="inputName" placeholder="Name">
+
                                     @if ($errors->has('name'))
                                     <span class="text-danger text-left">{{ $errors->first('name') }}</span>
                                     @endif

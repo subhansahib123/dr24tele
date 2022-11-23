@@ -96,7 +96,7 @@
                                                             @endif
                                                     </div>
 
-                                                    <div class="form-group col-4" id="belong_effect">
+                                                    <div class="form-group col-6" id="belong_effect">
                                                         <label for="exampleInputEmail1">People Per Slot</label>
                                                         <input type="number" class="form-control" name="number_of_people"
                                                             id="number_of_people" value="{{old('number_of_people')}}"
@@ -105,8 +105,16 @@
                                                                 <span class="text-danger text-left">{{ $errors->first('number_of_people') }}</span>
                                                             @endif
                                                     </div>
+                                                    
+                                                    <div class="form-group col-12">
+                                                        <label for="comment">Comments</label>
+                                                        <textarea class="form-control" value="{{old('comment')}}" name="comment" id="comment">Enter Comments About Schedule</textarea>
+                                                        @if ($errors->has('comment'))
+                                                                <span class="text-danger text-left">{{ $errors->first('comment') }}</span>
+                                                            @endif
+                                                    </div>
                                                     <div class="form-group col-4">
-                                                        <label class="form-label" for="status">Staus
+                                                        <label class="form-label" for="status">Status
                                                             <input type="checkbox" class="form-checkbox"
                                                                 id="status" name="status" value="{{old('status')}}" >
                                                               @if ($errors->has('status'))
@@ -115,13 +123,6 @@
 
                                                         </label>
 
-                                                    </div>
-                                                    <div class="form-group col-12">
-                                                        <label for="comment">Comments</label>
-                                                        <textarea class="form-control" value="{{old('comment')}}" name="comment" id="comment">Enter Comments About Schedule</textarea>
-                                                        @if ($errors->has('comment'))
-                                                                <span class="text-danger text-left">{{ $errors->first('comment') }}</span>
-                                                            @endif
                                                     </div>
                                                     <div class="mb-0 mt-4 row justify-content-end">
                                                         <div class="col">

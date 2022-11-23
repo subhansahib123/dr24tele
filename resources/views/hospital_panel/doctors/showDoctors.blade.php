@@ -25,72 +25,33 @@
             <div class="row">
                 <div class="col-xl-12 col-md-12 col-sm-6">
                     <div class="card">
-                        <!-- <div class="card-header row">
-                            <div class="col-3"><span class="card-title">List</span></div>
-                            <div class="col-7 align-self-center"></div>
-                            <div class="col-2">
-                                <a href="{{route('create.organization')}}"><button class="btn btn-primary">ADD Organizations</button></a>
-
+                        <div class="card-header row">
+                            <div class="col-3">
+                                <a href="{{route('hospital.dashboard')}}" class="btn btn-sm btn-info" data-toggle="Go Back">Back <i class="fa fa-reply"></i></a>
                             </div>
-
-                            {{-- <span class="card-title "><a href="{{route('roles.create')}}"> Add New Permission</a></span> --}}
-                        </div> -->
+                        </div>
                         <div class="card-body">
 
                             @include('admin_panel.frontend.includes.messages')
                             {{-- <p>Use <code class="highlighter-rouge">.table-striped</code>to add zebra-striping to any table row within the <code class="highlighter-rouge">.tbody</code>.</p> --}}
                             <div class="table-responsive">
-                                <div class="bg-light p-4 ">
-
-
-                                
-
-
-
-                                    <h3></h3>
-
-                                    <table class="table table-striped">
-                                        <thead>
-                                            <th scope="col" width="20%">Username</th>
-                                             <th scope="col" width="19%"> Name</th> 
-                                             <th scope="col" width="2%"></th> 
-                                        </thead>
-
-
-                                        @foreach($doctors->Users as $doctor)
-                                        <tr>
-
-                                            <td>
-
-                                                {{$doctor->username}}
-
-
-                                            </td>
-                                            <td>
-
-                                                {{$doctor->name}}
-
-
-                                            </td>
-                                                <td>
-                                                    <a href="{{route('user.delete',[$doctor->uuid])}}" class="btn btn-danger">Delete</a>
-                                                </td>
-
-                                        </tr>
-                                        @endforeach  
-
-                                    </table>
-                                    
-
-
-                                </div>
-                                <div class="mt-4">
-                                    <!-- <a href="" class="btn btn-info">Edit</a> -->
-                                    <a href="{{route('hospital.dashboard')}}" class="btn btn-info">Back</a>
-
-                                </div>
+                                <table class="table table-striped" id="datatable">
+                                    <thead>
+                                        <th scope="col">Sr#</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col" class="text-end">Action</th>
+                                    </thead>
+                                    @foreach($doctors->Users as $doctor)
+                                    <tr>
+                                        <td>{{$loop->index+1}}</td>
+                                        <td>{{$doctor->name}}</td>
+                                        <td class="text-end">
+                                            <a href="{{route('user.delete',[$doctor->uuid])}}"><button class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button></a>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </table>
                             </div>
-
                         </div>
                     </div>
                 </div>

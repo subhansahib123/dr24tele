@@ -200,13 +200,13 @@ class HospitalPatientController extends Controller
                     return redirect()->route('logout')->withErrors(['error' => $patients->message]);
                 } else {
                     curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $patients->message]);
+                    return redirect()->route('createHospital.patients')->withErrors(['error' => $patients->message]);
                 }
             }
         } catch (\Exception $e) {
 
 
-            return redirect()->back()->withErrors(['error' => __($e->getMessage())]);
+            return redirect()->route('createHospital.patients')->withErrors(['error' => __($e->getMessage())]);
         }
     }
     
@@ -275,7 +275,7 @@ class HospitalPatientController extends Controller
                         'organization_id' => $organization->id
                     ]);
 
-                    return redirect()->back()->withSuccess(__('Patient Successfully Created'));
+                    return redirect()->route('createHospital.patients')->withSuccess(__('Patient Successfully Created'));
                 } else if (isset($patients->message) && $patients->message == "API rate limit exceeded") {
                     curl_close($curl);
                     return redirect()->route('logout')->withErrors(['error' => $patients->message]);
@@ -289,11 +289,11 @@ class HospitalPatientController extends Controller
                     return redirect()->route('logout')->withErrors(['error' => $patients->message]);
                 } else {
                     curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $patients->message]);
+                    return redirect()->route('createHospital.patients')->withErrors(['error' => $patients->message]);
                 }
             }
         } catch (\Exception $e) {
-            return redirect()->back()->withErrors(['error' => __($e->getMessage())]);
+            return redirect()->route('createHospital.patients')->withErrors(['error' => __($e->getMessage())]);
         }
     }
     public function hospitalAllPatients()

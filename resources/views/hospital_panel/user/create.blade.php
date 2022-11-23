@@ -9,11 +9,11 @@
         <div class="main-container container-fluid">
             <!-- PAGE-HEADER -->
             <div class="page-header">
-                <h1 class="page-title">Create User</h1>
+                <h1 class="page-title">Create Management</h1>
                 <div>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">Pages</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Create User</li>
+                        <li class="breadcrumb-item active" aria-current="page">Create Management</li>
                     </ol>
                 </div>
             </div>
@@ -28,7 +28,7 @@
                         <form action="{{ route('storeHospital.user') }}" method="POST">
                             @csrf
                             <div class="card-header">
-                                <h3 class="card-title">Create User</h3>
+                                <h3 class="card-title">Management Details</h3>
                             </div>
                             <div class="card-body">
                                 <div class="row">
@@ -69,10 +69,10 @@
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-12">
                                         <div class="form-group ">
-                                            <div class="row mx-0">
+                                            <div class="row ">
                                                 <label for="exampleInputnumber"><strong> Contact Number</strong></label>
                                             </div>
-                                            <div class="row mx-1">
+                                            <div class="row ">
                                                 <input type="text" id="txtPhone" name="" class="form-control">
                                                 <input type="hidden" class="form-control" id="phoneNumber">
                                             </div>

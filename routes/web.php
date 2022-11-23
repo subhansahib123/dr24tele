@@ -315,7 +315,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
      Route::post('/doctor/mapped', [CreationController::class, 'doctorMapped'])->name('doctor.mapped');
  
     // These Routes are used to Map Roles to Users
-    Route::get('/mapping/role', [HospitalUserController::class, 'mapHospitalUser'])->name('mapHospital.user');
+    Route::get('/mapping/role/', [HospitalUserController::class, 'mapHospitalUser'])->name('mapHospital.user');
     Route::post('/role/mapped', [HospitalUserController::class, 'hospitalUserMapped'])->name('hospitalUser.mapped');
 
 

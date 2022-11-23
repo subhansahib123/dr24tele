@@ -11,7 +11,7 @@
 
             <!-- PAGE-HEADER -->
             <div class="page-header">
-                <h1 class="page-title">Map User by Role </h1>
+                <h1 class="page-title"> Management Roles </h1>
                 <div>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
@@ -24,20 +24,8 @@
             <form action="{{route('hospitalUser.mapped')}}" method="POST">
                 @csrf
                 <div class="row">
-                    <div class="col-lg-6 col-md-6 col-sm-12">
-                        <div class="form-group">
-                            <label for="user">User</label>
-                            <select class="form-control" value="{{old('user')}}" name="user" id="user">
-                                <option value="">select</option>
+                <input type="hidden" value="{{$user->uuid}}" name="user" id="user" >
 
-                                @if($users)
-                                @foreach ($users as $user)
-                                <option value="{{$user->uuid}}">{{$user->username}}</option>
-                                @endforeach
-                                @endif
-                            </select>
-                        </div>
-                    </div>
                     <div class="col-lg-6 col-md-6 col-sm-12">
                         <div class="form-group">
                             <label for="role">Roles</label>
@@ -45,7 +33,24 @@
                                 <option value="">select</option>
                                 @if($roles)
                                 @foreach ($roles as $role)
+                                @if($role->name=='Practitioner')
+                                <option style="display:none" value=""></option>
+                                @elseif($role->name!='Practitioner')
                                 <option value="{{$role->name}}">{{$role->name}}</option>
+                                @endif
+                                @endforeach
+                                @endif
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                        <div class="form-group" id="dep">
+                            <label for="department">Departments</label>
+                            <select class="form-control" value="{{old('department')}}" name="department" id="department">
+                                <option value="">select</option>
+                                @if($departments)
+                                @foreach ($departments as $department)
+                                <option  value="{{$department->uuid}}">{{$department->name}}</option>
                                 @endforeach
                                 @endif
                             </select>
@@ -62,25 +67,11 @@
 
                         </div>
                     </div>
-                    <div class="col-lg-6 col-md-6 col-sm-12">
-                        <div class="form-group" id="dep">
-                            <label for="department">Departments</label>
-                            <select class="form-control" value="{{old('department')}}" name="department" id="department">
-                                <option value="">select</option>
-
-                                @if($departments)
-                                @foreach ($departments as $department)
-                                <option value="{{$department->uuid}}">{{$department->name}}</option>
-                                @endforeach
-                                @endif
-                            </select>
-                        </div>
-                    </div>
+                    
                 </div>
 
 
 
-                <input type="hidden" value="{{$org->id}}" name="org">
 
 
 
@@ -135,7 +126,9 @@ console.log(error);
 <script>
     $('#onlyinOrg').change(function() {
         if ($(this).is(':checked')) {
-            $('#dep').hide();
+            $('#dep').val("null").hide();
+            $('#department').val("null");
+            
         } else {
             $('#dep').show();
         }

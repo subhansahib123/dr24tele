@@ -157,7 +157,12 @@ class HospitalUserController extends Controller
     }
     public function createHospitalUser()
     {
+        $userInfo = session('loggedInUser');
+        $userInfo = json_decode(json_encode($userInfo), true);
+        if (is_null($userInfo)) {
 
+            return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
+        }
 
         return view('hospital_panel.user.create');
     }
@@ -247,8 +252,8 @@ class HospitalUserController extends Controller
                         'user_id' => $user->id,
                         'organization_id' => $organis_db->id,
                     ]);
-                    // dd(1);
-                    return $this->mapHospitalUser();
+                    // dd($user );
+                    return $this->mapHospitalUser($user);
                 } else if (isset($user->message) && $user->message == "API rate limit exceeded") {
                     curl_close($curl);
 
@@ -272,35 +277,25 @@ class HospitalUserController extends Controller
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
     }
-    public function mapHospitalUser()
+    public function mapHospitalUser($user)
     {
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
         $orgId = $userInfo['sessionInfo']['orgId'];
         $org = Organization::where('uuid', $orgId)->first();
-        $user_ids = UsersOrganization::where('organization_id', $org->id)->get('user_id')->toArray();
-        // dd($user_ids);
-        $ar_ids = [];
-        foreach ($user_ids as $user_id) {
-            if (!isset($user_id['user_id'])) continue;
-            array_push($ar_ids, $user_id['user_id']);
-        }
-
-        $users = User::whereIn('id', $ar_ids)->get();
-        // dd($users);
         $roles = Role::all();
         // dd($roles);
 
         $departments = Department::where('organization_id', $org->id)->get();
         // dd($org->id);
-        return view('hospital_panel.totalUsers.roleEdit', ['users' => $users, 'roles' => $roles, 'departments' => $departments, 'org' => $org]);
+        return view('hospital_panel.totalUsers.roleEdit', ['user' => $user, 'roles' => $roles, 'departments' => $departments, ]);
     }
     public function hospitalUserMapped(Request $request)
     {
 
 
         $curl = curl_init();
-        // dd($request->all());
+        
         $baseUrl = config('services.ehr.baseUrl');
         $apiKey = config('services.ehr.apiKey');
         $userInfo = session('loggedInUser');
@@ -320,6 +315,7 @@ class HospitalUserController extends Controller
             $orgId = $request->department;
         }
 
+        // dd($request->all(),$orgId);
 
         $req_url = $baseUrl . 'rest/admin/orgUserMapping/role/add/' . $orgId;
         // dd($req_url);
@@ -353,7 +349,7 @@ class HospitalUserController extends Controller
                 return redirect()->back()->withErrors(['error' => $error]);
             } else {
                 $userRole = json_decode($response);
-                // dd($userRole,$request->user,$request->role);
+                // dd($userRole);
                 // dd(curl_getinfo($curl, CURLINFO_HTTP_CODE));
                 if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
                     $user = User::where('uuid', $request->user)->first();
@@ -675,7 +671,7 @@ class HospitalUserController extends Controller
                 return curl_error($curl);
             } else {
                 if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
-                    // dd($organization);
+                    // dd($organization,$orgData);
                     curl_close($curl);
                     $countries = Country::all();
                     return view('hospital_panel.hospital.updateHospital', ['organization' => $organization, 'orgData' => $orgData, 'countries' => $countries,]);

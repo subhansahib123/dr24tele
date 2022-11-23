@@ -32,9 +32,7 @@
                                 <input type="hidden" value="{{$specialization->id}}" name="id">
                                 <div class=" row mb-4">
                                     <label for="newName" class="col-md-3 form-label">Specialization New Name</label>
-                                    <div class="col-md-2">
                                         <input type="text" class="form-control" value="{{$specialization->name}}"  name="newName" id="newName" placeholder="New Name">
-                                    </div>
                                     @if ($errors->has('newName'))
                                     <span class="text-danger text-left">{{ $errors->first('newName') }}</span>
                                     @endif

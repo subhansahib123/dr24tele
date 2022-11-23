@@ -25,7 +25,6 @@
                             <div class="card-header row">
                                 <div class="col-3">
                                     <a href="{{route('hospital.dashboard')}}" class="btn btn-sm btn-info" data-toggle="Go Back">Back <i class="fa fa-reply"></i></a>
-                                    <a href="{{ route('createHospital.department') }}" class="btn btn-sm btn-success">Add <i class="fa fa-plus" data-toggle="tooltip" data-placement="top" title="Add New"></i></a>
                                 </div>
                             </div>
                             <div class="card-body">
@@ -64,10 +63,3 @@
         </div>
     </div>
 @endsection
-@push('js')
-    <script>
-        $(document).ready(function () {
-            $('#datatable').DataTable();
-        });
-    </script>
-@endpush

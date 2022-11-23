@@ -69,7 +69,7 @@
                                         <label for="exampleInputnumber"><Strong> Contact Number</Strong></label>
                                     </div>
                                     <div class="col-9 form-group">
-                                        <input type="text" id="txtPhone" name="" class="form-control">
+                                        <input type="text" id="txtPhone"  name="" class="form-control">
                                         <input type="hidden" class="form-control" id="phoneNumber">
                                     </div>
                                     @if ($errors->has('contactperson'))
