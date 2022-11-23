@@ -13,6 +13,7 @@ class Doctor extends Model
         "status",
         'user_id',
         'department_id',
+        'image',
         'specialization_id',
     ];
     public function user()
