@@ -27,10 +27,10 @@
                             <div class="row card-header">
                                 <div class="col-md-3 p-3 px-3"><span class="card-title">Schedules List</span>
                                 </div>
-                                <div class="col-md-7 algn-self-center"></div>
-                                <div class="col-md-2 p-3 px-3 text-center"><span class=""><a class="btn btn-primary"
+                                <div class="col-md-9 algn-self-center"></div>
+                                <!-- <div class="col-md-2 p-3 px-3 text-center"><span class=""><a class="btn btn-primary"
                                             href="{{ route('create.schedule') }}"><i class="angle fe fe-plus"></i>
-                                        </a></span></div>
+                                        </a></span></div> -->
 
                             </div>
                             <div class="card-body">

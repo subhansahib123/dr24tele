@@ -25,40 +25,30 @@
             <div class="row">
                 <div class="col-xl-12 col-md-12 col-sm-6">
                     <div class="card">
+                        <div class="card-header row">
+                            <div class="col-3">
+                                <a href="{{route('hospital.dashboard')}}" class="btn btn-sm btn-info" data-toggle="Go Back">Back <i class="fa fa-reply"></i></a>
+                            </div>
+                        </div>
                         <div class="card-body">
                             @include('admin_panel.frontend.includes.messages')
                             <div class="table-responsive">
-                                <div class="bg-light p-4 ">
-                                    <div class="container mt-4">
-                                        <table class="table table-striped">
-                                            <thead>
-                                                <th scope="col" width="20%">Name</th>
-                                               <th scope="col" width="1%"></th>
-                                            </thead>
-                                            @if(isset($specializations))
-                                            @foreach($specializations as $specialization)
-                                            <tr>
-                                                <td>
-                                                    {{$specialization->name}}
-                                                </td>
-                                                <td>
-                                                    <a href="{{route('update.specialization',[$specialization->id])}}" class="btn btn-primary">Update</a>
-                                                </td>
-                                            </tr>
-                                            @endforeach
-                                            @else
-                                            <tr>
-                                                <td>
-                                                    No Record
-                                                </td>
-                                            </tr>
-                                            @endif
-                                        </table>
-                                    </div>
-                                </div>
-                                <div class="mt-4">
-                                    <a href="{{route('hospital.dashboard')}}" class="btn btn-info">Back</a>
-                                </div>
+                                <table class="table table-striped" id="datatable">
+                                    <thead>
+                                        <th scope="col">Sr#</th>
+                                        <th scope="col">Name</th>
+                                        <th scope="col" class="text-end">Action</th>
+                                    </thead>
+                                    @foreach($specializations as $specialization)
+                                    <tr>
+                                        <td>{{$loop->index+1}}</td>
+                                        <td>{{$specialization->name}}</td>
+                                        <td class="text-end">
+                                            <a href="{{route('update.specialization',[$specialization->id])}}"><button class="btn btn-warning" data-toggle="tooltip" data-placement="top" title="Update"><i class="fa fa-edit"></i></button></a>
+                                        </td>
+                                    </tr>
+                                    @endforeach
+                                </table>
                             </div>
                         </div>
                     </div>

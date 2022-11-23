@@ -3,8 +3,8 @@
 
     <!-- JQUERY JS -->
     <script src="{{asset('assets/js/jquery.min.js')}}"></script>
-     <!-- SHOW PASSWORD JS -->
-     <script src="{{asset('assets/js/show-password.min.js')}}"></script>
+    <!-- SHOW PASSWORD JS -->
+    <script src="{{asset('assets/js/show-password.min.js')}}"></script>
     <!-- BOOTSTRAP JS -->
     <script src="{{asset('assets/plugins/bootstrap/js/popper.min.js')}}"></script>
     <script src="{{asset('assets/plugins/bootstrap/js/bootstrap.min.js')}}"></script>
@@ -60,8 +60,8 @@
     <!-- SIDE-MENU JS-->
     <script src="{{asset('assets/plugins/sidemenu/sidemenu.js')}}"></script>
 
-	<!-- TypeHead js -->
-	{{-- <script src="../assets/plugins/bootstrap5-typehead/autocomplete.js"></script>
+    <!-- TypeHead js -->
+    {{-- <script src="../assets/plugins/bootstrap5-typehead/autocomplete.js"></script>
     <script src="../assets/js/typehead.js"></script> --}}
 
     <!-- INTERNAL INDEX JS -->
@@ -78,15 +78,25 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.min.js"></script>
 
     <script src="{{asset('/assets/datetimepicker/build/jquery.datetimepicker.full.js')}}"></script>
-
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="{{asset('/assets/js/form-wizard.js')}}"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/12.1.5/css/intlTelInput.css" />
-
+    <script>
+        $(document).ready(function() {
+            $('#datatable').DataTable();
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('.js-example-basic-multiple').select2();
+        });
+    </script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/12.1.5/js/intlTelInput.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/12.1.5/js/utils.js"></script>
     <script type="text/javascript">
-        $(function () {
-            
+        $(function() {
+
             var code = "+911234567890";
             $('#txtPhone').val(code);
             $('#txtPhone').intlTelInput({
@@ -102,9 +112,10 @@
                 separateDialCode: true
             });
             FormatNumber();
-            $('#txtPhone').keyup(function () {
+            $('#txtPhone').keyup(function() {
                 FormatNumber();
             });
+
             function FormatNumber() {
                 var number = $('#txtPhone').val();
                 var classf = $(".selected-flag > div").attr("class");
@@ -115,32 +126,29 @@
         });
         var number = $("#txtPhone").intlTelInput('getNumber');
     </script>
-<!-- Active NAv----->
+    <!-- Active NAv----->
 
-<script>
+    <script>
+        /*** add active class and stay opened when selected ***/
+        var url = window.location;
 
-    /*** add active class and stay opened when selected ***/
-    var url = window.location;
+        // for sidebar menu entirely but not cover treeview
+        $('ul.side-menu a').filter(function() {
+            if (this.href) {
+                return this.href == url || url.href.indexOf(this.href) == 0;
+            }
+        }).addClass('active');
 
-    // for sidebar menu entirely but not cover treeview
-    $('ul.side-menu a').filter(function() {
-        if (this.href) {
-            return this.href == url || url.href.indexOf(this.href) == 0;
-        }
-    }).addClass('active');
-
-    // for the treeview
-    $('ul.slide-menu a').filter(function() {
-        if (this.href) {
-            return this.href == url || url.href.indexOf(this.href) == 0;
-        }
-    }).parentsUntil(".side-menu > .nav-tree").addClass('open').prev('a').addClass('active').parent().addClass('is-expanded');
-
-
+        // for the treeview
+        $('ul.slide-menu a').filter(function() {
+            if (this.href) {
+                return this.href == url || url.href.indexOf(this.href) == 0;
+            }
+        }).parentsUntil(".side-menu > .nav-tree").addClass('open').prev('a').addClass('active').parent().addClass('is-expanded');
     </script>
     <!----Custom Function To Manage-->
     @yield('foot_script');
     @stack('js')
-</body>
+    </body>
 
-</html>
+    </html>

@@ -60,8 +60,7 @@
                                 <div class=" row mb-4">
                                     <label for="specialization" class="col-md-3 form-label"> Select Specialization</label>
                                     <div class="col-md-9">
-                                        <select class="form-control" name="specialization_id" id="specialization">
-                                            <option value="">Select</option>
+                                        <select class="form-control js-example-basic-multiple" name="specialization_id[]" multiple="multiple" id="specialization">
                                             @if($specializations)
                                             @foreach($specializations as $specialization)
                                             <option value="{{$specialization->id}}">{{$specialization->name}}</option>

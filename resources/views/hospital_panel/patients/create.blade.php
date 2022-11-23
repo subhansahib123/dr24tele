@@ -67,10 +67,14 @@
                                     </div>
                                     <div class="col-lg-6 col-md-6">
                                         <div class="form-group">
-                                            <label for="exampleInputnumber">Contact Number</label>
-                                            
-                                            <input type="text" id="txtPhone" name="" class="form-control">
-                                               <input type="hidden" class="form-control" id="phoneNumber" >
+                                            <div class="row">
+                                                <label for="exampleInputnumber"><strong> Contact Number</strong></label>
+
+                                            </div>
+                                            <div class="row">
+                                                <input type="text" id="txtPhone" name="" class="form-control">
+                                                <input type="hidden" class="form-control" id="phoneNumber">
+                                            </div>
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6">
@@ -95,13 +99,13 @@
                                                     Male
                                                 </option>
                                                 <option value="IND">
-                                                Indeterminate Sex
+                                                    Indeterminate Sex
                                                 </option>
                                                 <option value="TRA">
-                                                Transsexual
+                                                    Transsexual
                                                 </option>
                                                 <option value="O">
-                                                Others
+                                                    Others
                                                 </option>
                                             </select>
                                             <!-- <input type="text" class="form-control" name="" id="gender" value=""> -->
@@ -111,7 +115,7 @@
                             </div>
                             <div class="card-footer ">
                                 <button type="submit" class="btn btn-primary my-1">Create</button>
-              <span><a href="{{route('hospital.dashboard')}}" class="btn btn-secondary  ">Cancel</a></span>                             
+                                <span><a href="{{route('hospital.dashboard')}}" class="btn btn-secondary  ">Cancel</a></span>
 
 
                                 {{-- <a href="javascript:void(0)" class="btn btn-danger my-1">Cancel</a> --}}
