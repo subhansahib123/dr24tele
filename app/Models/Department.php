@@ -12,6 +12,7 @@ class Department extends Model
     protected $fillable=[
         'name',
         'slug',
+        'image',
         'organization_id',
         'level',
         'uuid'

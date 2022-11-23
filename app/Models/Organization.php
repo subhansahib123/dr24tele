@@ -12,6 +12,7 @@ class Organization extends Model
     protected $fillable=[
         'name',
         'slug',
+        'image',
 
         'uuid',
         'status',
