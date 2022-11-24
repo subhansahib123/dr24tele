@@ -27,7 +27,7 @@
                     <div class="card">
                         <div class="card-header row">
                             <div class="col-3">
-                                <a href="{{url()->previous()}}" class="btn btn-sm btn-info" data-toggle="Go Back">Back <i class="fa fa-reply"></i></a>
+                                <a href="{{route('dashboard')}}" class="btn btn-sm btn-info" data-toggle="Go Back">Back <i class="fa fa-reply"></i></a>
                             </div>
                         </div>
                         <div class="card-body">
@@ -71,14 +71,6 @@
 
 
                                 </div>
-<<<<<<< HEAD
-=======
-                                <div class="mt-4">
-                                    <!-- <a href="" class="btn btn-info">Edit</a> -->
-                                    <a href="{{route('dashboard')}}" class="btn btn-info">Back</a>
-
-                                </div>
->>>>>>> eb70d3dfb4d34faaa3cdabc1231e6725104e092c
                             </div>
 
                         </div>

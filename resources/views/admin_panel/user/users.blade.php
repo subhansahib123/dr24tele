@@ -27,7 +27,7 @@
                     <div class="card">
                         <div class="card-header row">
                             <div class="col-3">
-                                <a href="{{url()->previous()}}" class="btn btn-sm btn-info" data-toggle="Go Back">Back <i class="fa fa-reply"></i></a>
+                                <a href="{{route('dashboard')}}" class="btn btn-sm btn-info" data-toggle="Go Back">Back <i class="fa fa-reply"></i></a>
                             </div>
                         </div>
                         <div class="card-body">
@@ -100,9 +100,6 @@
                                         </table>
 
                                     </div>
-                                </div>
-                                <div class="mt-4">
-                                    <a href="{{route('dashboard')}}" class="btn btn-info">Back</a>
                                 </div>
                             </div>
                         </div>

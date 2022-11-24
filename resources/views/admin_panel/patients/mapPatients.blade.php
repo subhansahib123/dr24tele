@@ -26,7 +26,7 @@
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-12">
                         <div class="form-group">
-                            <label class="form-control" for="user">Patient Name</label>
+                            <label  for="user">Patient Name</label>
                             <input class="form-control" type="text" disabled value="{{$user->username}}">
                             <input type="hidden" value="{{$user->id}}" name="userId">
                         </div>
