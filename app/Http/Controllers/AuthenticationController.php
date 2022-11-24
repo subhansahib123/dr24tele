@@ -10,7 +10,8 @@ use App\Models\Organization;
 use Illuminate\Contracts\Session\Session as SessionSession;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
-use Session;
+use Illuminate\Support\Facades\Session;
+
 
 
 class AuthenticationController extends Controller
@@ -85,6 +86,7 @@ class AuthenticationController extends Controller
     public function logout(Request $request)
     {
         session_start();
+        // dd(10);
         $baseUrl = config('services.ehr.baseUrl');
         $apiKey = config('services.ehr.apiKey');
         $userInfo = session('loggedInUser');
@@ -137,6 +139,7 @@ class AuthenticationController extends Controller
                         } else {
                             return  redirect()->route('login.show');
                         }
+
                     } else if (isset($logout->message) && $logout->message == "API rate limit exceeded") {
                         curl_close($curl);
                         // dd($userInfo);
@@ -257,7 +260,6 @@ class AuthenticationController extends Controller
     }
     public function showHospitalLogin()
     {
-
 
         return view('hospital_panel.login');
     }

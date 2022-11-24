@@ -41,7 +41,7 @@ class HospitalDepartmentController extends Controller
             'specialization_id.*' => 'required|string',
 
         ]);
-        
+
         $curl = curl_init();
         $baseUrl = config('services.ehr.baseUrl');
         $apiKey = config('services.ehr.apiKey');
@@ -121,6 +121,7 @@ class HospitalDepartmentController extends Controller
                         'organization_id' => $org->id,
                         'slug' => $request->displayname,
                         'level' => "SubOrg",
+                        'image'=>'',
                         'uuid' => $organization->uuid,
                     ]);
                     $department=Department::where('name',$request->name.'_'.$org->name)->first();
