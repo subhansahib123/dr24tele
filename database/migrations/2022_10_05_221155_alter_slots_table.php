@@ -17,7 +17,7 @@ class AlterSlotsTable extends Migration
 
             $table->time('start')->change();
             $table->time('end')->change();
-            $table->integer('price');
+            $table->integer('price')->nullable();
         });
     }
 

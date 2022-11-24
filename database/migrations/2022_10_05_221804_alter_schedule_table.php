@@ -14,7 +14,7 @@ class AlterScheduleTable extends Migration
     public function up()
     {
         Schema::table('schedules', function (Blueprint $table) {
-           $table->integer('price');
+           $table->integer('price')->nullable();
         });
     }
 

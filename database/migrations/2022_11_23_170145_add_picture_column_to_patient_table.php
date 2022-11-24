@@ -14,7 +14,7 @@ class AddPictureColumnToPatientTable extends Migration
     public function up()
     {
         Schema::table('patients', function (Blueprint $table) {
-            $table->string('image');
+            $table->string('image')->nullable();
         });
     }
 
@@ -26,7 +26,7 @@ class AddPictureColumnToPatientTable extends Migration
     public function down()
     {
         Schema::table('patients', function (Blueprint $table) {
-            //
+            $table->dropColumn('image');
         });
     }
 }

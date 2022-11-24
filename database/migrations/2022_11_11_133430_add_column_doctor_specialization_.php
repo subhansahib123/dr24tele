@@ -27,7 +27,7 @@ class AddColumnDoctorSpecialization extends Migration
     public function down()
     {
         Schema::table('doctors', function (Blueprint $table) {
-            //
+            $table->dropColumn('specialization_id');
         });
     }
 }
