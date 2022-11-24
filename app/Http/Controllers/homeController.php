@@ -103,11 +103,15 @@ class homeController extends Controller
         // dd($doctors);
         return view('public_panel.doctors',compact('doctors'));
     }
-    public function appointment(){
-        if(Auth::check())
+    public function appointment($id){
+        if(Auth::check()){
+            $doctor = Doctor::with('user')->find($id);
+            dd($doctor);
             return view('public_panel.appointment');
-        else
+        }
+        else{
             return redirect()->route('patient.login')->withErrors(['error'=>'Please login!']);
+        }
     }
     public function scheduleOfDoctor($doctor_id,$date){
         $date=$date." 00:00:00";

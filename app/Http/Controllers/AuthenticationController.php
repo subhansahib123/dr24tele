@@ -257,7 +257,7 @@ class AuthenticationController extends Controller
     }
     public function showHospitalLogin()
     {
-    
+
 
         return view('hospital_panel.login');
     }
@@ -273,6 +273,7 @@ class AuthenticationController extends Controller
         $data = ['username' => $request->username, 'password' => $request->password];
 
         $user = User::with('user_organization')->where('username',  $request->username)->first();
+
         // dd  ($user->user_organization);
         if (!isset($user->user_organization))
             return redirect()->back()->withErrors(['error' => 'User is not associated with any Organisation']);
@@ -286,8 +287,6 @@ class AuthenticationController extends Controller
 
 
             Auth::login($user);
-
-
 
             $params = array('orgName' => $organisation->name, 'tenantId' => 'ehrn');
             curl_setopt_array($curl, array(
@@ -317,7 +316,7 @@ class AuthenticationController extends Controller
                     return curl_error($curl);
                 } else {
                     $result_data = json_decode($response);
-                    // dd($result_data);
+
                     if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
 
 
@@ -379,7 +378,7 @@ class AuthenticationController extends Controller
 
 
         $user = User::with('doctor')->where('phone_number',  $request->phoneNumber)->first();
-        // dd($user); 
+        // dd($user);
         if (!isset($user->doctor))
             return redirect()->back()->withErrors(['error' => 'User is not associated with any Department']);
 
@@ -396,7 +395,7 @@ class AuthenticationController extends Controller
             Auth::login($user);
 
             $data = ['username' => $user->username, 'password' => $user->password];
-            
+
             // dd($user->password);
             $params = array('orgName' => $organisation->name, 'tenantId' => 'ehrn');
             curl_setopt_array($curl, array(
