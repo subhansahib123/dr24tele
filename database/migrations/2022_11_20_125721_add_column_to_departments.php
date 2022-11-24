@@ -27,7 +27,7 @@ class AddColumnToDepartments extends Migration
     public function down()
     {
         Schema::table('departments', function (Blueprint $table) {
-            //
+            $table->dropColumn('specialization_id');
         });
     }
 }

@@ -14,9 +14,9 @@ class AlterTableSchedules extends Migration
     public function up()
     {
         Schema::table('schedules', function (Blueprint $table) {
-            $table->integer('interval');
-            $table->boolean('slot_belong');
-            $table->integer('number_of_people');
+            $table->integer('interval')->nullable();
+            $table->boolean('slot_belong')->nullable();
+            $table->integer('number_of_people')->nullable();
 
         });
     }

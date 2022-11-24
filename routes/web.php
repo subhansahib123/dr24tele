@@ -204,8 +204,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
 
     //create Department
-    Route::get('/create/new-departments', [DepartmentController::class, 'index'])->name('create.newDepartment');
-    Route::post('/new-department/created', [DepartmentController::class, 'create'])->name('newDepartment.created');
+    Route::get('/create/departments', [DepartmentController::class, 'index'])->name('create.newDepartment');
+    Route::post('/department/created', [DepartmentController::class, 'create'])->name('newDepartment.created');
 
 
     // This Route shows list Unmapped User (roles are not assigned)
