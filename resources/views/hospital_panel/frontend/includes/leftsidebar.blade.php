@@ -104,6 +104,7 @@
                     <ul class="slide-menu nav-tree">
                         <li><a href="{{ route('hospital.coupon.create') }}" class="slide-item"> Create</a></li>
                         <li><a href="{{ route('hospital.coupon.index') }}" class="slide-item">List</a></li>
+                        <li><a href="{{ route('hospital.coupon.assign') }}" class="slide-item">Send Coupon to Patients</a></li>
                     </ul>
                 </li>
 
@@ -115,7 +116,7 @@
                         <li><a href="{{ route('create.schedule') }}" class="slide-item"> Create</a></li>
                         <li><a href="{{ route('list.schedules') }}" class="slide-item">List</a></li>
                     </ul>
-                    
+
                 </li>
             </ul>
             <div class="slide-right" id="slide-right"><svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191"

@@ -3,9 +3,13 @@
 namespace App\Http\Controllers\Hospital;
 
 use App\Http\Controllers\Controller;
+use App\Jobs\SendEmailJob;
 use App\Models\Coupon;
 use App\Models\Organization;
+use App\Models\Patient;
+use App\Models\UsersOrganization;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class HospitalCouponController extends Controller
@@ -21,6 +25,26 @@ class HospitalCouponController extends Controller
         return view('hospital_panel.coupon.show', compact('coupons', $coupons));
     }
 
+    public function assignUser(){
+        $coupons = Coupon::all();
+        $users_orgnization = UsersOrganization::where('user_id','=',Auth::user()->id)->first();
+        $patients = Patient::with('user')->where('organization_id','=',$users_orgnization->organization_id)->get();
+        return view('hospital_panel.coupon.assign', compact('coupons','patients'));
+    }
+
+    public function assignUserPost(Request $request) {
+        $validated = $request->validate([
+            'coupon' => 'required',
+            'patients' => 'required',
+        ]);
+        $results = $request->all();
+        if(count($results['patients'])> 0){
+            SendEmailJob::dispatch($results);
+        }
+        return redirect()->back()->with(['success'=>'Mail Send Successfully!!']);
+
+
+    }
     /**
      * Show the form for creating a new resource.
      *
