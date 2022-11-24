@@ -113,7 +113,7 @@ class CreationController extends Controller
                     ]);
                     $user = User::where('username', $user->username)->first();
                     // dd($user)
-                    $userUuid=$user->uuid;
+                    $userUuid = $user->uuid;
                     return $this->mapDoctor($userUuid);
                 } else if (isset($user->message) && $user->message == "API rate limit exceeded") {
                     curl_close($curl);
@@ -145,33 +145,33 @@ class CreationController extends Controller
         $containsHospital = Str::contains($url, 'hospital');
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
-        $orgId=$userInfo['sessionInfo']['orgId'];
-        $organization = Organization::where('uuid',$orgId)->first();
-        $departments=Department::where('organization_id',$organization->id)->get();
+        $organizations=Organization::all();
         // dd($departments);
 
         if ($containsHospital) {
-            return view('hospital_panel.doctors.mapDoctor', ['organization' => $organization,'departments'=>$departments,'userUuid'=>$userUuid]);
+            $orgId = $userInfo['sessionInfo']['orgId'];
+            $organization = Organization::where('uuid', $orgId)->first();
+            $departments = Department::where('organization_id', $organization->id)->get();
+            return view('hospital_panel.doctors.mapDoctor', ['organization' => $organization, 'departments' => $departments, 'userUuid' => $userUuid]);
         }
-        return view('admin_panel.doctors.mapDoctor', ['organization' => $organization,'departments'=>$departments,'userUuid'=>$userUuid]);
+        return view('admin_panel.doctors.mapDoctor', ['organizations' => $organizations, 'userUuid' => $userUuid]);
     }
     public function doctorMapped(Request $request)
     {
         $url = url()->previous();
         $containsHospital = Str::contains($url, 'hospital');
-        // dd($request->all());
+        // dd($request->all()); 
         if (!Auth::check())
             return redirect()->route('logout')->withErrors(['error' => 'Login Token Expired ! Please login Again']);
         $curl = curl_init();
-        $uuid = '';
-            $uuid = $request->department;
+        $uuid = $request->department;
         $orgUuid = $request->organization;
-        // dd($uuid);
+        // dd($uuid,$orgUuid);
         $baseUrl = config('services.ehr.baseUrl');
         $apiKey = config('services.ehr.apiKey');
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
-        
+
 
         $token = $userInfo['sessionInfo']['token'];
         $data = [['useruuid' => $request->user, 'rolename' => 'practitioner']];
@@ -201,31 +201,32 @@ class CreationController extends Controller
             if ($response == false) {
                 $error = curl_error($curl);
                 curl_close($curl);
-                if($containsHospital){
+                if ($containsHospital) {
                     return redirect()->route('create.doctor')->withErrors(['error' => $error]);
-                    }
-                    return redirect()->route('createDoctor')->withErrors(['error' => $error]);
-            
+                }
+                return redirect()->route('createDoctor')->withErrors(['error' => $error]);
+
                 return redirect()->back()->withErrors(['error' => $error]);
             } else {
                 $userRole = json_decode($response);
                 // dd($userRole);
 
                 // dd(curl_getinfo($curl, CURLINFO_HTTP_CODE));
-                
+
                 if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
                     $user = User::where('uuid', $userRole[0]->useruuid)->first();
-                    $role = Role::where('name', $userRole[0]->rolename)->first();
                     $department = Department::where('uuid', $request->department)->first();
-                    $organization = Organization::where('uuid', $request->organization)->first();
-                    // dd($user->id,$department->id, $role->id, $organization->id);
+                    $organization = Organization::where('uuid',$orgUuid)->first();
+                    // dd($user->id,$department->id, $organization->id);
                     curl_close($curl);
                     // dd($containsHospital);
 
                     Doctor::create([
-                        'status'=>1,
-                        'user_id'=>$user->id,
-                        'department_id'=>$department->id,
+                        'status' => 1,
+                        'user_id' => $user->id,
+                        'image' => '',
+                        'department_id' => $department->id,
+
                     ]);
                     UsersOrganization::firstOrCreate([
 
@@ -236,18 +237,18 @@ class CreationController extends Controller
                     ]);
                     User_Role::firstOrCreate([
                         'user_id' => $user->id,
-                        'role_id' => $role->id
+                        'role_id' => 4,
                     ]);
 
                     // dd($user->id,$role->id,$organization->id);
 
 
 
-                    if($containsHospital){
-                    return redirect()->route('create.doctor')->withSuccess(__('Doctor is Successfully Created '));
+                    if ($containsHospital) {
+                        return redirect()->route('create.doctor')->withSuccess(__('Doctor is Successfully Created '));
                     }
                     return redirect()->route('createDoctor')->withSuccess(__('Doctor is Successfully Created '));
-                }  else if (isset($userRole->message) && $userRole->message == "API rate limit exceeded") {
+                } else if (isset($userRole->message) && $userRole->message == "API rate limit exceeded") {
                     curl_close($curl);
 
                     return redirect()->route('logout')->withErrors(['error' => $userRole->message]);
@@ -262,17 +263,17 @@ class CreationController extends Controller
                 } else {
                     curl_close($curl);
 
-                    if($containsHospital){
+                    if ($containsHospital) {
                         return redirect()->route('create.doctor')->withErrors(['error' => $userRole->message]);
-                        }
-                        return redirect()->route('createDoctor')->withErrors(['error' => $userRole->message]);
+                    }
+                    return redirect()->route('createDoctor')->withErrors(['error' => $userRole->message]);
                 }
             }
         } catch (\Exception $e) {
-            if($containsHospital){
+            if ($containsHospital) {
                 return redirect()->route('create.doctor')->withErrors(['error' => __($e->getMessage())]);
-                }
-                return redirect()->route('createDoctor')->withErrors(['error' => __($e->getMessage())]);
+            }
+            return redirect()->route('createDoctor')->withErrors(['error' => __($e->getMessage())]);
         }
     }
 }

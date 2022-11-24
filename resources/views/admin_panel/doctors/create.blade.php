@@ -71,10 +71,10 @@
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-12">
                                         <div class="form-group">
-                                            <div class="row mx-0">
+                                            <div class="row ">
                                                 <label for="exampleInputnumber"><strong> Contact Number</strong></label>
                                             </div>
-                                            <div class="row mx-1">
+                                            <div class="row ">
                                                 <input type="text" id="txtPhone" name="" class="form-control">
                                                 <input type="hidden" class="form-control" id="phoneNumber">
                                             </div>

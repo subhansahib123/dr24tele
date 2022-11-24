@@ -182,6 +182,7 @@ class PatientController extends Controller
                     $user->update([
                         'PersonUuid' => $patients->PersonId,
                     ]);
+                    // dd($user);
                     return $this->mapPatients($user);
                 } else if (isset($patients->message) && $patients->message == "API rate limit exceeded") {
                     curl_close($curl);
@@ -267,7 +268,9 @@ class PatientController extends Controller
                         'user_id' => $request->userId,
                         'organization_id' => $org->id,
                         'status' => 1,
+                        'image'=>''
                     ]);
+                    
                     UsersOrganization::firstOrCreate([
 
                         'status' => 1,

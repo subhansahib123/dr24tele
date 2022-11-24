@@ -81,7 +81,7 @@
                                             <div class="row mx-0">
                                                 <label for="exampleInputnumber"><strong> Contact Number</strong></label>
                                             </div>
-                                            <div class="row mx-1">
+                                            <div class="row ">
                                                 <input type="text" id="txtPhone" name="" class="form-control">
                                                 <input type="hidden" class="form-control" id="phoneNumber">
                                             </div>
