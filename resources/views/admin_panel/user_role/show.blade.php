@@ -9,25 +9,27 @@
         <!-- CONTAINER -->
         <div class="main-container container-fluid">
 
-            <!-- PAGE-HEADER -->
-            <div class="page-header">
-                <h1 class="page-title">Roles Permissions</h1>
-                <div>
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Roles Permissions List</li>
-                    </ol>
-                </div>
-            </div>
-            <!-- PAGE-HEADER END -->
-
+            
             <!-- Row -->
             <div class="row">
                 <div class="col-xl-12 col-md-12 col-sm-6">
                     <div class="card">
                         <div class="card-header">
-                            <span class="card-title">Roles Permissions List</span>
-                            {{-- <span class="card-title "><a href="{{route('roles.create')}}"> Add New Permission</a></span> --}}
+                            <div class="col-5">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Permissions List</li>
+                                </ol>
+                            </div>
+                            <div class="col-6">
+                                <span class="card-title"><strong>
+                                        Roles List
+                                    </strong></span>
+                            </div>
+
+                            <div class="col-1">
+                                <a href="{{route('dashboard')}}" class="btn btn-sm btn-info" data-toggle="Go Back">Back <i class="fa fa-reply"></i></a>
+                            </div>
                         </div>
                         <div class="card-body">
 

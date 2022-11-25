@@ -9,33 +9,27 @@
         <!-- CONTAINER -->
         <div class="main-container container-fluid">
 
-            <!-- PAGE-HEADER -->
-            <div class="page-header">
-                <h1 class="page-title">Organizations List</h1>
-                <div>
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Organizations List</li>
-                    </ol>
-                </div>
-            </div>
-            <!-- PAGE-HEADER END -->
-
+           
             <!-- Row -->
             <div class="row">
                 <div class="col-xl-12 col-md-12 col-sm-6">
                     <div class="card">
-                        <div class="card-header row">
+                        <div class="card-header ">
+                            <div class="col-5">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Update Organization</li>
+                                    </ol>
+                            </div>
+                            <div class="col-4">
+                                <span class="card-title"><strong>
+                                 Organizations Details 
+                                    </strong></span>
+                            </div>
 
-                            <div class="col-3">
+                            <div class="col-3 text-end">
+                            <a href="{{route('create.organization')}}" class="btn btn-sm btn-success">Add <i class="fa fa-plus" data-toggle="tooltip" data-placement="top" title="Add New"></i></a>
                                 <a href="{{route('dashboard')}}" class="btn btn-sm btn-info" data-toggle="Go Back">Back <i class="fa fa-reply"></i></a>
-                                <a href="{{route('create.organization')}}" class="btn btn-sm btn-success">Add <i class="fa fa-plus" data-toggle="tooltip" data-placement="top" title="Add New"></i></a>
-
-                            
-                            <div class="col-7 align-self-center"></div>
-               
-                            <div class="col-2 align-self-center">
-
                             </div>
                         </div>
                         <div class="card-body">
@@ -48,10 +42,10 @@
                                     <table class="table table-striped" id="datatable">
                                         <thead>
                                             <th scope="col">Name</th>
-                                            <th scope="col" class="text-end">Action</th>
+                                            <th scope="col text-end" >Action</th>
                                         </thead>
                                         @foreach($organizations->childlist as $organization)
-                                        <tr>
+                                        <tr >
                                             <td>
                                                 {{$organization->name}}
                                             </td>
@@ -96,10 +90,4 @@
 
 
 @endsection
-@push('js')
-    <script>
-        $(document).ready(function () {
-            $('#datatable').DataTable();
-        });
-    </script>
-@endpush
+

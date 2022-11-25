@@ -9,26 +9,26 @@
         <!-- CONTAINER -->
         <div class="main-container container-fluid">
 
-            <!-- PAGE-HEADER -->
-            <div class="page-header">
-                <h1 class="page-title">Specializations list</h1>
-                <div>
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Specializations</li>
-                    </ol>
-                </div>
-            </div>
-            <!-- PAGE-HEADER END -->
-
             <!-- Row -->
             <div class="row">
                 <div class="col-xl-12 col-md-12 col-sm-6">
                     <div class="card">
-                        <div class="card-header row">
-                            <div class="col-3">
+                        <div class="card-header">
+                            <div class="col-5">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Doctor Specializations </li>
+                                </ol>
+                            </div>
+                            <div class="col-4">
+                                <span class="card-title"><strong>
+                                Specializations List
+                                    </strong></span>
+                            </div>
+
+                            <div class="col-3 text-end">
+                                <a href="{{route('createSpecialization')}}" class="btn btn-sm btn-success">Add <i class="fa fa-plus" data-toggle="tooltip" data-placement="top" title="Add New"></i></a>
                                 <a href="{{route('dashboard')}}" class="btn btn-sm btn-info" data-toggle="Go Back">Back <i class="fa fa-reply"></i></a>
-                                <a href="{{route('createSpecialization')}}" class="btn btn-sm btn-success" data-toggle="Add">Add <i class="fa fa-plus"></i></a>
                             </div>
                         </div>
                         <div class="card-body">
@@ -39,7 +39,7 @@
                                         <table class="table table-striped" id="datatable">
                                             <thead>
                                                 <th scope="col" width="20%">Name</th>
-                                               <th scope="col" width="1%">Action</th>
+                                                <th scope="col" width="1%">Action</th>
                                             </thead>
                                             @if(isset($specializations))
                                             @foreach($specializations as $specialization)
@@ -72,10 +72,3 @@
     </div>
 </div>
 @endsection
-@push('js')
-    <script>
-        $(document).ready(function () {
-            $('#datatable').DataTable();
-        });
-    </script>
-@endpush

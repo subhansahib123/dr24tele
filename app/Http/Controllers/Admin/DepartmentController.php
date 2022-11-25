@@ -20,7 +20,7 @@ class DepartmentController extends Controller
         $organizations = Organization::all();
         $specializations = DepartmentSpecializations::all();
         // dd($specializations);
-        return view('admin_panel.departments.create', ['organizations' => $organizations,'specializations'=>$specializations]);
+        return view('admin_panel.departments.create', ['organizations' => $organizations, 'specializations' => $specializations]);
     }
     public function create(Request $request)
     {
@@ -99,22 +99,22 @@ class DepartmentController extends Controller
                     && $organization->displayname
                     || curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200
                     || curl_getinfo($curl, CURLINFO_HTTP_CODE) == 201
-                 ) {
+                ) {
                     curl_close($curl);
                     // // dd($request->level);
                     $org = Organization::where('uuid',  $parent_org_uuid)->first();
                     Department::Create([
-                        'name' => $request->name.'_'.$orgName->name,
+                        'name' => $request->name . '_' . $orgName->name,
                         'organization_id' => $org->id,
                         'slug' => $request->displayname,
                         'level' => "SubOrg",
                         'uuid' => $organization->uuid,
                     ]);
-                    $department=Department::where('name',$request->name.'_'.$orgName->name)->first();
+                    $department = Department::where('name', $request->name . '_' . $orgName->name)->first();
                     // dd($department);
                     SpecializedDepartment::Create([
-                        'specialization_id'=>$request->specialization_id,
-                        'department_id'=>$department->id,
+                        'specialization_id' => $request->specialization_id,
+                        'department_id' => $department->id,
                     ]);
                     return redirect()->back()->withSuccess(__('Successfully Department Created'));
                 } else if (isset($organization->message) && $organization->message == "Provided organization name already exist") {
@@ -191,21 +191,8 @@ class DepartmentController extends Controller
                 // dd($departments);
                 if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
                     curl_close($curl);
-                    if (isset($departments->childlist)) {
-                        $org = Organization::where('uuid', $uuid)->first();
-                        // foreach ($departments->childlist as $department) {
-                        //     Department::firstOrCreate([
-                        //         'name' => $department->name,
-                        //         'slug' => Str::slug($department->name),
-                        //         'organization_id' => $org->id,
-                        //         'level' => 'SubOrg',
-                        //         'uuid' => $department->uuid
-                        //     ]);
-                        // }
-                        return view('admin_panel.departments.show', ['departments' => $departments]);
-                    } else {
-                        return redirect()->back()->withErrors(['error' => __('No Record Found')]);
-                    }
+
+                    return view('admin_panel.departments.show', ['departments' => $departments]);
                 } else if (isset($departments->message) && $departments->message == "API rate limit exceeded") {
                     curl_close($curl);
                     return redirect()->route('logout')->withErrors(['error' => $departments->message]);

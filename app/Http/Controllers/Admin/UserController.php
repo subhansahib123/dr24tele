@@ -368,7 +368,7 @@ class UserController extends Controller
                 if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
                     curl_close($curl);
                     // dd(1);
-                    User::create([
+                    $user=User::create([
                         'username' => $user->username,
                         'name' => $user->name,
                         'password' => $request->password,
@@ -379,7 +379,8 @@ class UserController extends Controller
                         'status' => 1
 
                     ]);
-                    return $this->mapUser() ;
+                    
+                    return $this->mapUser($user) ;
                 } else if (isset($user->message) && $user->message == "API rate limit exceeded") {
                     curl_close($curl);
 
@@ -545,13 +546,12 @@ class UserController extends Controller
             return redirect()->back()->withErrors(['error' => __($e->getMessage())]);
         }
     }
-    public function mapUser()
+    public function mapUser($user)
     {
-        $users = User::all();
         $roles = Role::all();
         $organizations = Organization::all();
         // dd($roles);
-        return view('admin_panel.totalUsers.roleEdit', ['users' => $users, 'roles' => $roles, 'organizations' => $organizations]);
+        return view('admin_panel.totalUsers.roleEdit', ['user' => $user, 'roles' => $roles, 'organizations' => $organizations]);
     }
 
 
