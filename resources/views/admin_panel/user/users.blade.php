@@ -9,24 +9,27 @@
         <!-- CONTAINER -->
         <div class="main-container container-fluid">
 
-            <!-- PAGE-HEADER -->
-            <div class="page-header">
-                <h1 class="page-title">All Dr-Tele Users</h1>
-                <div>
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Users List</li>
-                    </ol>
-                </div>
-            </div>
-            <!-- PAGE-HEADER END -->
+          
 
             <!-- Row -->
             <div class="row">
                 <div class="col-xl-12 col-md-12 col-sm-6">
                     <div class="card">
-                        <div class="card-header row">
-                            <div class="col-3">
+                        <div class="card-header">
+                            <div class="col-5">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Users List</li>
+                                </ol>
+                            </div>
+                            <div class="col-4">
+                                <span class="card-title"><strong>
+                                Dr-Tele Users List
+                                    </strong></span>
+                            </div>
+
+                            <div class="col-3 text-end">
+                            <a href="{{route('create.user')}}" class="btn btn-sm btn-success">Add <i class="fa fa-plus" data-toggle="tooltip" data-placement="top" title="Add New"></i></a>
                                 <a href="{{route('dashboard')}}" class="btn btn-sm btn-info" data-toggle="Go Back">Back <i class="fa fa-reply"></i></a>
                             </div>
                         </div>
@@ -115,10 +118,4 @@
 
 
 @endsection
-@push('js')
-    <script>
-        $(document).ready(function () {
-            $('#datatable').DataTable();
-        });
-    </script>
-@endpush
+

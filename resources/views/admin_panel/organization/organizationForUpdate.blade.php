@@ -3,37 +3,39 @@
 @section('content')
 
 
-<div class="main-content app-content mt-0">
+<div class="main-content app-content mt-5">
     <div class="side-app">
 
         <!-- CONTAINER -->
         <div class="main-container container-fluid">
 
-            <!-- PAGE-HEADER -->
-            <div class="page-header">
-                <h1 class="page-title">Update Organization</h1>
-                <div>
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Update Organization</li>
-                    </ol>
-                </div>
-            </div>
-            <!-- PAGE-HEADER END -->
 
             <!-- Row -->
+            @include('admin_panel.frontend.includes.messages')
+
             <div class="row">
                 <div class="col-md-12 col-xl-12">
                     <div class="card">
-                        <div class="card-header row">
-                            <h4 class=""> Organization Details
-                            </h4>
+                        <div class="card-header">
+                            <div class="col-5">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Update Organization</li>
+                                </ol>
+                            </div>
+                            <div class="col-4">
+                                <span class="card-title"><strong>
+                                Organization Details
+                                    </strong></span>
+                            </div>
+
+                            <div class="col-3 text-end">
+                            </div>
                         </div>
-                        @include('admin_panel.frontend.includes.messages')
                         <div class="card-body">
                             <form class="form-horizontal" action="{{route('update.organization')}}" method="POST">
                                 @csrf
-                                <div class=" row mb-4">
+                                <div class=" row mb-2">
 
                                     <label for="displayname" class="col-md-3 form-label"> Display Name</label>
                                     <div class="col-md-9">
@@ -44,11 +46,11 @@
                                     @endif
                                 </div>
                                 <input type="hidden" class="form-control" value="{{$organization->uuid}}" name="OrgUuid" id="OrgUuid" placeholder="Display Name" autocomplete="OrgUuid">
-                                <input type="hidden" class="form-control"  value="{{$orgData->name}}" name="name" id="username" placeholder="Username">
+                                <input type="hidden" class="form-control" value="{{$orgData->name}}" name="name" id="username" placeholder="Username">
 
-                                
 
-                                <div class=" row mb-4">
+
+                                <div class=" row mb-2">
                                     <label for="email" class="col-md-3 form-label"> Contact Person Designation</label>
                                     <div class="col-md-9">
                                         <input type="text" class="form-control" value="{{$organization->contactperson}}" name="contactperson" id="contactperson" placeholder="Contact Person Designation" autocomplete="contactperson">
@@ -57,19 +59,19 @@
                                     <span class="text-danger text-left">{{ $errors->first('contactperson') }}</span>
                                     @endif
                                 </div>
-                                <div class="row address">
-                                    <div class="col-3 pt-2">
+                                <div class="row mb-2 address">
+                                    <div class="col-3 pt-2 my-0">
                                         <label for="exampleInputnumber"><Strong> Contact Number</Strong></label>
                                     </div>
-                                    <div class="col-9 form-group">
-                                        <input type="text" id="txtPhone"  class="form-control">
+                                    <div class="col-9 form-group  my-0">
+                                        <input type="text" id="txtPhone" class="form-control">
                                         <input type="hidden" class="form-control" id="phoneNumber">
                                     </div>
                                     @if ($errors->has('contactperson'))
                                     <span class="text-danger text-left">{{ $errors->first('contactperson') }}</span>
                                     @endif
                                 </div>
-                                <div class=" row mb-4 addresss">
+                                <div class=" row mb-2 addresss">
                                     <label for="country" class="col-md-3 form-label"> Select Country </label>
                                     <div class="col-md-9">
                                         <input type="hidden" value="" name="country" id="country_value" />
@@ -81,51 +83,51 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class=" row mb-4 addresss">
+                                <div class=" row mb-2 addresss">
                                     <label for="country" class="col-md-3 form-label"> Select State </label>
                                     <input type="hidden" value="" name="state" id="state_value" />
                                     <div class="col-md-9">
                                         <select class="form-control" onchange="loadCities(this.value,this)" id="state">
-                                            <option >Select State</option>
+                                            <option>Select State</option>
 
                                         </select>
                                     </div>
                                 </div>
-                                <div class=" row mb-4 addresss">
+                                <div class=" row mb-2 addresss">
                                     <label for="country" class="col-md-3 form-label"> Select City </label>
                                     <input type="hidden" value="" name="city" id="city_value" />
                                     <div class="col-md-9">
                                         <select class="form-control" id="city">
-                                            <option >Select City</option>
+                                            <option>Select City</option>
                                         </select>
                                     </div>
-                                </div> 
-                                <div class=" row mb-4">
+                                </div>
+                                <div class=" row mb-2">
                                     <label for="inputEmail3" class="col-md-3 form-label">Email</label>
                                     <div class="col-md-9">
                                         <input type="email" class="form-control" value="{{$organization->email}}" name="email" placeholder="Email" autocomplete="username">
                                     </div>
                                 </div>
-                                
-                                <div class=" row mb-4 addresss">
+
+                                <div class=" row mb-2 addresss">
                                     <label for="building" class="col-md-3 form-label">Building</label>
                                     <div class="col-md-9">
                                         <input type="text" class="form-control" value="{{$organization->address[0]->building}}" id="building" name="building" placeholder="Building Address">
                                     </div>
                                 </div>
-                                <div class=" row mb-4 addresss">
+                                <div class=" row mb-2 addresss">
                                     <label for="district" class="col-md-3 form-label">District</label>
                                     <div class="col-md-9">
                                         <input type="text" class="form-control" value="{{$organization->address[0]->district}}" id="district" name="district" placeholder="District">
                                     </div>
                                 </div>
-                                <div class=" row mb-4 addresss">
+                                <div class=" row mb-2 addresss">
                                     <label for="postalCode" class="col-md-3 form-label">Postal Code</label>
                                     <div class="col-md-9">
                                         <input type="number" class="form-control" value="{{$organization->address[0]->postalCode}}" id="postalCode" name="postalCode" placeholder="Postal Code">
                                     </div>
                                 </div>
-                                <div class=" row mb-4">
+                                <div class=" row mb-2 ">
                                     <label for="country" class="col-md-3 form-label"> Select Status </label>
                                     <div class="col-md-9">
                                         <select class="form-control" name="status" id="state">
@@ -136,10 +138,10 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="mb-0 mt-4 row justify-content-end">
+                                <div class="mb-0 mt-4 row text-end">
                                     <div class="col">
                                         <button class="btn btn-primary" type="submit">Update</button>
-                                        <span><a href="{{route('dashboard')}}" class="btn btn-secondary  ">Cancel</a></span>                             
+                                        <span><a href="{{route('dashboard')}}" class="btn btn-secondary  ">Cancel</a></span>
 
                                     </div>
                                 </div>
@@ -160,26 +162,27 @@
 @endsection
 @section('foot_script')
 <script type="text/javascript">
-    var state=`{{$organization->address[0]->state}}`;
-    var city=`{{$organization->address[0]->city}}`;
+    var state = `{{$organization->address[0]->state}}`;
+    var city = `{{$organization->address[0]->city}}`;
     var baseUrl = `{{url('/')}}`;
-    $('#level').change(function(){
-        if($(this).val()=="Hospital"){
+    $('#level').change(function() {
+        if ($(this).val() == "Hospital") {
             $('.addresss').show();
             $('#no-need').hide();
-            $('#organization').attr('name','org');
-            var input_organization='<input type="hidden" id="input_org" name="organization" value="c6bc6265-e876-414a-9672-a85e09280059">';
+            $('#organization').attr('name', 'org');
+            var input_organization = '<input type="hidden" id="input_org" name="organization" value="c6bc6265-e876-414a-9672-a85e09280059">';
             $('#add').html(input_organization);
             return false;
-        }else if($(this).val()=="Department"){
+        } else if ($(this).val() == "Department") {
             $('.addresss').hide();
             $('#add').html('');
             $('#no-need').show();
-            $('#organization').attr('name','organization');
+            $('#organization').attr('name', 'organization');
             return false;
         }
 
     });
+
     function loadStates(country_id, context) {
 
         if (country_id == '')
@@ -196,10 +199,10 @@
             var option = "<option value=''>Select State</option>";
             data.forEach(function(row, index) {
                 console.log(row);
-                if(state==row.name)
+                if (state == row.name)
                     option += `<option value='${row.id}' selected>${row.name}</option>`;
-                else 
-                option += `<option value='${row.id}' >${row.name}</option>`;
+                else
+                    option += `<option value='${row.id}' >${row.name}</option>`;
             });
             $('#state').html(option);
         }).fail(function(error) {
@@ -220,7 +223,7 @@
             var option = "<option value=''>Select City</option>";
             data.forEach(function(row, index) {
                 // console.log(row);
-                if(city==row.name)
+                if (city == row.name)
                     option += `<option value='${row.id}' selected>${row.name}</option>`;
                 else
                     option += `<option value='${row.id}'>${row.name}</option>`;

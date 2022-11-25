@@ -73,7 +73,11 @@
     <!-- CUSTOM JS -->
     <script src="{{asset('assets/js/custom.js')}}"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/12.1.5/css/intlTelInput.css" />
-
+    <script>
+        $(document).ready(function () {
+            $('#datatable').DataTable();
+        });
+    </script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/12.1.5/js/intlTelInput.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/12.1.5/js/utils.js"></script>
     <script type="text/javascript">
@@ -133,11 +137,7 @@
 
     </script>
     <!----Custom Function To Manage-->
-<<<<<<< HEAD
-    @yield('foot_script');
-    @stack('js');
-=======
->>>>>>> eb70d3dfb4d34faaa3cdabc1231e6725104e092c
+
 </body>
 
 </html>

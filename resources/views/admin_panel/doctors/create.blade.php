@@ -8,48 +8,34 @@
 
         <!-- CONTAINER -->
         <div class="main-container container-fluid">
-
-            <!-- PAGE-HEADER -->
-            <div class="page-header">
-                <h1 class="page-title">Create Doctor</h1>
-                <div>
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="javascript:void(0)">Pages</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Create Doctor</li>
-                    </ol>
-                </div>
-            </div>
-            <!-- PAGE-HEADER END -->
-
             <!-- ROW-1 OPEN -->
             <div class="row">
                 <div class="form-group">
                     @include('admin_panel.frontend.includes.messages')
                 </div>
-                <div class="col-xl-8">
+                <div class="col-xl-12"> 
                     <div class="card">
                         <form action="{{route('doctorCreated')}}" method="POST">
                             @csrf
                             <div class="card-header">
-                                <h3 class="card-title">Doctor Details </h3>
+                                <div class="col-5">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">Create Doctor </li>
+                                    </ol>
+                                </div>
+                                <div class="col-4">
+                                    <span class="card-title"><strong>
+                                            Doctor's Details
+                                        </strong></span>
+                                </div>
+
+                                <div class="col-3 text-end">
+                                </div>
                             </div>
                             <div class="card-body">
                                 <div class="row">
-                                    <h3>User</h3>
-                                    <div class="col-lg-6 col-md-6 col-sm-12">
-                                        <div class="form-group">
 
-                                            <label for="Username">Username</label>
-                                            <input type="text" class="form-control" name="username" value="" id="Username" placeholder="Username">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-12">
-                                        <div class="form-group">
-                                            <label for="Password">Password</label>
-                                            <input type="text" class="form-control" name="password" id="Password" placeholder="Password">
-                                        </div>
-                                    </div>
-                                    <h3>Person</h3>
 
                                     <div class="col-lg-6 col-md-6 col-sm-12">
                                         <div class="form-group">
@@ -61,6 +47,19 @@
                                         <div class="form-group">
                                             <label class="form-label" for="middleName">Middle Name</label>
                                             <input class="form-control" id="middleName" placeholder="Enter Middle Name" name="middlename" value="">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                        <div class="form-group">
+
+                                            <label for="Username">Username</label>
+                                            <input type="text" class="form-control" name="username" value="" id="Username" placeholder="Username">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                        <div class="form-group">
+                                            <label for="Password">Password</label>
+                                            <input type="text" class="form-control" name="password" id="Password" placeholder="Password">
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-12">
@@ -118,7 +117,7 @@
                                 </div>
 
                             </div>
-                            <div class="card-footer ">
+                            <div class="card-footer text-end     ">
                                 <button type="submit" class="btn btn-primary my-1">Create</button>
                                 <span><a href="{{route('dashboard')}}" class="btn btn-secondary  ">Cancel</a></span>
 
