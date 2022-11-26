@@ -34,7 +34,7 @@
                                     <div class="form-group col-lg-6 col-md-6 col-sm-12  my-1">
                                         <label for="user">User</label>
                                         <input class="form-control" type="text" disabled value="{{$user->username}}">
-                                        <input type="hidden" disabled value="{{$user->uuid}}" name="user" id="user">
+                                        <input type="hidden" value="{{$user->uuid}}" name="user" id="user">
                                     </div>
 
                                     <div class="form-group col-lg-6 col-md-6 col-sm-12  my-1">

@@ -32,7 +32,8 @@ class DepartmentController extends Controller
             'status' => 'required|string',
             'email' => 'required|string',
             'level' => 'required|string',
-            'specialization_id' => 'required|string',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'specialization_id.*' => 'required|string',
         ]);
         $curl = curl_init();
         $baseUrl = config('services.ehr.baseUrl');
@@ -107,15 +108,21 @@ class DepartmentController extends Controller
                         'name' => $request->name . '_' . $orgName->name,
                         'organization_id' => $org->id,
                         'slug' => $request->displayname,
+                        'image' => $request->image,
                         'level' => "SubOrg",
                         'uuid' => $organization->uuid,
                     ]);
-                    $department = Department::where('name', $request->name . '_' . $orgName->name)->first();
+                    $department=Department::where('name',$request->name.'_'.$org->name)->first();
                     // dd($department);
-                    SpecializedDepartment::Create([
-                        'specialization_id' => $request->specialization_id,
-                        'department_id' => $department->id,
-                    ]);
+                    $specializations=$request->specialization_id;
+                    // dd($specializations);
+                    foreach($specializations as $specialization){
+                        // dd($specialization);
+                        SpecializedDepartment::Create([
+                            'specialization_id'=>$specialization,
+                            'department_id'=>$department->id,
+                        ]);
+                    }
                     return redirect()->back()->withSuccess(__('Successfully Department Created'));
                 } else if (isset($organization->message) && $organization->message == "Provided organization name already exist") {
                     curl_close($curl);

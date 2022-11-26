@@ -610,7 +610,7 @@ class UserController extends Controller
                 return redirect()->back()->withErrors(['error' => $error]);
             } else {
                 $userRole = json_decode($response);
-                // dd($userRole);
+                // dd($userRole,$request->all());
 
                 // dd(curl_getinfo($curl, CURLINFO_HTTP_CODE));
                 if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {

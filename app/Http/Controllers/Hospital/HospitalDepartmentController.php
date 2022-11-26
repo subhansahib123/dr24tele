@@ -121,22 +121,22 @@ class HospitalDepartmentController extends Controller
                         'organization_id' => $org->id,
                         'slug' => $request->displayname,
                         'level' => "SubOrg",
-                        'image'=>'',
+                        'image' => '',
                         'uuid' => $organization->uuid,
                     ]);
-                    $department=Department::where('name',$request->name.'_'.$org->name)->first();
+                    $department = Department::where('name', $request->name . '_' . $org->name)->first();
                     // dd($department);
-                    $specializations=$request->specialization_id;
+                    $specializations = $request->specialization_id;
                     // dd($specializations);
-                    foreach($specializations as $specialization){
+                    foreach ($specializations as $specialization) {
                         // dd($specialization);
                         SpecializedDepartment::Create([
-                            'specialization_id'=>$specialization,
-                            'department_id'=>$department->id,
+                            'specialization_id' => $specialization,
+                            'department_id' => $department->id,
                         ]);
                     };
-                    
-                    
+
+
                     return redirect()->back()->withSuccess(__('Successfully Department Created'));
                 } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 409) {
                     curl_close($curl);

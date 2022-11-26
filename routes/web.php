@@ -204,7 +204,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
 
     //create Department
-    Route::get('/create/departments', [DepartmentController::class, 'index'])->name('create.newDepartment');
+    Route::get('/create/departments/{uuid}', [DepartmentController::class, 'index'])->name('create.newDepartment');
     Route::post('/department/created', [DepartmentController::class, 'create'])->name('newDepartment.created');
 
 

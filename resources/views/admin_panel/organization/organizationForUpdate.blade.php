@@ -35,7 +35,7 @@
                         <div class="card-body">
                             <form class="form-horizontal" action="{{route('update.organization')}}" method="POST">
                                 @csrf
-                                <div class=" row mb-2">
+                                <div class=" row  mb-1">
 
                                     <label for="displayname" class="col-md-3 form-label"> Display Name</label>
                                     <div class="col-md-9">
@@ -50,16 +50,16 @@
 
 
 
-                                <div class=" row mb-2">
+                                <div class=" row  mb-1">
                                     <label for="email" class="col-md-3 form-label"> Contact Person Designation</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" value="{{$organization->contactperson}}" name="contactperson" id="contactperson" placeholder="Contact Person Designation" autocomplete="contactperson">
+                                        <input type="text" class="form-control"  name="contactperson" id="contactperson" placeholder="Contact Person Designation" autocomplete="contactperson">
                                     </div>
                                     @if ($errors->has('contactperson'))
                                     <span class="text-danger text-left">{{ $errors->first('contactperson') }}</span>
                                     @endif
                                 </div>
-                                <div class="row mb-2 address">
+                                <div class="row  mb-1 address">
                                     <div class="col-3 pt-2 my-0">
                                         <label for="exampleInputnumber"><Strong> Contact Number</Strong></label>
                                     </div>
@@ -71,7 +71,7 @@
                                     <span class="text-danger text-left">{{ $errors->first('contactperson') }}</span>
                                     @endif
                                 </div>
-                                <div class=" row mb-2 addresss">
+                                <div class=" row  mb-1 addresss">
                                     <label for="country" class="col-md-3 form-label"> Select Country </label>
                                     <div class="col-md-9">
                                         <input type="hidden" value="" name="country" id="country_value" />
@@ -83,7 +83,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class=" row mb-2 addresss">
+                                <div class=" row  mb-1 addresss">
                                     <label for="country" class="col-md-3 form-label"> Select State </label>
                                     <input type="hidden" value="" name="state" id="state_value" />
                                     <div class="col-md-9">
@@ -93,7 +93,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class=" row mb-2 addresss">
+                                <div class=" row  mb-1 addresss">
                                     <label for="country" class="col-md-3 form-label"> Select City </label>
                                     <input type="hidden" value="" name="city" id="city_value" />
                                     <div class="col-md-9">
@@ -102,32 +102,32 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class=" row mb-2">
+                                <div class=" row  mb-1">
                                     <label for="inputEmail3" class="col-md-3 form-label">Email</label>
                                     <div class="col-md-9">
                                         <input type="email" class="form-control" value="{{$organization->email}}" name="email" placeholder="Email" autocomplete="username">
                                     </div>
                                 </div>
 
-                                <div class=" row mb-2 addresss">
+                                <div class=" row  mb-1 addresss">
                                     <label for="building" class="col-md-3 form-label">Building</label>
                                     <div class="col-md-9">
                                         <input type="text" class="form-control" value="{{$organization->address[0]->building}}" id="building" name="building" placeholder="Building Address">
                                     </div>
                                 </div>
-                                <div class=" row mb-2 addresss">
+                                <div class=" row  mb-1 addresss">
                                     <label for="district" class="col-md-3 form-label">District</label>
                                     <div class="col-md-9">
                                         <input type="text" class="form-control" value="{{$organization->address[0]->district}}" id="district" name="district" placeholder="District">
                                     </div>
                                 </div>
-                                <div class=" row mb-2 addresss">
+                                <div class=" row  mb-1 addresss">
                                     <label for="postalCode" class="col-md-3 form-label">Postal Code</label>
                                     <div class="col-md-9">
                                         <input type="number" class="form-control" value="{{$organization->address[0]->postalCode}}" id="postalCode" name="postalCode" placeholder="Postal Code">
                                     </div>
                                 </div>
-                                <div class=" row mb-2 ">
+                                <div class=" row  mb-1 ">
                                     <label for="country" class="col-md-3 form-label"> Select Status </label>
                                     <div class="col-md-9">
                                         <select class="form-control" name="status" id="state">
