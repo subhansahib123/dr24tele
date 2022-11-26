@@ -39,6 +39,6 @@ class Doctor extends Model
     }
     public function specialization()
     {
-        return $this->hasMany(SpecializedDoctor::class,'doctor_id');
+        return $this->belongsToMany(DoctorSpecialization::class,'specialized_doctors','doctor_id','specialization_id');
     }
 }
