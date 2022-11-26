@@ -3,8 +3,8 @@
 
     <!-- JQUERY JS -->
     <script src="{{asset('assets/js/jquery.min.js')}}"></script>
-     <!-- SHOW PASSWORD JS -->
-     <script src="{{asset('assets/js/show-password.min.js')}}"></script>
+    <!-- SHOW PASSWORD JS -->
+    <script src="{{asset('assets/js/show-password.min.js')}}"></script>
     <!-- BOOTSTRAP JS -->
     <script src="{{asset('assets/plugins/bootstrap/js/popper.min.js')}}"></script>
     <script src="{{asset('assets/plugins/bootstrap/js/bootstrap.min.js')}}"></script>
@@ -60,8 +60,8 @@
     <!-- SIDE-MENU JS-->
     <script src="{{asset('assets/plugins/sidemenu/sidemenu.js')}}"></script>
 
-	<!-- TypeHead js -->
-	{{-- <script src="../assets/plugins/bootstrap5-typehead/autocomplete.js"></script>
+    <!-- TypeHead js -->
+    {{-- <script src="../assets/plugins/bootstrap5-typehead/autocomplete.js"></script>
     <script src="../assets/js/typehead.js"></script> --}}
 
     <!-- INTERNAL INDEX JS -->
@@ -82,19 +82,35 @@
     <script src="{{asset('/assets/js/form-wizard.js')}}"></script>
 
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/12.1.5/css/intlTelInput.css" />
-<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>  -->
+    <script>
+        $(document).ready(function() {
+            $('#datatable').DataTable();
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('.js-example-basic-multiple').select2();
+        });
+    </script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>  -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/12.1.5/js/intlTelInput.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/12.1.5/js/utils.js"></script>
 
     <script type="text/javascript">
-    function FormatNumber() {
-                var number = $('#txtPhone').val();
-                var classf = $(".selected-flag > div").attr("class");
-                var flag = classf.slice(-2);
-                var formattedNumber = intlTelInputUtils.formatNumber(number, flag, intlTelInputUtils.numberFormat.INTERNATIONAL);
-                $('#txtPhone').val(formattedNumber.slice(formattedNumber.indexOf(' ') + 1, formattedNumber.length));
-            }
-        $(function () {
+        function FormatNumber() {
+            var number = $('#txtPhone').val();
+            var classf = $(".selected-flag > div").attr("class");
+            var flag = classf.slice(-2);
+            var formattedNumber = intlTelInputUtils.formatNumber(number, flag, intlTelInputUtils.numberFormat.INTERNATIONAL);
+            $('#txtPhone').val(formattedNumber.slice(formattedNumber.indexOf(' ') + 1, formattedNumber.length));
+        }
+        $(function() {
 
             var code = "+911234567890";
             if ($('#txtPhone').length && $('#txtPhoneNew').length) {
@@ -132,9 +148,8 @@
                 $('#txtPhone').keyup(function() {
                     FormatNumber();
                 });
-            }
-            else if($('#txtPhone').length){
-                     $('#txtPhone').val(code);
+            } else if ($('#txtPhone').length) {
+                $('#txtPhone').val(code);
                 $('#txtPhone').intlTelInput({
                     autoHideDialCode: true,
                     autoPlaceholder: "ON",
@@ -155,47 +170,50 @@
 
         });
     </script>
-<!--Firebase---->
+    <!--Firebase---->
 
-<script src="https://www.gstatic.com/firebasejs/8.3.2/firebase.js"></script>
-<script>
-var loggedIn = {{ auth()->check() ? 1 : 0 }};
-var user_id='';
-@auth
-    if(loggedIn==1){
-    var user_id={{auth()->user()->id}};
-    }
-@endauth
-
-
-</script>
-<script src="{{asset('public_assets/js/firebase.js')}}"></script>
-
-<script>
-
-    /*** add active class and stay opened when selected ***/
-    var url = window.location;
-
-    // for sidebar menu entirely but not cover treeview
-    $('ul.side-menu a').filter(function() {
-        if (this.href) {
-            return this.href == url || url.href.indexOf(this.href) == 0;
+    <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase.js"></script>
+    <script>
+        var loggedIn = {
+            {
+                auth() - > check() ? 1 : 0
+            }
+        };
+        var user_id = '';
+        @auth
+        if (loggedIn == 1) {
+            var user_id = {
+                {
+                    auth() - > user() - > id
+                }
+            };
         }
-    }).addClass('active');
+        @endauth
+    </script>
+    <script src="{{asset('public_assets/js/firebase.js')}}"></script>
 
-    // for the treeview
-    $('ul.slide-menu a').filter(function() {
-        if (this.href) {
-            return this.href == url || url.href.indexOf(this.href) == 0;
-        }
-    }).parentsUntil(".side-menu > .nav-tree").addClass('open').prev('a').addClass('active').parent().addClass('is-expanded');
+    <script>
+        /*** add active class and stay opened when selected ***/
+        var url = window.location;
 
+        // for sidebar menu entirely but not cover treeview
+        $('ul.side-menu a').filter(function() {
+            if (this.href) {
+                return this.href == url || url.href.indexOf(this.href) == 0;
+            }
+        }).addClass('active');
 
+        // for the treeview
+        $('ul.slide-menu a').filter(function() {
+            if (this.href) {
+                return this.href == url || url.href.indexOf(this.href) == 0;
+            }
+        }).parentsUntil(".side-menu > .nav-tree").addClass('open').prev('a').addClass('active').parent().addClass('is-expanded');
     </script>
 
 
     <!----Custom Function To Manage-->
     @yield('foot_script');
-</body>
+    </body>
 
-</html>
+    </html>

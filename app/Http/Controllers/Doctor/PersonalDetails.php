@@ -40,7 +40,7 @@ class PersonalDetails extends Controller
         ]);
         $user->update(['phone_number'=>$request->phoneNumberNew]);
         // dd($user->phone_number);
-        return redirect()->route('doctor.dashboard')->withSuccess(__('Phone Number is Successfully Updated'));
+        return redirect()->route('verifyPhoneNumber')->withSuccess(__('Phone Number is Successfully Updated'));
         
     }
 
