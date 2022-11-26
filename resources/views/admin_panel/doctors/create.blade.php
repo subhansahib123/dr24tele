@@ -13,9 +13,9 @@
                 <div class="form-group">
                     @include('admin_panel.frontend.includes.messages')
                 </div>
-                <div class="col-xl-12"> 
+                <div class="col-xl-12">
                     <div class="card">
-                        <form action="{{route('doctorCreated')}}" method="POST">
+                        <form action="{{route('doctorCreated')}}" method="POST"  enctype="multipart/form-data">
                             @csrf
                             <div class="card-header">
                                 <div class="col-5">
@@ -114,9 +114,11 @@
                                             <!-- <input type="text" class="form-control" name="" id="gender" value=""> -->
                                         </div>
                                     </div>
-                                    <div class=" row  mb-1">
-                                    
-                                        <input type="file" name="image" id="image">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <label for="Birth">Profile Image</label>
+                                            <input type="file" name="image" id="image" class="form-control">
+                                        </div>
                                     </div>
                                 </div>
 
