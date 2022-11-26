@@ -40,7 +40,7 @@
                                                <input type="hidden" class="form-control" id="phoneNumber" >
                                         </div>
                                     </div>
-                                    <!-- <div class="col-lg-12" style="display: none" id="verfiycon">
+                                    <div class="col-lg-12" style="display: none" id="verfiycon">
                                         <div class="form-group">
                                             {{-- <input id="text" name="fname" type="text" placeholder="Username Or Email Address" required=""> --}}
                                             <input type="text" id="verification" class="form-control"
@@ -86,19 +86,19 @@
                                             </button>
 
                                         </div>
-                                    </div> -->
+                                    </div>
                                     <div class="col-md-12">
                                         <p class="mb-0">Don't have an Account? <a class="link style1"
                                                 href="{{route('patient.register')}}">Create One</a></p>
                                     </div>
-                                    <div class="col-lg-12"  >
+                                    <!-- <div class="col-lg-12"  >
                                         <div class="form-group">
                                             <button type="submit" class="btn style1 w-100 d-block" >
                                                 Login
                                             </button>
 
                                         </div>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </form>
                         </div>
