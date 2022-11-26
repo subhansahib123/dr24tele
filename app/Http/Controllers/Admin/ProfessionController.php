@@ -54,11 +54,11 @@ class ProfessionController extends Controller
                             curl_close($curl);
                             return redirect()->route('logout')->withErrors(['error' => $profession->message]);
                         } else if (isset($profession->message) && $profession->message == "Invalid User") {
-                        
+
                             curl_close($curl);
                             return redirect()->route('logout')->withErrors(['error' => $profession->message]);
                         } else if (isset($profession->message) && $profession->message == "Invalid Token") {
-                        
+
                             curl_close($curl);
                             return redirect()->route('logout')->withErrors(['error' => $profession->message]);
                         } else {
@@ -69,7 +69,7 @@ class ProfessionController extends Controller
                 }
             } catch (\Exception $e) {
                 return redirect()->back()->withErrors(['error' => __($e->getMessage())]);
-               
+
             }
         } else {
 

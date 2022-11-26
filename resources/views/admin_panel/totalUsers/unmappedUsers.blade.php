@@ -79,6 +79,7 @@
     <script>
         $(document).ready(function () {
             $('#datatable').DataTable();
+            // $('.ddatatable').DataTable();
         });
     </script>
 @endpush
