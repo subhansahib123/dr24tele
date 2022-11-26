@@ -115,6 +115,7 @@ class OrganizationController extends Controller
             'status' => 'required|string',
             'email' => 'required|string',
             'level' => 'required|string',
+            'image'=> 'required'
         ]);
         $curl = curl_init();
         $baseUrl = config('services.ehr.baseUrl');
@@ -176,6 +177,7 @@ class OrganizationController extends Controller
                 return redirect()->back()->withErrors(['error' => __($error)]);;
             } else {
                 $organization = json_decode($response);
+                // dd($organization);
                 if (
                     isset($organization->displayname)
                     && $organization->displayname
@@ -192,6 +194,7 @@ class OrganizationController extends Controller
                         'slug' => $organization->displayname,
                         'status' => $organization->status,
                         'level' => "SubOrg",
+                        'image' => 1,
                         'organization_id' => $org->id
                     ]);
                     return redirect()->back()->withSuccess(__('Successfully Organization Created'));

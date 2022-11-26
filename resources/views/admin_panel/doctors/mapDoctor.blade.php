@@ -33,7 +33,7 @@
                                 <input type="hidden" value="{{$userUuid}}" name="user">
                                 <div class="row">
                                     <div class="form-group col-lg-6 col-md-6 col-sm-12">
-                                        <label for="organizations">Organisation</label>
+                                        <label for="organization">Organisation</label>
                                         <select class="form-control" name="organization" id="organization">
                                             @if($organizations)
                                             @foreach ($organizations as $organization)
@@ -41,13 +41,19 @@
                                             @endforeach
                                             @endif
                                         </select>
+                                        @if ($errors->has('organization'))
+                                        <span class="text-danger text-left">{{ $errors->first('organization') }}</span>
+                                        @endif
                                     </div>
 
                                     <div class="form-group col-lg-6 col-md-6 col-sm-12" id="depart_p">
-                                        <label for="organizations">Departments</label>
+                                        <label for="departments">Departments</label>
                                         <select class="form-control" name="department" id="departments">
                                             <option value='' selected>Select Department</option>
                                         </select>
+                                        @if ($errors->has('departments'))
+                                        <span class="text-danger text-left">{{ $errors->first('departments') }}</span>
+                                        @endif
                                     </div>
                                 </div>
                                 <div class="form-group text-end">
@@ -72,5 +78,30 @@
 </div>
 
 
+
+@endsection
+@section('foot_script')
+<script>
+    var base_url = `{{url('/')}}`;
+    $('#organization').change(function() {
+        var uuid = $(this).val();
+        var url = `${base_url}/api/getDepartments/${uuid}`;
+        $.ajax({
+            type: 'GET',
+            url: url
+        }).done(function(data) {
+            if (data) {
+                var option = "<option value='' selected>Select Department</option>";
+                data.forEach(function(row, index) {
+                    // console.log(row,index);
+                    option += `<option value='${row.uuid}'>${row.name}</option>`;
+                });
+                $('#departments').html(option);
+            }
+        }).fail(function(error) {
+            console.log(error);
+        });
+    });
+</script>
 
 @endsection

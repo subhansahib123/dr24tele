@@ -16,6 +16,14 @@ class PatientController extends Controller
     public function patient(Request $request)
     {
         // dd($request->all());
+        $request->validate([
+            'username' => 'required|string',
+            'name' => 'required|string',
+            'password' => 'required|string',
+            'phoneNumber' => 'required|string',
+            'email' => 'required|string',
+            'image' => 'required',
+            ]);
         $curl = curl_init();
         $baseUrl = config('services.ehr.baseUrl');
         $apiKey = config('services.ehr.apiKey');
@@ -120,6 +128,7 @@ class PatientController extends Controller
     public function storePatients($user,$UserData)
     {
 
+        
         // dd($UserData,$user);
         $curl = curl_init();
         $baseUrl = config('services.ehr.baseUrl');
@@ -268,7 +277,7 @@ class PatientController extends Controller
                         'user_id' => $request->userId,
                         'organization_id' => $org->id,
                         'status' => 1,
-                        'image'=>''
+                        'image'=>1
                     ]);
                     
                     UsersOrganization::firstOrCreate([
@@ -350,7 +359,7 @@ class PatientController extends Controller
                 
                 if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
                     curl_close($curl);
-                    dd($patients);
+                    // dd($patients);
                     return view('admin_panel.patients.showPatients', ['patients' => $patients]);
                 }else if (isset($patients->message) && $patients->message == "API rate limit exceeded") {
                     curl_close($curl);
@@ -423,7 +432,7 @@ class PatientController extends Controller
 
                 if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
                     curl_close($curl);
-                    $user = User::where('PersonId', $uuid)->first();
+                    $user = User::where('PersonUuid', $uuid)->first();
                     if ($user) {
                         UsersOrganization::where('user_id', $user->id)->delete();
                         Patient::where('user_id', $user->id)->delete();
