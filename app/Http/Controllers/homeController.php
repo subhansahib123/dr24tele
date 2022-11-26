@@ -106,8 +106,7 @@ class homeController extends Controller
     public function appointment($id){
         if(Auth::check()){
             $doctor = Doctor::with('user')->find($id);
-            dd($doctor);
-            return view('public_panel.appointment');
+            return view('public_panel.appointment', compact('doctor'));
         }
         else{
             return redirect()->route('patient.login')->withErrors(['error'=>'Please login!']);

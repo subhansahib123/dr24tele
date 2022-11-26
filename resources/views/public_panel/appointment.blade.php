@@ -141,10 +141,10 @@
                         <div class="d-none d-md-block col-md-4">
                             <div class="dr-details">
                                 <div class="dr-image">
-                                    <img src="{{asset('public_assets/img/services/service-9.jpg')}}" alt="Image">
+                                  <img src="{{ ($doctor->user->image) ? asset('storage/'. $doctor->user->image) : asset('public_assets/img/services/service-9.jpg')}}" alt="Image">
                                 </div>
                                 <div class="dr-info">
-                                    <h6>Dr. Jintdra Raut</h6>
+                                    <h6>{{ $doctor->user->name }}</h6>
                                     <p>B.Sc, M.B.B.S</p>
                                 </div>
                             </div>

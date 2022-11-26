@@ -11,6 +11,7 @@ use App\Models\Role;
 use App\Models\User;
 use App\Models\User_Role;
 use App\Models\UsersOrganization;
+use Illuminate\Support\Facades\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
@@ -33,7 +34,6 @@ class CreationController extends Controller
         if (!Auth::check())
             return redirect()->route('logout')->withErrors(['error' => 'Login Token Expired ! Please login Again']);
 
-        // dd($request->all());
         $curl = curl_init();
         $baseUrl = config('services.ehr.baseUrl');
         $apiKey = config('services.ehr.apiKey');
@@ -101,17 +101,24 @@ class CreationController extends Controller
                     curl_close($curl);
                     // dd(1);
 
+                    $path = '';
+
+                    if($request->hasFile('image')){
+                        $file = $request->file('image');
+                        $fiel_name = \Str::random(40);
+                        $path = $file->storeAs('public\profile', $fiel_name . '.' . $file->getClientOriginalExtension());
+                    }
+
                     User::create([
                         'username' => $user->username,
                         'name' => $user->name,
-                        'image' => 1,
+                        'image' => $path,
                         'password' => $request->password,
                         'email' => $request->email,
                         'phone_number' => $request->phoneNumber,
                         'uuid' => $user->uuid,
                         'PersonId' => $user->personId,
                         'status' => 1
-
                     ]);
                     $user = User::where('username', $user->username)->first();
                     // dd($user)
@@ -160,10 +167,10 @@ class CreationController extends Controller
     }
     public function doctorMapped(Request $request)
     {
-        
+
         $url = url()->previous();
         $containsHospital = Str::contains($url, 'hospital');
-        // dd($request->all()); 
+        // dd($request->all());
         if (!Auth::check())
             return redirect()->route('logout')->withErrors(['error' => 'Login Token Expired ! Please login Again']);
         $curl = curl_init();

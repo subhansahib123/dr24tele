@@ -28,17 +28,16 @@
                 </div>
                 <div class="col-xl-12">
                     <div class="card">
-                        <form action="{{route('doctor.created')}}" method="POST">
+                        <form action="{{route('doctor.created')}}" method="POST"  enctype="multipart/form-data">
                             @csrf
                             <div class="card-header">
                                 <h3 class="card-title">Doctor Details </h3>
                             </div>
                             <div class="card-body">
                                 <div class="row">
-                                    <h3>User</h3>
+{{--                                    <h3>User</h3>--}}
                                     <div class="col-lg-6 col-md-6 col-sm-12">
                                         <div class="form-group">
-
                                             <label for="Username">Username</label>
                                             <input type="text" class="form-control" name="username" value="" id="Username" placeholder="Username">
                                         </div>
@@ -49,7 +48,7 @@
                                             <input type="text" class="form-control" name="password" id="Password" placeholder="Password">
                                         </div>
                                     </div>
-                                    <h3>Person</h3>
+{{--                                    <h3>Person</h3>--}}
 
                                     <div class="col-lg-6 col-md-6 col-sm-12">
                                         <div class="form-group">
@@ -59,7 +58,7 @@
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-12">
                                         <div class="form-group">
-                                            <label class="form-label" for="middleName">Middle Name</label>
+                                            <label for="middleName">Middle Name</label>
                                             <input class="form-control" id="middleName" placeholder="Enter Middle Name" name="middlename" value="">
                                         </div>
                                     </div>
@@ -72,7 +71,7 @@
                                     <div class="col-lg-6 col-md-6 col-sm-12">
                                         <div class="form-group">
                                             <div class="row ">
-                                                <label for="exampleInputnumber"><strong> Contact Number</strong></label>
+                                                <label for="exampleInputnumber">Contact Number</label>
                                             </div>
                                             <div class="row ">
                                                 <input type="text" id="txtPhone" name="" class="form-control">
@@ -85,16 +84,16 @@
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-12">
                                         <div class="form-group">
-                                            <label class="form-label" for="Birth">Date of Birth</label>
+                                            <label for="Birth">Date of Birth</label>
                                             <input type="date" class="form-control" id="Birth" placeholder="Date of Birth" name="dateOfBirth" value="">
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-12">
                                         <div class="form-group">
-                                            <label class="form-label" for="gender">Gender</label>
+                                            <label for="gender">Gender</label>
                                             <select class="form-select" name="gender_code" id="gender">
                                                 <option value="">
-                                                    Select
+                                                    Select Gender
                                                 </option>
                                                 <option value="F">
                                                     Female
@@ -112,8 +111,13 @@
                                                     Others
                                                 </option>
                                             </select>
-                                            <!-- <input type="text" class="form-control" name="" id="gender" value=""> -->
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-6">
+                                        <label for="Birth">Profile Image</label>
+                                        <input type="file" name="image" class="form-control">
                                     </div>
                                 </div>
 
@@ -121,8 +125,6 @@
                             <div class="card-footer ">
                                 <button type="submit" class="btn btn-primary my-1">Create</button>
                                 <span><a href="{{route('hospital.dashboard')}}" class="btn btn-secondary  ">Cancel</a></span>
-
-                                {{-- <a href="javascript:void(0)" class="btn btn-danger my-1">Cancel</a> --}}
                             </div>
                         </form>
                     </div>
