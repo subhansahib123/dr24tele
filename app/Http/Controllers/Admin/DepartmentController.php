@@ -32,7 +32,7 @@ class DepartmentController extends Controller
             'status' => 'required|string',
             'email' => 'required|string',
             'level' => 'required|string',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'required',
             'specialization_id.*' => 'required|string',
         ]);
         $curl = curl_init();
@@ -102,20 +102,20 @@ class DepartmentController extends Controller
                     || curl_getinfo($curl, CURLINFO_HTTP_CODE) == 201
                 ) {
                     curl_close($curl);
-                    // // dd($request->level);
+                    // dd($request->level,$request->all());
                     $org = Organization::where('uuid',  $parent_org_uuid)->first();
                     Department::Create([
                         'name' => $request->name . '_' . $orgName->name,
                         'organization_id' => $org->id,
                         'slug' => $request->displayname,
-                        'image' => $request->image,
+                        'image' => 1,
                         'level' => "SubOrg",
                         'uuid' => $organization->uuid,
                     ]);
                     $department=Department::where('name',$request->name.'_'.$org->name)->first();
                     // dd($department);
                     $specializations=$request->specialization_id;
-                    // dd($specializations);
+                    // dd($specializations,$department);
                     foreach($specializations as $specialization){
                         // dd($specialization);
                         SpecializedDepartment::Create([

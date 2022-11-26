@@ -8,11 +8,12 @@
 
         <!-- CONTAINER -->
         <div class="main-container container-fluid">
+        @include('admin_panel.frontend.includes.messages')
+
             <!-- Row -->
             <div class="row">
                 <div class="col-md-12 col-xl-12">
                     <div class="card">
-                        @include('admin_panel.frontend.includes.messages')
                         <div class="card-header">
                             <div class="col-5">
                                 <ol class="breadcrumb">

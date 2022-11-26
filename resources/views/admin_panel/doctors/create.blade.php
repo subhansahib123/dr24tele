@@ -114,9 +114,14 @@
                                             <!-- <input type="text" class="form-control" name="" id="gender" value=""> -->
                                         </div>
                                     </div>
+                                    <div class=" row  mb-1">
+                                    
+                                        <input type="file" name="image" id="image">
+                                    </div>
                                 </div>
 
                             </div>
+
                             <div class="card-footer text-end     ">
                                 <button type="submit" class="btn btn-primary my-1">Create</button>
                                 <span><a href="{{route('dashboard')}}" class="btn btn-secondary  ">Cancel</a></span>

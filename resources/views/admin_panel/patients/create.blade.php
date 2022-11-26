@@ -119,7 +119,12 @@
 
                                             <!-- <input type="text" class="form-control" name="" id="gender" value=""> -->
                                         </div>
+                                        
                                     </div>
+                                    <div class=" col-lg-6 col-md-6 col-sm-12 my-0">
+
+                                            <input type="file" name="image" id="image">
+                                        </div>
                                 </div>
 
                             </div>

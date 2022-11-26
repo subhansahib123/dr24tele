@@ -45,6 +45,7 @@ class CreationController extends Controller
             'password' => 'required|string',
             'phoneNumber' => 'required|string',
             'email' => 'required|string',
+            'image' => 'required',
         ]);
         $data = [
             'user' => [
@@ -103,6 +104,7 @@ class CreationController extends Controller
                     User::create([
                         'username' => $user->username,
                         'name' => $user->name,
+                        'image' => 1,
                         'password' => $request->password,
                         'email' => $request->email,
                         'phone_number' => $request->phoneNumber,
@@ -145,7 +147,7 @@ class CreationController extends Controller
         $containsHospital = Str::contains($url, 'hospital');
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
-        $organizations=Organization::all();
+        $organizations = Organization::all();
         // dd($departments);
 
         if ($containsHospital) {
@@ -158,6 +160,7 @@ class CreationController extends Controller
     }
     public function doctorMapped(Request $request)
     {
+        
         $url = url()->previous();
         $containsHospital = Str::contains($url, 'hospital');
         // dd($request->all()); 
@@ -216,7 +219,7 @@ class CreationController extends Controller
                 if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
                     $user = User::where('uuid', $userRole[0]->useruuid)->first();
                     $department = Department::where('uuid', $request->department)->first();
-                    $organization = Organization::where('uuid',$orgUuid)->first();
+                    $organization = Organization::where('uuid', $orgUuid)->first();
                     // dd($user->id,$department->id, $organization->id);
                     curl_close($curl);
                     // dd($containsHospital);

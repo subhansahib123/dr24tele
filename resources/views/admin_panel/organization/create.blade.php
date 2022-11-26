@@ -13,7 +13,7 @@
             <!-- Row -->
             <div class="row">
                 <div class="col-md-12 col-xl-12">
-    
+
                     <div class="card">
                         <div class="card-header">
                             <div class="col-5">
@@ -24,7 +24,7 @@
                             </div>
                             <div class="col-4">
                                 <span class="card-title"><strong>
-                                       Organization Details
+                                        Organization Details
                                     </strong></span>
                             </div>
 
@@ -150,6 +150,13 @@
                                         </select>
                                     </div>
                                 </div>
+                                <div class=" row  mb-1">
+                                    <label for="image" class="col-md-3 form-label"> Picture </label>
+                                    <div class="col-md-9">
+                                        <input type="file" name="image" id="image">
+                                    </div>
+                                </div>
+
                                 <div class=" row  mb-1" id="no-need">
                                     <span id="add"></span>
                                     <label for="level" class="col-md-3 form-label"> Select Level </label>

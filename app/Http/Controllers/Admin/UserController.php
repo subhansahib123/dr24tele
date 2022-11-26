@@ -306,6 +306,13 @@ class UserController extends Controller
     public function store_user(Request $request)
     {
 
+        $request->validate([
+            'username' => 'required|string',
+            'name' => 'required|string',
+            'password' => 'required|string',
+            'phoneNumber' => 'required|string',
+            'email' => 'required|string',
+            ]);
         // dd($request->all());
         $curl = curl_init();
         $baseUrl = config('services.ehr.baseUrl');
