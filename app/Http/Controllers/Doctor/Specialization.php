@@ -31,7 +31,10 @@ class Specialization extends Controller
     public function store(Request $request)
     {
         // dd($request->all());
-        $request->validate(['specialization' => 'required']);
+        $request->validate([
+            'specialization_id.*' => 'required|string',
+        ]);
+
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
         if (is_null($userInfo)) {
@@ -42,11 +45,16 @@ class Specialization extends Controller
         $uuid = $userInfo['uuid'];
         $user = User::with('doctor')->where('uuid', $uuid)->first();
         $doctor = Doctor::where('user_id', $user->id)->first();
-        // dd($request->specialization );
-        SpecializedDoctor::firstOrCreate([
-            'doctor_id'=>$doctor->id,
-            'specialization_id'=>$request->specialization ,
-        ]);
+        $specializations = $request->specialization_id;
+        // dd($specializations,$doctor);
+        foreach ($specializations as $specialization) {
+            // dd($specialization);
+            SpecializedDoctor::firstOrCreate([
+                'specialization_id' => $specialization,
+                'doctor_id' => $doctor->id,
+            ]);
+        }
+
         return redirect()->back()->withSuccess(__('Your Specialization is Successfully Saved'));
     }
 }

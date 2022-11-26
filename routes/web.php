@@ -380,8 +380,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     //store Schedule
     Route::post('/store/schedule', [DoctorSchedule::class, 'insert'])->name('store.schedule.doctor');
     //Doctor Specialization
-    Route::get('/doctor/specialization', [Specialization::class, 'index'])->name('doctorSpecialization');
-    Route::post('/doctor/specialized', [Specialization::class, 'store'])->name('doctorSpecialized');
+    Route::get('/specialization', [Specialization::class, 'index'])->name('doctorSpecialization');
+    Route::post('/specialized', [Specialization::class, 'store'])->name('doctorSpecialized');
 
     //list of Schedules
     Route::get('/schedules', [DoctorSchedule::class, 'schedules'])->name('list.schedules.doctor');
