@@ -60,7 +60,7 @@
                                 <div class=" row mb-4">
                                     <label  for="specialization" class="col-md-3 form-label"> Select Specialization</label>
                                     <div class="col-md-9">
-                                        <select class="form-control" name="specialization_id" id="specialization">
+                                        <select class="form-control js-example-basic-multiple" name="specialization_id[]" multiple="multiple id="specialization">
                                             <option value="">Select</option>
                                             @if($specializations)
                                             @foreach($specializations as $specialization)
@@ -72,6 +72,12 @@
                                     @if ($errors->has('name'))
                                     <span class="text-danger text-left">{{ $errors->first('name') }}</span>
                                     @endif
+                                </div>
+                                <div class=" row mb-4">
+                                    <label for="image" class="col-md-3 form-label">Picture</label>
+                                    <div class="col-md-9">
+                                        <input type="file" name="image" id="image">
+                                    </div>
                                 </div>
                                 <div class=" row mb-4">
                                     <label for="country" class="col-md-3 form-label"> Select Status </label>
@@ -95,6 +101,7 @@
                                         @endif
                                     </select>
                                 </div>
+                                
                                 <input type="hidden" name="level" value="Department">
                                 <div class="mb-0 mt-4 row justify-content-end">
                                     <div class="col">

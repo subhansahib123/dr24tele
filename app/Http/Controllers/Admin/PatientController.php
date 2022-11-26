@@ -305,6 +305,7 @@ class PatientController extends Controller
     public function patientsList($uuid)
     {
         // dd(1);
+        
 
         $curl = curl_init();
         $baseUrl = config('services.ehr.baseUrl');
@@ -344,13 +345,12 @@ class PatientController extends Controller
 
                 return redirect()->back()->withErrors(['error' => __($error)]);;
             } else {
-                // dd($request->all());
                 $patients = json_decode($response);
 
                 
                 if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
                     curl_close($curl);
-                    // dd($patients);
+                    dd($patients);
                     return view('admin_panel.patients.showPatients', ['patients' => $patients]);
                 }else if (isset($patients->message) && $patients->message == "API rate limit exceeded") {
                     curl_close($curl);
