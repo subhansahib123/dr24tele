@@ -25,6 +25,7 @@ class Specialization extends Controller
         $uuid = $userInfo['uuid'];
         $user = User::with('doctor')->where('uuid', $uuid)->first();
         $doctor = Doctor::where('user_id', $user->id)->first();
+        
         // dd($doctor->specialization_id);
         return view('doctor_panel.personalInfo.specialization', ['specializations' => $specializations, 'doctor' => $doctor]);
     }
@@ -46,14 +47,16 @@ class Specialization extends Controller
         $user = User::with('doctor')->where('uuid', $uuid)->first();
         $doctor = Doctor::where('user_id', $user->id)->first();
         $specializations = $request->specialization_id;
+        $doctor->specialization()->sync($specializations);
+        
         // dd($specializations,$doctor);
-        foreach ($specializations as $specialization) {
-            // dd($specialization);
-            SpecializedDoctor::firstOrCreate([
-                'specialization_id' => $specialization,
-                'doctor_id' => $doctor->id,
-            ]);
-        }
+        // foreach ($specializations as $specialization) {
+        //     // dd($specialization);
+        //     SpecializedDoctor::firstOrCreate([
+        //         'specialization_id' => $specialization,
+        //         'doctor_id' => $doctor->id,
+        //     ]);
+        // }
 
         return redirect()->back()->withSuccess(__('Your Specialization is Successfully Saved'));
     }

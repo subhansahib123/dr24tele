@@ -36,7 +36,13 @@
                                             <option value="">Select</option>
                                             @if($specializations)
                                             @foreach ($specializations as $specialization)
-                                            <option value="{{$specialization->id}}">{{$specialization->name}}</option>
+                                            <option value="{{$specialization->id}}" 
+                                            @foreach($doctor->specialization as $DS)
+                                            @if($DS->id == $specialization->id)
+                                             selected
+                                            @endif
+                                            @endforeach
+                                            >{{$specialization->name}}</option>
                                             @endforeach
                                             @endif
                                         </select>
