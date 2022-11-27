@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\FamilyMembers;
 use Auth;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth as FacadesAuth;
 
 class FamilyMembersController extends Controller
 {
@@ -20,9 +21,10 @@ class FamilyMembersController extends Controller
         $request->validate([
             'memberName' => 'required|string',
             'email' => 'required|string',
-            'phoneNumber' => 'required|integer',
+            'phoneNumber' => 'required|string',
             'relation' => 'required|string',
         ]);
+
         $userInfo = Auth::user()->patient->id;
         // dd(Auth::user()->patient->id);
         $user = FamilyMembers::where('name', $request->memberName)->where('patient_id', $userInfo)->first();
@@ -57,7 +59,7 @@ class FamilyMembersController extends Controller
         $request->validate([
             'memberName' => 'required|string',
             'email' => 'required|string',
-            'phoneNumber' => 'required|integer',
+            'phoneNumber' => 'required|string',
             'relation' => 'required|string',
         ]);
 

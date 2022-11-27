@@ -335,7 +335,7 @@
 
                                     <a class="dropdown-item" href="{{route('displayNameUpdate')}}">
                                         <i class="dropdown-icon fe fe-user"></i> Update Name
-                                    </a><a class="dropdown-item" href="{{route('phoneNumberUpdate')}}">
+                                    </a><a class="dropdown-item" href="{{route('verify.phoneNumber')}}">
                                         <i class="dropdown-icon fe fe-user"></i> Update Phone No
                                     </a>
                                     <div class="dropdown-divider m-0"></div>

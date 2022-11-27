@@ -9,64 +9,68 @@
         <!-- CONTAINER -->
         <div class="main-container container-fluid">
 
-            <!-- PAGE-HEADER -->
-            <div class="page-header">
-                <h1 class="page-title">Family Members</h1>
-                <div>
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Members List</li>
-                    </ol>
-                </div>
-            </div>
-            <!-- PAGE-HEADER END -->
+        @include('admin_panel.frontend.includes.messages')
 
             <!-- Row -->
             <div class="row">
                 <div class="col-xl-12 col-md-12 col-sm-6">
                     <div class="card">
+                        <div class="card-header">
+                            <div class="col-5">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Family Members</li>
+                                </ol>
+                            </div>
+                            <div class="col-4">
+                                <span class="card-title"><strong>Members List</strong></span>
+                            </div>
+
+                            <div class="col-3 text-end">
+                                <a href="{{route('createMembers')}}" class="btn btn-sm btn-success">Add <i class="fa fa-plus" data-toggle="tooltip" data-placement="top" title="Add New"></i></a>
+                                <a href="{{route('patient.dashboard')}}" class="btn btn-sm btn-info" data-toggle="Go Back">Back <i class="fa fa-reply"></i></a>
+
+                            </div>
+                        </div>
                         <div class="card-body">
-                            @include('admin_panel.frontend.includes.messages')
                             <div class="table-responsive">
                                 <div class="bg-light p-4 ">
-                                    <div class="container mt-4">
-                                        <table class="table table-striped">
-                                            <thead>
-                                                <th scope="col" width="20%">Name</th>
-                                                <th scope="col" width="1%">Relation</th>
-                                               <th scope="col" width="1%"></th>
-                                               <th scope="col" width="1%"></th>
-                                            </thead>
-                                            @if(isset($all_members))
-                                            @foreach($all_members as $all_member)
-                                            <tr>
-                                                <td>
-                                                    {{$all_member->name}}
-                                                </td>
-                                                <td>
-                                                    {{$all_member->relation}}
-                                                </td>
-                                                
-                                                <td>
-                                                    <a href="{{route('updateMembers',[$all_member->id])}}" class="btn btn-primary">Update</a>
-                                                </td>
-                                                <td>
-                                                    <a href="{{route('deleteMembers',[$all_member->id])}}" class="btn btn-danger">delete</a>
-                                                </td>
-                                            </tr>
-                                            @endforeach
-                                            @else
-                                            <tr>
-                                                <td>
-                                                    No Record
-                                                </td>
-                                            </tr>
-                                            @endif
-                                        </table>
+
+                                    <div class="table-responsive">
+                                        <div class="bg-light  ">
+
+                                            <table class="table table-striped" id="datatable">
+                                                <thead>
+                                                    <th scope="col">Member Name</th>
+                                                    <th scope="col">Relation</th>
+                                                    <th class="text-end">Action</th>
+                                                </thead>
+
+
+                                                @foreach($all_members as $all_member)
+                                                <tr>
+
+                                                    <td>
+                                                        {{$all_member->name}}
+
+                                                    </td>
+                                                    <td>
+                                                        {{$all_member->relation}}
+
+                                                    </td>
+                                                    <td class="text-end">
+                                                        <a href="{{route('updateMembers',[$all_member->id])}}"><button class="btn btn-info"><i class="fa fa-edit"></i></button></a>
+                                                        <a href="{{route('deleteMembers',[$all_member->id])}}"><button class="btn btn-danger"><i class="fa fa-trash"></i></button></a>
+                                                    </td>
+
+
+
+                                                </tr>
+                                                @endforeach
+                                            </table>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="mt-4">
-                                    <a href="{{route('patient.dashboard')}}" class="btn btn-info">Back</a>
+
                                 </div>
                             </div>
                         </div>
