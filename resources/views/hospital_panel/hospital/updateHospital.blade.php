@@ -3,37 +3,35 @@
 @section('content')
 
 
-<div class="main-content app-content mt-0">
+<div class="main-content app-content mt-5">
     <div class="side-app">
 
         <!-- CONTAINER -->
         <div class="main-container container-fluid">
-
-            <!-- PAGE-HEADER -->
-            <div class="page-header">
-                <h1 class="page-title">Update Hospital</h1>
-                <div>
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Update Hospital</li>
-                    </ol>
-                </div>
-            </div>
-            <!-- PAGE-HEADER END -->
+        @include('admin_panel.frontend.includes.messages')
 
             <!-- Row -->
             <div class="row">
                 <div class="col-md-12 col-xl-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class=""> Update Detials
-                            </h4>
+                            <div class="col-5">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Update Hospital</li>
+                                </ol>
+                            </div>
+                            <div class="col-6">
+                                <span class="card-title"><strong>Hospital Details </strong></span>
+                            </div>
+
+                            <div class="col-1">
+                            </div>
                         </div>
-                        @include('admin_panel.frontend.includes.messages')
                         <div class="card-body">
                             <form class="form-horizontal" action="{{route('hospitalUpdated')}}" method="POST">
                                 @csrf
-                                <div class=" row mb-4">
+                                <div class=" row mb-1">
 
                                     <label for="displayname" class="col-md-3 form-label"> Display Name</label>
                                     <div class="col-md-9">
@@ -45,7 +43,7 @@
                                 </div>
                                 <input type="hidden" class="form-control" value="{{$organization->uuid}}" name="OrgUuid" id="OrgUuid" placeholder="Display Name" autocomplete="OrgUuid">
 
-                                <div class=" row mb-4" style="display:none">
+                                <div class=" row mb-1" style="display:none">
                                     <label for="username" class="col-md-3 form-label"> User Name</label>
                                     <div class="col-md-9">
                                         <input type="text" class="form-control" value="{{$orgData->name}}" name="name" id="username" placeholder="Username">
@@ -55,7 +53,7 @@
                                     @endif
                                 </div>
 
-                                <div class=" row mb-4">
+                                <div class=" row mb-1">
                                     <label for="email" class="col-md-3 form-label"> Contact Person Designation</label>
                                     <div class="col-md-9">
                                         <input type="text" class="form-control" value="{{$organization->contactperson}}" name="contactperson" id="contactperson" placeholder="Contact Person Designation" autocomplete="contactperson">
@@ -64,19 +62,19 @@
                                     <span class="text-danger text-left">{{ $errors->first('contactperson') }}</span>
                                     @endif
                                 </div>
-                                <div class="row  addresss">
-                                    <div class="col-3 pt-2">
+                                <div class="row my-0 addresss">
+                                    <div class="col-3 my-0 pt-2">
                                         <label for="exampleInputnumber"><Strong> Contact Number</Strong></label>
                                     </div>
-                                    <div class="col-9 form-group">
-                                        <input type="text" id="txtPhone"  name="" class="form-control">
+                                    <div class="col-9 my-0 form-group">
+                                        <input type="text" id="txtPhone" name="" class="form-control">
                                         <input type="hidden" class="form-control" id="phoneNumber">
                                     </div>
                                     @if ($errors->has('contactperson'))
                                     <span class="text-danger text-left">{{ $errors->first('contactperson') }}</span>
                                     @endif
                                 </div>
-                                <div class=" row mb-4 addresss">
+                                <div class=" row my-1 addresss">
                                     <label for="country" class="col-md-3 form-label"> Select Country </label>
                                     <div class="col-md-9">
                                         <input type="hidden" value="" name="country" id="country_value" />
@@ -91,7 +89,7 @@
                                     <span class="text-danger text-left">{{ $errors->first('contactperson') }}</span>
                                     @endif
                                 </div>
-                                <div class=" row mb-4 addresss">
+                                <div class=" row mb-1 addresss">
                                     <label for="country" class="col-md-3 form-label"> Select State </label>
                                     <input type="hidden" value="" name="state" id="state_value" />
                                     <div class="col-md-9">
@@ -104,7 +102,7 @@
                                     <span class="text-danger text-left">{{ $errors->first('contactperson') }}</span>
                                     @endif
                                 </div>
-                                <div class=" row mb-4 addresss">
+                                <div class=" row mb-1 addresss">
                                     <label for="country" class="col-md-3 form-label"> Select City </label>
                                     <input type="hidden" value="" name="city" id="city_value" />
                                     <div class="col-md-9">
@@ -116,32 +114,32 @@
                                     <span class="text-danger text-left">{{ $errors->first('contactperson') }}</span>
                                     @endif
                                 </div>
-                                <div class=" row mb-4">
+                                <div class=" row mb-1">
                                     <label for="inputEmail3" class="col-md-3 form-label">Email</label>
                                     <div class="col-md-9">
                                         <input type="email" class="form-control" value="{{$organization->email}}" name="email" placeholder="Email" autocomplete="username">
                                     </div>
                                 </div>
 
-                                <div class=" row mb-4 addresss">
+                                <div class=" row mb-1 addresss">
                                     <label for="building" class="col-md-3 form-label">Building</label>
                                     <div class="col-md-9">
                                         <input type="text" class="form-control" value="{{$organization->address[0]->building}}" id="building" name="building" placeholder="Building Address">
                                     </div>
                                 </div>
-                                <div class=" row mb-4 addresss">
+                                <div class=" row mb-1 addresss">
                                     <label for="district" class="col-md-3 form-label">District</label>
                                     <div class="col-md-9">
                                         <input type="text" class="form-control" value="{{$organization->address[0]->district}}" id="district" name="district" placeholder="District">
                                     </div>
                                 </div>
-                                <div class=" row mb-4 addresss">
+                                <div class=" row mb-1 addresss">
                                     <label for="postalCode" class="col-md-3 form-label">Postal Code</label>
                                     <div class="col-md-9">
                                         <input type="number" class="form-control" value="{{$organization->address[0]->postalCode}}" id="postalCode" name="postalCode" placeholder="Postal Code">
                                     </div>
                                 </div>
-                                <div class=" row mb-4">
+                                <div class=" row mb-1">
                                     <label for="country" class="col-md-3 form-label"> Select Status </label>
                                     <div class="col-md-9">
                                         <select class="form-control" name="status" id="state">
@@ -152,7 +150,13 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="mb-0 mt-4 row justify-content-end">
+                                <div class=" row  mb-1">
+                                    <label for="image" class="col-md-3 form-label"> Picture </label>
+                                    <div class="col-md-9">
+                                        <input type="file" name="image" id="image">
+                                    </div>
+                                </div>
+                                <div class="mb-0 mt-4 row card-footer text-end">
                                     <div class="col">
                                         <button class="btn btn-primary" type="submit">Update</button>
                                         <span><a href="{{route('hospital.dashboard')}}" class="btn btn-secondary  ">Cancel</a></span>
