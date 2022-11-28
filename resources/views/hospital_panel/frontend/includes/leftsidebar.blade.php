@@ -3,7 +3,7 @@
     <div class="app-sidebar__overlay" data-bs-toggle="sidebar"></div>
     <div class="app-sidebar">
         <div class="side-header my-2">
-            <a class="header-brand1 " href="{{ route('dashboard') }}">
+            <a class="header-brand1 " href="{{ route('hospital.dashboard') }}">
                 <img src="{{ asset('assets/images/logo.png') }}" class="header-brand-img light-logo" alt="logo">
                 <img src="{{ asset('assets/images/logo.png') }}" class="header-brand-img light-logo1" alt="logo">
                 <!-- <h3>DrTele</h3> -->
@@ -53,17 +53,7 @@
 
 
 
-                <li class="slide">
-                    <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
-                            class="side-menu__icon fe fe-users"></i><span class="side-menu__label">Managements</span><i
-                            class="angle fe fe-chevron-right"></i></a>
-                    <ul class="slide-menu nav-tree">
-                        <li><a href="{{ route('createHospital.user') }}" class="slide-item"> Create</a></li>
-                        <!-- <li><a href="{{ route('mapHospital.user') }}" class="slide-item">list</a></li> -->
-                        <li><a href="{{ route('allHospital.users') }}" class="slide-item"> List</a></li>
-
-                    </ul>
-                </li>
+                
                 <li class="slide">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
                             class="side-menu__icon fa fa-stethoscope"></i><span class="side-menu__label">
@@ -83,20 +73,17 @@
                     </ul>
                 </li>
                 <li class="slide">
-                    <a class="side-menu__item has-link" data-bs-toggle="slide" href="{{ route('create.doctor') }}"><i
-                            class="side-menu__icon fa fa-user-md"></i><span
-                            class="side-menu__label">Doctors</span></a>
-                </li>
-                <li class="slide">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
-                            class="side-menu__icon fa fa-wheelchair"></i><span
-                            class="side-menu__label">Patients</span><i class="angle fe fe-chevron-right"></i></a>
+                            class="side-menu__icon fe fe-users"></i><span class="side-menu__label">Managements</span><i
+                            class="angle fe fe-chevron-right"></i></a>
                     <ul class="slide-menu nav-tree">
-                        <li><a href="{{ route('createHospital.patients') }}" class="slide-item"> Create</a></li>
-                        <li><a href="{{ route('hospitalAll.patients') }}" class="slide-item"> List</a></li>
+                        <li><a href="{{ route('createHospital.user') }}" class="slide-item"> Create</a></li>
+                        <!-- <li><a href="{{ route('mapHospital.user') }}" class="slide-item">list</a></li> -->
+                        <li><a href="{{ route('allHospital.users') }}" class="slide-item"> List</a></li>
 
                     </ul>
                 </li>
+                
                 <li class="slide">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
                             class="side-menu__icon fa fa-ticket"></i><span
@@ -118,7 +105,23 @@
                     </ul>
 
                 </li>
+                <li class="slide">
+                    <a class="side-menu__item has-link" data-bs-toggle="slide" href="{{ route('create.doctor') }}"><i
+                            class="side-menu__icon fa fa-user-md"></i><span
+                            class="side-menu__label">Doctors</span></a>
+                </li>
+                <li class="slide">
+                    <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
+                            class="side-menu__icon fa fa-wheelchair"></i><span
+                            class="side-menu__label">Patients</span><i class="angle fe fe-chevron-right"></i></a>
+                    <ul class="slide-menu nav-tree">
+                        <li><a href="{{ route('createHospital.patients') }}" class="slide-item"> Create</a></li>
+                        <li><a href="{{ route('hospitalAll.patients') }}" class="slide-item"> List</a></li>
+
+                    </ul>
+                </li>
             </ul>
+            
             <div class="slide-right" id="slide-right"><svg xmlns="http://www.w3.org/2000/svg" fill="#7b8191"
                     width="24" height="24" viewBox="0 0 24 24">
                     <path d="M10.707 17.707 16.414 12l-5.707-5.707-1.414 1.414L13.586 12l-4.293 4.293z" />

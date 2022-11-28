@@ -11,7 +11,7 @@
         @include('admin_panel.frontend.includes.messages')
 
             <!-- Row -->
-            <div class="row">
+            <div class="row mt-3">
                 <div class="col-md-12 col-xl-12">
                     <div class="card">
                         <div class="card-header">
@@ -156,7 +156,7 @@
                                         <input type="file" name="image" id="image">
                                     </div>
                                 </div>
-                                <div class="mb-0 mt-4 row card-footer text-end">
+                                <div class="mx-0 px-0 mt-4 row card-footer text-end">
                                     <div class="col">
                                         <button class="btn btn-primary" type="submit">Update</button>
                                         <span><a href="{{route('hospital.dashboard')}}" class="btn btn-secondary  ">Cancel</a></span>

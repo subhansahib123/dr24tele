@@ -174,11 +174,7 @@
 
     <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase.js"></script>
     <script>
-        var loggedIn = {
-            {
-                auth() - > check() ? 1 : 0
-            }
-        };
+        let loggedIn=`{{auth()->check()?1:0}}`
         var user_id = '';
         @auth
         if (loggedIn == 1) {
