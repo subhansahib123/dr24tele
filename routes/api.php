@@ -6,6 +6,7 @@ use App\Http\Controllers\API\Doctor\APIDoctorScheduleController;
 use App\Http\Controllers\API\Patient\APIFamilyMembersController;
 use App\Http\Controllers\API\Patient\APIPatientAuthenticationController;
 use App\Http\Controllers\API\Patient\APIPersonalDetailsController;
+use App\Http\Controllers\API\Doctor\APIPersonalDetailsController as PersonDetails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\OrganizationController;
@@ -55,6 +56,7 @@ Route::group(['prefix' => 'patient','middleware' => ['auth:sanctum']], function 
     Route::post('/member/delete/{id}', [APIFamilyMembersController::class, 'delete'])->name('deleteMembers');
     Route::post('/Number/updated', [APIPersonalDetailsController::class, 'phoneNumberUpdated'])->name('phone.NumberUpdated');
     Route::post('/displayName/updated', [APIPersonalDetailsController::class, 'displayNameUpdated'])->name('displayNameUpdated');
+    Route::get('/appointments', [APIPersonalDetailsController::class, 'appointments'])->name('appointments');
     Route::post('/logout', [APIPatientAuthenticationController::class, 'logout']);
 });
 //Doctor
@@ -64,5 +66,7 @@ Route::group(['prefix' => 'doctor','middleware' => ['auth:sanctum']], function (
     Route::get('/schedules', [APIDoctorScheduleController::class, 'schedules'])->name('list.schedules.doctor');
     Route::post('update/schedule/{id}', [APIDoctorScheduleController::class, 'update'])->name('update.schedule.doctor');
     Route::post('/delete/schedule/{id}', [APIDoctorScheduleController::class, 'delete'])->name('delete.schedule.doctor');
+    Route::get('/appointments', [APIDoctorScheduleController::class, 'appointments'])->name('doctor.appointments');
+    Route::post('/displayName/updated', [PersonDetails::class, 'displayNameUpdated'])->name('displayNameUpdated');
 });
 

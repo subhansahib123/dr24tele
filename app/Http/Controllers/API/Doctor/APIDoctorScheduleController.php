@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\Doctor;
 
 use App\Http\Controllers\Controller;
+use App\Models\Appointment;
 use App\Models\Doctor;
 use App\Models\Schedule;
 use Carbon\Carbon;
@@ -222,5 +223,38 @@ class APIDoctorScheduleController extends Controller
             ]);
         }
 
+    }
+
+    public function appointments()
+    {
+        if (!Auth::check()){
+            return response()->json([
+                'status' => [
+                    'status_code' => 200,
+                    'message' => 'Ok'
+                ],
+                'data' => [],
+                'message' => [
+                    "status_code"=> 200,
+                    'msg_status' => 'Login Token Expired ! Please login Again',
+                ]
+            ]);
+        }
+        $doctor_id = auth()->user()->doctor->id;
+        // dd($doctor_id);
+        $appointements = Appointment::where('doctor_id', $doctor_id)->get();
+        return response()->json([
+            'status' => [
+                'status_code' => 200,
+                'message' => 'Ok'
+            ],
+            'data' => [
+                "appointments"=>$appointements,
+            ],
+            'message' => [
+                "status_code"=> 200,
+                'msg_status' => 'Fetch All Appointments Successfully',
+            ]
+        ]);
     }
 }

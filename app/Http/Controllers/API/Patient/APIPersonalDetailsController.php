@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API\Patient;
 
 use App\Http\Controllers\Controller;
+use App\Models\Appointment;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -106,5 +107,24 @@ class APIPersonalDetailsController extends Controller
                 ]
             ]);
         }
+    }
+
+    public function appointments(){
+        $patient_id=auth()->user()->patient->id;
+        // dd(Auth::user()->patient->id);
+        $appointments=Appointment::where('patient_id', $patient_id)->get();
+        return response()->json([
+            'status' => [
+                'status_code' => 200,
+                'message' => 'Ok'
+            ],
+            'data' => [
+                "appointments"=>$appointments,
+            ],
+            'message' => [
+                "status_code"=> 200,
+                'msg_status' => 'Fetch All Appointments Successfully',
+            ]
+        ]);
     }
 }
