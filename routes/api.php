@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\PersonController;
 use App\Http\Controllers\API\Doctor\APIDoctorAuthenticationController;
 use App\Http\Controllers\API\Doctor\APIDoctorScheduleController;
+use App\Http\Controllers\API\Doctor\APIDoctorSpecializationController;
 use App\Http\Controllers\API\Patient\APIFamilyMembersController;
 use App\Http\Controllers\API\Patient\APIPatientAuthenticationController;
 use App\Http\Controllers\API\Patient\APIPersonalDetailsController;
@@ -68,5 +69,7 @@ Route::group(['prefix' => 'doctor','middleware' => ['auth:sanctum']], function (
     Route::post('/delete/schedule/{id}', [APIDoctorScheduleController::class, 'delete'])->name('delete.schedule.doctor');
     Route::get('/appointments', [APIDoctorScheduleController::class, 'appointments'])->name('doctor.appointments');
     Route::post('/displayName/updated', [PersonDetails::class, 'displayNameUpdated'])->name('displayNameUpdated');
+    Route::get('/specialization', [APIDoctorSpecializationController::class, 'index'])->name('doctorSpecialization');
+    Route::post('/specialized', [APIDoctorSpecializationController::class, 'store'])->name('doctorSpecialized');
 });
 
