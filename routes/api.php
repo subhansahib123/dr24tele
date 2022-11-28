@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Admin\PersonController;
+use App\Http\Controllers\API\Doctor\APIDoctorAuthenticationController;
+use App\Http\Controllers\API\Doctor\APIDoctorScheduleController;
 use App\Http\Controllers\API\Patient\APIFamilyMembersController;
 use App\Http\Controllers\API\Patient\APIPatientAuthenticationController;
 use App\Http\Controllers\API\Patient\APIPersonalDetailsController;
@@ -46,7 +48,6 @@ Route::get('/convert-currency',[CurrencyController::class,'ConvertCurrency'])->n
 
 //Patient
 Route::post('/patient/logined', [APIPatientAuthenticationController::class, 'performLogin']);
-
 Route::group(['prefix' => 'patient','middleware' => ['auth:sanctum']], function () {
     Route::post('/member/created', [APIFamilyMembersController::class, 'create'])->name('membersCreated');
     Route::get('/member/list', [APIFamilyMembersController::class, 'list'])->name('membersList');
@@ -56,5 +57,12 @@ Route::group(['prefix' => 'patient','middleware' => ['auth:sanctum']], function 
     Route::post('/displayName/updated', [APIPersonalDetailsController::class, 'displayNameUpdated'])->name('displayNameUpdated');
     Route::post('/logout', [APIPatientAuthenticationController::class, 'logout']);
 });
-
+//Doctor
+Route::post('/doctor/logined', [APIDoctorAuthenticationController::class, 'doctorLogin']);
+Route::group(['prefix' => 'doctor','middleware' => ['auth:sanctum']], function () {
+    Route::post('/store/schedule', [APIDoctorScheduleController::class, 'insert'])->name('store.schedule.doctor');
+    Route::get('/schedules', [APIDoctorScheduleController::class, 'schedules'])->name('list.schedules.doctor');
+    Route::post('update/schedule/{id}', [APIDoctorScheduleController::class, 'update'])->name('update.schedule.doctor');
+    Route::post('/delete/schedule/{id}', [APIDoctorScheduleController::class, 'delete'])->name('delete.schedule.doctor');
+});
 
