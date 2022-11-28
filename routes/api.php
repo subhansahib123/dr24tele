@@ -49,7 +49,8 @@ Route::post('/patient/logined', [APIPatientAuthenticationController::class, 'per
 Route::group(['prefix' => 'patient','middleware' => ['auth:sanctum']], function () {
     Route::post('/member/created', [APIFamilyMembersController::class, 'create'])->name('membersCreated');
     Route::get('/member/list', [APIFamilyMembersController::class, 'list'])->name('membersList');
-    Route::post('/member/updated', [APIFamilyMembersController::class, 'update'])->name('membersUpdated');
+    Route::post('/member/updated/{id}', [APIFamilyMembersController::class, 'update'])->name('membersUpdated');
+    Route::post('/member/delete/{id}', [APIFamilyMembersController::class, 'delete'])->name('deleteMembers');
     Route::post('/logout', [APIPatientAuthenticationController::class, 'logout']);
 });
 

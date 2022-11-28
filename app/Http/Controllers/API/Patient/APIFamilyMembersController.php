@@ -98,7 +98,7 @@ class APIFamilyMembersController extends Controller
         ]);
     }
     //Update Member
-    public function update(Request $request)
+    public function update(Request $request,$id)
     {
         $rules=array(
             'memberName' => 'required|string',
@@ -121,7 +121,7 @@ class APIFamilyMembersController extends Controller
             ]);
         }
         else {
-            $memberId = $request->get('id');
+            $memberId = $id;
             $memberName = $request->get('memberName');
             $email = $request->get('email');
             $phoneNumber = $request->get('phoneNumber');
@@ -145,6 +145,42 @@ class APIFamilyMembersController extends Controller
                 'message' => [
                     "status_code"=> 200,
                     'msg_status' => 'Member Details are Successfully Updated',
+                ]
+            ]);
+        }
+    }
+    //Delete Member
+    public function delete($id)
+    {
+        $member = FamilyMembers::find($id);
+        if (isset($member)) {
+            $member->delete();
+            return response()->json([
+                'status' => [
+                    'status_code' => 200,
+                    'message' => 'Ok'
+                ],
+                'data' => [
+                    "member" => $member,
+                ],
+                'message' => [
+                    "status_code" => 200,
+                    'msg_status' => 'Member is  Successfully Deleted',
+                ]
+            ]);
+        }
+        else{
+            return response()->json([
+                'status' => [
+                    'status_code' => 200,
+                    'message' => 'Ok'
+                ],
+                'data' => [
+                    "member" => "",
+                ],
+                'message' => [
+                    "status_code" => 200,
+                    'msg_status' => 'Member Already Deleted',
                 ]
             ]);
         }
