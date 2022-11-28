@@ -7,29 +7,30 @@
     <div class="side-app">
         <!-- CONTAINER -->
         <div class="main-container container-fluid">
-            <!-- PAGE-HEADER -->
-            <div class="page-header">
-                <h1 class="page-title">Create Management</h1>
-                <div>
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="javascript:void(0)">Pages</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Create Management</li>
-                    </ol>
-                </div>
-            </div>
-            <!-- PAGE-HEADER END -->
+        @include('admin_panel.frontend.includes.messages')
+
             <!-- ROW-1 OPEN -->
             <div class="row">
                 <div class="form-group">
-                    @include('admin_panel.frontend.includes.messages')
                 </div>
                 <div class="col-xl-12">
                     <div class="card">
                         <form action="{{ route('storeHospital.user') }}" method="POST">
                             @csrf
                             <div class="card-header">
-                                <h3 class="card-title">Management Details</h3>
+                            <div class="col-5">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Create Management</li>
+                                </ol>
                             </div>
+                            <div class="col-6">
+                                <span class="card-title"><strong> Management Details</strong></span>
+                            </div>
+
+                            <div class="col-1">
+                            </div>
+                        </div>
                             <div class="card-body">
                                 <div class="row">
                                     <h3>User</h3>
@@ -117,7 +118,7 @@
                                 </div>
 
                             </div>
-                            <div class="card-footer ">
+                            <div class="card-footer text-end  ">
                                 <button type="submit" class="btn btn-primary my-1">Create</button>
                                 <span><a href="{{route('hospital.dashboard')}}" class="btn btn-info  ">Cancel</a></span>
 

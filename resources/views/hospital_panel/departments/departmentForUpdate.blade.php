@@ -3,33 +3,32 @@
 @section('content')
 
 
-<div class="main-content app-content mt-0">
+<div class="main-content app-content mt-5">
     <div class="side-app">
 
         <!-- CONTAINER -->
         <div class="main-container container-fluid">
 
-            <!-- PAGE-HEADER -->
-            <div class="page-header">
-                <h1 class="page-title">Update Department</h1>
-                <div>
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Update Department</li>
-                    </ol>
-                </div>
-            </div>
-            <!-- PAGE-HEADER END -->
+        @include('admin_panel.frontend.includes.messages')
 
             <!-- Row -->
             <div class="row">
                 <div class="col-md-12 col-xl-12">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="">  Department
-                            </h4>
+                            <div class="col-5">
+                                <ol class="breadcrumb">
+                                    <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                                    <li class="breadcrumb-item active" aria-current="page">Update Department</li>
+                                </ol>
+                            </div>
+                            <div class="col-6">
+                                <span class="card-title"><strong> Department Details </strong></span>
+                            </div>
+
+                            <div class="col-1">
+                            </div>
                         </div>
-                        @include('admin_panel.frontend.includes.messages')
                         <div class="card-body">
                             <form class="form-horizontal" action="{{route('hospitalDepartment.updated')}}" method="POST">
                                 @csrf
@@ -45,8 +44,8 @@
                                 </div>
                                 <input type="hidden" class="form-control" value="{{$organization->uuid}}" name="DepUuid" id="OrgUuid" placeholder="Display Name" autocomplete="OrgUuid">
 
-                                        <input type="hidden" class="form-control" value="{{$depData->name}}"  name="name" >
-                        
+                                <input type="hidden" class="form-control" value="{{$depData->name}}" name="name">
+
 
                                 <div class=" row mb-4">
                                     <label for="inputEmail3" class="col-md-3 form-label">Email</label>
@@ -66,10 +65,16 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="mb-0 mt-4 row justify-content-end">
+                                <div class=" row  mb-1">
+                                    <label for="image" class="col-md-3 form-label"> Picture </label>
+                                    <div class="col-md-9">
+                                        <input type="file" name="image" id="image">
+                                    </div>
+                                </div>
+                                <div class="mx-0 px-0 mt-4 row card-footer text-end">
                                     <div class="col">
                                         <button class="btn btn-primary" type="submit">Update</button>
-                                        <span><a href="{{route('hospital.dashboard')}}" class="btn btn-info  ">Cancel</a></span>                             
+                                        <span><a href="{{route('hospital.dashboard')}}" class="btn btn-info  ">Cancel</a></span>
 
                                     </div>
                                 </div>

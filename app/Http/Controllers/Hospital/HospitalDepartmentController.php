@@ -38,6 +38,7 @@ class HospitalDepartmentController extends Controller
             'status' => 'required|string',
             'email' => 'required|string',
             'level' => 'string',
+            'image' => 'required',
             'specialization_id.*' => 'required|string',
 
         ]);
@@ -344,6 +345,7 @@ class HospitalDepartmentController extends Controller
             'displayname' => 'required|string',
             'status' => 'required|string',
             'email' => 'required|string',
+            'image' => 'required',
             'level' => 'SubOrg',
         ]);
         $data = [

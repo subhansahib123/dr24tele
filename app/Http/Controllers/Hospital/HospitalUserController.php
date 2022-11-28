@@ -296,7 +296,7 @@ class HospitalUserController extends Controller
     }
     public function hospitalUserMapped(Request $request)
     {
-
+        // dd($request->all());
 
         $curl = curl_init();
 
@@ -726,6 +726,7 @@ class HospitalUserController extends Controller
             'name' => 'required|string',
             'status' => 'required|string',
             'email' => 'required|string',
+            'image' => 'required',
             'contactperson' => 'required|string',
             'phoneNumber' => 'required|string',
         ]);
