@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\PersonController;
 use App\Http\Controllers\API\Patient\APIFamilyMembersController;
 use App\Http\Controllers\API\Patient\APIPatientAuthenticationController;
+use App\Http\Controllers\API\Patient\APIPersonalDetailsController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\OrganizationController;
@@ -51,6 +52,8 @@ Route::group(['prefix' => 'patient','middleware' => ['auth:sanctum']], function 
     Route::get('/member/list', [APIFamilyMembersController::class, 'list'])->name('membersList');
     Route::post('/member/updated/{id}', [APIFamilyMembersController::class, 'update'])->name('membersUpdated');
     Route::post('/member/delete/{id}', [APIFamilyMembersController::class, 'delete'])->name('deleteMembers');
+    Route::post('/Number/updated', [APIPersonalDetailsController::class, 'phoneNumberUpdated'])->name('phone.NumberUpdated');
+    Route::post('/displayName/updated', [APIPersonalDetailsController::class, 'displayNameUpdated'])->name('displayNameUpdated');
     Route::post('/logout', [APIPatientAuthenticationController::class, 'logout']);
 });
 
