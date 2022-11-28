@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\Admin\PersonController;
+use App\Http\Controllers\API\Patient\APIFamilyMembersController;
+use App\Http\Controllers\API\Patient\APIPatientAuthenticationController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\OrganizationController;
@@ -40,4 +42,15 @@ Route::post('/send-web-notification', [homeController::class, 'sendWebNotificati
 Route::get('/agoraToken',[PatientAuthenticationController::class,'generate_token' ]);
 
 Route::get('/convert-currency',[CurrencyController::class,'ConvertCurrency'])->name('convert.currency');
+
+//Patient
+Route::post('/patient/logined', [APIPatientAuthenticationController::class, 'performLogin']);
+
+Route::group(['prefix' => 'patient','middleware' => ['auth:sanctum']], function () {
+    Route::post('/member/created', [APIFamilyMembersController::class, 'create'])->name('membersCreated');
+    Route::get('/member/list', [APIFamilyMembersController::class, 'list'])->name('membersList');
+    Route::post('/member/updated', [APIFamilyMembersController::class, 'update'])->name('membersUpdated');
+    Route::post('/logout', [APIPatientAuthenticationController::class, 'logout']);
+});
+
 
