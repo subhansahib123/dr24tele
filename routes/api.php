@@ -1,6 +1,13 @@
 <?php
 
 use App\Http\Controllers\Admin\PersonController;
+use App\Http\Controllers\API\Doctor\APIDoctorAuthenticationController;
+use App\Http\Controllers\API\Doctor\APIDoctorScheduleController;
+use App\Http\Controllers\API\Doctor\APIDoctorSpecializationController;
+use App\Http\Controllers\API\Patient\APIFamilyMembersController;
+use App\Http\Controllers\API\Patient\APIPatientAuthenticationController;
+use App\Http\Controllers\API\Patient\APIPersonalDetailsController;
+use App\Http\Controllers\API\Doctor\APIPersonalDetailsController as PersonDetails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\OrganizationController;
@@ -40,4 +47,29 @@ Route::post('/send-web-notification', [homeController::class, 'sendWebNotificati
 Route::get('/agoraToken',[PatientAuthenticationController::class,'generate_token' ]);
 
 Route::get('/convert-currency',[CurrencyController::class,'ConvertCurrency'])->name('convert.currency');
+
+//Patient
+Route::post('/patient/logined', [APIPatientAuthenticationController::class, 'performLogin']);
+Route::group(['prefix' => 'patient','middleware' => ['auth:sanctum']], function () {
+    Route::post('/member/created', [APIFamilyMembersController::class, 'create'])->name('membersCreated');
+    Route::get('/member/list', [APIFamilyMembersController::class, 'list'])->name('membersList');
+    Route::post('/member/updated/{id}', [APIFamilyMembersController::class, 'update'])->name('membersUpdated');
+    Route::post('/member/delete/{id}', [APIFamilyMembersController::class, 'delete'])->name('deleteMembers');
+    Route::post('/Number/updated', [APIPersonalDetailsController::class, 'phoneNumberUpdated'])->name('phone.NumberUpdated');
+    Route::post('/displayName/updated', [APIPersonalDetailsController::class, 'displayNameUpdated'])->name('displayNameUpdated');
+    Route::get('/appointments', [APIPersonalDetailsController::class, 'appointments'])->name('appointments');
+    Route::post('/logout', [APIPatientAuthenticationController::class, 'logout']);
+});
+//Doctor
+Route::post('/doctor/logined', [APIDoctorAuthenticationController::class, 'doctorLogin']);
+Route::group(['prefix' => 'doctor','middleware' => ['auth:sanctum']], function () {
+    Route::post('/store/schedule', [APIDoctorScheduleController::class, 'insert'])->name('store.schedule.doctor');
+    Route::get('/schedules', [APIDoctorScheduleController::class, 'schedules'])->name('list.schedules.doctor');
+    Route::post('update/schedule/{id}', [APIDoctorScheduleController::class, 'update'])->name('update.schedule.doctor');
+    Route::post('/delete/schedule/{id}', [APIDoctorScheduleController::class, 'delete'])->name('delete.schedule.doctor');
+    Route::get('/appointments', [APIDoctorScheduleController::class, 'appointments'])->name('doctor.appointments');
+    Route::post('/displayName/updated', [PersonDetails::class, 'displayNameUpdated'])->name('displayNameUpdated');
+    Route::get('/specialization', [APIDoctorSpecializationController::class, 'index'])->name('doctorSpecialization');
+    Route::post('/specialized', [APIDoctorSpecializationController::class, 'store'])->name('doctorSpecialized');
+});
 
