@@ -63,7 +63,7 @@
         autoButtonsPrevClass: "btn btn-light",
         stepNumberClass: "badge rounded-pill bg-primary me-1",
         beforeBack: function (previousStep) {
-            alert(1);
+            // alert(1);
             return true;
         },
         beforeNextStep: function (currentStep) {

@@ -36,6 +36,7 @@
     <script src="{{ asset('public_assets/js/jquery.appear.js') }}"></script>
     <script src="{{ asset('public_assets/js/tweenmax.min.js') }}"></script>
     <script src="{{ asset('public_assets/js/main.js') }}"></script>
+    <script src="{{ asset('public_assets/js/fullcalendar.js') }}"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/12.1.5/css/intlTelInput.css" />
     <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>  -->
     <script type="text/javascript"
@@ -52,7 +53,6 @@
         }
         $(function() {
             var code = "+911234567890";
-
              if ($('#txtPhone').length && $('#txtPhoneNew').length) {
                 $('#txtPhoneNew').val(code);
                 $('#txtPhoneNew').intlTelInput({

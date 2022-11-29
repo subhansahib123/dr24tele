@@ -189,7 +189,7 @@
         if (input.length) {
             input.val(log);
         } else {
-            if (log) alert(log);
+            // if (log) alert(log);
         }
     });
 

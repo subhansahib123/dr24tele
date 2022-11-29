@@ -38,7 +38,8 @@ Route::get('/getDepartments/{orgUuid}',[OrganizationController::class,'getDepart
 // Route::post('/store/schedule',[ScheduleController::class,'insert'])->name('store.schedule');
 // Route::post('/update/slots',[ScheduleController::class,'updateSlots'])->name('update.slot');
 Route::get('/get/schedules/{doctor_id}/{date}',[homeController::class,'scheduleOfDoctor'])->name('get.schedules');
-Route::get('/get/schedules/{doctor_id}/{date}/{coupon}/coupon',[homeController::class,'scheduleOfDoctorCoupon'])->name('get.schedules.coupon');
+Route::get('/get/schedules/{id}',[homeController::class,'daySchedule'])->name('get.day.schedule');
+Route::get('/get/schedules/{schedule_id}/{coupon}/coupon',[homeController::class,'scheduleOfDoctorCoupon'])->name('get.schedules.coupon');
 Route::post('/book/appointment',[homeController::class,'bookApppointment'])->name('book.appointment');
 Route::post('/apply-coupon',[\App\Http\Controllers\Hospital\HospitalCouponController::class,'applyCoupon'])->name('apply.coupon');
 Route::post('/store-token', [homeController::class, 'storeToken'])->name('store.token');
@@ -51,25 +52,25 @@ Route::get('/convert-currency',[CurrencyController::class,'ConvertCurrency'])->n
 //Patient
 Route::post('/patient/logined', [APIPatientAuthenticationController::class, 'performLogin']);
 Route::group(['prefix' => 'patient','middleware' => ['auth:sanctum']], function () {
-    Route::post('/member/created', [APIFamilyMembersController::class, 'create'])->name('membersCreated');
-    Route::get('/member/list', [APIFamilyMembersController::class, 'list'])->name('membersList');
-    Route::post('/member/updated/{id}', [APIFamilyMembersController::class, 'update'])->name('membersUpdated');
-    Route::post('/member/delete/{id}', [APIFamilyMembersController::class, 'delete'])->name('deleteMembers');
-    Route::post('/Number/updated', [APIPersonalDetailsController::class, 'phoneNumberUpdated'])->name('phone.NumberUpdated');
-    Route::post('/displayName/updated', [APIPersonalDetailsController::class, 'displayNameUpdated'])->name('displayNameUpdated');
-    Route::get('/appointments', [APIPersonalDetailsController::class, 'appointments'])->name('appointments');
+    Route::post('/member/created', [APIFamilyMembersController::class, 'create'])->name('api.membersCreated');
+    Route::get('/member/list', [APIFamilyMembersController::class, 'list'])->name('api.membersList');
+    Route::post('/member/updated/{id}', [APIFamilyMembersController::class, 'update'])->name('api.membersUpdated');
+    Route::post('/member/delete/{id}', [APIFamilyMembersController::class, 'delete'])->name('api.deleteMembers');
+    Route::post('/Number/updated', [APIPersonalDetailsController::class, 'phoneNumberUpdated'])->name('api.phone.NumberUpdated');
+    Route::post('/displayName/updated', [APIPersonalDetailsController::class, 'displayNameUpdated'])->name('api.displayNameUpdated');
+    Route::get('/appointments', [APIPersonalDetailsController::class, 'appointments'])->name('api.appointments');
     Route::post('/logout', [APIPatientAuthenticationController::class, 'logout']);
 });
 //Doctor
 Route::post('/doctor/logined', [APIDoctorAuthenticationController::class, 'doctorLogin']);
 Route::group(['prefix' => 'doctor','middleware' => ['auth:sanctum']], function () {
-    Route::post('/store/schedule', [APIDoctorScheduleController::class, 'insert'])->name('store.schedule.doctor');
-    Route::get('/schedules', [APIDoctorScheduleController::class, 'schedules'])->name('list.schedules.doctor');
-    Route::post('update/schedule/{id}', [APIDoctorScheduleController::class, 'update'])->name('update.schedule.doctor');
-    Route::post('/delete/schedule/{id}', [APIDoctorScheduleController::class, 'delete'])->name('delete.schedule.doctor');
-    Route::get('/appointments', [APIDoctorScheduleController::class, 'appointments'])->name('doctor.appointments');
-    Route::post('/displayName/updated', [PersonDetails::class, 'displayNameUpdated'])->name('displayNameUpdated');
-    Route::get('/specialization', [APIDoctorSpecializationController::class, 'index'])->name('doctorSpecialization');
-    Route::post('/specialized', [APIDoctorSpecializationController::class, 'store'])->name('doctorSpecialized');
+    Route::post('/store/schedule', [APIDoctorScheduleController::class, 'insert'])->name('api.store.schedule.doctor');
+    Route::get('/schedules', [APIDoctorScheduleController::class, 'schedules'])->name('api.list.schedules.doctor');
+    Route::post('update/schedule/{id}', [APIDoctorScheduleController::class, 'update'])->name('api.update.schedule.doctor');
+    Route::post('/delete/schedule/{id}', [APIDoctorScheduleController::class, 'delete'])->name('api.delete.schedule.doctor');
+    Route::get('/appointments', [APIDoctorScheduleController::class, 'appointments'])->name('api.doctor.appointments');
+    Route::post('/displayName/updated', [PersonDetails::class, 'displayNameUpdated'])->name('api.displayNameUpdatedDoctor');
+    Route::get('/specialization', [APIDoctorSpecializationController::class, 'index'])->name('api.doctorSpecialization');
+    Route::post('/specialized', [APIDoctorSpecializationController::class, 'store'])->name('api.doctorSpecialized');
 });
 

@@ -37,7 +37,8 @@
 
                             <form id="appointmentForm">
                                 <div class="tab">
-                                    <p><div id='calendar'></div></p>
+                                    <p><div id="doc-calender"></div></p>
+{{--                                    <p><div id='calendar'></div></p>--}}
                                 </div>
 
                                 <div class="tab">
@@ -64,14 +65,8 @@
                                             <div class="form-group">
                                                 <label>Coupon</label>
                                                 <div class="input-group">
-                                                    {{--                                                <div class="row">--}}
-                                                    {{--                                                    <div class="col-12">--}}
                                                     <input type="text" id="coupon" name="coupon" class="form-control mb-3" placeholder="Coupon Code" />
-                                                    {{--                                                    </div>--}}
-                                                    {{--                                                    <div class="col-12">--}}
                                                     <button type="button" id="coupon-btn" class="btn btn-apfm">Apply</button>
-                                                    {{--                                                    </div>--}}
-                                                    {{--                                                </div>--}}
                                                 </div>
                                             </div>
                                         </div>
@@ -145,12 +140,12 @@
                                 </div>
                                 <div class="dr-info">
                                     <h6>{{ $doctor->user->name }}</h6>
-                                    <p>B.Sc, M.B.B.S</p>
+                                    <p>{{ (count($doctor->specialization) > 0) ? $doctor->specialization->name : '' }}</p>
                                 </div>
                             </div>
                             <div class="fee-details">
                                 <h6>Doctor Fee</h6>
-                                <p>$600</p>
+                                <span></span>
                             </div>
                         </div>
                     </div>
@@ -319,6 +314,7 @@
             color: indigo;
         }
     </style>
+
     <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
     <script>
         var BASE_URL = `{{ url('') }}`;
@@ -327,6 +323,7 @@
         var schedule_id;
         var start;
         var end;
+        var doc_fee = '';
         var user_id;
         var fee;
         var paymentToken
@@ -352,7 +349,7 @@
                 }
                 hospital = 1;
                 $.ajax({
-                    url: `/api/get/schedules/${doctor_id}/${public_date}/${coupon}/coupon`,
+                    url: `/api/get/schedules/${schedule_id}/${coupon}/coupon`,
                     type: "GET",
                     processData: false,
                     contentType: false,
@@ -360,11 +357,9 @@
                     timeout: 800000,
                 }).done(function(data) {
 
-                    if (data != undefined && data.length != 0) {
+                    if (data != undefined) {
                         var htmlSchedules = '';
-                        user_id = data.user_id;
-                        data.schedules.forEach(element => {
-                            console.log(element)
+                        var element = data.schedules
                             let startDate = moment(element.start);
                             let endDate = moment(element.end);
                             let userTimeZone = Intl.DateTimeFormat().resolvedOptions()
@@ -382,9 +377,10 @@
                                 </div>`;
 
                             fee = $(this).find("span.amount-converted").html()
-                        });
-
                         $('#scheduleDoctor').html(htmlSchedules);
+                        $("p").remove('.text');
+                        doc_fee += `<p class="text">${element.price} INR</p>`
+                        $('.fee-details span').html(doc_fee);
                     } else {
                         $('#scheduleDoctor').html("<h3>No Schedule found !</h3>");
                     }
@@ -392,6 +388,7 @@
                 // alert(dateString)
 
             });
+
             $('#book_appointment_submit').click(function(e) {
                 validateAndPay(e);
                 paymentToken=$form.find('input[name="stripeToken"]').val();
@@ -424,6 +421,7 @@
                         console.log(error);
                     });
             });
+
             $('#schedules').on("click", '.schedule_wrapper', function() {
                 $('.appointment-form-ma .schedule_wrapper').removeClass('selected-slot');
                 $(this).addClass('selected-slot');
@@ -433,11 +431,6 @@
                 fee = $(this).find("span.amount-converted").html()
                 $('#comments').show();
                 $('#calenderwrapper').hide();
-                // $('#scheduleDoctor').hide();
-
-                // $('#payment').show();
-
-                // $('#book_appointment_submit').show();
             });
             $('#next-comment').on("click", function() {
                 $('#membership').show();
@@ -454,88 +447,88 @@
                 $('#book_appointment_submit').show();
             });
 
+// ------------------------------------------------------
 
-            var calendarEl = document.getElementById('calendar');
-            var calendar = new FullCalendar.Calendar(calendarEl, {
-                // themeSystem: 'bootstrap5',
-                allDaySlot: false,
-                // headerToolbar: {
-                //     center: 'range'
-                // },
-                headerToolbar: {
-                    left: 'prev',
-                    center: 'title',
-                    right: 'next'
-                },
-                initialView: 'dayGridWeek',
-                // selectable: true,
-                visibleRange: function(currentDate) {
-                    // Generate a new date for manipulating in the next step
-                    var startDate = new Date(currentDate.valueOf());
-                    var endDate = new Date(currentDate.valueOf());
+            let yourDate = new Date()
+            const offset = yourDate.getTimezoneOffset()
+            yourDate = new Date(yourDate.getTime() - (offset * 60 * 1000))
+            var userDatetimeZone = yourDate.toISOString().split("T")[0];
+            public_date = userDatetimeZone;
+            $.ajax({
+                url: `/api/get/schedules/${doctor_id}/${userDatetimeZone}`,
+                type: "GET",
+                processData: false,
+                contentType: false,
+                cache: false,
+                timeout: 800000,
+            }).done(function(data) {
+                var events = [];
 
-                    // Adjust the start & end dates, respectively
-                    startDate.setDate(startDate.getDate() - 1); // One day in the past
-                    endDate.setDate(endDate.getDate() + 7); // Two days into the future
+                if (data != undefined && data.length != 0) {
+                    user_id = data.user_id;
+                    data.schedules.forEach(element => {
+                        var dbDateStart = moment(element.start).format('Y-M-DTHH:mm:ss');
+                        var dbDateEnd = moment(element.end).format('Y-M-DTHH:mm:ss');
+                        events.push({id:element.id, doctor:element.doctor_id, start:dbDateStart, end: dbDateEnd, title: element.comment})
+                    });
+                    var calendarEl = document.getElementById('doc-calender');
 
-                    return {
-                        start: startDate,
-                        end: endDate
-                    };
-                },
+                    var doccalender = new FullCalendar.Calendar(calendarEl, {
+                        headerToolbar: {
+                            left: 'prev,next',
+                            center: 'title',
+                            right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                        },
+                        initialView: 'timeGridWeek',
+                        nowIndicator: true,
+                        initialDate: new Date(),
+                        navLinks: true,
+                        events: events,
+                        eventClick: function(info) {
+                            info.el.style.borderColor = 'red';
+                            var id = info.event.id;
+                            schedule_id = id;
+                            $.ajax({
+                                url: `/api/get/schedules/${id}`,
+                                type: "GET",
+                                processData: false,
+                                contentType: false,
+                                cache: false,
+                                timeout: 800000,
+                            }).done(function(data) {
+                                var element = data.schedules
+                                if (element != undefined && element.length != 0) {
+                                    var htmlSchedules = '';
+                                    user_id = element.user_id;
+                                    // data.schedules.forEach(element => {
+                                        let startDate = moment(element.start);
+                                        let endDate = moment(element.end);
+                                        let userTimeZone = Intl.DateTimeFormat().resolvedOptions()
+                                            .timeZone;
+                                        startDate = startDate.tz(userTimeZone).format('h:mm a z');
+                                        endDate = endDate.tz(userTimeZone).format('h:mm a z');
 
-            });
-            calendar.render();
-            $('#calendar table tbody').remove();
-            $('#calendar .fc-view-harness ').css('height', '40.593px')
-            $('.fc-col-header-cell').click(function() {
-                $('.fc-col-header-cell').removeClass('selected-date');
-                $(this).addClass('selected-date');
-                var dateString = $(this).find('a').attr('aria-label');
-                let yourDate = new Date(dateString)
-                const offset = yourDate.getTimezoneOffset()
-                yourDate = new Date(yourDate.getTime() - (offset * 60 * 1000))
-                var userDatetimeZone = yourDate.toISOString().split("T")[0];
-                public_date = userDatetimeZone;
-                $.ajax({
-                    url: `/api/get/schedules/${doctor_id}/${userDatetimeZone}`,
-                    type: "GET",
-                    processData: false,
-                    contentType: false,
-                    cache: false,
-                    timeout: 800000,
-                }).done(function(data) {
-
-                    if (data != undefined && data.length != 0) {
-                        var htmlSchedules = '';
-                        user_id = data.user_id;
-                        data.schedules.forEach(element => {
-                            console.log(element)
-                            let startDate = moment(element.start);
-                            let endDate = moment(element.end);
-                            let userTimeZone = Intl.DateTimeFormat().resolvedOptions()
-                                .timeZone;
-                            startDate = startDate.tz(userTimeZone).format('h:mm a z');
-                            endDate = endDate.tz(userTimeZone).format('h:mm a z');
-
-                            var dbDateStart = moment(element.start).format(
-                                'Y-M-D HH:mm:ss');
-                            var dbDateEnd = moment(element.end).format('Y-M-D HH:mm:ss');
-                            htmlSchedules += ` <div class="form-group col-lg-5 schedule_wrapper">
+                                        var dbDateStart = moment(element.start).format(
+                                            'Y-M-D HH:mm:ss');
+                                        var dbDateEnd = moment(element.end).format('Y-M-D HH:mm:ss');
+                                        htmlSchedules += ` <div class="form-group col-lg-5 schedule_wrapper">
                                     <label>Appointments Left <span>${element.number_of_people}</span> / <span class="amount-converted">${element.price}</span> <span class="currency-code">INR</span></label>
                                     <input class="form-control" type="text" start="${dbDateStart}" end="${dbDateEnd}" readonly value="${startDate} To ${endDate}" />
                                     <input type="hidden" value="${element.id}" />
                                 </div>`;
+                                doc_fee += `<p class="text">${element.price} INR</p>`
 
-                        });
+                                    $('#scheduleDoctor').html(htmlSchedules);
+                                    $('.fee-details span').html(doc_fee);
 
-                        $('#scheduleDoctor').html(htmlSchedules);
-                    } else {
-                        $('#scheduleDoctor').html("<h3>No Schedule found !</h3>");
-                    }
-                });
-                // alert(dateString)
-
+                                } else {
+                                    $('#scheduleDoctor').html("<h3>No Schedule found !</h3>");
+                                }
+                            });
+                        }
+                    });
+                    doccalender.render();
+                }
             });
 
             function validateAndPay(e) {
@@ -641,7 +634,6 @@
             }
             x[n].className += " active";
         }
-
 
     </script>
 @endsection
