@@ -105,7 +105,7 @@ class homeController extends Controller
     }
     public function appointment($id){
         if(Auth::check()){
-            $doctor = Doctor::with('user')->find($id);
+            $doctor = Doctor::with('user','specialization')->find($id);
             return view('public_panel.appointment', compact('doctor'));
         }
         else{
@@ -120,21 +120,19 @@ class homeController extends Controller
             ->where('doctor_id',$doctor_id)->get();
         return response()->json( ['schedules'=>$schdeules,'user_id'=>$user_id->user_id]);
     }
-    public function scheduleOfDoctorCoupon($doctor_id,$date,$coupon){
-
-
+    public function daySchedule($id){
+        $schdeule = Schedule::find($id);
+        return response()->json( ['schedules'=>$schdeule]);
+    }
+    public function scheduleOfDoctorCoupon($schedule_id,$coupon){
+        $schdeules=Schedule::find($schedule_id);
         if($coupon != 'coupon'){
             $cop = Coupon::where('title', '=', $coupon)->first();
-            $date=$date." 00:00:00";
-            $user_id=Doctor::find($doctor_id);
-            $schdeules=Schedule::whereDate('start', '=', $date." 00:00:00")
-                ->where('doctor_id',$doctor_id)->get();
-
             if($cop){
-                $schdeules[0]->price = $schdeules[0]->price - $cop->discount;
+                $schdeules->price = $schdeules->price - $cop->discount;
             }
         }
-        return response()->json( ['schedules'=>$schdeules,'user_id'=>$user_id->user_id]);
+        return response()->json( ['schedules'=>$schdeules]);
     }
     public function bookApppointment(Request $request){
         $data=$request->all();

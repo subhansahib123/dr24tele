@@ -368,7 +368,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
     //Update User name
     Route::get('/update/displayName', [PersonalDetails::class, 'updateDisplayName'])->name('updateDisplayName');
-    Route::post('/displayName/updated', [PersonalDetails::class, 'displayNameUpdated'])->name('displayNameUpdated');
+//    Route::post('/displayName/updated', [PersonalDetails::class, 'displayNameUpdated'])->name('displayNameUpdated');
     //verify Phone Number
     Route::get('/verify/phoneNumber', [PersonalDetails::class, 'verifyPhoneNumber'])->name('verifyPhoneNumber');
     Route::post('/phoneNumber/verified', [PersonalDetails::class, 'phoneNumberVerified'])->name('phoneNumberVerified');

@@ -125,7 +125,7 @@
         return new bootstrap.Popover(popoverTriggerEl)
     })
 
-    // BY DEFAULT, BOOTSTRAP DOESN'T AUTO CLOSE POPOVER AFTER APPEARING IN THE PAGE 
+    // BY DEFAULT, BOOTSTRAP DOESN'T AUTO CLOSE POPOVER AFTER APPEARING IN THE PAGE
     $(document).on('click', function (e) {
         $('[data-toggle="popover"],[data-original-title]').each(function () {
             //the 'is' for buttons that trigger popups
@@ -187,7 +187,7 @@
         if (input.length) {
             input.val(log);
         } else {
-            if (log) alert(log);
+            // if (log) alert(log);
         }
     });
 
@@ -215,7 +215,7 @@
 			localStorage.removeItem('sashlightMode');
 			localStorage.removeItem('sashtransparentMode');
             $('#myonoffswitch2').prop('checked', true);
-            
+
 		} else {
 			$('body').removeClass('dark-mode');
 			$('body').addClass('light-mode');
@@ -238,7 +238,7 @@
             $('#myonoffswitch6').prop('checked', true);
             $('body').removeClass('transparent-mode');
             $('body').removeClass('dark-mode');
-            
+
             $('body')?.removeClass('color-menu');
             $('body')?.removeClass('gradient-menu');
             $('body')?.removeClass('dark-menu');
@@ -246,7 +246,7 @@
             $('body')?.removeClass('gradient-header');
             $('body')?.removeClass('dark-header');
 
-            // remove dark theme properties	
+            // remove dark theme properties
             localStorage.removeItem('sashdarkPrimary')
 
             // remove light theme properties
@@ -293,7 +293,7 @@
             $('#myonoffswitch8').prop('checked', true);
             $('body').removeClass('light-mode');
             $('body').removeClass('transparent-mode');
-            
+
             $('body')?.removeClass('color-menu');
             $('body')?.removeClass('gradient-menu');
             $('body')?.removeClass('light-menu');
@@ -311,7 +311,7 @@
             document.querySelector('html').style.removeProperty('--primary-bg-border', localStorage.darkPrimary);
             document.querySelector('html').style.removeProperty('--dark-primary', localStorage.darkPrimary);
 
-            // removing light theme data 
+            // removing light theme data
             localStorage.removeItem('sashprimaryColor')
             localStorage.removeItem('sashprimaryHoverColor')
             localStorage.removeItem('sashprimaryBorderColor')
@@ -353,7 +353,7 @@
             $('#myonoffswitch20').prop('checked', false);
             $('body').removeClass('dark-mode');
             $('body').removeClass('light-mode');
-            
+
             $('body')?.removeClass('color-menu');
             $('body')?.removeClass('light-menu');
             $('body')?.removeClass('dark-menu');
@@ -368,7 +368,7 @@
             localStorage.removeItem('sashprimaryHoverColor')
             localStorage.removeItem('sashprimaryBorderColor')
 
-            // removing light theme data 
+            // removing light theme data
             localStorage.removeItem('sashdarkPrimary');
             localStorage.removeItem('sashprimaryColor')
             localStorage.removeItem('sashprimaryHoverColor')
@@ -477,7 +477,7 @@
         $('body').removeClass('bg-img1');
         $('body').removeClass('bg-img2');
         $('body').removeClass('bg-img4');
-        
+
         $('#myonoffswitch3').prop('checked', false);
         $('#myonoffswitch4').prop('checked', false);
         $('#myonoffswitch19').prop('checked', false);
@@ -512,7 +512,7 @@
         $('body').removeClass('bg-img1');
         $('body').removeClass('bg-img2');
         $('body').removeClass('bg-img3');
-        
+
         $('#myonoffswitch3').prop('checked', false);
         $('#myonoffswitch4').prop('checked', false);
         $('#myonoffswitch19').prop('checked', false);
@@ -862,8 +862,8 @@
         // $('#slide-left').addClass('d-none');
         // $('#slide-right').addClass('d-none');
         // document.querySelector('.horizontal .side-menu').style.flexWrap = 'wrap'
-        
-    } 
+
+    }
 
     function light() {
         "use strict";
@@ -942,7 +942,7 @@
         });
         localStorage.setItem('sashrtl', true)
         localStorage.removeItem('sashltr')
-    } 
+    }
 
 })(jQuery);
 
@@ -1072,11 +1072,11 @@ $(document).on("click", '#myonoffswitch34', function () {
         localStorage.removeItem("sashhorizontal");
         localStorage.removeItem("sashhorizontalHover");
         responsive();
-        
+
         if(!(document.querySelector('.icontext-menu')!== null)){
             hovermenu();
         }
-        
+
     } else {
         $('body').removeClass('sidebar-mini');
         localStorage.setItem("sashsidebar-mini", "False");
@@ -1187,7 +1187,7 @@ $(document).on("click", '#myonoffswitch111', function () {
         localStorage.setItem("sashhorizontalHover", "true");
         localStorage.removeItem("sashsidebarMini");
         localStorage.removeItem("sashhorizontal");
-    } 
+    }
 });
 
 // HORIZONTAL HOVER END
@@ -1208,19 +1208,19 @@ function checkOptions() {
 		$('#myonoffswitch111').prop('checked', true);
 	}
 
-    // light header 
+    // light header
     if (document.querySelector('body').classList.contains('header-light')) {
         $('#myonoffswitch6').prop('checked', true);
     }
-    // color header 
+    // color header
     if (document.querySelector('body').classList.contains('color-header')) {
         $('#myonoffswitch7').prop('checked', true);
     }
-    // gradient header 
+    // gradient header
     if (document.querySelector('body').classList.contains('gradient-header')) {
         $('#myonoffswitch20').prop('checked', true);
     }
-    // dark header 
+    // dark header
     if (document.querySelector('body').classList.contains('dark-header')) {
         $('#myonoffswitch8').prop('checked', true);
     }
@@ -1304,7 +1304,7 @@ function resetData() {
         responsive();
         ActiveSubmenu();
     }
-    
+
     $("head link#style").attr("href", $(this));
     (document.getElementById("style").setAttribute("href", "../assets/plugins/bootstrap/css/bootstrap.min.css"));
 }

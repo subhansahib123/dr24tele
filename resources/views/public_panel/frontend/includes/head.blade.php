@@ -16,10 +16,10 @@
     <link rel="stylesheet" href="{{ asset('public_assets/css/style.css') }}">
     <link rel="stylesheet" href="{{ asset('public_assets/css/responsive.css') }}">
     <link rel="stylesheet" href="{{ asset('public_assets/css/dark-theme.css') }}">
+    <link rel="stylesheet" href="{{ asset('public_assets/css/main.css') }}">
     <title>DrTele | Hospital | Doctors</title>
     <link rel="icon" type="image/png" href="{{ asset('assets/images/logo.png') }}">
 </head>
-
 <body>
 
     <!--Preloader starts-->
