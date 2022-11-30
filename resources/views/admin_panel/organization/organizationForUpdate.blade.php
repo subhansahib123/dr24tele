@@ -138,6 +138,12 @@
                                         </select>
                                     </div>
                                 </div>
+                                <div class=" row  mb-1">
+                                    <label for="image" class="col-md-3 form-label"> Picture </label>
+                                    <div class="col-md-9">
+                                        <input type="file" name="image" id="image">
+                                    </div>
+                                </div>
                                 <div class="mb-0 mt-4 row text-end">
                                     <div class="col">
                                         <button class="btn btn-primary" type="submit">Update</button>

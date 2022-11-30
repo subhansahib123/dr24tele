@@ -49,7 +49,7 @@
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-12 my-0">
                                         <div class="form-group">
-                                            <label class="form-label" for="middleName">Middle Name</label>
+                                            <label  for="middleName">Middle Name</label>
                                             <input class="form-control" id="middleName" placeholder="Enter Middle Name" name="middlename" value="">
                                         </div>
                                     </div>

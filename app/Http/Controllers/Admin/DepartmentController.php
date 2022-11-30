@@ -32,6 +32,7 @@ class DepartmentController extends Controller
             'status' => 'required|string',
             'email' => 'required|string',
             'level' => 'required|string',
+            'organization' => 'required|string',
             'image' => 'required',
             'specialization_id.*' => 'required|string',
         ]);

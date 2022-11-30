@@ -73,7 +73,7 @@
                                     </div>
                                     @endforeach
                                 </div>
-                                <div class="mt-4">
+                                <div class="mt-4 card-footer text-end">
                                     <!-- <a href="" class="btn btn-info">Edit</a> -->
                                     <a href="{{route('dashboard')}}" class="btn btn-info">Back</a>
 
