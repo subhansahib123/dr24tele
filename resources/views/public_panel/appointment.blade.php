@@ -158,8 +158,6 @@
         <!--- END CONTAINER -->
     </section>
 
-    <link href='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.css' rel='stylesheet' />
-    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@5.11.3/main.min.js'></script>
     <script src='{{ asset('public_assets/js/moment.js') }}'></script>
     <script src='{{ asset('public_assets/js/timezone_moment.js') }}'></script>
     <style>

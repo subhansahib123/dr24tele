@@ -11,7 +11,7 @@ class APIDoctorAuthenticationController extends Controller
 {
     public function doctorLogin(Request $request)
     {
-        // dd($request->all());
+//         dd($request->all());
         $curl = curl_init();
         $baseUrl = config('services.ehr.baseUrl');
         $apiKey = config('services.ehr.apiKey');
