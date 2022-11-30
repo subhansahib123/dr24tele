@@ -11,6 +11,7 @@ use App\Models\Country;
 use App\Models\State;
 use App\Models\City;
 use App\Models\Department;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 
@@ -19,7 +20,7 @@ class OrganizationController extends Controller
 {
     public function organization()
     {
-
+        
 
         $curl = curl_init();
 
@@ -115,8 +116,20 @@ class OrganizationController extends Controller
             'status' => 'required|string',
             'email' => 'required|string',
             'level' => 'required|string',
-            'image'=> 'required'
+            'image' => 'required'
         ]);
+        // $image = $request->file('image');
+
+        // $image_name = time().'_'.$image->getClientOriginalName();
+        // $filePath="Organization/Profile".$image_name;
+        // $path = Storage::put($filePath, file_get_contents($request->image));
+        // $get   =Storage::download($filePath);
+        // // $content=file_put_contents();
+
+        // // $url = Storage::url($filePath);
+        
+        // dd($get );
+
         $curl = curl_init();
         $baseUrl = config('services.ehr.baseUrl');
         $apiKey = config('services.ehr.apiKey');
@@ -194,10 +207,11 @@ class OrganizationController extends Controller
                         'slug' => $organization->displayname,
                         'status' => $organization->status,
                         'level' => "SubOrg",
-                        'image' => 1,
+                        'image' => $filePath,
                         'organization_id' => $org->id
                     ]);
-                    return redirect()->back()->withSuccess(__('Successfully Organization Created'));
+                    return view('admin_panel.index',['file'=>$file]);
+                    // return redirect()->back()->withSuccess(__('Successfully Organization Created'));
                 } else if ($organization->message == "Provided organization name already exist") {
                     curl_close($curl);
                     return redirect()->back()->withErrors(['error' => $organization->message]);
@@ -422,6 +436,7 @@ class OrganizationController extends Controller
             'status' => 'required|string',
             'email' => 'required|string',
             'level' => 'SubOrg',
+            'image' => 'required',
             'contactperson' => 'required|string',
             'phoneNumber' => 'required|string',
         ]);

@@ -17,7 +17,7 @@
                             </div>
                             <div class="col-6">
                                 <span class="card-title"><strong>
-                                         Professions List
+                                        Professions List
                                     </strong></span>
                             </div>
 
@@ -27,37 +27,35 @@
                         </div>
                         <div class="card-body">
                             @include('admin_panel.frontend.includes.messages')
+                            {{-- <p>Use <code class="highlighter-rouge">.table-striped</code>to add zebra-striping to any table row within the <code class="highlighter-rouge">.tbody</code>.</p> --}}
                             <div class="table-responsive">
-                                <div class="bg-light p-4 ">
+                                <div class="bg-light p-4  ed">
                                     @foreach($professions as $profession)
-                                    <h3>Profession: {{ $profession->profession }}, Number: {{ $profession->number }} </h3>
-
-                                    <table class="table table-striped" id="datatable">
-
-
-                                        <thead>
-                                            <th scope="col-9">Name</th>
-                                            <th scope="col">Guard</th>
-                                        </thead>
-
-                                        @if($profession->optcrud)
-                                        @foreach($profession->optcrud as $opt)
-
-
-                                        <tr style="line-height: 10px">
-                                            <td class="col-9">{{$opt->authCrud}}</td>
-                                            <td>{{$opt->opt}}</td>
-                                        </tr>
-                                        @endforeach
-                                        @endif
-
-                                    </table>
-
+                                    <h1>Profession: {{ $profession->profession }}, Number: {{ $profession->number }} </h1>
+                                    <div class="lead">
+                                    </div>
+                                    <div class="container mt-4">
+                                        <h3>Option CRUD</h3>
+                                        <table class="table table-striped">
+                                            <thead>
+                                                <th scope="col" width="20%">Name</th>
+                                                <th scope="col" width="1%">Guard</th>
+                                            </thead>
+                                            @if($profession->optcrud)
+                                            @foreach($profession->optcrud as $opt)
+                                            <tr>
+                                                <td>{{$opt->authCrud}}</td>
+                                                <td>{{$opt->opt}}</td>
+                                            </tr>
+                                            @endforeach
+                                            @endif
+                                        </table>
+                                    </div>
                                     @endforeach
-
                                 </div>
                             </div>
                         </div>
+
                     </div>
                 </div>
 
