@@ -29,5 +29,8 @@ class Organization extends Model
     {
         return $this->hasOne(UsersOrganization::class,'organization_id');
     }
-
+    public function eprescription()
+    {
+        return $this->hasMany(Eprescription::class, 'eprescription_id');
+    }
 }

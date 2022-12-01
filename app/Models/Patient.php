@@ -31,4 +31,8 @@ class Patient extends Model
     {
         return $this->hasMany(FamilyMembers::class,'patient_id');
     }
+    public function eprescription()
+    {
+        return $this->hasMany(Eprescription::class, 'eprescription_id');
+    }
 }

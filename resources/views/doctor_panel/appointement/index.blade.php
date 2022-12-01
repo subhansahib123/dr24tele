@@ -30,46 +30,6 @@
                         <div class="card-body">
 
                             <div id="doc-calender-2"></div>
-
-{{--                            <div class="table-responsive">--}}
-{{--                                <div class="bg-light p-4 ">--}}
-
-{{--                                    <table class="table table-striped" id="datatable">--}}
-{{--                                        <thead>--}}
-{{--                                            <tr>--}}
-{{--                                                <th>ID</th>--}}
-{{--                                                <th>Start </th>--}}
-{{--                                                <th>End</th>--}}
-{{--                                                <th>Comments</th>--}}
-{{--                                                <th>Patient</th>--}}
-{{--                                                <th class="text-end">Action</th>--}}
-{{--                                            </tr>--}}
-{{--                                        </thead>--}}
-
-
-{{--                                        @foreach($appointements as $schedule)--}}
-{{--                                        <tr>--}}
-
-{{--                                            <td>{{ $loop->index + 1 }}</td>--}}
-{{--                                            <td>{{ date('d-m-Y H:i A', strtotime($schedule->start)) }}</td>--}}
-{{--                                            <td>{{ date('d-m-Y H:i A', strtotime($schedule->end)) }}</td>--}}
-{{--                                            <td>{{ $schedule->comment }}</td>--}}
-{{--                                            <td>{{ $schedule->patient->user->username }}</td>--}}
-{{--                                            <td>--}}
-
-{{--                                                <button type="button" onclick="" class="btn btn-success btn-sm">Call</button>--}}
-
-
-{{--                                            </td>--}}
-
-
-
-{{--                                        </tr>--}}
-{{--                                        @endforeach--}}
-{{--                                    </table>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-
                         </div>
                     </div>
                 </div>
