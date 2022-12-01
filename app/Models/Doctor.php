@@ -41,4 +41,9 @@ class Doctor extends Model
     {
         return $this->belongsToMany(DoctorSpecialization::class,'specialized_doctors','doctor_id','specialization_id');
     }
+
+    public function eprescription()
+    {
+        return $this->hasMany(Eprescription::class, 'eprescription_id');
+    }
 }

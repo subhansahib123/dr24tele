@@ -29,25 +29,32 @@
                                 <div class="row" id="schedules">
                                     <div class="col-12" id="scheduleDoctor">
                                     </div>
-                                    <div class="form-group col-lg-12" style="display: none" id="book_appointment_submit">
-                                        <button type="button" class="btn btn-apfm">Book Appointment <i class="icofont icofont-thin-right"></i></button>
+                                    <div class="form-group col-lg-12" style="display: none"
+                                         id="book_appointment_submit">
+                                        <button type="button" class="btn btn-apfm">Book Appointment <i
+                                                class="icofont icofont-thin-right"></i></button>
                                     </div>
                                 </div>
                             </form>
 
                             <form id="appointmentForm">
                                 <div class="tab">
-                                    <p><div id="doc-calender"></div></p>
-{{--                                    <p><div id='calendar'></div></p>--}}
+                                    <p>
+                                    <div id="doc-calender"></div>
+                                    </p>
+                                    {{--                                    <p><div id='calendar'></div></p>--}}
                                 </div>
 
                                 <div class="tab">
                                     <p><label>Comments</label></p>
-                                    <p><textarea rows="5" cols="5" class="form-control" name="comments" required></textarea></p>
+                                    <p><textarea rows="5" cols="5" class="form-control" name="comments"
+                                                 required></textarea></p>
                                     <div class="row ms-2 my-2" id="hospital-check-is">
                                         <div class="mb-3 form-check">
-                                            <input type="checkbox" class="form-check-input me-2 p-0" name="hospital-check" id="hospital-check" value="1">
-                                            <label class="form-check-label" for="hospital-check">Are you already registered with this hospital?</label>
+                                            <input type="checkbox" class="form-check-input me-2 p-0"
+                                                   name="hospital-check" id="hospital-check" value="1">
+                                            <label class="form-check-label" for="hospital-check">Are you already
+                                                registered with this hospital?</label>
                                         </div>
                                     </div>
                                     <div class="row" id="hospital-check-file" style="display: none">
@@ -65,8 +72,10 @@
                                             <div class="form-group">
                                                 <label>Coupon</label>
                                                 <div class="input-group">
-                                                    <input type="text" id="coupon" name="coupon" class="form-control mb-3" placeholder="Coupon Code" />
-                                                    <button type="button" id="coupon-btn" class="btn btn-apfm">Apply</button>
+                                                    <input type="text" id="coupon" name="coupon"
+                                                           class="form-control mb-3" placeholder="Coupon Code"/>
+                                                    <button type="button" id="coupon-btn" class="btn btn-apfm">Apply
+                                                    </button>
                                                 </div>
                                             </div>
                                         </div>
@@ -83,7 +92,7 @@
                                                             <label>CARD NUMBER</label>
                                                             <div class="input-group">
                                                                 <input type="text" class="form-control card-num"
-                                                                       placeholder="Valid Card Number" />
+                                                                       placeholder="Valid Card Number"/>
                                                                 <span class="input-group-addon"><span
                                                                         class="fa fa-credit-card "></span></span>
                                                             </div>
@@ -93,20 +102,25 @@
                                                 <div class="row">
                                                     <div class="col-xs-4 col-md-4 required">
                                                         <div class="form-group">
-                                                            <label><span class="hidden-xs">EXPIRATION MONTH</span></label>
-                                                            <input type="text" class="form-control card-expiry-month" placeholder="MM" />
+                                                            <label><span
+                                                                    class="hidden-xs">EXPIRATION MONTH</span></label>
+                                                            <input type="text" class="form-control card-expiry-month"
+                                                                   placeholder="MM"/>
                                                         </div>
                                                     </div>
                                                     <div class="col-xs-4 col-md-4 required">
                                                         <div class="form-group">
-                                                            <label><span class="hidden-xs">EXPIRATION YEAR</span></label>
-                                                            <input type="text" class="form-control card-expiry-year" placeholder="YY" />
+                                                            <label><span
+                                                                    class="hidden-xs">EXPIRATION YEAR</span></label>
+                                                            <input type="text" class="form-control card-expiry-year"
+                                                                   placeholder="YY"/>
                                                         </div>
                                                     </div>
                                                     <div class="col-xs-4 col-md-4 pull-right required">
                                                         <div class="form-group">
                                                             <label>CV CODE</label>
-                                                            <input type="text" class="form-control card-cvc" placeholder="CVC" />
+                                                            <input type="text" class="form-control card-cvc"
+                                                                   placeholder="CVC"/>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -114,7 +128,8 @@
                                                     <div class="col-xs-12 required">
                                                         <div class="form-group">
                                                             <label>CARD OWNER</label>
-                                                            <input type="text" class="form-control" placeholder="Card Owner Names" />
+                                                            <input type="text" class="form-control"
+                                                                   placeholder="Card Owner Names"/>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -126,8 +141,12 @@
 
                                 <div style="overflow:auto;" class="mt-5">
                                     <div style="text-align:right;">
-                                        <button type="button" class="btn btn-primary" id="prevBtn" onclick="nextPrev(-1)">Previous</button>
-                                        <button type="button" class="btn btn-primary" id="nextBtn" onclick="nextPrev(1)">Next</button>
+                                        <button type="button" class="btn btn-primary" id="prevBtn"
+                                                onclick="nextPrev(-1)">Previous
+                                        </button>
+                                        <button type="button" class="btn btn-primary" id="nextBtn"
+                                                onclick="nextPrev(1)">Next
+                                        </button>
                                     </div>
                                 </div>
 
@@ -136,7 +155,9 @@
                         <div class="d-none d-md-block col-md-4">
                             <div class="dr-details">
                                 <div class="dr-image">
-                                  <img src="{{ ($doctor->user->image) ? asset('storage/'. $doctor->user->image) : asset('public_assets/img/services/service-9.jpg')}}" alt="Image">
+                                    <img
+                                        src="{{ ($doctor->user->image) ? asset('storage/'. $doctor->user->image) : asset('public_assets/img/services/service-9.jpg')}}"
+                                        alt="Image">
                                 </div>
                                 <div class="dr-info">
                                     <h6>{{ $doctor->user->name }}</h6>
@@ -161,15 +182,18 @@
     <script src='{{ asset('public_assets/js/moment.js') }}'></script>
     <script src='{{ asset('public_assets/js/timezone_moment.js') }}'></script>
     <style>
-        .section-padding{
+        .section-padding {
             background: #135aa5;
         }
-        .appointment-form-ma{
+
+        .appointment-form-ma {
             box-shadow: none;
         }
-        .auto-container{
+
+        .auto-container {
             counter-reset: section;
         }
+
         input {
             padding: 10px;
             width: 100%;
@@ -182,6 +206,7 @@
         input.invalid {
             background-color: #ffdddd;
         }
+
         #hospital-register-id + label {
             background-color: #42c0fb;
             color: white;
@@ -193,6 +218,7 @@
             align-items: center;
             justify-content: center;
         }
+
         /* Hide all steps by default: */
         .tab {
             display: none;
@@ -214,10 +240,12 @@
             align-items: center;
             position: relative;
         }
+
         .step::before {
             counter-increment: section;
             content: counter(section);
         }
+
         .step:not(:last-of-type)::after {
             content: '';
             border-bottom: 2px solid #42c0fb;
@@ -226,6 +254,7 @@
             left: 50px;
             width: 100%;
         }
+
         /* Mark the active step: */
         .step.active {
             opacity: 1;
@@ -235,9 +264,11 @@
         .step.finish {
             background-color: #42c0fb;
         }
-        .step.finish::before{
+
+        .step.finish::before {
             content: '\2713';
         }
+
         .selected-date {
             background-color: green;
         }
@@ -267,48 +298,59 @@
             border-radius: 10px;
             background: transparent;
         }
+
         #nextBtn,
-        #prevBtn{
+        #prevBtn {
             border-radius: 3px;
             line-height: 10px;
-            border:1px solid #14467b;
+            border: 1px solid #14467b;
         }
-        #prevBtn{
+
+        #prevBtn {
             background-color: #ffffff;
             color: #14467b;
         }
-        #nextBtn{
+
+        #nextBtn {
             background-color: #14467b;
             color: #ffffff;
         }
-        .dr-details{
+
+        .dr-details {
             display: flex;
             align-items: center;
         }
-        .dr-image{
+
+        .dr-image {
             width: 60px;
             height: 60px;
         }
-        .dr-image img{
+
+        .dr-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
             border-radius: 50%;
         }
-        .dr-info{
+
+        .dr-info {
             margin-left: .75rem;
         }
-        .dr-info h6{
+
+        .dr-info h6 {
             margin-bottom: 0;
         }
-        .fee-details{
+
+        .fee-details {
             margin-top: 1rem;
         }
-        .fee-details h6{
+
+        .fee-details h6 {
             color: #8f8d8d;
             margin-bottom: 0;
         }
-        .fee-details p{
+
+        .fee-details p {
             color: indigo;
         }
     </style>
@@ -330,19 +372,19 @@
         var hospital;
 
 
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
 
             var $form = $("#appointmentForm");
 
-            $('#hospital-check').click(function (e){
+            $('#hospital-check').click(function (e) {
                 // $('#hospital-check-is').toggle();
                 $('#hospital-check-file').toggle();
 
             });
-            $("#coupon-btn").click(function(e){
+            $("#coupon-btn").click(function (e) {
 
                 coupon = $('#coupon').val();
-                if(coupon == '') {
+                if (coupon == '') {
                     coupon = 'coupon';
                 }
                 hospital = 1;
@@ -353,28 +395,28 @@
                     contentType: false,
                     cache: false,
                     timeout: 800000,
-                }).done(function(data) {
+                }).done(function (data) {
 
                     if (data != undefined) {
                         var htmlSchedules = '';
                         var element = data.schedules
-                            let startDate = moment(element.start);
-                            let endDate = moment(element.end);
-                            let userTimeZone = Intl.DateTimeFormat().resolvedOptions()
-                                .timeZone;
-                            startDate = startDate.tz(userTimeZone).format('h:mm a z');
-                            endDate = endDate.tz(userTimeZone).format('h:mm a z');
+                        let startDate = moment(element.start);
+                        let endDate = moment(element.end);
+                        let userTimeZone = Intl.DateTimeFormat().resolvedOptions()
+                            .timeZone;
+                        startDate = startDate.tz(userTimeZone).format('h:mm a z');
+                        endDate = endDate.tz(userTimeZone).format('h:mm a z');
 
-                            var dbDateStart = moment(element.start).format(
-                                'Y-M-D HH:mm:ss');
-                            var dbDateEnd = moment(element.end).format('Y-M-D HH:mm:ss');
-                            htmlSchedules += ` <div class="form-group col-lg-5 schedule_wrapper">
+                        var dbDateStart = moment(element.start).format(
+                            'Y-M-D HH:mm:ss');
+                        var dbDateEnd = moment(element.end).format('Y-M-D HH:mm:ss');
+                        htmlSchedules += ` <div class="form-group col-lg-5 schedule_wrapper">
                                     <label>Appointments Left <span>${element.number_of_people}</span> / <span class="amount-converted">${element.price}</span> <span class="currency-code">INR</span></label>
                                     <input class="form-control" type="text" start="${dbDateStart}" end="${dbDateEnd}" readonly value="${startDate} To ${endDate}" />
                                     <input type="hidden" value="${element.id}" />
                                 </div>`;
 
-                            fee = $(this).find("span.amount-converted").html()
+                        fee = $(this).find("span.amount-converted").html()
                         $('#scheduleDoctor').html(htmlSchedules);
                         $("p").remove('.text');
                         doc_fee += `<p class="text">${element.price} INR</p>`
@@ -387,9 +429,9 @@
 
             });
 
-            $('#book_appointment_submit').click(function(e) {
+            $('#book_appointment_submit').click(function (e) {
                 validateAndPay(e);
-                paymentToken=$form.find('input[name="stripeToken"]').val();
+                paymentToken = $form.find('input[name="stripeToken"]').val();
                 $.ajax({
                     url: BASE_URL + "/api/book/appointment",
                     type: "POST",
@@ -400,7 +442,7 @@
                         "start": start,
                         "end": end,
                         "fee": fee,
-                        "coupon" : coupon,
+                        "coupon": coupon,
                         "hospital": hospital,
                         "comments": $('textarea[name="comments"]').val(),
                         'stripeToken': paymentToken
@@ -410,17 +452,17 @@
                     cache: false,
                     timeout: 800000,
                 })
-                    .done(function(data) {
+                    .done(function (data) {
                         send_notification(user_id, 'Appointment No.' + data.msg, 'You have a new appointment');
                         document.getElementById("appointmentForm").reset();
                         window.location = BASE_URL + '/patient/appointments'
                     })
-                    .fail(function(error) {
+                    .fail(function (error) {
                         console.log(error);
                     });
             });
 
-            $('#schedules').on("click", '.schedule_wrapper', function() {
+            $('#schedules').on("click", '.schedule_wrapper', function () {
                 $('.appointment-form-ma .schedule_wrapper').removeClass('selected-slot');
                 $(this).addClass('selected-slot');
                 schedule_id = $(this).find('input[type="hidden"]').val();
@@ -430,16 +472,16 @@
                 $('#comments').show();
                 $('#calenderwrapper').hide();
             });
-            $('#next-comment').on("click", function() {
+            $('#next-comment').on("click", function () {
                 $('#membership').show();
                 $('#comments').hide();
             });
-            $('#yes_has_reg').click(function(){
+            $('#yes_has_reg').click(function () {
 
                 $('#has_reg').toggle();
             });
 
-            $('#next-payment').on("click", function() {
+            $('#next-payment').on("click", function () {
                 $('#membership').hide();
                 $('#payment').show();
                 $('#book_appointment_submit').show();
@@ -459,16 +501,23 @@
                 contentType: false,
                 cache: false,
                 timeout: 800000,
-            }).done(function(data) {
-                var events = [];
+            }).done(function (data) {
+                var all_events = [];
 
                 if (data != undefined && data.length != 0) {
                     user_id = data.user_id;
                     data.schedules.forEach(element => {
-                        var dbDateStart = moment(element.start).format('Y-M-DTHH:mm:ss');
-                        var dbDateEnd = moment(element.end).format('Y-M-DTHH:mm:ss');
-                        events.push({id:element.id, doctor:element.doctor_id, start:dbDateStart, end: dbDateEnd, title: element.comment})
+                        var dbDateStart = moment(element.start).format('YYYY-MM-DDTHH:mm:ss');
+                        var dbDateEnd = moment(element.end).format('YYYY-MM-DDTHH:mm:ss');
+                        all_events.push({
+                            "id": element.id,
+                            "doctor": element.doctor_id,
+                            "start": dbDateStart,
+                            "end": dbDateEnd,
+                            "title": element.comment
+                        })
                     });
+                    console.log('events', all_events);
                     var calendarEl = document.getElementById('doc-calender');
 
                     var doccalender = new FullCalendar.Calendar(calendarEl, {
@@ -480,9 +529,9 @@
                         initialView: 'timeGridWeek',
                         nowIndicator: true,
                         initialDate: new Date(),
+                        events: all_events,
                         navLinks: true,
-                        events: events,
-                        eventClick: function(info) {
+                        eventClick: function (info) {
                             info.el.style.borderColor = 'red';
                             var id = info.event.id;
                             schedule_id = id;
@@ -493,28 +542,28 @@
                                 contentType: false,
                                 cache: false,
                                 timeout: 800000,
-                            }).done(function(data) {
+                            }).done(function (data) {
                                 var element = data.schedules
                                 if (element != undefined && element.length != 0) {
                                     var htmlSchedules = '';
                                     user_id = element.user_id;
                                     // data.schedules.forEach(element => {
-                                        let startDate = moment(element.start);
-                                        let endDate = moment(element.end);
-                                        let userTimeZone = Intl.DateTimeFormat().resolvedOptions()
-                                            .timeZone;
-                                        startDate = startDate.tz(userTimeZone).format('h:mm a z');
-                                        endDate = endDate.tz(userTimeZone).format('h:mm a z');
+                                    let startDate = moment(element.start);
+                                    let endDate = moment(element.end);
+                                    let userTimeZone = Intl.DateTimeFormat().resolvedOptions()
+                                        .timeZone;
+                                    startDate = startDate.tz(userTimeZone).format('h:mm a z');
+                                    endDate = endDate.tz(userTimeZone).format('h:mm a z');
 
-                                        var dbDateStart = moment(element.start).format(
-                                            'Y-M-D HH:mm:ss');
-                                        var dbDateEnd = moment(element.end).format('Y-M-D HH:mm:ss');
-                                        htmlSchedules += ` <div class="form-group col-lg-5 schedule_wrapper">
+                                    var dbDateStart = moment(element.start).format(
+                                        'Y-M-D HH:mm:ss');
+                                    var dbDateEnd = moment(element.end).format('Y-M-D HH:mm:ss');
+                                    htmlSchedules += ` <div class="form-group col-lg-5 schedule_wrapper">
                                     <label>Appointments Left <span>${element.number_of_people}</span> / <span class="amount-converted">${element.price}</span> <span class="currency-code">INR</span></label>
                                     <input class="form-control" type="text" start="${dbDateStart}" end="${dbDateEnd}" readonly value="${startDate} To ${endDate}" />
                                     <input type="hidden" value="${element.id}" />
                                 </div>`;
-                                doc_fee += `<p class="text">${element.price} INR</p>`
+                                    doc_fee += `<p class="text">${element.price} INR</p>`
 
                                     $('#scheduleDoctor').html(htmlSchedules);
                                     $('.fee-details span').html(doc_fee);
@@ -538,7 +587,7 @@
                 $errorStatus.addClass('hide');
 
                 $('.has-error').removeClass('has-error');
-                $inputs.each(function(i, el) {
+                $inputs.each(function (i, el) {
                     var $input = $(el);
                     if ($input.val() === '') {
                         $input.parent().addClass('has-error');
@@ -612,8 +661,8 @@
             x = document.getElementsByClassName("tab");
             y = x[currentTab].getElementsByTagName("input");
             for (i = 0; i < y.length; i++) {
-                if(y[i].getAttribute("id") != "hospital-register-id"){
-                    if(y[i].value == "" && y[i].getAttribute("name") != "coupon") {
+                if (y[i].getAttribute("id") != "hospital-register-id") {
+                    if (y[i].value == "" && y[i].getAttribute("name") != "coupon") {
                         y[i].className += " invalid";
                         valid = false;
                     }

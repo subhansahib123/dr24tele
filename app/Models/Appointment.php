@@ -35,4 +35,9 @@ class Appointment extends Model
     {
         return $this->hasOne(Schedule::class,'slot_id','id');
     }
+
+    public function eprescription()
+    {
+        return $this->hasMany(Eprescription::class, 'eprescription_id');
+    }
 }
