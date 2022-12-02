@@ -22,163 +22,30 @@ class AuthenticationController extends Controller
     }
     public function login(Request $request)
     {
-        $curl = curl_init();
-        $baseUrl = config('services.ehr.baseUrl');
-        $apiKey = config('services.ehr.apiKey');
-
-
-        $data = ['username' => $request->username, 'password' => $request->password];
-
-        $params = array('orgName' => 'dr-tele', 'tenantId' => 'ehrn');
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => $baseUrl . 'rest/admin/v1/login?' . http_build_query($params),
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'POST',
-            CURLOPT_POSTFIELDS => json_encode($data),
-            CURLOPT_HTTPHEADER => array(
-                'Content-Type: application/json',
-                'Accept: application/json',
-                'apikey: ' . $apiKey
-            ),
-        ));
+        $request->validate([
+            'username' => 'required',
+            'password' => 'required',
+        ]);
         try {
-            $response = curl_exec($curl);
-            // dd($response);
-
-            if ($response == false || isset($response->status)) {
-                curl_close($curl);
-                return curl_error($curl);
-            } else {
-                $result_data = json_decode($response);
-
-                if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
-                    $user = User::where('username', $result_data->username)->first();
-
-                    if ($user) {
-
-
-                        Auth::login($user);
-                        session(['loggedInUser' => $result_data]);
-                        curl_close($curl);
-                        return redirect()->route('dashboard')->withSuccess(__('Successfully Login'));
-                    } else {
-                        curl_close($curl);
-                        return redirect()->back()->withErrors(['error' => 'No User Exist']);
-                    }
-                } else if (isset($result_data->message) && $result_data->message == "API rate limit exceeded") {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $result_data->message]);
-                } else {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $result_data->message]);
-                }
+            $user = User::where('username',$request->username)->first();
+            $password = Hash::check($request->password, $user->password);
+            if (!$password) {
+                return redirect("admin/login")->withErrors('Could not log you in, please recheck your password.');
             }
-        } catch (\Exception $e) {
-
+            Auth::login($user);
+            session(['loggedInUser' => $user]);
+            return redirect()->intended('admin/dashboard')->withSuccess('Successfully Login');
+        }
+        catch (\Exception $e){
             return redirect()->back()->withErrors(['error' => __($e->getMessage())]);
         }
     }
     public function logout(Request $request)
     {
-        session_start();
-        // dd(10);
-        $baseUrl = config('services.ehr.baseUrl');
-        $apiKey = config('services.ehr.apiKey');
-        $userInfo = session('loggedInUser');
-
-        if (!empty($userInfo)) {
-            $userInfo = json_decode(json_encode($userInfo), true);
-            $token = $userInfo['sessionInfo']['token'];
-            $curl = curl_init();
-
-            curl_setopt_array($curl, array(
-                CURLOPT_URL => $baseUrl . 'rest/admin/logout',
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_ENCODING => '',
-                CURLOPT_MAXREDIRS => 10,
-                CURLOPT_TIMEOUT => 0,
-                CURLOPT_FOLLOWLOCATION => true,
-                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                CURLOPT_CUSTOMREQUEST => 'POST',
-                CURLOPT_HTTPHEADER => array(
-                    'Accept: application/json',
-                    'Authorization:' . $token,
-                    'apikey:' . $apiKey
-                ),
-            ));
-
-            $response = curl_exec($curl);
-            $logout = json_decode($response);
-
-            try {
-                //  dd($logout);
-                if ($response == false) {
-                    curl_close($curl);
-
-                    return redirect()->back()->withErrors(['error' => $error]);
-                } else {
-                    if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
-                        unset($userInfo);
-                        Session::flush();
-                        Auth::logout();
-                        curl_close($curl);
-                        // dd($userInfo);
-                        $url = url()->previous();
-                        $containsHospital = Str::contains($url, 'hospital');
-                        $containsDoctor = Str::contains($url, 'doctor');
-
-                        if ($containsHospital) {
-                            return  redirect()->route('hospital.login');
-                        } else if ($containsDoctor) {
-                            return  redirect()->route('doctor.login');
-                        } else {
-                            return  redirect()->route('login.show');
-                        }
-
-                    } else if (isset($logout->message) && $logout->message == "API rate limit exceeded") {
-                        curl_close($curl);
-                        // dd($userInfo);
-                        $url = url()->previous();
-                        $containsHospital = Str::contains($url, 'hospital');
-                        $containsDoctor = Str::contains($url, 'doctor');
-
-                        if ($containsHospital) {
-                            return  redirect()->route('hospital.login')->withErrors(['error' => $logout->message]);
-                        } else if ($containsDoctor) {
-                            return  redirect()->route('doctor.login')->withErrors(['error' => $logout->message]);
-                        } else {
-                            return  redirect()->route('login.show')->withErrors(['error' => $logout->message]);
-                        }
-                    } else if (isset($logout->message) && $logout->message == "Invalid Token") {
-
-                        curl_close($curl);
-                        // dd($userInfo);
-                        $url = url()->previous();
-                        $containsHospital = Str::contains($url, 'hospital');
-                        $containsDoctor = Str::contains($url, 'doctor');
-
-                        if ($containsHospital) {
-                            return  redirect()->route('hospital.login')->withErrors(['error' => $logout->message]);
-                        } else if ($containsDoctor) {
-                            return  redirect()->route('doctor.login')->withErrors(['error' => $logout->message]);
-                        } else {
-                            return  redirect()->route('login.show')->withErrors(['error' => $logout->message]);
-                        }
-                    } else {
-                        curl_close($curl);
-                        return redirect()->back()->withErrors(['error' => $logout->message]);
-                    }
-                }
-            } catch (\Exception $e) {
-                // curl_close($curl);
-                return redirect()->back()->withErrors(['error' => __($e->getMessage())]);
-            }
+        if (Auth::check()){
+            Auth::logout();
         }
+        return redirect('/');
     }
     public function dashboard()
     {
