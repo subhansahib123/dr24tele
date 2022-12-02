@@ -20,90 +20,23 @@ class OrganizationController extends Controller
 {
     public function organization()
     {
-        
-
-        $curl = curl_init();
-
-        $baseUrl = config('services.ehr.baseUrl');
-        $apiKey = config('services.ehr.apiKey');
 
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
         // dd($userInfo);
         if (is_null($userInfo)) {
-
             return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
-
-        $token = $userInfo['sessionInfo']['token'];
-
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => $baseUrl . 'rest/admin/organisation/v2/hierarchy/c6bc6265-e876-414a-9672-a85e09280059',
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'GET',
-            CURLOPT_HTTPHEADER => array(
-                'Authorization:' . $token,
-                'apikey: ' . $apiKey,
-            ),
-        ));
-
-
         try {
-            // dd($token);
-            $response = curl_exec($curl);
-            // dd($response);
-            $organizations = json_decode($response);
-            // dd($organizations);
-            if ($response == false) {
-                $error = curl_error($curl);
-                curl_close($curl);
-                return redirect()->back()->withErrors(['error' => $error]);
-            } else {
-                if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
-                    curl_close($curl);
+            $organizations = Organization::orderBy('id','desc')->get();
+            return view('admin_panel.organization.show', ['organizations' => $organizations]);
 
-                    // dd($organizations);
-                    foreach ($organizations->childlist as $organization) {
-                        Organization::firstOrNew(['name' => $organization->name], [
-                            'name' => $organization->name,
-                            'slug' => Str::slug($organization->name),
-                            'uuid' => $organization->uuid,
-                            'status' => $organization->status,
-                            'organization_id' => 1
-                        ]);
-                    }
-
-                    return view('admin_panel.organization.show', ['organizations' => $organizations]);
-                } else if (isset($organizations->message) && $organizations->message == "API rate limit exceeded") {
-                    curl_close($curl);
-                    return redirect()->route('logout')->withErrors(['error' => $organizations->message]);
-                } else if (isset($organizations->message) && $organizations->message == "Invalid User") {
-
-                    curl_close($curl);
-                    return redirect()->route('logout')->withErrors(['error' => $organizations->message]);
-                } else if (isset($organizations->message) && $organizations->message == "Invalid Token") {
-
-                    curl_close($curl);
-                    return redirect()->route('logout')->withErrors(['error' => $organizations->message]);
-                } else {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $organizations->message]);
-                }
-            }
         } catch (\Exception $e) {
-
-
             return redirect()->back()->withErrors(['error' => __($e->getMessage())]);
         }
     }
     public function create()
     {
-
         $countries = Country::all();
         $organizations = Organization::all();
         return view('admin_panel.organization.create', ['countries' => $countries, 'organizations' => $organizations]);
@@ -118,21 +51,15 @@ class OrganizationController extends Controller
             'level' => 'required|string',
             'image' => 'required'
         ]);
-        // $image = $request->file('image');
+        if ($request->hasFile('image')) {
+            $getImage = date('Y').'/'.time().'-'.rand(0,999999).'.'.$request->image->getClientOriginalExtension();
+            $request->image->move(public_path('uploads/organization/').date('Y'), $getImage);
+            $image = $getImage;
+        }
+        else{
+            $image='';
+        }
 
-        // $image_name = time().'_'.$image->getClientOriginalName();
-        // $filePath="Organization/Profile".$image_name;
-        // $path = Storage::put($filePath, file_get_contents($request->image));
-        // $get   =Storage::download($filePath);
-        // // $content=file_put_contents();
-
-        // // $url = Storage::url($filePath);
-        
-        // dd($get );
-
-        $curl = curl_init();
-        $baseUrl = config('services.ehr.baseUrl');
-        $apiKey = config('services.ehr.apiKey');
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
         if (is_null($userInfo)) {
@@ -140,99 +67,18 @@ class OrganizationController extends Controller
         }
         $parent_org_uuid = $request->has('input_org') ? $request->input_org : $request->organization;
         // dd($parent_org_uuid);
-        $token = $userInfo['sessionInfo']['token'];
-        $data = [
-            "displayname" => $request->displayname,
-            "name" => $request->name,
-            "type" => 'company',
-            "status" => $request->status,
-            "pparent" => [
-                "uuid" => $parent_org_uuid
-            ],
-            "email" => $request->email,
-            "contactperson" => $request->phoneNumber,
-            "phone" => $request->phone,
-            "address" => [
-                [
-                    "type" => "permanent",
-                    "building" => $request->building,
-                    "district" => $request->district,
-                    "city" => $request->city,
-                    "state" => $request->state,
-                    "country" => $request->country,
-                    "postalCode" => $request->postalCode
-                ]
-            ],
-            "level" => 'SubOrg',
-        ];
-        curl_setopt_array($curl, array(
-            CURLOPT_URL =>  $baseUrl . 'rest/admin/organisation/v2',
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'POST',
-            CURLOPT_POSTFIELDS => json_encode($data),
-            CURLOPT_HTTPHEADER => array(
-                'Content-Type: application/json',
-                'Accept: application/json',
-                'Authorization:' . $token,
-                'apikey:' . $apiKey,
-            ),
-        ));
         try {
-            $response = curl_exec($curl);
-            if ($response == false) {
-                $error = curl_error($curl);
-                curl_close($curl);
-                return redirect()->back()->withErrors(['error' => __($error)]);;
-            } else {
-                $organization = json_decode($response);
-                // dd($organization);
-                if (
-                    isset($organization->displayname)
-                    && $organization->displayname
-                    || curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200
-                    || curl_getinfo($curl, CURLINFO_HTTP_CODE) == 201
-                ) {
-                    curl_close($curl);
-                    // // dd($request->level);
-                    $org = Organization::where('uuid',  $parent_org_uuid)->first();
-                    // dd($org->id );
-                    Organization::Create([
-                        'name' => $request->name,
-                        'uuid' => $organization->uuid,
-                        'slug' => $organization->displayname,
-                        'status' => $organization->status,
-                        'level' => "SubOrg",
-                        'image' => $filePath,
-                        'organization_id' => $org->id
-                    ]);
-                    return view('admin_panel.index',['file'=>$file]);
-                    // return redirect()->back()->withSuccess(__('Successfully Organization Created'));
-                } else if ($organization->message == "Provided organization name already exist") {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $organization->message]);
-                } else if (isset($organization->message) && $organization->message == "API rate limit exceeded") {
-                    curl_close($curl);
-                    return redirect()->route('logout')->withErrors(['error' => $organization->message]);
-                } else if (isset($organization->message) && $organization->message == "Invalid User") {
+            Organization::Create([
+                'name' => $request->name,
+                'uuid' => Str::uuid(),
+                'slug' => Str::slug($request->name, '-'),
+                'status' => $request->status,
+                'level' => "SubOrg",
+                'image' => $image,
+            ]);
+            return redirect()->back()->withSuccess('Successfully Created');
 
-                    curl_close($curl);
-                    return redirect()->route('logout')->withErrors(['error' => $organization->message]);
-                } else if (isset($organization->message) && $organization->message == "Invalid Token") {
-
-                    curl_close($curl);
-                    return redirect()->route('logout')->withErrors(['error' => $organization->message]);
-                } else {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $organization->message]);
-                }
-            }
         } catch (\Exception $e) {
-
 
             return redirect()->back()->withErrors(['error' => __($e->getMessage())]);
         }
@@ -333,82 +179,24 @@ class OrganizationController extends Controller
     }
     public function singleOrganization($uuid)
     {
-        // dd(1);
-        $curl = curl_init();
-
-        $baseUrl = config('services.ehr.baseUrl');
-        $apiKey = config('services.ehr.apiKey');
-
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
-        // dd($userInfo);
         if (is_null($userInfo)) {
-
             return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
-        $token = $userInfo['sessionInfo']['token'];
-        $orgId = $userInfo['sessionInfo']['orgId'];
-        $req_url = $baseUrl . 'rest/admin/organisation/v2/' . $uuid;
         $orgData = Organization::where('uuid', $uuid)->first();
         if ($orgData == false) {
             $depData = Department::where('uuid', $uuid)->first();
             $parentOrgId = Organization::where('id', $depData->organization_id)->first();
         }
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => $req_url,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'GET',
-            CURLOPT_HTTPHEADER => array(
-                'Accept: application/json',
-                'Authorization:' . $token,
-                'apikey:' . $apiKey
-            ),
-
-        ));
         try {
-            $response = curl_exec($curl);
-
-            // dd($response);
-            $organization = json_decode($response);
-            // dd($organization);
-            if ($response == false) {
-                $error = curl_error($curl);
-                curl_close($curl);
-
-                return redirect()->back()->withErrors(['error' => __($error)]);;
+            $countries=Country::orderBy('id','desc')->get();
+            if ($orgData == true) {
+                return view('admin_panel.organization.organizationForUpdate', ['orgData' => $orgData, 'countries' => $countries,]);
             } else {
-                if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
-                    curl_close($curl);
-                    $countries = Country::all();
-                    if ($orgData == true) {
-                        return view('admin_panel.organization.organizationForUpdate', ['organization' => $organization, 'orgData' => $orgData, 'countries' => $countries,]);
-                    } else {
-                        return view('admin_panel.departments.departmentForUpdate', ['organization' => $organization, 'depData' => $depData, 'parentOrgId' => $parentOrgId]);
-                    }
-                } else if (isset($organization->message) && $organization->message == "API rate limit exceeded") {
-                    curl_close($curl);
-                    return redirect()->route('logout')->withErrors(['error' => $organization->message]);
-                } else if (isset($organization->message) && $organization->message == "Invalid User") {
-
-                    curl_close($curl);
-                    return redirect()->route('logout')->withErrors(['error' => $organization->message]);
-                } else if (isset($organization->message) && $organization->message == "Invalid Token") {
-
-                    curl_close($curl);
-                    return redirect()->route('logout')->withErrors(['error' => $organization->message]);
-                } else {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $organization->message]);
-                }
+                return view('admin_panel.departments.departmentForUpdate', ['depData' => $depData, 'parentOrgId' => $parentOrgId]);
             }
         } catch (\Exception $e) {
-
-
             return redirect()->back()->withErrors(['error' => __($e->getMessage())]);
         }
     }

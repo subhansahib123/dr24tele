@@ -31,7 +31,7 @@
                             <div class="table-responsive">
                                 <div class="bg-light p-4  ed">
                                     @foreach($professions as $profession)
-                                    <h1>Profession: {{ $profession->profession }}, Number: {{ $profession->number }} </h1>
+                                    <h1>Profession: {{ $profession->name }}, Number: {{ $profession->number }} </h1>
                                     <div class="lead">
                                     </div>
                                     <div class="container mt-4">

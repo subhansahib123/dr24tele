@@ -9,7 +9,7 @@
         <!-- CONTAINER -->
         <div class="main-container container-fluid">
 
-           
+
             <!-- Row -->
             <div class="row">
                 <div class="col-xl-12 col-md-12 col-sm-6">
@@ -23,7 +23,7 @@
                             </div>
                             <div class="col-4">
                                 <span class="card-title"><strong>
-                                 Organizations List 
+                                 Organizations List
                                     </strong></span>
                             </div>
 
@@ -44,7 +44,7 @@
                                             <th scope="col">Name</th>
                                             <th scope="col text-end" >Action</th>
                                         </thead>
-                                        @foreach($organizations->childlist as $organization)
+                                        @foreach($organizations as $organization)
                                         <tr >
                                             <td>
                                                 {{$organization->name}}
