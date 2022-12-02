@@ -155,7 +155,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::get('/conference/call', [PatientAuthenticationController::class, 'conference_call'])->name('conference');
   });
   //'permission'
-  Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
+  Route::group(['prefix' => 'admin', 'middleware' => ['auth','role:ehrnadmin']], function () {
 
     //temp Dashboard
     Route::get('/dashboard', [AuthenticationController::class, 'dashboard'])->name('dashboard');
@@ -268,7 +268,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
 
 
-  Route::group(['prefix' => 'hospital', 'middleware' => ['auth']], function () {
+  Route::group(['prefix' => 'hospital', 'middleware' => ['auth','role:frontoffice,orgsuperadmin']], function () {
     // Routes used for login
 
     Route::get('/dashboard/page', [AuthenticationController::class, 'hospitalDashboard'])->name('hospital.dashboard');
@@ -360,7 +360,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::post('/hospital-coupon/assign', [HospitalCouponController::class, 'assignUserPost'])->name('hospital.coupon.assigncoupon');
     Route::post('/hospital-coupon/create', [HospitalCouponController::class, 'store'])->name('hospital.coupon.store');
   });
-  Route::group(['prefix' => 'doctor', 'middleware' => ['auth']], function () {
+  Route::group(['prefix' => 'doctor', 'middleware' => ['auth','role:practitioner']], function () {
     Route::get('/dashboard', [AuthenticationController::class, 'DoctorDashboard'])->name('doctor.dashboard');
 
     //Update User name
