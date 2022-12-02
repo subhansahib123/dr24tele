@@ -24,9 +24,10 @@ class DepartmentController extends Controller
     }
     public function create(Request $request)
     {
-        // dd($request->all());
+        // dd($request->all()); 
+
         $orgName = Organization::where('uuid', $request->organization)->first();
-        // dd( $request->name . ' ' . $orgName->name);
+        // dd( $orgName );
         $request->validate([
             'name'  => 'required|string',
             'status' => 'required|string',
@@ -36,113 +37,47 @@ class DepartmentController extends Controller
             'image' => 'required',
             'specialization_id.*' => 'required|string',
         ]);
-        $curl = curl_init();
-        $baseUrl = config('services.ehr.baseUrl');
-        $apiKey = config('services.ehr.apiKey');
+        if ($request->hasFile('image')) {
+            $getImage = date('Y') . '/' . time() . '-' . rand(0, 999999) . '.' . $request->image->getClientOriginalExtension();
+            $request->image->move(public_path('uploads/department/') . date('Y'), $getImage);
+            $image = $getImage;
+        } else {
+            $image = '';
+        }
+
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
         if (is_null($userInfo)) {
             return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
+
         $parent_org_uuid = $request->has('input_org') ? $request->input_org : $request->organization;
-        $token = $userInfo['sessionInfo']['token'];
-        $data = [
-            "displayname" => $request->displayname,
-            "name" => $request->name . '_' . $orgName->name,
-            "type" => 'company',
-            "status" => $request->status,
-            "pparent" => [
-                "uuid" => $parent_org_uuid
-            ],
-            "email" => $request->email,
-            "contactperson" => '',
-            "phone" => '',
-            "address" => [
-                [
-                    "type" => "permanent",
-                    "building" => '',
-                    "district" => '',
-                    "city" => '',
-                    "state" => '',
-                    "country" => '',
-                    "postalCode" => ''
-                ]
-            ],
-            "level" => 'SubOrg',
-        ];
-        curl_setopt_array($curl, array(
-            CURLOPT_URL =>  $baseUrl . 'rest/admin/organisation/v2',
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'POST',
-            CURLOPT_POSTFIELDS => json_encode($data),
-            CURLOPT_HTTPHEADER => array(
-                'Content-Type: application/json',
-                'Accept: application/json',
-                'Authorization:' . $token,
-                'apikey:' . $apiKey,
-            ),
-        ));
+        // dd($parent_org_uuid);
+
         try {
-            $response = curl_exec($curl);
-            if ($response == false) {
-                $error = curl_error($curl);
-                curl_close($curl);
-                return redirect()->back()->withErrors(['error' => __($error)]);;
-            } else {
-                $organization = json_decode($response);
-                // dd($organization,$request->all());
-                if (
-                    isset($organization->displayname)
-                    && $organization->displayname
-                    || curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200
-                    || curl_getinfo($curl, CURLINFO_HTTP_CODE) == 201
-                ) {
-                    curl_close($curl);
-                    // dd($request->level,$request->all());
-                    $org = Organization::where('uuid',  $parent_org_uuid)->first();
-                    Department::Create([
-                        'name' => $request->name . '_' . $orgName->name,
-                        'organization_id' => $org->id,
-                        'slug' => $request->displayname,
-                        'image' => 1,
-                        'level' => "SubOrg",
-                        'uuid' => $organization->uuid,
+            if ($request->name) {
+                // dd($request->level,$request->all());
+                $org = Organization::where('uuid',  $parent_org_uuid)->first();
+                Department::Create([
+                    'name' => $request->name . '_' . $orgName->name,
+                    'organization_id' => $org->id,
+                    'slug' => $request->displayname,
+                    'image' => $image,
+                    'level' => "SubOrg",
+                    'uuid' => Str::uuid(),
+                ]);
+                $department = Department::where('name', $request->name . '_' . $org->name)->first();
+                // dd($department);
+                $specializations = $request->specialization_id;
+                // dd($specializations,$department);
+                foreach ($specializations as $specialization) {
+                    // dd($specialization);
+                    SpecializedDepartment::Create([
+                        'specialization_id' => $specialization,
+                        'department_id' => $department->id,
                     ]);
-                    $department=Department::where('name',$request->name.'_'.$org->name)->first();
-                    // dd($department);
-                    $specializations=$request->specialization_id;
-                    // dd($specializations,$department);
-                    foreach($specializations as $specialization){
-                        // dd($specialization);
-                        SpecializedDepartment::Create([
-                            'specialization_id'=>$specialization,
-                            'department_id'=>$department->id,
-                        ]);
-                    }
-                    return redirect()->back()->withSuccess(__('Successfully Department Created'));
-                } else if (isset($organization->message) && $organization->message == "Provided organization name already exist") {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => 'This Hospital is already having this department']);
-                } else if (isset($organization->message) && $organization->message == "API rate limit exceeded") {
-                    curl_close($curl);
-                    return redirect()->route('logout')->withErrors(['error' => $organization->message]);
-                } else if (isset($organization->message) && $organization->message == "Invalid User") {
-
-                    curl_close($curl);
-                    return redirect()->route('logout')->withErrors(['error' => $organization->message]);
-                } else if (isset($organization->message) && $organization->message == "Invalid Token") {
-
-                    curl_close($curl);
-                    return redirect()->route('logout')->withErrors(['error' => $organization->message]);
-                } else {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $organization->message]);
                 }
+                return redirect()->back()->withSuccess(__('Successfully Department Created'));
             }
         } catch (\Exception $e) {
 

@@ -66,15 +66,16 @@ class OrganizationController extends Controller
             return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
         $parent_org_uuid = $request->has('input_org') ? $request->input_org : $request->organization;
-        // dd($parent_org_uuid);
+        $parent_org=Organization::where('uuid',$parent_org_uuid)->first();
         try {
             Organization::Create([
                 'name' => $request->name,
                 'uuid' => Str::uuid(),
-                'slug' => Str::slug($request->name, '-'),
+                'slug' =>  $request->displayname,
                 'status' => $request->status,
                 'level' => "SubOrg",
                 'image' => $image,
+                'organization_id'=>$parent_org->id,
             ]);
             return redirect()->back()->withSuccess('Successfully Created');
 
