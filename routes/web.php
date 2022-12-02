@@ -1,39 +1,36 @@
 <?php
 
 // Admin Controllers
-use App\Http\Controllers\Admin\ProfessionController;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthenticationController;
-use App\Http\Controllers\Admin\OrganizationController;
-use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\DepartmentController;
+use App\Http\Controllers\Admin\OrganizationController;
 use App\Http\Controllers\Admin\PatientController;
-// Hospital Controller
+use App\Http\Controllers\Admin\ProfessionController;
+use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\DepartmentSpecializationController;
+use App\Http\Controllers\Doctor\CreationController;
+use App\Http\Controllers\Doctor\EprescriptionController;
+use App\Http\Controllers\Doctor\PersonalDetails;
+use App\Http\Controllers\Doctor\ScheduleController as DoctorSchedule;
+use App\Http\Controllers\Doctor\Specialization;
+use App\Http\Controllers\DoctorSpecializationController;
+use App\Http\Controllers\FrontEnd\TemplateController;
+use App\Http\Controllers\homeController;
 use App\Http\Controllers\Hospital\HospitalCouponController;
-use App\Http\Controllers\Hospital\HospitalUserController;
-use App\Http\Controllers\Hospital\HospitalPatientController;
 use App\Http\Controllers\Hospital\HospitalDepartmentController;
-
+use App\Http\Controllers\Hospital\HospitalPatientController;
+use App\Http\Controllers\Hospital\HospitalUserController;
 use App\Http\Controllers\Hospital\ScheduleController;
+use App\Http\Controllers\Patient\FamilyMembersController;
+use App\Http\Controllers\Patient\PatientsFeedbackController;
+use App\Http\Controllers\Patient\PersonalDetails as PatientDetails;
+use App\Http\Controllers\PatientAuthenticationController;
+use Illuminate\Support\Facades\Route;
+
+// Hospital Controller
 
 
 //Front End Controller
-
-use App\Http\Controllers\FrontEnd\TemplateController;
-
-use App\Http\Controllers\Patient\AuthController;
-use App\Http\Controllers\Patient\PatientsFeedbackController;
-use App\Http\Controllers\Patient\FamilyMembersController;
-use App\Http\Controllers\Doctor\ScheduleController as DoctorSchedule;
-use App\Http\Controllers\Doctor\PersonalDetails;
-use App\Http\Controllers\Doctor\Specialization;
-use App\Http\Controllers\homeController;
-use App\Http\Controllers\PatientAuthenticationController;
-use App\Http\Controllers\Patient\PersonalDetails as PatientDetails;
-
-use App\Http\Controllers\DoctorSpecializationController;
-use App\Http\Controllers\DepartmentSpecializationController;
-use App\Http\Controllers\Doctor\CreationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -390,6 +387,9 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::get('/schedule/edit/{id}', [DoctorSchedule::class, 'edit'])->name('edit.schedule.doctor');
     Route::post('update/schedule', [DoctorSchedule::class, 'update'])->name('update.schedule.doctor');
     Route::get('/appointments', [DoctorSchedule::class, 'appointments'])->name('doctor.appointments');
+    Route::get('/eprescription/create/{doctor_id}/{patient_id}/{organization_id}/{appointment_id}', [EprescriptionController::class, 'create'])->name('doctor.eprescription.create');
+    Route::post('/eprescription/store', [EprescriptionController::class, 'store'])->name('doctor.eprescription.store');
+
   });
   Route::group(['prefix' => 'patient', 'middleware' => ['auth']], function () {
     Route::get('/logout', [PatientAuthenticationController::class, 'logout'])->name('patient.logout');
