@@ -387,7 +387,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::get('/schedule/edit/{id}', [DoctorSchedule::class, 'edit'])->name('edit.schedule.doctor');
     Route::post('update/schedule', [DoctorSchedule::class, 'update'])->name('update.schedule.doctor');
     Route::get('/appointments', [DoctorSchedule::class, 'appointments'])->name('doctor.appointments');
-    Route::get('/eprescription/create', [EprescriptionController::class, 'create'])->name('doctor.eprescription.create');
+    Route::get('/eprescription/create/{doctor_id}/{patient_id}/{organization_id}/{appointment_id}', [EprescriptionController::class, 'create'])->name('doctor.eprescription.create');
     Route::post('/eprescription/store', [EprescriptionController::class, 'store'])->name('doctor.eprescription.store');
 
   });

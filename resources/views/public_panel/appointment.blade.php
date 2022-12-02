@@ -517,7 +517,6 @@
                             "title": element.comment
                         })
                     });
-                    console.log('events', all_events);
                     var calendarEl = document.getElementById('doc-calender');
 
                     var doccalender = new FullCalendar.Calendar(calendarEl, {
@@ -532,7 +531,6 @@
                         events: all_events,
                         navLinks: true,
                         eventClick: function (info) {
-                            info.el.style.borderColor = 'red';
                             var id = info.event.id;
                             schedule_id = id;
                             $.ajax({

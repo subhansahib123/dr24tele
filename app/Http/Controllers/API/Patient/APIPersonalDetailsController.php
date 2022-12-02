@@ -112,7 +112,7 @@ class APIPersonalDetailsController extends Controller
     public function appointments(){
         $patient_id=auth()->user()->patient->id;
         // dd(Auth::user()->patient->id);
-        $appointments=Appointment::where('patient_id', $patient_id)->get();
+        $appointments=Appointment::with('doctor')->where('patient_id', $patient_id)->get();
         return response()->json([
             'status' => [
                 'status_code' => 200,
