@@ -33,12 +33,9 @@ class CreationController extends Controller
     {
         if (!Auth::check())
             return redirect()->route('logout')->withErrors(['error' => 'Login Token Expired ! Please login Again']);
+      
 
-        $curl = curl_init();
-        $baseUrl = config('services.ehr.baseUrl');
-        $apiKey = config('services.ehr.apiKey');
-
-
+            // dd($request->all());
         $request->validate([
             'username' => 'required|string',
             'name' => 'required|string',
@@ -47,59 +44,7 @@ class CreationController extends Controller
             'email' => 'required|string',
             'image' => 'required',
         ]);
-        $data = [
-            'user' => [
-                'username' => $request->username,
-                'password' => $request->password
-            ],
-            'person' => [
-                'givenName' => $request->name,
-                'middleName' => $request->middlename,
-                'email' => $request->email,
-                'gender' => [
-                    'genderCode' => $request->gender_code,
-                ],
-                'phoneNumber' => $request->phoneNumber,
-                'dateOfBirth' => $request->dateOfBirth,
-
-            ]
-        ];
-        // dd($data);
-        $userInfo = session('loggedInUser');
-        $userInfo = json_decode(json_encode($userInfo), true);
-        $token = $userInfo['sessionInfo']['token'];
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => $baseUrl . '/rest/admin/user',
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'POST',
-            CURLOPT_POSTFIELDS => json_encode($data),
-            CURLOPT_HTTPHEADER => array(
-                'Content-Type: application/json',
-                'Accept: application/json',
-                'Authorization: ' . $token,
-                'apikey:' . $apiKey
-            ),
-        ));
-
         try {
-            $response = curl_exec($curl);
-            // dd($user);
-
-            if ($response == false) {
-                $error = curl_error($curl);
-                curl_close($curl);
-                return redirect()->back()->withErrors(['error' => $error]);
-            } else {
-                $user = json_decode($response);
-                // dd($user->name);
-                if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
-                    curl_close($curl);
-                    // dd(1);
 
                     $path = '';
 
@@ -110,38 +55,23 @@ class CreationController extends Controller
                     }
 
                     User::create([
-                        'username' => $user->username,
-                        'name' => $user->name,
+                        'username' => $request->username,
+                        'name' => $request->name.' '.$request->middlename,
                         'image' => $path,
                         'password' => $request->password,
                         'email' => $request->email,
                         'phone_number' => $request->phoneNumber,
-                        'uuid' => $user->uuid,
-                        'PersonId' => $user->personId,
+                        'uuid' => Str::uuid(),
+                        'PersonId' => Str::uuid(),
                         'status' => 1
                     ]);
-                    $user = User::where('username', $user->username)->first();
+                    $user = User::where('username', $request->username)->first();
                     // dd($user)
                     $userUuid = $user->uuid;
+                    // dd($userUuid );
                     return $this->mapDoctor($userUuid);
-                } else if (isset($user->message) && $user->message == "API rate limit exceeded") {
-                    curl_close($curl);
-
-                    return redirect()->route('logout')->withErrors(['error' => $user->message]);
-                } else if (isset($user->message) && $user->message == "Invalid User") {
-
-                    curl_close($curl);
-                    return redirect()->route('logout')->withErrors(['error' => $user->message]);
-                } else if (isset($user->message) && $user->message == "Invalid Token") {
-
-                    curl_close($curl);
-                    return redirect()->route('logout')->withErrors(['error' => $user->message]);
-                } else {
-                    curl_close($curl);
-
-                    return redirect()->back()->withErrors(['error' => $user->message]);
-                }
-            }
+                
+            
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => __($e->getMessage())]);
         }
@@ -173,64 +103,12 @@ class CreationController extends Controller
         // dd($request->all());
         if (!Auth::check())
             return redirect()->route('logout')->withErrors(['error' => 'Login Token Expired ! Please login Again']);
-        $curl = curl_init();
-        $uuid = $request->department;
         $orgUuid = $request->organization;
-        // dd($uuid,$orgUuid);
-        $baseUrl = config('services.ehr.baseUrl');
-        $apiKey = config('services.ehr.apiKey');
-        $userInfo = session('loggedInUser');
-        $userInfo = json_decode(json_encode($userInfo), true);
-
-
-        $token = $userInfo['sessionInfo']['token'];
-        $data = [['useruuid' => $request->user, 'rolename' => 'practitioner']];
-        $req_url = $baseUrl . '/rest/admin/orgUserMapping/role/add/' . $uuid;
-        // dd($request->all());
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => $req_url,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'PATCH',
-            CURLOPT_POSTFIELDS => json_encode($data),
-            CURLOPT_HTTPHEADER => array(
-                'Content-Type: application/json',
-                'Accept: application/json',
-                'Authorization:' . $token,
-                'apikey: ' . $apiKey,
-            ),
-        ));
         try {
-            $response = curl_exec($curl);
-
-
-            if ($response == false) {
-                $error = curl_error($curl);
-                curl_close($curl);
-                if ($containsHospital) {
-                    return redirect()->route('create.doctor')->withErrors(['error' => $error]);
-                }
-                return redirect()->route('createDoctor')->withErrors(['error' => $error]);
-
-                return redirect()->back()->withErrors(['error' => $error]);
-            } else {
-                $userRole = json_decode($response);
-                // dd($userRole);
-
-                // dd(curl_getinfo($curl, CURLINFO_HTTP_CODE));
-
-                if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
-                    $user = User::where('uuid', $userRole[0]->useruuid)->first();
+            $user = User::where('uuid', $request->user)->first();
                     $department = Department::where('uuid', $request->department)->first();
                     $organization = Organization::where('uuid', $orgUuid)->first();
-                    // dd($user->id,$department->id, $organization->id);
-                    curl_close($curl);
-                    // dd($containsHospital);
-
+                    // dd($user,$department ,$organization);
                     Doctor::create([
                         'status' => 1,
                         'user_id' => $user->id,
@@ -258,28 +136,9 @@ class CreationController extends Controller
                         return redirect()->route('create.doctor')->withSuccess(__('Doctor is Successfully Created '));
                     }
                     return redirect()->route('createDoctor')->withSuccess(__('Doctor is Successfully Created '));
-                } else if (isset($userRole->message) && $userRole->message == "API rate limit exceeded") {
-                    curl_close($curl);
-
-                    return redirect()->route('logout')->withErrors(['error' => $userRole->message]);
-                } else if (isset($userRole->message) && $userRole->message == "Invalid User") {
-
-                    curl_close($curl);
-                    return redirect()->route('logout')->withErrors(['error' => $userRole->message]);
-                } else if (isset($userRole->message) && $userRole->message == "Invalid Token") {
-
-                    curl_close($curl);
-                    return redirect()->route('logout')->withErrors(['error' => $userRole->message]);
-                } else {
-                    curl_close($curl);
-
-                    if ($containsHospital) {
-                        return redirect()->route('create.doctor')->withErrors(['error' => $userRole->message]);
-                    }
-                    return redirect()->route('createDoctor')->withErrors(['error' => $userRole->message]);
-                }
-            }
-        } catch (\Exception $e) {
+                
+         
+        }catch (\Exception $e) {
             if ($containsHospital) {
                 return redirect()->route('create.doctor')->withErrors(['error' => __($e->getMessage())]);
             }

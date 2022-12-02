@@ -55,73 +55,23 @@ class AuthenticationController extends Controller
     }
     public function roles(Request $request)
     {
-        $curl = curl_init();
-        $baseUrl = config('services.ehr.baseUrl');
-        $apiKey = config('services.ehr.apiKey');
+    
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
         if (is_null($userInfo)) {
-            return redirect()->route('login.show')->withErrors(['error' => 'Token Expired Please Login Again !']);
+            return redirect()->route('login.show')->withErrors(['error' => 'Login Expired Please Login Again !']);
         }
-        $token = $userInfo['sessionInfo']['token'];
 
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => $baseUrl . 'rest/admin/role?order=ASC',
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'GET',
-            CURLOPT_HTTPHEADER => array(
-                'Accept: application/json',
-                'Authorization: ' . $token,
-                'apikey:' . $apiKey
-            ),
-        ));
-
-        $response = curl_exec($curl);
-
-        // echo $response;
         try {
-            if ($response == false) {
-                curl_close($curl);
+             if($userInfo) {
+                
+                    $roles=Role::all();
+                
+                    // dd($roles);
 
-                return curl_error($curl);
-            } else {
-                $roles = json_decode($response);
-
-
-                // dd($token);
-                if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
-                    curl_close($curl);
-                    foreach ($roles as $role) {
-                        Role::firstOrCreate([
-                            'name' => $role->authority,
-                            'slug' => Str::slug($role->authority)
-                        ]);
-                    }
                     return  view('admin_panel.user_role.show', ["roles" => $roles]);
-                } else if (isset($roles->message) && $roles->message == "API rate limit exceeded") {
-                    curl_close($curl);
-                    return redirect()->route('login.show')->withErrors(['error' => $roles->message]);
-                } else if (isset($roles->message) && $roles->message == "Invalid User") {
-
-                    curl_close($curl);
-                    return redirect()->route('login.show')->withErrors(['error' => $roles->message]);
-                } else if (isset($roles->message) && $roles->message == "Invalid Token") {
-
-                    curl_close($curl);
-                    return redirect()->route('login.show')->withErrors(['error' => $roles->message]);
-                } else {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $roles->message]);
                 }
-            }
         } catch (\Exception $e) {
-
-
             return redirect()->back()->withErrors(['error' => __($e->getMessage())]);
         }
     }
