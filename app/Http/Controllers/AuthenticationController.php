@@ -27,7 +27,7 @@ class AuthenticationController extends Controller
             'password' => 'required',
         ]);
         try {
-            $user = User::where('username',$request->username)->first();
+            $user = User::where('username', $request->username)->first();
             $password = Hash::check($request->password, $user->password);
             if (!$password) {
                 return redirect("admin/login")->withErrors('Could not log you in, please recheck your password.');
@@ -35,14 +35,13 @@ class AuthenticationController extends Controller
             Auth::login($user);
             session(['loggedInUser' => $user]);
             return redirect()->intended('admin/dashboard')->withSuccess('Successfully Login');
-        }
-        catch (\Exception $e){
+        } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => __($e->getMessage())]);
         }
     }
     public function logout(Request $request)
     {
-        if (Auth::check()){
+        if (Auth::check()) {
             Auth::logout();
         }
         return redirect('/');
@@ -55,7 +54,7 @@ class AuthenticationController extends Controller
     }
     public function roles(Request $request)
     {
-    
+
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
         if (is_null($userInfo)) {
@@ -63,14 +62,14 @@ class AuthenticationController extends Controller
         }
 
         try {
-             if($userInfo) {
-                
-                    $roles=Role::all();
-                
-                    // dd($roles);
+            if ($userInfo) {
 
-                    return  view('admin_panel.user_role.show', ["roles" => $roles]);
-                }
+                $roles = Role::all();
+
+                // dd($roles);
+
+                return  view('admin_panel.user_role.show', ["roles" => $roles]);
+            }
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => __($e->getMessage())]);
         }
@@ -188,20 +187,13 @@ class AuthenticationController extends Controller
     }
     public function doctorLogin(Request $request)
     {
-        // dd($request->all());
-        $curl = curl_init();
-        $baseUrl = config('services.ehr.baseUrl');
-        $apiKey = config('services.ehr.apiKey');
-
-
-
 
         $user = User::with('doctor')->where('phone_number',  $request->phoneNumber)->first();
         // dd($user);
         if (!isset($user->doctor))
             return redirect()->back()->withErrors(['error' => 'User is not associated with any Department']);
 
-        // dd($user->doctor->department);
+        // dd($user->doctor);
         $organisation = $user->doctor->department;
         // dd  ($organisation->name);
         if (is_null($organisation))
@@ -213,70 +205,13 @@ class AuthenticationController extends Controller
 
             Auth::login($user);
 
-            $data = ['username' => $user->username, 'password' => $user->password];
-
-            // dd($user->password);
-            $params = array('orgName' => $organisation->name, 'tenantId' => 'ehrn');
-            curl_setopt_array($curl, array(
-                CURLOPT_URL => $baseUrl . 'rest/admin/v1/login?' . http_build_query($params),
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_ENCODING => '',
-                CURLOPT_MAXREDIRS => 10,
-                CURLOPT_TIMEOUT => 0,
-                CURLOPT_FOLLOWLOCATION => true,
-                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                CURLOPT_CUSTOMREQUEST => 'POST',
-                CURLOPT_POSTFIELDS => json_encode($data),
-                CURLOPT_HTTPHEADER => array(
-                    'Content-Type: application/json',
-                    'Accept: application/json',
-                    'apikey: ' . $apiKey
-                ),
-            ));
             try {
                 // dd(1);
-                $response = curl_exec($curl);
 
-                // dd($response);
-                if ($response == false || isset($response->status)) {
-                    curl_close($curl);
-                    // dd(1);
-
-                    return curl_error($curl);
-                } else {
-                    $result_data = json_decode($response);
-                    // dd($result_data);
-                    if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
-
-
-                        curl_close($curl);
-
-                        session_start();
-                        session(['loggedInUser' => $result_data]);
-                        $userInfo = session('loggedInUser');
-                        $userInfo = json_decode(json_encode($userInfo), true);
-                        // dd($userInfo);
-                        return redirect()->route('doctor.dashboard')->withSuccess(__('Successfully Login'));
-                    } else if (isset($result_data->message) && $result_data->message == "API rate limit exceeded") {
-                        curl_close($curl);
-                        return redirect()->route('doctor.show')->withErrors(['error' => $result_data->message]);
-                    } else if (isset($result_data->message) && $result_data->message == "Invalid User") {
-
-                        curl_close($curl);
-                        return redirect()->route('doctor.show')->withErrors(['error' => $result_data->message]);
-                    } else if (isset($result_data->message) && $result_data->message == "Invalid Token") {
-
-                        curl_close($curl);
-                        return redirect()->route('doctor.show')->withErrors(['error' => $result_data->message]);
-                    } else {
-                        curl_close($curl);
-                        // dd($result_data);
-                        return redirect()->back()->withErrors(['error' => $result_data->message]);
-                    }
-                }
+                session_start();
+                session(['loggedInUser' => $user]);
+                return redirect()->route('doctor.dashboard')->withSuccess(__('Successfully Login'));
             } catch (\Exception $e) {
-
-                // dd(3);
 
                 return redirect()->back()->withErrors(['error' => __($e->getMessage())]);
             }
