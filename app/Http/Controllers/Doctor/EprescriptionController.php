@@ -29,11 +29,9 @@ class EprescriptionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($doctor_id,$patient_id, $organization_id, $appointment_id)
     {
-        $user = Auth::user();
-        $doctor = User::with('doctor')->find($user->id);
-        return view('doctor_panel.eprescription.create', compact('doctor'));
+        return view('doctor_panel.eprescription.create', compact('doctor_id','patient_id','organization_id', 'appointment_id'));
     }
 
     /**
