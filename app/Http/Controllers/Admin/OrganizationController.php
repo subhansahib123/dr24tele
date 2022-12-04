@@ -123,10 +123,6 @@ class OrganizationController extends Controller
 
     public function deleteOrganisation($orgUuid)
     {
-        $curl = curl_init();
-        $baseUrl = config('services.ehr.baseUrl');
-        $apiKey = config('services.ehr.apiKey');
-
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
         // dd($userInfo);
@@ -134,63 +130,16 @@ class OrganizationController extends Controller
 
             return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
-        $token = $userInfo['sessionInfo']['token'];
-        $url = $baseUrl . 'rest/admin/organisation/v2/' . $orgUuid . '/inactive';
-        // dd($url);
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => $url,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'DELETE',
-            CURLOPT_HTTPHEADER => array(
-                'Accept: application/json',
-                'Authorization:' . $token,
-                'apikey: ' . $apiKey,
-            ),
-        ));
         try {
-            $response = curl_exec($curl);
-
-
-            // dd(curl_getinfo($curl, CURLINFO_HTTP_CODE));
-            $organization = json_decode($response);
-            if ($response == false) {
-                $error = curl_error($curl);
-                curl_close($curl);
-
-                return redirect()->back()->withErrors(['error' => __($error)]);;
-            } else {
-                // dd($organization);
-                if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
-                    curl_close($curl);
-                    $orgDb = Organization::where('uuid', $orgUuid)->first();
-                    if ($orgDb) {
-                        $orgDb->update(['status' => 'Disabled']);
-                        return redirect()->back()->withSuccess(__('Successfully Organization marked Inactive'));
-                    } else {
-                        Department::where('uuid', $orgUuid)->delete();
-                        return redirect()->back()->withSuccess(__('Successfully Department marked Inactive'));
-                    }
-                } else if (isset($organization->message) && $organization->message == "API rate limit exceeded") {
-                    curl_close($curl);
-                    return redirect()->route('logout')->withErrors(['error' => $organization->message]);
-                } else if (isset($organization->message) && $organization->message == "Invalid User") {
-
-                    curl_close($curl);
-                    return redirect()->route('logout')->withErrors(['error' => $organization->message]);
-                } else if (isset($organization->message) && $organization->message == "Invalid Token") {
-
-                    curl_close($curl);
-                    return redirect()->route('logout')->withErrors(['error' => $organization->message]);
-                } else {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $organization->message]);
-                }
+            $orgDb = Organization::where('uuid', $orgUuid)->first();
+            // dd($orgDb);
+            if ($orgDb->status == 'Disabled') {
+                $orgDb->update(['status' => 'Enabled']);
             }
+            else{
+            $orgDb->update(['status' => 'Disabled']);
+            }
+            return redirect()->back()->withSuccess(__('Successfully Organization marked Inactive'));
         } catch (\Exception $e) {
 
 
@@ -246,17 +195,16 @@ class OrganizationController extends Controller
         try {
             $org = Organization::where('uuid', $request->uuid)->first();
             if ($request->hasFile('image')) {
-                if(isset($org) && $org->image){
-                    $previous_img = public_path('uploads/organization/'.$org->image);
-                    if(File::exists($previous_img)){
+                if (isset($org) && $org->image) {
+                    $previous_img = public_path('uploads/organization/' . $org->image);
+                    if (File::exists($previous_img)) {
                         File::delete($previous_img);
                     }
                 }
                 $getImage = date('Y') . '/' . time() . '-' . rand(0, 999999) . '.' . $request->image->getClientOriginalExtension();
                 $request->image->move(public_path('uploads/organization/') . date('Y'), $getImage);
                 $image = $getImage;
-            }
-            else{
+            } else {
                 $image = $org->image;
             }
 
