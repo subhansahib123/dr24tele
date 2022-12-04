@@ -21,7 +21,7 @@
                             </div>
                             <div class="col-4">
                                 <span class="card-title"><strong>
-                                 Patients List
+                                        Patients List
                                     </strong></span>
                             </div>
 
@@ -47,16 +47,23 @@
                                         <table class="table table-striped" id="datatable">
                                             <thead>
                                                 <th scope="col" width="20%">Name</th>
+                                                <th class="text-end" scope="col" width="1%">Action</th>
                                             </thead>
-                                            @if($all_patients->person)
-                                            @foreach($all_patients->person as $all_patient)
+                                            @if($all_patients)
+                                            @foreach($all_patients as $all_patient)
 
 
                                             <tr style="line-height:10px ;">
 
                                                 <td>
 
-                                                    {{$all_patient->givenName}}
+                                                    {{$all_patient->user->name}}
+
+
+                                                </td>
+                                                <td class="text-end">
+
+                                                    <a href="{{route('patient.delete',['uuid'=>$all_patient->user->uuid])}}"><button class="btn btn-danger" title="Delete"><i class="fa fa-trash"></i></button></a>
 
 
                                                 </td>
@@ -72,7 +79,7 @@
 
                                                 <td>
 
-                                                Record  No Record
+                                                    Record No Record
 
 
                                                 </td>

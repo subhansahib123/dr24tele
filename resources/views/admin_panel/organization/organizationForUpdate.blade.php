@@ -34,12 +34,14 @@
                         </div>
                         <div class="card-body">
                             <form class="form-horizontal" action="{{route('update.organization')}}" method="POST" enctype="multipart/form-data">
+
                                 @csrf
                                 <div class=" row  mb-1">
 
                                     <label for="displayname" class="col-md-3 form-label"> Display Name</label>
                                     <div class="col-md-9">
                                         <input type="text" class="form-control" value="{{ $orgData->displayname }}" name="displayname" id="displayname" placeholder="Display Name" autocomplete="displayname">
+
                                     </div>
                                     @if ($errors->has('displayname'))
                                     <span class="text-danger text-left">{{ $errors->first('displayname') }}</span>
@@ -72,6 +74,7 @@
                                     <label for="inputEmail3" class="col-md-3 form-label">Email</label>
                                     <div class="col-md-9">
                                         <input type="email" class="form-control" value="{{ $orgData->email }}" name="email" placeholder="Email" autocomplete="username">
+
                                     </div>
                                     @if ($errors->has('email'))
                                         <span class="text-danger text-left">{{ $errors->first('email') }}</span>
@@ -113,6 +116,7 @@
                                             <option value="">Select</option>
                                             <option value="Enabled" {{ (isset($orgData->status) && $orgData->status == 'Enabled' ? 'selected':'') }}>Enable</option>
                                             <option value="Disabled" {{ (isset($orgData->status) && $orgData->status == 'Disabled' ? 'selected':'') }}>Disable</option>
+
                                         </select>
                                     </div>
                                     @if ($errors->has('status'))

@@ -20,7 +20,6 @@ class OrganizationController extends Controller
 {
     public function organization()
     {
-
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
         // dd($userInfo);
@@ -30,7 +29,6 @@ class OrganizationController extends Controller
         try {
             $organizations = Organization::orderBy('id', 'desc')->get();
             return view('admin_panel.organization.show', ['organizations' => $organizations]);
-
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => __($e->getMessage())]);
         }
@@ -85,6 +83,7 @@ class OrganizationController extends Controller
                 'level' => "SubOrg",
                 'image' => $image,
                 'organization_id' => $parent_org->id,
+
                 'displayname' => $request->displayname,
                 'contactperson_designation' => $request->contactperson_designation,
                 'contactperson' => $request->contactperson,
@@ -97,7 +96,6 @@ class OrganizationController extends Controller
                 'postalCode' => $request->postalCode
             ]);
             return redirect()->back()->withSuccess('Successfully Created');
-
         } catch (\Exception $e) {
 
             return redirect()->back()->withErrors(['error' => __($e->getMessage())]);
@@ -217,6 +215,8 @@ class OrganizationController extends Controller
             if ($orgData == true) {
                 return view('admin_panel.organization.organizationForUpdate', ['orgData' => $orgData, 'countries' => $countries,]);
             } else {
+                // dd($depData,$parentOrgId);
+
                 return view('admin_panel.departments.departmentForUpdate', ['depData' => $depData, 'parentOrgId' => $parentOrgId]);
             }
         } catch (\Exception $e) {

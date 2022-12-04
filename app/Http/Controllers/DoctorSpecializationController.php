@@ -25,7 +25,10 @@ class DoctorSpecializationController extends Controller
         $request->validate(['name' => 'required|string']);
         if (!Auth::check())
             return redirect()->route('logout')->withErrors(['error' => 'Login Token Expired ! Please login Again']);
-
+        $specialization = DoctorSpecialization::where('name', $request->name)->first();
+        if ($specialization) {
+            return redirect()->back()->withErrors(['error' => 'This Specialization already exists.']);
+        }
         DoctorSpecialization::firstOrCreate(['name' => $request->name]);
         return redirect()->back()->withSuccess(__('Specialization is Successfully Created'));
     }
