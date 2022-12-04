@@ -117,14 +117,18 @@ class UserController extends Controller
             return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
         try {
-            User::whereDoesntHave('doctor')
-            // $org = Organization::where('uuid', 'c6bc6265-e876-414a-9672-a85e09280059')->first();
-            // // $all_patients = UsersOrganization::with('user_roles')->where('organization_id', $org->id)->get();
-            // $all_patients = User::with('user_role')->with('user_organization')->get();
-            // if ($all_patients->user_role == 1 || 2 || 3) {
-            //     dd($all_patients);
-            // }
-            return view('admin_panel.user.users', ['all_patients' => $all_patients]);
+            // \DB::enableQueryLog(); // Enable query log
+
+            $orgId = auth()->user()->user_organization->organization_id;
+            // dd(auth()->user()->user_organization->organization_id);
+            $users = User::whereDoesntHave('doctor')->whereDoesntHave('patient')->whereHas('user_organization', function ($query ) use($orgId) {
+                $query->where('organization_id',$orgId);
+            })->get();
+            // dd(\DB::getQueryLog()); // Show results of log
+
+            // $orgUsers;
+            // dd($users);
+            return view('admin_panel.user.users', ['users' => $users]);
         } catch (\Exception $e) {
 
             return redirect()->back()->withErrors(['error' => __($e->getMessage())]);
@@ -538,8 +542,8 @@ class UserController extends Controller
             return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
         try {
-            $dep=Department::where('uuid',$uuid)->first();
-            $doctors=Doctor::with('user')->where('department_id',$dep->id)->get();
+            $dep = Department::where('uuid', $uuid)->first();
+            $doctors = Doctor::with('user')->where('department_id', $dep->id)->get();
             // dd($doctors);
             return view('admin_panel.doctors.showDoctors', ['doctors' => $doctors]);
         } catch (\Exception $e) {
@@ -615,12 +619,37 @@ class UserController extends Controller
 
             $user = User::where('uuid', $uuid)->first();
             if ($user) {
-                UsersOrganization::where('user_id',$user->id)->delete();
-                User_Role::where('user_id',$user->id)->delete();
+                UsersOrganization::where('user_id', $user->id)->delete();
+                User_Role::where('user_id', $user->id)->delete();
                 Doctor::where('user_id', $user->id)->delete();
                 $user->delete();
             }
             return redirect()->back()->withSuccess(__('Doctor Successfully  Deleted'));
+        } catch (\Exception $e) {
+
+
+            return redirect()->back()->withErrors(['error' => __($e->getMessage())]);
+        }
+    }public function userDelete($uuid)
+    {
+        $userInfo = session('loggedInUser');
+        $userInfo = json_decode(json_encode($userInfo), true);
+        // dd($userInfo);
+        if (is_null($userInfo)) {
+
+            return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
+        }
+
+        try {
+
+
+            $user = User::where('uuid', $uuid)->first();
+            if ($user) {
+                UsersOrganization::where('user_id', $user->id)->delete();
+                User_Role::where('user_id', $user->id)->delete();
+                $user->delete();
+            }
+            return redirect()->back()->withSuccess(__('Management Successfully  Deleted'));
         } catch (\Exception $e) {
 
 

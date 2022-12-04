@@ -232,6 +232,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     // These Routes are used to Map Roles to Users
     Route::get('/updatingrole/{orgUuid}/{userUuid}', [UserController::class, 'updateUserRole'])->name('updatingRole');
     Route::post('/updatedRole', [UserController::class, 'updateUserRoleStore'])->name('role.updated');
+    Route::get('/user/delete/{uuid}', [UserController::class, 'userDelete'])->name('user.delete');
 
 
     //This Route is used to Create Patient

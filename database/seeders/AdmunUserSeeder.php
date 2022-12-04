@@ -8,6 +8,7 @@ use App\Models\User_Role;
 use Illuminate\Database\Seeder;
 use App\Models\User;
 use App\Models\Profession;
+use App\Models\UsersOrganization;
 use Illuminate\Support\Str;
 
 class AdmunUserSeeder extends Seeder
@@ -49,6 +50,11 @@ class AdmunUserSeeder extends Seeder
             User_Role::create([
                 'user_id' => $details->id,
                 'role_id' => 1
+            ]);
+            $org=Organization::where('name','dr-tele')->first();
+            UsersOrganization::create([
+                'user_id' => $details->id,
+                'organization_id' => $org->id
             ]);
         }
         $countries_path = './sql_data/tbl_countries.sql';
