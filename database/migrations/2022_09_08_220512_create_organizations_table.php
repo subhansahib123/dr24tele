@@ -16,13 +16,24 @@ class CreateOrganizationsTable extends Migration
         Schema::create('organizations', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('displayname')->nullable();
+            $table->string('contactperson_designation')->nullable();
+            $table->string('contactperson')->nullable();
+            $table->integer('country')->nullable();
+            $table->integer('state')->nullable();
+            $table->integer('city')->nullable();
+            $table->string('email')->nullable();
+            $table->string('building')->nullable();
+            $table->string('district')->nullable();
+            $table->string('postalCode')->nullable();
             $table->string('slug');
+            $table->string('image')->nullable();
             $table->string('level')->nullable();
             $table->string('uuid')->nullable();
             $table->string('status')->default('Disabled');
-            $table->timestamps();
             $table->unsignedBigInteger('organization_id')->nullable();
             $table->foreign('organization_id')->references('id')->on('organizations')->onDelete('cascade');
+            $table->timestamps();
         });
     }
 
