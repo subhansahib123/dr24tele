@@ -13,13 +13,10 @@ class Organization extends Model
         'name',
         'slug',
         'image',
-
         'uuid',
         'status',
-
         'level',
         'organization_id'
-
     ];
     public function department()
     {
