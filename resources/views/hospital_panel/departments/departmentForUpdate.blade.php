@@ -30,27 +30,27 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <form class="form-horizontal" action="{{route('hospitalDepartment.updated')}}" method="POST">
+                            <form class="form-horizontal" action="{{route('hospitalDepartment.updated')}}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class=" row mb-4">
-                                    <input type="hidden" name="parentOrgId" value="{{$parentOrgId->uuid}}">
+                                    <input type="hidden" name="parentOrgId" value="{{$organization->uuid}}">
                                     <label for="displayname" class="col-md-3 form-label"> Display Name</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" value="{{$organization->displayname}}" name="displayname" id="displayname" placeholder="Display Name" autocomplete="displayname">
+                                        <input type="text" class="form-control" value="{{$depData->slug}}" name="displayname" id="displayname" placeholder="Display Name" autocomplete="displayname">
                                     </div>
                                     @if ($errors->has('displayname'))
                                     <span class="text-danger text-left">{{ $errors->first('displayname') }}</span>
                                     @endif
                                 </div>
-                                <input type="hidden" class="form-control" value="{{$organization->uuid}}" name="DepUuid" id="OrgUuid" placeholder="Display Name" autocomplete="OrgUuid">
+                                <input type="hidden" class="form-control" value="{{$depData->uuid}}" name="DepUuid" id="OrgUuid" placeholder="Display Name" autocomplete="OrgUuid">
 
                                 <input type="hidden" class="form-control" value="{{$depData->name}}" name="name">
 
-
+{{dd($depData)}}
                                 <div class=" row mb-4">
                                     <label for="inputEmail3" class="col-md-3 form-label">Email</label>
                                     <div class="col-md-9">
-                                        <input type="email" class="form-control" value="{{$organization->email}}" name="email" placeholder="Email" autocomplete="username">
+                                        <input type="email" class="form-control" value="{{$depData->email}}" name="email" placeholder="Email" autocomplete="username">
                                     </div>
                                 </div>
 

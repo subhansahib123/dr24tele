@@ -30,7 +30,7 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <form class="form-horizontal" action="{{route('hospitalDepartment.created')}}" method="POST">
+                            <form class="form-horizontal" action="{{route('hospitalDepartment.created')}}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class=" row mb-1">
                                     <label for="displayname" class="col-md-3 form-label"> Display Name</label>
