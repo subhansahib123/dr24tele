@@ -13,6 +13,7 @@ class Department extends Model
         'name',
         'slug',
         'image',
+        'email',
         'organization_id',
         'level',
         'display_name',

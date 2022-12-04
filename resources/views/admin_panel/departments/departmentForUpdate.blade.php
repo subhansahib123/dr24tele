@@ -33,7 +33,7 @@
                             <form class="form-horizontal" action="{{route('update.department')}}" enctype="multipart/form-data" method="POST">
                                 @csrf
                                 <div class=" row mb-4">
-                                    <input type="hidden" name="parentOrgId" value="{{$parentOrgId->uuid}}">
+                                    <input type="hidden" name="DepUuid" value="{{$depData->uuid}}">
                                     <label for="displayname" class="col-md-3 form-label"> Display Name</label>
                                     <div class="col-md-9">
                                         <input type="text" class="form-control" value="{{$depData->display_name}}" name="displayname" id="displayname" placeholder="Display Name" autocomplete="displayname">

@@ -9,6 +9,7 @@
         <!-- CONTAINER -->
         <div class="main-container container-fluid">
 
+        @include('admin_panel.frontend.includes.messages')
  
             <!-- Row -->
             <div class="row">
@@ -34,7 +35,6 @@
                         </div>
                         <div class="card-body">
 
-                            @include('admin_panel.frontend.includes.messages')
                             {{-- <p>Use <code class="highlighter-rouge">.table-striped</code>to add zebra-striping to any table row within the <code class="highlighter-rouge">.tbody</code>.</p> --}}
                             <div class="table-responsive">
                                 <div class="bg-light p-4 ">
@@ -44,17 +44,17 @@
                                             <th scope="col">User Name</th>
                                             <th scope="col" class="text-end">Action</th>
                                         </thead>
-                                        @foreach($doctors->Users as $doctor)
+                                        @foreach($doctors as $doctor)
                                         <tr>
                                             <td>
-                                                {{$doctor->username}}
+                                                {{$doctor->user->username}}
 
                                             </td>
                                             <td>
-                                                {{$doctor->name}}
+                                                {{$doctor->user->name}}
                                             </td>
                                             <td class="text-end">
-                                                <a href="{{route('user.delete',[$doctor->uuid])}}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                                                <a href="{{route('doctor.delete',[$doctor->user->uuid])}}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
                                             </td>
                                         </tr>
                                         @endforeach
