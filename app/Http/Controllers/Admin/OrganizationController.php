@@ -139,7 +139,7 @@ class OrganizationController extends Controller
             else{
             $orgDb->update(['status' => 'Disabled']);
             }
-            return redirect()->back()->withSuccess(__('Successfully Organization marked Inactive'));
+            return redirect()->back()->withSuccess(__('Successfully Organization Status Updated'));
         } catch (\Exception $e) {
 
 
