@@ -14,12 +14,14 @@ class RootOrganizationSeeder extends Seeder
      */
     public function run()
     {
-        $organization = Organization::create([
+        Organization::create([
             'name' => 'dr-tele',
             'slug'=>'dr-tele',
             'uuid'=>'c6bc6265-e876-414a-9672-a85e09280059',
             'status' => 'Enabled',
-            'level'=>'Master'
+            'level'=>'Master',
+            'organization_id' => null,
+            'image' => null
         ]);
     }
 }

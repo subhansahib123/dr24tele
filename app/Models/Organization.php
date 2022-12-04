@@ -11,15 +11,22 @@ class Organization extends Model
     protected $table="organizations";
     protected $fillable=[
         'name',
+        'displayname',
+        'contactperson_designation',
+        'contactperson',
+        'country',
+        'state',
+        'city',
+        'email',
+        'building',
+        'district',
+        'postalCode',
         'slug',
         'image',
-
         'uuid',
         'status',
-
         'level',
         'organization_id'
-
     ];
     public function department()
     {

@@ -13,12 +13,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        $this->call(
-            AdmunUserSeeder::class,
-        );
-        $this->call(
+        $this->call([
             RootOrganizationSeeder::class,
-        );
-
+            AdmunUserSeeder::class,
+        ]);
     }
 }
