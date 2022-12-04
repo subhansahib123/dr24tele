@@ -73,7 +73,7 @@ class HospitalCouponController extends Controller
         }
          $coupon = Coupon::create(['title'=> $request->title, 'start_date' => $request->start_date, 'end_date' => $request->end_date,
              'uuid'=> Str::uuid()->toString(),'status'=>$request->status, 'organization_id' => $request->hospital, 'discount' => $request->discount,
-             'created_by' => $userInfo['sessionInfo']['id']]);
+             'created_by' => \auth()->user()->id]);
         if($coupon) {
             return redirect()->back()->withSuccess(__('Coupon is Successfully Created'));
         }

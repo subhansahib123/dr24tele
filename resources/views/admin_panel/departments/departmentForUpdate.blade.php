@@ -36,7 +36,8 @@
                                     <input type="hidden" name="DepUuid" value="{{$depData->uuid}}">
                                     <label for="displayname" class="col-md-3 form-label"> Display Name</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" value="{{$depData->display_name}}" name="displayname" id="displayname" placeholder="Display Name" autocomplete="displayname">
+                                        <input type="text" class="form-control" value="{{ $depData->display_name }}" name="displayname" id="displayname"
+                                               placeholder="Display Name" autocomplete="displayname">
                                     </div>
                                     @if ($errors->has('displayname'))
                                     <span class="text-danger text-left">{{ $errors->first('displayname') }}</span>

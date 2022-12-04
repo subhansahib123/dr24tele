@@ -28,7 +28,9 @@
                         <div class="card-header">
                             <h4 class=""> Create Coupon</h4>
                         </div>
-                        @include('admin_panel.frontend.includes.messages')
+                        <div class="container">
+                            @include('admin_panel.frontend.includes.messages')
+                        </div>
                         <div class="card-body">
                             <form class="form-horizontal" action="{{route('hospital.coupon.store')}}" method="POST">
                                 @csrf
