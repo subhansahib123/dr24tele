@@ -156,7 +156,7 @@
                             <div class="dr-details">
                                 <div class="dr-image">
                                     <img
-                                        src="{{ ($doctor->user->image) ? asset('storage/'. $doctor->user->image) : asset('public_assets/img/services/service-9.jpg')}}"
+                                        src="{{ ($doctor->user->image) ? asset('uploads/organization/department/doctor/'. $doctor->user->image) : asset('public_assets/img/services/service-9.jpg')}}"
                                         alt="Image">
                                 </div>
                                 <div class="dr-info">
@@ -418,8 +418,8 @@
 
                         fee = $(this).find("span.amount-converted").html()
                         $('#scheduleDoctor').html(htmlSchedules);
-                        $("p").remove('.text');
-                        doc_fee += `<p class="text">${element.price} INR</p>`
+                        // $(".fee-details span p").remove();
+                        doc_fee = `<p class="text">${element.price} INR</p>`
                         $('.fee-details span').html(doc_fee);
                     } else {
                         $('#scheduleDoctor').html("<h3>No Schedule found !</h3>");

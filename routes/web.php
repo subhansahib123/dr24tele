@@ -54,7 +54,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
   Route::get('/logout', [AuthenticationController::class, 'logout'])->name('logout');
 
 
-  Route::group(['middleware' => ['guest']], function () {
+//  Route::group(['middleware' => ['guest']], function () {
 
 
 
@@ -153,7 +153,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
 
     Route::get('/conference/call', [PatientAuthenticationController::class, 'conference_call'])->name('conference');
-  });
+//  });
   //'permission'
   Route::group(['prefix' => 'admin', 'middleware' => ['auth','role:ehrnadmin']], function () {
 
@@ -226,7 +226,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     // These Routes are used to Map Roles to Users
     Route::get('/mappingrole', [UserController::class, 'mapUser'])->name('mappingRole');
     Route::post('/mappedrole', [UserController::class, 'mapUserRole'])->name('role.mapped');
-    
+
     Route::get('/doctor/delete/{uuid}', [UserController::class, 'doctorDelete'])->name('doctor.delete');
 
     // These Routes are used to Map Roles to Users

@@ -149,6 +149,7 @@ use App\Models\Appointment;
             return redirect()->route('logout')->withErrors(['error' => 'Login Token Expired ! Please login Again']);
         $doctor_id = auth()->user()->doctor->id;
         $appointements = Appointment::where('doctor_id', $doctor_id)->get();
+        dd($appointements);
         return view('doctor_panel.appointement.index', compact('appointements'));
     }
 }

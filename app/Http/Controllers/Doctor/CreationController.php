@@ -29,6 +29,7 @@ class CreationController extends Controller
         }
         return view('admin_panel.doctors.create');
     }
+
     public function store(Request $request)
     {
         if (!Auth::check())
@@ -43,33 +44,36 @@ class CreationController extends Controller
             'image' => 'required',
         ]);
         try {
-                    $path = '';
-                    if($request->hasFile('image')){
-                        $file = $request->file('image');
-                        $fiel_name = \Str::random(40);
-                        $path = $file->storeAs('public\profile', $fiel_name . '.' . $file->getClientOriginalExtension());
-                    }
+            if ($request->hasFile('image')) {
+                $getImage = date('Y') . '/' . time() . '-' . rand(0, 999999) . '.' . $request->image->getClientOriginalExtension();
+                $request->image->move(public_path('uploads/organization/department/doctor/') . date('Y'), $getImage);
+                $image = $getImage;
+            } else {
+                $image = '';
+            }
 
-                    User::create([
-                        'username' => $request->username,
-                        'name' => $request->name.' '.$request->middlename,
-                        'image' => $path,
-                        'password' => $request->password,
-                        'email' => $request->email,
-                        'phone_number' => $request->phoneNumber,
-                        'uuid' => Str::uuid(),
-                        'PersonId' => Str::uuid(),
-                        'status' => 1
-                    ]);
-                    $user = User::where('username', $request->username)->first();
-                    $userUuid = $user->uuid;
-                    return $this->mapDoctor($userUuid);
+
+            User::create([
+                'username' => $request->username,
+                'name' => $request->name . ' ' . $request->middlename,
+                'image' => $image,
+                'password' => $request->password,
+                'email' => $request->email,
+                'phone_number' => $request->phoneNumber,
+                'uuid' => Str::uuid(),
+                'PersonId' => Str::uuid(),
+                'status' => 1
+            ]);
+            $user = User::where('username', $request->username)->first();
+            $userUuid = $user->uuid;
+            return $this->mapDoctor($userUuid);
 
 
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => __($e->getMessage())]);
         }
     }
+
     public function mapDoctor($userUuid)
     {
         if (!Auth::check())
@@ -89,6 +93,7 @@ class CreationController extends Controller
         }
         return view('admin_panel.doctors.mapDoctor', ['organizations' => $organizations, 'userUuid' => $userUuid]);
     }
+
     public function doctorMapped(Request $request)
     {
 
@@ -100,39 +105,38 @@ class CreationController extends Controller
         $orgUuid = $request->organization;
         try {
             $user = User::where('uuid', $request->user)->first();
-                    $department = Department::where('uuid', $request->department)->first();
-                    $organization = Organization::where('uuid', $orgUuid)->first();
-                    // dd($user,$department ,$organization);
-                    Doctor::create([
-                        'status' => 1,
-                        'user_id' => $user->id,
-                        'image' => '',
-                        'department_id' => $department->id,
+            $department = Department::where('uuid', $request->department)->first();
+            $organization = Organization::where('uuid', $orgUuid)->first();
+            // dd($user,$department ,$organization);
+            Doctor::create([
+                'status' => 1,
+                'user_id' => $user->id,
+                'image' => '',
+                'department_id' => $department->id,
 
-                    ]);
-                    UsersOrganization::firstOrCreate([
+            ]);
+            UsersOrganization::firstOrCreate([
 
-                        'status' => 1,
-                        'registration_code' => '123ABC',
-                        'user_id' => $user->id,
-                        'organization_id' => $organization->id
-                    ]);
-                    User_Role::firstOrCreate([
-                        'user_id' => $user->id,
-                        'role_id' => 4,
-                    ]);
+                'status' => 1,
+                'registration_code' => '123ABC',
+                'user_id' => $user->id,
+                'organization_id' => $organization->id
+            ]);
+            User_Role::firstOrCreate([
+                'user_id' => $user->id,
+                'role_id' => 4,
+            ]);
 
-                    // dd($user->id,$role->id,$organization->id);
-
-
-
-                    if ($containsHospital) {
-                        return redirect()->route('create.doctor')->withSuccess(__('Doctor is Successfully Created '));
-                    }
-                    return redirect()->route('createDoctor')->withSuccess(__('Doctor is Successfully Created '));
+            // dd($user->id,$role->id,$organization->id);
 
 
-        }catch (\Exception $e) {
+            if ($containsHospital) {
+                return redirect()->route('create.doctor')->withSuccess(__('Doctor is Successfully Created '));
+            }
+            return redirect()->route('createDoctor')->withSuccess(__('Doctor is Successfully Created '));
+
+
+        } catch (\Exception $e) {
             if ($containsHospital) {
                 return redirect()->route('create.doctor')->withErrors(['error' => __($e->getMessage())]);
             }
