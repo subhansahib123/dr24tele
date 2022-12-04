@@ -554,14 +554,9 @@ class UserController extends Controller
     public function usersList($uuid)
     {
         $org = Organization::where('uuid', $uuid)->first();
-        $users = User_Role::with('user')->where('role_id', 1 || 2 || 3)->get();
-        // dd($users);
-        foreach ($users as $user) {
-
-            $user = UsersOrganization::where('user_id', $user->user->id)->where('organization_id', $org->id)->first();
-            dd($user);
-        }
-
+        $users = User::whereDoesntHave('doctor')->whereDoesntHave('patient')->whereHas('user_organization', function ($query ) use($org) {
+            $query->where('organization_id',$org->id);
+        })->get();
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
         if (is_null($userInfo)) {
