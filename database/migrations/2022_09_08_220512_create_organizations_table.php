@@ -19,9 +19,9 @@ class CreateOrganizationsTable extends Migration
             $table->string('displayname')->nullable();
             $table->string('contactperson_designation')->nullable();
             $table->string('contactperson')->nullable();
-            $table->integer('country')->nullable();
-            $table->integer('state')->nullable();
-            $table->integer('city')->nullable();
+            $table->string('country')->nullable();
+            $table->string('state')->nullable();
+            $table->string('city')->nullable();
             $table->string('email')->nullable();
             $table->string('building')->nullable();
             $table->string('district')->nullable();

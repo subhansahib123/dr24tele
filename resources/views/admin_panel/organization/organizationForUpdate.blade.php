@@ -33,30 +33,27 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <form class="form-horizontal" action="{{route('update.organization')}}" method="POST">
+                            <form class="form-horizontal" action="{{route('update.organization')}}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class=" row  mb-1">
 
                                     <label for="displayname" class="col-md-3 form-label"> Display Name</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" value="" name="displayname" id="displayname" placeholder="Display Name" autocomplete="displayname">
+                                        <input type="text" class="form-control" value="{{ $orgData->displayname }}" name="displayname" id="displayname" placeholder="Display Name" autocomplete="displayname">
                                     </div>
                                     @if ($errors->has('displayname'))
                                     <span class="text-danger text-left">{{ $errors->first('displayname') }}</span>
                                     @endif
                                 </div>
-                                <input type="hidden" class="form-control" value="" name="OrgUuid" id="OrgUuid" placeholder="Display Name" autocomplete="OrgUuid">
-                                <input type="hidden" class="form-control" value="" name="name" id="username" placeholder="Username">
-
-
-
                                 <div class=" row  mb-1">
                                     <label for="email" class="col-md-3 form-label"> Contact Person Designation</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control"  name="contactperson" id="contactperson" placeholder="Contact Person Designation" autocomplete="contactperson">
+                                        <input type="text" class="form-control"  name="contactperson_designation" value="{{ $orgData->contactperson_designation }}"
+                                               id="contactperson_designation" placeholder="Contact Person Designation"
+                                               autocomplete="contactperson_designation">
                                     </div>
-                                    @if ($errors->has('contactperson'))
-                                    <span class="text-danger text-left">{{ $errors->first('contactperson') }}</span>
+                                    @if ($errors->has('contactperson_designation'))
+                                    <span class="text-danger text-left">{{ $errors->first('contactperson_designation') }}</span>
                                     @endif
                                 </div>
                                 <div class="row  mb-1 address">
@@ -64,91 +61,77 @@
                                         <label for="exampleInputnumber"><Strong> Contact Number</Strong></label>
                                     </div>
                                     <div class="col-9 form-group  my-0">
-                                        <input type="text" id="txtPhone" class="form-control">
+                                        <input type="text" id="txtPhone" value="{{ $orgData->contactperson }}" name="contactperson" class="form-control">
                                         <input type="hidden" class="form-control" id="phoneNumber">
                                     </div>
                                     @if ($errors->has('contactperson'))
                                     <span class="text-danger text-left">{{ $errors->first('contactperson') }}</span>
                                     @endif
                                 </div>
-                                <div class=" row  mb-1 addresss">
-                                    <label for="country" class="col-md-3 form-label"> Select Country </label>
-                                    <div class="col-md-9">
-                                        <input type="hidden" value="" name="country" id="country_value" />
-                                        <select class="form-control" onchange="loadStates(this.value,this)" id="country">
-                                            <option value="">Select Country</option>
-                                            @foreach ($countries as $country)
-                                            <option value="{{$country->id}}">{{$country->name}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class=" row  mb-1 addresss">
-                                    <label for="country" class="col-md-3 form-label"> Select State </label>
-                                    <input type="hidden" value="" name="state" id="state_value" />
-                                    <div class="col-md-9">
-                                        <select class="form-control" onchange="loadCities(this.value,this)" id="state">
-                                            <option>Select State</option>
-
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class=" row  mb-1 addresss">
-                                    <label for="country" class="col-md-3 form-label"> Select City </label>
-                                    <input type="hidden" value="" name="city" id="city_value" />
-                                    <div class="col-md-9">
-                                        <select class="form-control" id="city">
-                                            <option>Select City</option>
-                                        </select>
-                                    </div>
-                                </div>
                                 <div class=" row  mb-1">
                                     <label for="inputEmail3" class="col-md-3 form-label">Email</label>
                                     <div class="col-md-9">
-                                        <input type="email" class="form-control" value="" name="email" placeholder="Email" autocomplete="username">
+                                        <input type="email" class="form-control" value="{{ $orgData->email }}" name="email" placeholder="Email" autocomplete="username">
                                     </div>
+                                    @if ($errors->has('email'))
+                                        <span class="text-danger text-left">{{ $errors->first('email') }}</span>
+                                    @endif
                                 </div>
 
                                 <div class=" row  mb-1 addresss">
                                     <label for="building" class="col-md-3 form-label">Building</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" value="" id="building" name="building" placeholder="Building Address">
+                                        <input type="text" class="form-control" value="{{ $orgData->building }}" id="building" name="building" placeholder="Building Address">
                                     </div>
+                                    @if ($errors->has('building'))
+                                        <span class="text-danger text-left">{{ $errors->first('building') }}</span>
+                                    @endif
                                 </div>
                                 <div class=" row  mb-1 addresss">
                                     <label for="district" class="col-md-3 form-label">District</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" value="" id="district" name="district" placeholder="District">
+                                        <input type="text" class="form-control" value="{{ $orgData->district }}" id="district" name="district" placeholder="District">
                                     </div>
+                                    @if ($errors->has('district'))
+                                        <span class="text-danger text-left">{{ $errors->first('district') }}</span>
+                                    @endif
                                 </div>
                                 <div class=" row  mb-1 addresss">
                                     <label for="postalCode" class="col-md-3 form-label">Postal Code</label>
                                     <div class="col-md-9">
-                                        <input type="number" class="form-control" value="" id="postalCode" name="postalCode" placeholder="Postal Code">
+                                        <input type="hidden" name="uuid" value="{{ $orgData->uuid }}">
+                                        <input type="number" class="form-control" value="{{ $orgData->postalCode }}" id="postalCode" name="postalCode" placeholder="Postal Code">
                                     </div>
+                                    @if ($errors->has('postalCode'))
+                                        <span class="text-danger text-left">{{ $errors->first('postalCode') }}</span>
+                                    @endif
                                 </div>
                                 <div class=" row  mb-1 ">
-                                    <label for="country" class="col-md-3 form-label"> Select Status </label>
+                                    <label for="status" class="col-md-3 form-label"> Select Status </label>
                                     <div class="col-md-9">
-                                        <select class="form-control" name="status" id="state">
+                                        <select class="form-control" name="status" id="status">
                                             <option value="">Select</option>
-                                            <option value="Enabled">Enable</option>
-                                            <option value="Disabled">Disable</option>
-
+                                            <option value="Enabled" {{ (isset($orgData->status) && $orgData->status == 'Enabled' ? 'selected':'') }}>Enable</option>
+                                            <option value="Disabled" {{ (isset($orgData->status) && $orgData->status == 'Disabled' ? 'selected':'') }}>Disable</option>
                                         </select>
                                     </div>
+                                    @if ($errors->has('status'))
+                                        <span class="text-danger text-left">{{ $errors->first('status') }}</span>
+                                    @endif
                                 </div>
                                 <div class=" row  mb-1">
                                     <label for="image" class="col-md-3 form-label"> Picture </label>
                                     <div class="col-md-9">
                                         <input type="file" name="image" id="image">
                                     </div>
+                                    @if ($errors->has('image'))
+                                        <span class="text-danger text-left">{{ $errors->first('image') }}</span>
+                                    @endif
                                 </div>
                                 <div class="mb-0 mt-4 row text-end">
                                     <div class="col">
                                         <button class="btn btn-primary" type="submit">Update</button>
                                         <span><a href="{{route('dashboard')}}" class="btn btn-secondary  ">Cancel</a></span>
-
                                     </div>
                                 </div>
                             </form>
