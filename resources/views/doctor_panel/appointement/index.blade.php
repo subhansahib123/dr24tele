@@ -29,15 +29,17 @@
                             </div>
                             <div class="card-body">
 
-                                <div class="row" id="call-action">
-                                    <div class="col-12">
+                                <div class="row d-none mb-3" id="call-action">
+                                    <div class="col-1">
                                         <button type="button" class="btn btn-success btn-sm" id="call">Call</button>
-                                        <form action="">
+                                    </div>
+                                    <div class="col-1">
+                                        <form action="{{ route('doctor.eprescription.create') }}">
                                             <input type="hidden" name="doctor_id" id="doctor_id">
                                             <input type="hidden" name="patient_id" id="patient_id">
                                             <input type="hidden" name="organization_id" id="organization_id">
                                             <input type="hidden" name="appointment_id" id="appointment_id">
-                                             <a class="btn btn-primary btn-sm" href="{{ route('doctor.eprescription.create') }}">Prescription</a>
+                                            <input type="submit" class="btn btn-primary btn-sm" value="E-Prescription">
                                         </form>
                                     </div>
                                 </div>
@@ -58,24 +60,26 @@
             var events = [];
             $('.js-example-basic-multiple').select2();
             $.ajax({
-                url: `/api/doctor/appointments`,
+                url: `/doctor/appointments/list`,
                 type: "GET",
                 processData: false,
                 contentType: false,
                 cache: false,
                 timeout: 800000,
             }).done(function (data) {
-                console.log(data);
-                data.forEach(element => {
+                console.log(data.data.appointments);
+                var asd = data.data.appointments
+                asd.forEach(element => {
                     var dbDateStart = moment(element.start).format('YYYY-MM-DDTHH:mm:ss');
                     var dbDateEnd = moment(element.end).format('YYYY-MM-DDTHH:mm:ss');
+                    console.log(element);
                     events.push({
                         "id": element.id,
                         "doctor": element.doctor_id,
                         "department_id": element.doctor.department_id,
                         "start": dbDateStart,
                         "end": dbDateEnd,
-                        "title": element.comment,
+                        "title": element.description,
                         "patient_id": element.patient_id
                     })
                 });
@@ -94,10 +98,11 @@
                     events: events,
                     eventClick: function (info) {
                         var id = info.event.id;
-                        $('#call-action').show();
-                        $('#organization_id').val(info.event.department_id)
-                        $('#doctor_id').val(info.event.doctor_id)
-                        $('#patient_id').val(info.event.patient_id)
+                        console.log(info)
+                        $('#call-action').addClass('d-flex');
+                        $('#organization_id').val(info.event.extendedProps.department_id)
+                        $('#doctor_id').val(info.event.extendedProps.doctor)
+                        $('#patient_id').val(info.event.extendedProps.patient_id)
                         $('#appointment_id').val(info.event.id)
                     }
                 });

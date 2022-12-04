@@ -38,6 +38,6 @@ class Eprescription extends Model
 
     public function eprescriptiondetail()
     {
-        return $this->hasMany(EprescriptionDetail::class, 'eprescription_detail_id');
+        return $this->hasMany(EprescriptionDetail::class, 'eprescription_id');
     }
 }
