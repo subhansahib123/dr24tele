@@ -42,22 +42,21 @@
 
                                     <table class="table table-striped" id="datatable">
                                         <thead>
-                                            <th scope="col">Name</th>
+                                            <th scope="col" width="30%" >Name</th>
                                             <th class="col text-end">Action</th>
                                         </thead>
 
 
-                                        @foreach($patients->person as $patients)
+                                        @foreach($patients as $patient)
                                         <tr>
 
                                             <td>
 
-                                                {{isset($patients->givenName)?$patients->givenName:''}}
+                                                {{$patient->user->name}}
 
                                             </td>
                                             <td class="text-end">
-                                                <a href="{{route('update.patient',[$patients->personIdentifiers->identifier])}}" class="btn btn-info"><i class="fa fa-edit"></i></a>
-                                                <a href="{{route('patient.delete',[$patients->personIdentifiers->identifier])}}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
+                                                <a href="{{route('patient.delete',[$patient->user->uuid])}}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
                                             </td>
                                         </tr>
                                         @endforeach

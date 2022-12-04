@@ -33,20 +33,20 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <form class="form-horizontal" action="{{route('update.organization')}}" method="POST">
+                            <form class="form-horizontal" enctype="multipart/form-data" action="{{route('update.organization')}}" method="POST">
                                 @csrf
                                 <div class=" row  mb-1">
 
                                     <label for="displayname" class="col-md-3 form-label"> Display Name</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" value="" name="displayname" id="displayname" placeholder="Display Name" autocomplete="displayname">
+                                        <input type="text" class="form-control" value="{{$orgData->slug}}" name="displayname" id="displayname" placeholder="Display Name" autocomplete="displayname">
                                     </div>
                                     @if ($errors->has('displayname'))
                                     <span class="text-danger text-left">{{ $errors->first('displayname') }}</span>
                                     @endif
                                 </div>
-                                <input type="hidden" class="form-control" value="" name="OrgUuid" id="OrgUuid" placeholder="Display Name" autocomplete="OrgUuid">
-                                <input type="hidden" class="form-control" value="" name="name" id="username" placeholder="Username">
+                                <input type="hidden" class="form-control" value="{{$orgData->uuid}}" name="OrgUuid" id="OrgUuid" placeholder="Display Name" autocomplete="OrgUuid">
+                                <input type="hidden" class="form-control" value="{{$orgData->name}}" name="name" id="username" placeholder="Username">
 
 
 
@@ -105,7 +105,7 @@
                                 <div class=" row  mb-1">
                                     <label for="inputEmail3" class="col-md-3 form-label">Email</label>
                                     <div class="col-md-9">
-                                        <input type="email" class="form-control" value="" name="email" placeholder="Email" autocomplete="username">
+                                        <input type="email" class="form-control" value="" name="email" placeholder="Email">
                                     </div>
                                 </div>
 
@@ -131,9 +131,10 @@
                                     <label for="country" class="col-md-3 form-label"> Select Status </label>
                                     <div class="col-md-9">
                                         <select class="form-control" name="status" id="state">
+                                            
                                             <option value="">Select</option>
-                                            <option value="Enabled">Enable</option>
-                                            <option value="Disabled">Disable</option>
+                                            <option value="Enabled" {{$orgData->status=="Enabled"?"selected":''}}>Enable</option>
+                                            <option value="Disabled" {{$orgData->status=="Disable"?"selected":''}}>Disable</option>
 
                                         </select>
                                     </div>

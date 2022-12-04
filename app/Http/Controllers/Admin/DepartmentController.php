@@ -24,7 +24,7 @@ class DepartmentController extends Controller
     }
     public function create(Request $request)
     {
-        // dd($request->all()); 
+        // dd($request->email()); 
 
         $orgName = Organization::where('uuid', $request->organization)->first();
         // dd( $orgName );
@@ -58,16 +58,18 @@ class DepartmentController extends Controller
             if ($request->name) {
                 // dd($request->level,$request->all());
                 $org = Organization::where('uuid',  $parent_org_uuid)->first();
-                Department::Create([
+                $dep= Department::Create([
                     'name' => $request->name . '_' . $orgName->name,
                     'organization_id' => $org->id,
-                    'slug' => $request->displayname,
+                    'email'=>$request->email,
+                    'display_name' => $request->displayname,
+                    'status'=>$request->status,
                     'image' => $image,
                     'level' => "SubOrg",
                     'uuid' => Str::uuid(),
                 ]);
                 $department = Department::where('name', $request->name . '_' . $org->name)->first();
-                // dd($department);
+                dd($dep);
                 $specializations = $request->specialization_id;
                 // dd($specializations,$department);
                 foreach ($specializations as $specialization) {
@@ -85,14 +87,9 @@ class DepartmentController extends Controller
             return redirect()->back()->withErrors(['error' => __($e->getMessage())]);
         }
     }
-    public function departmentsList($uuid)
+    public function deleteDepartment($uuid)
     {
 
-        // dd($uuid);
-        $curl = curl_init();
-
-        $baseUrl = config('services.ehr.baseUrl');
-        $apiKey = config('services.ehr.apiKey');
 
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
@@ -101,57 +98,37 @@ class DepartmentController extends Controller
 
             return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
-        $token = $userInfo['sessionInfo']['token'];
+        try {
+            $dep = Department::where('uuid', $uuid)->first();
+            if ($dep) {
+                // dd($dep);
+                $dep->delete();
+                return redirect()->back()->withSuccess(__('Department Successfully Deleted'));
+            }
+        } catch (\Exception $e) {
 
-        $req_url = $baseUrl . 'rest/admin/organisation/v2/hierarchy/' . $uuid;
-        // dd($apiKey);
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => $req_url,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'GET',
-            CURLOPT_HTTPHEADER => array(
-                'Accept: application/json',
-                'Authorization: ' . $token,
-                'apikey: ' . $apiKey,
-            ),
-        ));
+
+            return redirect()->back()->withErrors(['error' => __($e->getMessage())]);
+        }
+    }
+
+    public function departmentsList($uuid)
+    {
+
+
+        $userInfo = session('loggedInUser');
+        $userInfo = json_decode(json_encode($userInfo), true);
+        // dd($userInfo);
+        if (is_null($userInfo)) {
+
+            return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
+        }
 
         try {
-            $response = curl_exec($curl);
-
-            //  var_dump(curl_getinfo($curl, CURLINFO_HTTP_CODE));
-            if ($response == false) {
-                $error = curl_error($curl);
-                curl_close($curl);
-                return redirect()->back()->withErrors(['error' => __($error)]);;
-            } else {
-                $departments = json_decode($response);
-                // dd($departments);
-                if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
-                    curl_close($curl);
-
-                    return view('admin_panel.departments.show', ['departments' => $departments]);
-                } else if (isset($departments->message) && $departments->message == "API rate limit exceeded") {
-                    curl_close($curl);
-                    return redirect()->route('logout')->withErrors(['error' => $departments->message]);
-                } else if (isset($departments->message) && $departments->message == "Invalid User") {
-
-                    curl_close($curl);
-                    return redirect()->route('logout')->withErrors(['error' => $departments->message]);
-                } else if (isset($departments->message) && $departments->message == "Invalid Token") {
-
-                    curl_close($curl);
-                    return redirect()->route('logout')->withErrors(['error' => $departments->message]);
-                } else {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $departments->message]);
-                }
-            }
+            $org = Organization::where('uuid', $uuid)->first();
+            $departments = Department::where('organization_id', $org->id)->get();
+            // dd($departments);
+            return view('admin_panel.departments.show', ['departments' => $departments]);
         } catch (\Exception $e) {
 
 
@@ -162,12 +139,7 @@ class DepartmentController extends Controller
     {
 
 
-        // dd($request->all());
-        $curl = curl_init();
-
-        $baseUrl = config('services.ehr.baseUrl');
-        $apiKey = config('services.ehr.apiKey');
-
+        dd($request->all());
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
         // dd($userInfo);
@@ -175,89 +147,31 @@ class DepartmentController extends Controller
 
             return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
-        $token = $userInfo['sessionInfo']['token'];
         $request->validate([
             'name' => 'required|string',
             'status' => 'required|string',
             'email' => 'required|string',
-        ]);
-        $data = [
-            "displayname" => $request->displayname,
-            "name" => $request->name,
-            "uuid" => $request->DepUuid,
-            "type" => 'company',
-            "status" => $request->status,
-            "pparent" => [
-                "uuid" => $request->parentOrgId
-            ],
-            "email" => $request->email,
-            "contactperson" => '',
-            "phone" => '',
-            "address" => [
-                [
-                    "type" => "permanent",
-                    "building" => '',
-                    "district" => '',
-                    "city" => '',
-                    "state" => '',
-                    "country" => '',
-                    "postalCode" => ''
-                ]
-            ],
-            "level" => 'SubOrg',
-        ];
-        $req_url = $baseUrl . 'rest/admin/organisation/v2/' . $request->DepUuid;
-        // dd($data);
+            'email' => 'required|string',
 
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => $req_url,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'POST',
-            CURLOPT_POSTFIELDS => json_encode($data),
-            CURLOPT_HTTPHEADER => array(
-                'Content-Type: application/json',
-                'Accept: application/json',
-                'Authorization:' . $token,
-                'apikey:' . $apiKey,
-            ),
-        ));
+        ]);
+
+        if ($request->hasFile('image')) {
+            $getImage = date('Y') . '/' . time() . '-' . rand(0, 999999) . '.' . $request->image->getClientOriginalExtension();
+            $request->image->move(public_path('uploads/department/') . date('Y'), $getImage);
+            $image = $getImage;
+        } else {
+            $image = '';
+        }
 
         try {
-            $response = curl_exec($curl);
+            $dep = Department::where('uuid', $request->DepUuid)->first();
+            $dep->update([
+                'display_name' => $request->displayname,
+                'email'=>$request->email,
+                'status'=>$request->status,
+                'image'=> $image
 
-            // dd($request->all());
-            $organization = json_decode($response);
-            // dd($organization);
-
-
-            if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
-                curl_close($curl);
-                $dep = Department::where('uuid', $request->DepUuid)->first();
-                $dep->update([
-                    'slug' => $request->displayname,
-
-                ]);
-                return redirect()->back()->withSuccess(__('Department Successfully Updated'));
-            } else if (isset($organization->message) && $organization->message == "API rate limit exceeded") {
-                curl_close($curl);
-                return redirect()->route('logout')->withErrors(['error' => $organization->message]);
-            } else if (isset($organization->message) && $organization->message == "Invalid User") {
-
-                curl_close($curl);
-                return redirect()->route('logout')->withErrors(['error' => $organization->message]);
-            } else if (isset($organization->message) && $organization->message == "Invalid Token") {
-
-                curl_close($curl);
-                return redirect()->route('logout')->withErrors(['error' => $organization->message]);
-            } else {
-                curl_close($curl);
-                return redirect()->back()->withErrors(['error' => $organization->message]);
-            }
+            ]);
         } catch (\Exception $e) {
 
 

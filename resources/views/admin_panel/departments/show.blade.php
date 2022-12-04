@@ -38,13 +38,12 @@
 
                                     <table class="table table-striped" id="datatable">
                                         <thead>
-                                            <th scope="col">Name</th>
+                                            <th scope="col" width="30%">Name</th>
                                             <th class="text-end">Action</th>
                                         </thead>
 
 
-                                        @if(isset($departments->childlist))
-                                        @foreach($departments->childlist as $department)
+                                        @foreach($departments as $department)
                                         <tr>
 
                                             <td>
@@ -54,26 +53,13 @@
                                             <td class="text-end">
                                                 <a href="{{route('single.department',['uuid'=>$department->uuid])}}"><button class="btn btn-info"><i class="fa fa-edit"></i></button></a>
                                                 <a href="{{route('doctors.list',['uuid'=>$department->uuid])}}"><button class="btn btn-primary"><i class="fa fa-users"></i></button></a>
-                                                @if($department->status == 'Enabled')
-                                                <a href="{{route('delete.organisation',['uuid'=>$department->uuid])}}"><button class="btn btn-danger" title="In-Active"><i class="fa fa-eye-slash"></i></button></a>
-                                                @else
-                                                <a href="{{route('delete.organisation',['uuid'=>$department->uuid])}}"><button class="btn btn-info" title="Active"><i class="fa fa-eye"></i></button></a>
-                                                @endif
+                                                <a href="{{route('delete.department',['uuid'=>$department->uuid])}}"><button class="btn btn-danger" title="In-Active"><i class="fa fa-trash"></i></button></a>
                                             </td>
 
                                             
 
                                         </tr>
                                         @endforeach
-                                        @else
-                                        <tr class="text-end">
-                                            <td>
-                                                Record Not Found
-                                            </td>
-                                            <td>
-                                            </td>
-                                        </tr>
-                                        @endif
                                     </table>
                                 </div>
                             </div>
