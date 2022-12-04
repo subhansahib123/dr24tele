@@ -39,7 +39,7 @@
                                         <th scope="col">Name</th>
                                         <th scope="col" class="text-end">Action</th>
                                         </thead>
-                                        @foreach($departments->childlist as $department)
+                                        @foreach($departments as $department)
                                             <tr>
                                                 <td>{{$loop->index+1}}</td>
                                                 <td>{{$department->name}}</td>
