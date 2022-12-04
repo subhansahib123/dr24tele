@@ -192,6 +192,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::get('/organization/list', [OrganizationController::class, 'organization'])->name('organization');
     Route::get('/create/organization', [OrganizationController::class, 'create'])->name('create.organization');
     Route::get('/delete/organisation/{uuid}', [OrganizationController::class, 'deleteOrganisation'])->name('delete.organisation');
+    Route::get('/delete/department/{uuid}', [DepartmentController::class, 'deleteDepartment'])->name('delete.department');
 
     Route::post('/organization', [OrganizationController::class, 'createOrganization'])->name('store.organization');
     //Get single record of organization and update it
@@ -248,8 +249,6 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
     //This Route is used to show Patients list
     Route::get('/patients/list/{uuid}', [PatientController::class, 'patientsList'])->name('patients.list');
-    //Show single patient
-    Route::get('/update/patient/{personId}', [PatientController::class, 'updatePatient'])->name('update.patient');
     //Update patient
     Route::post('/patient/updated', [PatientController::class, 'patientUpdated'])->name('patient.updated');
 
@@ -262,7 +261,6 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     //This Route is used to show Doctors list of a specific department
     Route::get('/users/list/{uuid}', [UserController::class, 'usersList'])->name('users.list');
     //Delete User
-    Route::get('/user/delete/{uuid}', [UserController::class, 'deleteUser'])->name('user.delete');
   });
 
 

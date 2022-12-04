@@ -15,7 +15,7 @@
                 </div>
                 <div class="col-xl-12">
                     <div class="card">
-                        <form action="{{route('store.patients')}}" method="POST">
+                        <form action="{{route('store.patients')}}" enctype="multipart/form-data" method="POST">
                             @csrf
                             <div class="card-header">
                                 <div class="col-5">
@@ -119,12 +119,12 @@
 
                                             <!-- <input type="text" class="form-control" name="" id="gender" value=""> -->
                                         </div>
-                                        
+
                                     </div>
                                     <div class=" col-lg-6 col-md-6 col-sm-12 my-0">
 
-                                            <input type="file" name="image" id="image">
-                                        </div>
+                                        <input type="file" name="image" id="image">
+                                    </div>
                                 </div>
 
                             </div>

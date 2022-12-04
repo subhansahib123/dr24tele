@@ -28,6 +28,10 @@ class DepartmentSpecializationController extends Controller
         if (!Auth::check())
             return redirect()->route('logout')->withErrors(['error' => 'Login Token Expired ! Please login Again']);
 
+        $specialization = DepartmentSpecializations::where('name', $request->name)->first();
+        if ($specialization) {
+            return redirect()->back()->withErrors(['error' => 'This Specialization already exists.']);
+        }
         DepartmentSpecializations::firstOrCreate(['name' => $request->name]);
         return redirect()->back()->withSuccess(__('Department Specialization is Successfully Created'));
     }

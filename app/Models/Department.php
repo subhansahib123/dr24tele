@@ -15,7 +15,9 @@ class Department extends Model
         'image',
         'organization_id',
         'level',
-        'uuid'
+        'display_name',
+        'uuid',
+        'status'
     ];
     public function organization()
     {
