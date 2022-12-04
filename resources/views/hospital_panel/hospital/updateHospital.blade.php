@@ -29,7 +29,7 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <form class="form-horizontal" action="{{route('hospitalUpdated')}}" method="POST">
+                            <form class="form-horizontal" action="{{route('hospitalUpdated')}}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class=" row mb-1">
 
@@ -46,7 +46,7 @@
                                 <div class=" row mb-1" style="display:none">
                                     <label for="username" class="col-md-3 form-label"> User Name</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" value="{{$orgData->name}}" name="name" id="username" placeholder="Username">
+                                        <input type="text" class="form-control" value="{{$organization->name}}" name="name" id="username" placeholder="Username">
                                     </div>
                                     @if ($errors->has('name'))
                                     <span class="text-danger text-left">{{ $errors->first('name') }}</span>
@@ -74,46 +74,6 @@
                                     <span class="text-danger text-left">{{ $errors->first('contactperson') }}</span>
                                     @endif
                                 </div>
-                                <div class=" row my-1 addresss">
-                                    <label for="country" class="col-md-3 form-label"> Select Country </label>
-                                    <div class="col-md-9">
-                                        <input type="hidden" value="" name="country" id="country_value" />
-                                        <select class="form-control" onchange="loadStates(this.value,this)" id="country">
-                                            <option value="">Select Country</option>
-                                            @foreach ($countries as $country)
-                                            <option value="{{$country->id}}" {{$organization->address[0]->country==$country->name?'selected':''}}>{{$country->name}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                    @if ($errors->has('contactperson'))
-                                    <span class="text-danger text-left">{{ $errors->first('contactperson') }}</span>
-                                    @endif
-                                </div>
-                                <div class=" row mb-1 addresss">
-                                    <label for="country" class="col-md-3 form-label"> Select State </label>
-                                    <input type="hidden" value="" name="state" id="state_value" />
-                                    <div class="col-md-9">
-                                        <select class="form-control" onchange="loadCities(this.value,this)" id="state">
-                                            <option>Select State</option>
-
-                                        </select>
-                                    </div>
-                                    @if ($errors->has('contactperson'))
-                                    <span class="text-danger text-left">{{ $errors->first('contactperson') }}</span>
-                                    @endif
-                                </div>
-                                <div class=" row mb-1 addresss">
-                                    <label for="country" class="col-md-3 form-label"> Select City </label>
-                                    <input type="hidden" value="" name="city" id="city_value" />
-                                    <div class="col-md-9">
-                                        <select class="form-control" id="city">
-                                            <option>Select City</option>
-                                        </select>
-                                    </div>
-                                    @if ($errors->has('contactperson'))
-                                    <span class="text-danger text-left">{{ $errors->first('contactperson') }}</span>
-                                    @endif
-                                </div>
                                 <div class=" row mb-1">
                                     <label for="inputEmail3" class="col-md-3 form-label">Email</label>
                                     <div class="col-md-9">
@@ -124,19 +84,19 @@
                                 <div class=" row mb-1 addresss">
                                     <label for="building" class="col-md-3 form-label">Building</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" value="{{$organization->address[0]->building}}" id="building" name="building" placeholder="Building Address">
+                                        <input type="text" class="form-control" value="{{$organization->building}}" id="building" name="building" placeholder="Building Address">
                                     </div>
                                 </div>
                                 <div class=" row mb-1 addresss">
                                     <label for="district" class="col-md-3 form-label">District</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" value="{{$organization->address[0]->district}}" id="district" name="district" placeholder="District">
+                                        <input type="text" class="form-control" value="{{$organization->district}}" id="district" name="district" placeholder="District">
                                     </div>
                                 </div>
                                 <div class=" row mb-1 addresss">
                                     <label for="postalCode" class="col-md-3 form-label">Postal Code</label>
                                     <div class="col-md-9">
-                                        <input type="number" class="form-control" value="{{$organization->address[0]->postalCode}}" id="postalCode" name="postalCode" placeholder="Postal Code">
+                                        <input type="number" class="form-control" value="{{$organization->postalCode}}" id="postalCode" name="postalCode" placeholder="Postal Code">
                                     </div>
                                 </div>
                                 <div class=" row mb-1">
@@ -180,8 +140,8 @@
 @endsection
 @section('foot_script')
 <script type="text/javascript">
-    var state = `{{$organization->address[0]->state}}`;
-    var city = `{{$organization->address[0]->city}}`;
+    var state = `{{$organization->state}}`;
+    var city = `{{$organization->city}}`;
     var baseUrl = `{{url('/')}}`;
     $('#level').change(function() {
         if ($(this).val() == "Hospital") {
