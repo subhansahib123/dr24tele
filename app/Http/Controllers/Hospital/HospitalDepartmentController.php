@@ -61,11 +61,14 @@ class HospitalDepartmentController extends Controller
             }
             Department::Create([
                 'name' => $request->name . '_' . $org->name,
-                'organization_id' => $org->id,
+                'email' => $request->email,
                 'slug' => $request->displayname,
-                'level' => "SubOrg",
                 'image' => $image,
-                'uuid' => Str::uuid()
+                'organization_id' => $org->id,
+                'display_name' => $request->displayname,
+                'level' => "SubOrg",
+                'uuid' => Str::uuid(),
+                'status' => $request->status
             ]);
             $department = Department::where('name', $request->name . '_' . $org->name)->first();
             $specializations = $request->specialization_id;
@@ -134,8 +137,6 @@ class HospitalDepartmentController extends Controller
         try {
 
             $dep = Department::where('uuid', $request->DepUuid)->first();
-
-            dd($dep);
             if ($request->hasFile('image')) {
                 if (isset($dep) && $dep->image) {
                     $previous_img = public_path('uploads/organization/department/' . $dep->image);
@@ -153,6 +154,7 @@ class HospitalDepartmentController extends Controller
             $dep->update([
                 'name' => $request->displayname . '_' . $organization->name,
                 'status' => $request->status,
+                'display_name' => $request->displayname,
                 'image' => $image,
                 'email' => $request->email,
             ]);

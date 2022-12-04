@@ -47,12 +47,12 @@
                                                 <th scope="col" width="3%">Sr#</th>
                                                 <th scope="col" width="20%">Name</th>
                                             </thead>
-                                            @if($all_patients->person)
-                                            @foreach($all_patients->person as $all_patient)
+                                            @if($all_patients)
+                                            @foreach($all_patients as $all_patient)
                                             <tr>
                                                 <td>{{$loop->index+1}}</td>
                                                 <td>
-                                                    {{isset($all_patient->givenName)?$all_patient->givenName:'' }}
+                                                    {{isset($all_patient->user->name)?$all_patient->user->name:'' }}
                                                 </td>
                                             </tr>
                                             @endforeach

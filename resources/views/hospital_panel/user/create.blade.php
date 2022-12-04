@@ -33,64 +33,65 @@
                         </div>
                             <div class="card-body">
                                 <div class="row">
-                                    <h3>User</h3>
-
-                                    <div class="col-lg-6 col-md-6 col-sm-12">
-
-                                        <div class="form-group">
-                                            <label for="Username">Username</label>
-                                            <input type="text" class="form-control" name="username" value="" id="Username" placeholder="Username">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-12">
-                                        <div class="form-group">
-                                            <label for="Password">Password</label>
-                                            <input type="text" class="form-control" name="password" id="Password" placeholder="Password">
-                                        </div>
-                                    </div>
-                                    <h3>Person</h3>
-
-                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <div class="col-lg-6 col-md-6 col-sm-12 my-0">
                                         <div class="form-group">
                                             <label for="Name">Name</label>
                                             <input type="text" class="form-control" name="name" value="" id="Name" placeholder="Enter Name">
                                         </div>
                                     </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <div class="col-lg-6 col-md-6 col-sm-12 my-0">
                                         <div class="form-group">
-                                            <label class="form-label" for="middleName">Middle Name</label>
+                                            <label  for="middleName">Middle Name</label>
                                             <input class="form-control" id="middleName" placeholder="Enter Middle Name" name="middlename" value="">
                                         </div>
                                     </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-12">
+
+                                    <div class="col-lg-6 col-md-6 col-sm-12 my-0">
+
+                                        <div class="form-group">
+
+                                            <label for="Username">Username</label>
+                                            <input type="text" class="form-control" name="username" value="" id="Username" placeholder="Username">
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-6 col-md-6 col-sm-12 my-0">
+
+                                        <div class="form-group">
+                                            <label for="Password">Password</label>
+                                            <input type="text" class="form-control" name="password" id="Password" placeholder="Password">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 my-0">
                                         <div class="form-group">
                                             <label for="exampleInputEmail1">Email address</label>
                                             <input type="email" class="form-control" name="email" value="" id="exampleInputEmail1" placeholder="Email address">
                                         </div>
                                     </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-12">
+
+                                    <div class="col-lg-6 col-md-6 col-sm-12 my-0">
                                         <div class="form-group ">
-                                            <div class="row ">
+                                            <div class="row mx-0">
                                                 <label for="exampleInputnumber"><strong> Contact Number</strong></label>
                                             </div>
                                             <div class="row ">
                                                 <input type="text" id="txtPhone" name="" class="form-control">
                                                 <input type="hidden" class="form-control" id="phoneNumber">
                                             </div>
+
                                         </div>
                                     </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <div class="col-lg-6 col-md-6 col-sm-12 my-0">
                                         <div class="form-group">
                                             <label class="form-label" for="Birth">Date of Birth</label>
                                             <input type="date" class="form-control" id="Birth" placeholder="Date of Birth" name="dateOfBirth" value="">
                                         </div>
                                     </div>
 
-                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                    <div class="col-lg-6 col-md-6 col-sm-12 my-0">
 
                                         <div class="form-group">
                                             <label class="form-label" for="gender">Gender</label>
-
                                             <select class="form-select" name="gender_code" id="gender">
                                                 <option value="">
                                                     Select
@@ -116,7 +117,6 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
                             <div class="card-footer text-end  ">
                                 <button type="submit" class="btn btn-primary my-1">Create</button>
