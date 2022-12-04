@@ -58,7 +58,7 @@ class DepartmentController extends Controller
             if ($request->name) {
                 // dd($request->level,$request->all());
                 $org = Organization::where('uuid',  $parent_org_uuid)->first();
-                $dep= Department::Create([
+                $dep= Department::firstOrCreate([
                     'name' => $request->name . '_' . $orgName->name,
                     'organization_id' => $org->id,
                     'email'=>$request->email,
@@ -69,7 +69,7 @@ class DepartmentController extends Controller
                     'uuid' => Str::uuid(),
                 ]);
                 $department = Department::where('name', $request->name . '_' . $org->name)->first();
-                dd($dep);
+                // dd($dep);
                 $specializations = $request->specialization_id;
                 // dd($specializations,$department);
                 foreach ($specializations as $specialization) {
@@ -139,7 +139,7 @@ class DepartmentController extends Controller
     {
 
 
-        dd($request->all());
+        // dd($request->all());
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
         // dd($userInfo);
@@ -151,9 +151,10 @@ class DepartmentController extends Controller
             'name' => 'required|string',
             'status' => 'required|string',
             'email' => 'required|string',
-            'email' => 'required|string',
+            'image' => 'required',
 
         ]);
+        
 
         if ($request->hasFile('image')) {
             $getImage = date('Y') . '/' . time() . '-' . rand(0, 999999) . '.' . $request->image->getClientOriginalExtension();
@@ -172,6 +173,8 @@ class DepartmentController extends Controller
                 'image'=> $image
 
             ]);
+            return redirect()->back()->withSuccess(__('Department  Successfully Updated'));
+
         } catch (\Exception $e) {
 
 

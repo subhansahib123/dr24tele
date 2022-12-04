@@ -226,6 +226,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     // These Routes are used to Map Roles to Users
     Route::get('/mappingrole', [UserController::class, 'mapUser'])->name('mappingRole');
     Route::post('/mappedrole', [UserController::class, 'mapUserRole'])->name('role.mapped');
+    
+    Route::get('/doctor/delete/{uuid}', [UserController::class, 'doctorDelete'])->name('doctor.delete');
 
     // These Routes are used to Map Roles to Users
     Route::get('/updatingrole/{orgUuid}/{userUuid}', [UserController::class, 'updateUserRole'])->name('updatingRole');
