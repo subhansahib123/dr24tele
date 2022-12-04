@@ -64,7 +64,6 @@ class HospitalCouponController extends Controller
      */
     public function store(Request $request)
     {
-
         $request->validate(['title' => 'required|string']);
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);

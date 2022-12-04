@@ -15,13 +15,15 @@ class Role
      * @param  \Closure(\Illuminate\Http\Request): (\Illuminate\Http\Response|\Illuminate\Http\RedirectResponse)  $next
      * @return \Illuminate\Http\Response|\Illuminate\Http\RedirectResponse
      */
-    public function handle($request, Closure $next, String $role) {
+    public function handle($request, Closure $next, ... $roles) {
         if (!Auth::check()){
             return redirect('/');
         }
         $userRole = Auth::user()->user_role->role->slug;
-        if($userRole == $role){
-            return $next($request);
+        foreach ($roles as $role){
+            if($userRole == $role){
+                return $next($request);
+            }
         }
         return redirect()->back()->withErrors('You Are Not Authorized');
     }

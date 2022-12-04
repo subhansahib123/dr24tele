@@ -30,9 +30,6 @@ class HospitalDepartmentController extends Controller
     }
     public function hospitalDepartmentCreated(Request $request)
     {
-
-
-
         $request->validate([
             'name' => 'required|string',
             'status' => 'required|string',
@@ -40,7 +37,6 @@ class HospitalDepartmentController extends Controller
             'level' => 'string',
             'image' => 'required',
             'specialization_id.*' => 'required|string',
-
         ]);
 
         $curl = curl_init();

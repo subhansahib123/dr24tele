@@ -82,98 +82,27 @@ class AuthenticationController extends Controller
 
     public function hospitalLogin(Request $request)
     {
-        // dd($request->all());
-        $curl = curl_init();
-        $baseUrl = config('services.ehr.baseUrl');
-        $apiKey = config('services.ehr.apiKey');
+        $request->validate([
+            'username' => 'required',
+            'password' => 'required',
+        ]);
 
-
-        $data = ['username' => $request->username, 'password' => $request->password];
-
-        $user = User::with('user_organization')->where('username',  $request->username)->first();
-
-        // dd  ($user->user_organization);
-        if (!isset($user->user_organization))
-            return redirect()->back()->withErrors(['error' => 'User is not associated with any Organisation']);
-        $organisation = Organization::find($user->user_organization->organization_id);
-        // dd  ($organisation->name);
-        if (is_null($organisation))
-
-            return redirect()->back()->withErrors(['error' => 'No Organisation record found in database']);
-
-        if ($user) {
-
-
-            Auth::login($user);
-
-            $params = array('orgName' => $organisation->name, 'tenantId' => 'ehrn');
-            curl_setopt_array($curl, array(
-                CURLOPT_URL => $baseUrl . 'rest/admin/v1/login?' . http_build_query($params),
-                CURLOPT_RETURNTRANSFER => true,
-                CURLOPT_ENCODING => '',
-                CURLOPT_MAXREDIRS => 10,
-                CURLOPT_TIMEOUT => 0,
-                CURLOPT_FOLLOWLOCATION => true,
-                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-                CURLOPT_CUSTOMREQUEST => 'POST',
-                CURLOPT_POSTFIELDS => json_encode($data),
-                CURLOPT_HTTPHEADER => array(
-                    'Content-Type: application/json',
-                    'Accept: application/json',
-                    'apikey: ' . $apiKey
-                ),
-            ));
-            try {
-                // dd(1);
-                $response = curl_exec($curl);
-
-                // dd($response);
-                if ($response == false || isset($response->status)) {
-                    curl_close($curl);
-
-                    return curl_error($curl);
-                } else {
-                    $result_data = json_decode($response);
-
-                    if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
-
-
-                        curl_close($curl);
-
-                        session_start();
-                        session(['loggedInUser' => $result_data]);
-                        $userInfo = session('loggedInUser');
-                        $userInfo = json_decode(json_encode($userInfo), true);
-                        // dd($userInfo);
-                        return redirect()->route('hospital.dashboard')->withSuccess(__('Successfully Login'));
-                    } else if (isset($result_data->message) && $result_data->message == "API rate limit exceeded") {
-                        curl_close($curl);
-                        return redirect()->route('hospital.login')->withErrors(['error' => $result_data->message]);
-                    } else if (isset($result_data->message) && $result_data->message == "Invalid User") {
-
-                        curl_close($curl);
-                        return redirect()->route('hospital.login')->withErrors(['error' => $result_data->message]);
-                    } else if (isset($result_data->message) && $result_data->message == "Invalid Token") {
-
-                        curl_close($curl);
-                        return redirect()->route('hospital.login')->withErrors(['error' => $result_data->message]);
-                    } else {
-                        curl_close($curl);
-                        return redirect()->back()->withErrors(['error' => $result_data->message]);
-                    }
-                }
-            } catch (\Exception $e) {
-
-
-                return redirect()->back()->withErrors(['error' => __($e->getMessage())]);
+        try {
+            $user = User::where('username', $request->username)->first();
+            $password = $request->password;
+//            $password = Hash::check($request->password, $user->password);
+            if ($password != $user->password) {
+                return redirect()->back()->withErrors('Could not log you in, please recheck your password.');
             }
-        } else {
-            return redirect()->back()->withErrors(['error' => 'No User Exist']);
+            Auth::login($user);
+            session(['loggedInUser' => $user]);
+            return redirect()->route('hospital.dashboard')->withSuccess('Successfully Login');
+        } catch (\Exception $e) {
+            return redirect()->back()->withErrors(['error' => __($e->getMessage())]);
         }
     }
     public function hospitalDashboard()
     {
-        // dd(session('loggedInUser'));
         return view('hospital_panel.index');
     }
     public function ashboard()
