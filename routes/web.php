@@ -287,6 +287,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::get('/create/user', [HospitalUserController::class, 'createHospitalUser'])->name('createHospital.user');
     Route::post('/store/user', [HospitalUserController::class, 'storeHospitalUser'])->name('storeHospital.user');
 
+    Route::get('/user/delete/{uuid}', [HospitalUserController::class, 'userDelete'])->name('delete.hospitalUser');
+
     //Create Department Specialization
     Route::get('/create/department/specialization', [DepartmentSpecializationController::class, 'index'])->name('createDepartment.specialization');
     Route::post('/department-specialization/created', [DepartmentSpecializationController::class, 'create'])->name('department.specializationCreated');
@@ -327,6 +329,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
     //These Route is used to Create Mapped Patients
     Route::get('/all/patients', [HospitalPatientController::class, 'hospitalAllPatients'])->name('hospitalAll.patients');
+    Route::get('/patients/delete/{uuid}', [HospitalPatientController::class, 'patientDelete'])->name('delete.hospitalPatient');
 
     //This Route is used to view Departments
     Route::get('/departments/page', [HospitalDepartmentController::class, 'hospitalDepartmentsList'])->name('hospitalDepartments.list');
@@ -338,6 +341,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     //Route to update Department
     Route::get('/update/department/{uuid}', [HospitalDepartmentController::class, 'updateHospitalDepartment'])->name('updateHospital.department');
     Route::post('/department/updated', [HospitalDepartmentController::class, 'hospitalDepartmentUpdated'])->name('hospitalDepartment.updated');
+    Route::get('/delete/department/{uuid}', [DepartmentController::class, 'deleteDepartment'])->name('delete.hospitalDepartment');
 
 
     //This Route is used to show Doctors list of a specific department
@@ -347,8 +351,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     //Create Schedule For Doctors
     Route::get('/create/schedule', [ScheduleController::class, 'createSchedule'])->name('create.schedule');
     Route::post('/store/schedule', [ScheduleController::class, 'insert'])->name('store.schedule');
-    Route::get('/schedule/edit/{id}', [DoctorSchedule::class, 'edit'])->name('edit.schedule');
-    Route::post('update/schedule', [DoctorSchedule::class, 'update'])->name('update.schedule');
+    Route::get('/schedule/edit/{id}', [ScheduleController::class, 'edit'])->name('edit.schedule');
+    Route::post('update/schedule', [ScheduleController::class, 'update'])->name('update.schedule');
     //list of Schedules
     Route::get('/schedules/page', [ScheduleController::class, 'schedules'])->name('list.schedules');
     //Create Schedule For Doctors

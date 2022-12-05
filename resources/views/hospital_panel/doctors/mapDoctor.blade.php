@@ -9,48 +9,57 @@
         <!-- CONTAINER -->
         <div class="main-container container-fluid">
 
-            <!-- PAGE-HEADER -->
-            <div class="page-header">
-                <h1 class="page-title">Map Doctor </h1>
-                <div>
-                    <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Map Doctor </li>
-                    </ol>
+            @include('admin_panel.frontend.includes.messages')
+            <div class="row">
+                <div class="form-group">
+                    @include('admin_panel.frontend.includes.messages')
+                </div>
+                <div class="col-xl-12">
+                    <div class="card">
+                        <form action="{{route('doctor.mapped')}}" method="POST" enctype="multipart/form-data">
+                            @csrf
+                            <div class="card-header">
+                                <div class="col-5">
+                                    <ol class="breadcrumb">
+                                        <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
+                                        <li class="breadcrumb-item active" aria-current="page">Mapping</li>
+                                    </ol>
+                                </div>
+                                <div class="col-6">
+                                    <span class="card-title"><strong> Map Doctor </strong></span>
+                                </div>
+
+                                <div class="col-1">
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <input type="hidden" value="{{$userUuid}}" name="user">
+                                    <input type="hidden" value="{{$organization->uuid}}" name="organization">
+
+                                    <div class="form-group col-lg-6 col-md-6 col-sm-12" id="depart_p">
+                                        <label for="organizations">Departments</label>
+                                        <select class="form-control" name="department" id="departments">
+                                            <option value="">Select</option>
+                                            @if($departments)
+                                            @foreach($departments as $department)
+                                            <option value="{{$department->uuid}}">{{$department->name}}</option>
+                                            @endforeach
+                                            @endif
+                                        </select>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <div class="card-footer text-end ">
+                                <button type="submit" class="btn btn-primary my-1">Map</button>
+                                <span><a href="{{route('hospital.dashboard')}}" class="btn btn-secondary  ">Cancel</a></span>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
-            @include('admin_panel.frontend.includes.messages')
-            <!-- PAGE-HEADER END -->
-            <form action="{{route('doctor.mapped')}}" method="POST">
-                @csrf
-                <div class="row">
-
-                    <input type="hidden" value="{{$userUuid}}" name="user">
-                    <input type="hidden" value="{{$organization->uuid}}" name="organization">
-
-                    <div class="form-group col-lg-6 col-md-6 col-sm-12" id="depart_p">
-                        <label for="organizations">Departments</label>
-                        <select class="form-control" name="department" id="departments">
-                            <option value="">Select</option>
-                            @if($departments)
-                            @foreach($departments as $department)
-                            <option value="{{$department->uuid}}">{{$department->name}}</option>
-                            @endforeach
-                            @endif
-                        </select>
-                    </div>
-
-                </div>
-
-                <div class="form-group">
-                    <!-- <label for="role">Roles</label> -->
-                    <button type="submit" class="btn btn-primary">Map</button>
-
-
-                    <a href="{{route('hospital.dashboard')}}" class="btn btn-info">Back</a>
-
-                </div>
-            </form>
 
         </div>
         <!-- CONTAINER CLOSED -->

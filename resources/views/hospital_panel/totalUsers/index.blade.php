@@ -37,16 +37,18 @@
                                         <thead>
                                             <th scope="col" width="5%">Sr#</th>
                                             <th scope="col" width="20%">Name</th>
-                                            <th scope="col" width="1%">Guard</th>
+                                            <th scope="col" width="1%">Action</th>
                                         </thead>
-                                        @if($all_patients->Users)
-                                        @foreach($all_patients->Users as $all_patient)
+                                        @if($users)
+                                        @foreach($users as $user)
                                         <tr>
                                             <td>{{$loop->index+1}}</td>
                                             <td>
-                                                {{isset($all_patient->username)?$all_patient->username:'' }}
+                                                {{isset($user->username)?$user->username:'' }}
                                             </td>
-                                            <td></td>
+                                            <td class="text-end">
+                                                <a href="{{route('delete.hospitalUser',[$user->uuid])}}"><button class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button></a>
+                                            </td>
                                         </tr>
                                         @endforeach
                                         @else

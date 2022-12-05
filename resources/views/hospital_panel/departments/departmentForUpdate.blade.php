@@ -58,8 +58,8 @@
                                     <div class="col-md-9">
                                         <select class="form-control" name="status" id="state">
                                             <option value="">Select</option>
-                                            <option value="Enabled" {{$organization->status=="Enabled"?"selected":''}}>Enable</option>
-                                            <option value="Disabled    " {{$organization->status=="Disabled"?"selected":''}}>Disable</option>
+                                            <option value="Enabled" {{$depData->status=="Enabled"?"selected":''}}>Enable</option>
+                                            <option value="Disabled    " {{$depData->status=="Disabled"?"selected":''}}>Disable</option>
 
                                         </select>
                                     </div>
