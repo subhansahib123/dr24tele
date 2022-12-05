@@ -213,7 +213,7 @@ class OrganizationController extends Controller
                 'image' => $image,
                 'displayname' => $request->displayname,
                 'contactperson_designation' => $request->contactperson_designation,
-                'contactperson' => $request->contactperson,
+                'contactperson' => $request->phoneNumber,
                 'email' => $request->email,
                 'building' => $request->building,
                 'district' => $request->district,
