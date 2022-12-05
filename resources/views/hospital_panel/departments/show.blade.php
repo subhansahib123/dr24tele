@@ -38,6 +38,7 @@
                                         <th scope="col" width="3%">Sr#</th>
                                         <th scope="col">Name</th>
                                         <th scope="col" class="text-end">Action</th>
+
                                     </thead>
                                     @foreach($departments as $department)
                                     <tr>

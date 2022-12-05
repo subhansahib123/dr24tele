@@ -86,7 +86,7 @@ class OrganizationController extends Controller
 
                 'displayname' => $request->displayname,
                 'contactperson_designation' => $request->contactperson_designation,
-                'contactperson' => $request->contactperson,
+                'contactperson' => $request->phoneNumber,
                 'country' => $request->country,
                 'state' => $request->state,
                 'city' => $request->city,
@@ -213,7 +213,7 @@ class OrganizationController extends Controller
                 'image' => $image,
                 'displayname' => $request->displayname,
                 'contactperson_designation' => $request->contactperson_designation,
-                'contactperson' => $request->contactperson,
+                'contactperson' => $request->phoneNumber,
                 'email' => $request->email,
                 'building' => $request->building,
                 'district' => $request->district,

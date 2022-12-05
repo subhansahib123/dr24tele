@@ -185,7 +185,6 @@ class HospitalUserController extends Controller
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
         if (is_null($userInfo)) {
-
             return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
         try {
@@ -193,6 +192,7 @@ class HospitalUserController extends Controller
             $doctors = Doctor::with('user')->where('department_id', $dep->id)->get();
             // dd($doctors);            
             return view('hospital_panel.doctors.showDoctors', ['doctors' => $doctors]);
+
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
             // return $e->getMessage();
@@ -372,7 +372,7 @@ class HospitalUserController extends Controller
                 'image' => $image,
                 'displayname' => $request->displayname,
                 'contactperson_designation' => $request->contactperson_designation,
-                'contactperson' => $request->contactperson,
+                'contactperson' => $request->phoneNumber,
                 'email' => $request->email,
                 'building' => $request->building,
                 'district' => $request->district,

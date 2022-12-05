@@ -56,10 +56,10 @@
                                 <div class=" row mb-1">
                                     <label for="email" class="col-md-3 form-label"> Contact Person Designation</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" value="{{$organization->contactperson}}" name="contactperson" id="contactperson" placeholder="Contact Person Designation" autocomplete="contactperson">
+                                        <input type="text" class="form-control" value="{{$organization->contactperson_designation}}" name="contactperson_designation" id="contactperson_designation" placeholder="Contact Person Designation" autocomplete="contactperson_designation">
                                     </div>
-                                    @if ($errors->has('contactperson'))
-                                    <span class="text-danger text-left">{{ $errors->first('contactperson') }}</span>
+                                    @if ($errors->has('contactperson_designation'))
+                                    <span class="text-danger text-left">{{ $errors->first('contactperson_designation') }}</span>
                                     @endif
                                 </div>
                                 <div class="row my-0 addresss">
@@ -67,7 +67,7 @@
                                         <label for="exampleInputnumber"><Strong> Contact Number</Strong></label>
                                     </div>
                                     <div class="col-9 my-0 form-group">
-                                        <input type="text" id="txtPhone" name="" class="form-control">
+                                        <input type="text" id="txtPhone" name="contactperson" class="form-control" value="{{$organization->contactperson}}">
                                         <input type="hidden" class="form-control" id="phoneNumber">
                                     </div>
                                     @if ($errors->has('contactperson'))

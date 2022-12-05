@@ -41,6 +41,7 @@
                                         </thead>
                                         @if($users)
                                         @foreach($users as $user)
+
                                         <tr>
                                             <td>{{$loop->index+1}}</td>
                                             <td>

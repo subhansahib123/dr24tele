@@ -89,19 +89,16 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/12.1.5/js/utils.js"></script>
     <script type="text/javascript">
         $(function() {
-
-            var code = "+911234567890";
-            $('#txtPhone').val(code);
             $('#txtPhone').intlTelInput({
                 autoHideDialCode: true,
-                autoPlaceholder: "ON",
+                autoPlaceholder: "polite",
                 dropdownContainer: document.body,
                 formatOnDisplay: true,
                 hiddenInput: "phoneNumber",
                 initialCountry: "auto",
                 nationalMode: true,
                 placeholderNumberType: "MOBILE",
-                preferredCountries: ['US'],
+                preferredCountries: ['in'],
                 separateDialCode: true
             });
             FormatNumber();
