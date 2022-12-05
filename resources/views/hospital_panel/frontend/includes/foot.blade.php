@@ -97,8 +97,8 @@
     <script type="text/javascript">
         $(function() {
 
-            var code = "+911234567890";
-            $('#txtPhone').val(code);
+            // var code = "+911234567890";
+            // $('#txtPhone').val(code);
             $('#txtPhone').intlTelInput({
                 autoHideDialCode: true,
                 autoPlaceholder: "ON",

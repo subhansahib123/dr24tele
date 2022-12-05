@@ -26,7 +26,7 @@
                 <div class="form-group">
                     @include('hospital_panel.frontend.includes.messages')
                 </div>
-                <div class="col-xl-8">
+                <div class="col-xl-12">
                     <div class="card">
                          <div class="card-header">
                             <h4 class=""> Create Schedule
@@ -105,7 +105,7 @@
                                                                 <span class="text-danger text-left">{{ $errors->first('number_of_people') }}</span>
                                                             @endif
                                                     </div>
-                                                    
+
                                                     <div class="form-group col-12">
                                                         <label for="comment">Comments</label>
                                                         <textarea class="form-control" value="{{old('comment')}}" name="comment" id="comment">Enter Comments About Schedule</textarea>

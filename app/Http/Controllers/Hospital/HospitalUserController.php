@@ -157,65 +157,18 @@ class HospitalUserController extends Controller
     public
     function hospitalDoctorsList($uuid)
     {
-        $curl = curl_init();
-        $baseUrl = config('services.ehr.baseUrl');
-        $apiKey = config('services.ehr.apiKey');
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
         if (is_null($userInfo)) {
-
             return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
-        // dd($uuid);
-        $token = $userInfo['sessionInfo']['token'];
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => $baseUrl . 'rest/admin/orgUserMapping/users/' . $uuid . '?pageNo=1&maxRecords=200',
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'GET',
-            CURLOPT_HTTPHEADER => array(
-                'Accept: application/json',
-                'Authorization:' . $token,
-                'apikey: ' . $apiKey
-            ),
-        ));
         try {
-            $response = curl_exec($curl);
-            // dd($response);
+            $dep = Department::where('uuid', $uuid)->first();
+            $doctors = Doctor::with('user')->where('department_id', $dep->id)->get();
+                // dd($doctors);
+                return view('hospital_panel.doctors.showDoctors', ['doctors' => $doctors]);
 
-            if ($response == false) {
 
-                $error = curl_error($curl);
-                curl_close($curl);
-
-                return redirect()->back()->withErrors(['error' => $error]);
-            } else {
-                $doctors = json_decode($response);
-                if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
-                    curl_close($curl);
-                    // dd($doctors);
-                    return view('hospital_panel.doctors.showDoctors', ['doctors' => $doctors]);
-                } else if (isset($doctors->message) && $doctors->message == "API rate limit exceeded") {
-                    curl_close($curl);
-
-                    return redirect()->route('logout')->withErrors(['error' => $doctors->message]);
-                } else if (isset($doctors->message) && $doctors->message == "Invalid User") {
-
-                    curl_close($curl);
-                    return redirect()->route('logout')->withErrors(['error' => $doctors->message]);
-                } else if (isset($doctors->message) && $doctors->message == "Invalid Token") {
-
-                    curl_close($curl);
-                    return redirect()->route('logout')->withErrors(['error' => $doctors->message]);
-                } else {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $doctors->message]);
-                }
-            }
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
             // return $e->getMessage();
@@ -447,7 +400,7 @@ class HospitalUserController extends Controller
                 'image' => $image,
                 'displayname' => $request->displayname,
                 'contactperson_designation' => $request->contactperson_designation,
-                'contactperson' => $request->contactperson,
+                'contactperson' => $request->phoneNumber,
                 'email' => $request->email,
                 'building' => $request->building,
                 'district' => $request->district,
