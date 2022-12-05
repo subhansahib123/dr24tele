@@ -625,7 +625,8 @@ class UserController extends Controller
 
             return redirect()->back()->withErrors(['error' => __($e->getMessage())]);
         }
-    }public function userDelete($uuid)
+    }
+    public function userDelete($uuid)
     {
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);

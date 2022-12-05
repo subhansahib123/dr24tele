@@ -48,7 +48,7 @@
                                         <td>{{$loop->index+1}}</td>
                                         <td>{{$doctor->user->name}}</td>
                                         <td class="text-end">
-                                            <a href="{{route('user.delete',[$doctor->id])}}"><button class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button></a>
+                                            <a href="{{route('doctor.delete',[$doctor->user->uuid])}}"><button class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button></a>
                                         </td>
                                     </tr>
                                     @endforeach

@@ -62,7 +62,6 @@ class HospitalDepartmentController extends Controller
             Department::Create([
                 'name' => $request->name . '_' . $org->name,
                 'email' => $request->email,
-                'slug' => $request->displayname,
                 'image' => $image,
                 'organization_id' => $org->id,
                 'display_name' => $request->displayname,
@@ -110,6 +109,7 @@ class HospitalDepartmentController extends Controller
         $depData = Department::where('uuid', $uuid)->first();
         $organization = Organization::where('id', $depData->organization_id)->first();
         try {
+            // dd( $organization, $depData);
             return view('hospital_panel.departments.departmentForUpdate', ['organization' => $organization, 'depData' => $depData]);
 
         } catch (\Exception $e) {
@@ -121,6 +121,7 @@ class HospitalDepartmentController extends Controller
 
     public function hospitalDepartmentUpdated(Request $request)
     {
+        // dd($request->all());
         $request->validate([
             'image' => 'nullable|image|mimes:jpg,png,gif,svg,jpeg',
             'displayname' => 'required|string',
@@ -152,7 +153,7 @@ class HospitalDepartmentController extends Controller
             }
 
             $dep->update([
-                'name' => $request->displayname . '_' . $organization->name,
+                'name' =>  $request->name,
                 'status' => $request->status,
                 'display_name' => $request->displayname,
                 'image' => $image,

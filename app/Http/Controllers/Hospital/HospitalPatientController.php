@@ -67,20 +67,20 @@ class HospitalPatientController extends Controller
     public function patientMapping($orgId, $userId)
     {
         try {
-                    Patient::firstOrCreate([
-                        'user_id' => $userId,
-                        'organization_id' => $orgId,
-                        'status' => 1,
-                    ]);
-                    UsersOrganization::firstOrCreate([
+            Patient::firstOrCreate([
+                'user_id' => $userId,
+                'organization_id' => $orgId,
+                'status' => 1,
+            ]);
+            UsersOrganization::firstOrCreate([
 
-                        'status' => 1,
-                        'registration_code' => '123ABC',
-                        'user_id' => $userId,
-                        'organization_id' => $orgId
-                    ]);
+                'status' => 1,
+                'registration_code' => '123ABC',
+                'user_id' => $userId,
+                'organization_id' => $orgId
+            ]);
 
-                    return redirect()->route('createHospital.patients')->withSuccess(__('Patient Successfully Created'));
+            return redirect()->route('createHospital.patients')->withSuccess(__('Patient Successfully Created'));
         } catch (\Exception $e) {
             return redirect()->route('createHospital.patients')->withErrors(['error' => __($e->getMessage())]);
         }
@@ -99,6 +99,34 @@ class HospitalPatientController extends Controller
             return view('hospital_panel.patients.index', ['all_patients' => $all_patients]);
         } catch (\Exception $e) {
             return redirect()->back()->withError(__($e->getMessage()));
+        }
+    }
+    public function patientDelete($uuid)
+    {
+
+
+        $userInfo = session('loggedInUser');
+        $userInfo = json_decode(json_encode($userInfo), true);
+        // dd($userInfo);
+        if (is_null($userInfo)) {
+
+            return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
+        }
+
+        try {
+
+
+            $user = User::where('uuid', $uuid)->first();
+            if ($user) {
+                UsersOrganization::where('user_id', $user->id)->delete();
+                Patient::where('user_id', $user->id)->delete();
+                $user->delete();
+            }
+            return redirect()->back()->withSuccess(__('Successfully Patient Deleted'));
+        } catch (\Exception $e) {
+
+
+            return redirect()->back()->withErrors(['error' => __($e->getMessage())]);
         }
     }
 }
