@@ -273,7 +273,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     // Routes used for login
 
     Route::get('/dashboard/page', [AuthenticationController::class, 'hospitalDashboard'])->name('hospital.dashboard');
-
+    Route::get('/delete/department/{uuid}', [HospitalDepartmentController::class, 'deleteDepartment'])->name('hospital.delete.department');
     //Update Hospital
     Route::get('/update/hospital', [HospitalUserController::class, 'updateHospital'])->name('updateHospital');
     Route::post('/hospital/updated', [HospitalUserController::class, 'hospitalUpdated'])->name('hospitalUpdated');
