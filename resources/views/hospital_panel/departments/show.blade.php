@@ -47,9 +47,9 @@
                                                     <a href="{{route('updateHospital.department',['uuid'=>$department->uuid])}}"><button class="btn btn-warning" data-toggle="tooltip" data-placement="top" title="Update"><i class="fa fa-edit"></i></button></a>
                                                     <a href="{{route('hospitalDoctors.list',['uuid'=>$department->uuid])}}"><button class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Doctors"><i class="fa fa-user"></i></button></a>
                                                     @if($department->status == 'Enabled')
-                                                        <a href="{{route('delete.organisation',['uuid'=>$department->uuid])}}"><button class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Deactivate"><i class="fa fa-eye-slash"></i></button></a>
+                                                        <a href="{{route('hospital.delete.department',['uuid'=>$department->uuid])}}"><button class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Deactivate"><i class="fa fa-eye-slash"></i></button></a>
                                                     @else
-                                                        <a href="{{route('delete.organisation',['uuid'=>$department->uuid])}}"><button class="btn btn-info" data-toggle="tooltip" data-placement="top" title="Active"><i class="fa fa-eye"></i></button></a>
+                                                        <a href="{{route('hospital.delete.department',['uuid'=>$department->uuid])}}"><button class="btn btn-info" data-toggle="tooltip" data-placement="top" title="Active"><i class="fa fa-eye"></i></button></a>
                                                     @endif
                                                 </td>
                                             </tr>

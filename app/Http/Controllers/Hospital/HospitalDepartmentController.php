@@ -165,4 +165,27 @@ class HospitalDepartmentController extends Controller
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
     }
+
+    public function deleteDepartment($uuid)
+    {
+        $userInfo = session('loggedInUser');
+        $userInfo = json_decode(json_encode($userInfo), true);
+        if (is_null($userInfo)) {
+            return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
+        }
+        try {
+            $orgDb = Department::where('uuid', $uuid)->first();
+            if ($orgDb->status == 'Disabled') {
+                $orgDb->update(['status' => 'Enabled']);
+            }
+            else{
+                $orgDb->update(['status' => 'Disabled']);
+            }
+            return redirect()->back()->withSuccess(__('Successfully Organization Status Updated'));
+        } catch (\Exception $e) {
+
+
+            return redirect()->back()->withErrors(['error' => __($e->getMessage())]);
+        }
+    }
 }
