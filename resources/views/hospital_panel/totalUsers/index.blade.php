@@ -39,8 +39,8 @@
                                             <th scope="col" width="20%">Name</th>
                                             <th scope="col" width="1%">Guard</th>
                                         </thead>
-                                        @if($all_patients->Users)
-                                        @foreach($all_patients->Users as $all_patient)
+                                        @if($all_patients)
+                                        @foreach($all_patients as $all_patient)
                                         <tr>
                                             <td>{{$loop->index+1}}</td>
                                             <td>
