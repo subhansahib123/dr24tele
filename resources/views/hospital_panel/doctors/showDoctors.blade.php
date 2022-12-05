@@ -43,12 +43,12 @@
                                         <th scope="col">Name</th>
                                         <th scope="col" class="text-end">Action</th>
                                     </thead>
-                                    @foreach($doctors->Users as $doctor)
+                                    @foreach($doctors as $doctor)
                                     <tr>
                                         <td>{{$loop->index+1}}</td>
-                                        <td>{{$doctor->name}}</td>
+                                        <td>{{$doctor->user->name}}</td>
                                         <td class="text-end">
-                                            <a href="{{route('user.delete',[$doctor->uuid])}}"><button class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button></a>
+                                            <a href="{{route('user.delete',[$doctor->id])}}"><button class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button></a>
                                         </td>
                                     </tr>
                                     @endforeach
