@@ -91,7 +91,7 @@
         $(function() {
             $('#txtPhone').intlTelInput({
                 autoHideDialCode: true,
-                autoPlaceholder: "ON",
+                autoPlaceholder: "polite",
                 dropdownContainer: document.body,
                 formatOnDisplay: true,
                 hiddenInput: "phoneNumber",
