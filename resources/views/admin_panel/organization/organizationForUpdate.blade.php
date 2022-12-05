@@ -155,8 +155,6 @@
 @endsection
 @section('foot_script')
 <script type="text/javascript">
-    var code = `{{$orgData->contactperson}}`
-    alert(code)
     var state = ``;
     var city = ``;
     var baseUrl = `{{url('/')}}`;
