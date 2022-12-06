@@ -13,6 +13,7 @@ use App\Models\Doctor;
 use App\Models\Patient;
 use App\Models\User_Role;
 use App\Models\UsersOrganization;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 
@@ -611,7 +612,13 @@ class UserController extends Controller
             if ($user) {
                 UsersOrganization::where('user_id', $user->id)->delete();
                 User_Role::where('user_id', $user->id)->delete();
-                Doctor::where('user_id', $user->id)->delete();
+                $doctor = Doctor::where('user_id', $user->id)->delete();
+                if (isset($user) && $user->image) {
+                    $previous_img = public_path('uploads/organization/department/doctor/' . $user->image);
+                    if (File::exists($previous_img)) {
+                        File::delete($previous_img);
+                    }
+                }
                 $user->delete();
             }
             return redirect()->back()->withSuccess(__('Doctor Successfully  Deleted'));

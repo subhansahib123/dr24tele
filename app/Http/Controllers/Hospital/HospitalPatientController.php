@@ -31,7 +31,7 @@ class HospitalPatientController extends Controller
         $orgId = \auth()->user()->user_organization->organization;
         if ($request->hasFile('image')) {
             $getImage = date('Y') . '/' . time() . '-' . rand(0, 999999) . '.' . $request->image->getClientOriginalExtension();
-            $request->image->move(public_path('uploads/patient/') . date('Y'), $getImage);
+            $request->image->move(public_path('uploads/organization/patients/') . date('Y'), $getImage);
             $image = $getImage;
         } else {
             $image = '';

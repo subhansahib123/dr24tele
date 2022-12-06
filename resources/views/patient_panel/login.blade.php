@@ -91,14 +91,14 @@
                                         <p class="mb-0">Don't have an Account? <a class="link style1"
                                                 href="{{route('patient.register')}}">Create One</a></p>
                                     </div>
-                                    <!-- <div class="col-lg-12"  >
-                                        <div class="form-group">
-                                            <button type="submit" class="btn style1 w-100 d-block" >
-                                                Login
-                                            </button>
+{{--                                  <div class="col-lg-12"  >--}}
+{{--                                        <div class="form-group">--}}
+{{--                                            <button type="submit" class="btn style1 w-100 d-block" >--}}
+{{--                                                Login--}}
+{{--                                            </button>--}}
 
-                                        </div>
-                                    </div> -->
+{{--                                        </div>--}}
+{{--                                    </div>--}}
                                 </div>
                             </form>
                         </div>

@@ -43,7 +43,7 @@
                                                 <label for="currentPhoneNumber"><strong> Current Number</strong> </label>
                                             </div>
                                             <div class="col-6 px-0">
-                                                <input type="text" id="txtPhone" name="" class="form-control" placeholder="+91 *** ******">
+                                                <input type="text" id="txtPhone" name="phoneNumber" class="form-control" value="{{auth()->user()->phone_number}}"  placeholder="+91 *** ******">
                                                 <input type="hidden" class="form-control" id="phoneNumber">
                                             </div>
 
