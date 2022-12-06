@@ -280,7 +280,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     //Update  Profile
     Route::get('/update/password', [HospitalUserController::class, 'updatePassword'])->name('updatePassword');
     Route::post('/password/updated', [HospitalUserController::class, 'passwordUpdated'])->name('passwordUpdated');
-
+    Route::get('/doctor/delete/{uuid}', [UserController::class, 'doctorDelete'])->name('hospital.doctor.delete');
     //Route that is used to view all users, all unmapped users and to create users
     Route::get('/all/users', [HospitalUserController::class, 'allHospitalUsers'])->name('allHospital.users');
     Route::get('/unmapped/users', [HospitalUserController::class, 'hospitalUnmappedUsers'])->name('hospitalUnmapped.Users');
