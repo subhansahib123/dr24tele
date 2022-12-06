@@ -11,6 +11,7 @@ use App\Models\SpecializedDepartment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 
 class DepartmentController extends Controller
@@ -24,7 +25,7 @@ class DepartmentController extends Controller
     }
     public function create(Request $request)
     {
-        // dd($request->email()); 
+        // dd($request->email());
 
         $orgName = Organization::where('uuid', $request->organization)->first();
         // dd( $orgName );
@@ -39,7 +40,7 @@ class DepartmentController extends Controller
         ]);
         if ($request->hasFile('image')) {
             $getImage = date('Y') . '/' . time() . '-' . rand(0, 999999) . '.' . $request->image->getClientOriginalExtension();
-            $request->image->move(public_path('uploads/department/') . date('Y'), $getImage);
+            $request->image->move(public_path('uploads/organization/department/') . date('Y'), $getImage);
             $image = $getImage;
         } else {
             $image = '';
@@ -154,18 +155,22 @@ class DepartmentController extends Controller
             'image' => 'required',
 
         ]);
-        
-
-        if ($request->hasFile('image')) {
-            $getImage = date('Y') . '/' . time() . '-' . rand(0, 999999) . '.' . $request->image->getClientOriginalExtension();
-            $request->image->move(public_path('uploads/department/') . date('Y'), $getImage);
-            $image = $getImage;
-        } else {
-            $image = '';
-        }
 
         try {
             $dep = Department::where('uuid', $request->DepUuid)->first();
+            if ($request->hasFile('image')) {
+                if (isset($dep) && $dep->image) {
+                    $previous_img = public_path('uploads/organization/department/' . $dep->image);
+                    if (File::exists($previous_img)) {
+                        File::delete($previous_img);
+                    }
+                }
+                $getImage = date('Y') . '/' . time() . '-' . rand(0, 999999) . '.' . $request->image->getClientOriginalExtension();
+                $request->image->move(public_path('uploads/organization/department/') . date('Y'), $getImage);
+                $image = $getImage;
+            } else {
+                $image = '';
+            }
             $dep->update([
                 'display_name' => $request->displayname,
                 'email'=>$request->email,

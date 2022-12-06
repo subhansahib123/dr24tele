@@ -33,7 +33,7 @@ class PatientController extends Controller
         }
         if ($request->hasFile('image')) {
             $getImage = date('Y') . '/' . time() . '-' . rand(0, 999999) . '.' . $request->image->getClientOriginalExtension();
-            $request->image->move(public_path('uploads/organization/') . date('Y'), $getImage);
+            $request->image->move(public_path('uploads/organization/patients/') . date('Y'), $getImage);
             $image = $getImage;
         } else {
             $image = '';
@@ -183,7 +183,7 @@ class PatientController extends Controller
             return redirect()->back()->withErrors(['error' => __($e->getMessage())]);
         }
     }
-   
+
 
     public function   patientUpdated(Request $request)
     {
