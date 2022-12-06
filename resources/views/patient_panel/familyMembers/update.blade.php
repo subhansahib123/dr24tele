@@ -80,8 +80,8 @@
                                             <label for="currentPhoneNumber"> Phone Number </label>
                                         </div>
                                         <div class="col">
-                                            <input type="text" id="txtPhone" class="form-control" placeholder="+91 *** ******">
-                                            <input type="hidden" class="form-control" id="  ">
+                                            <input type="text" id="txtPhone" class="form-control" value="{{$member->phone_number}}" placeholder="+91 *** ******">
+                                            <input type="hidden" class="form-control" id="phoneNumber">
                                         </div>
                                     </div>
                                 </div>
