@@ -135,7 +135,7 @@
             $('#txtPhone').val(formattedNumber.slice(formattedNumber.indexOf(' ') + 1, formattedNumber.length));
         }
         $(function() {
-            var code = "+911234567890";
+            var code = "";
 
             if ($('#txtPhone').length && $('#txtPhoneNew').length) {
                 $('#txtPhoneNew').val(code);

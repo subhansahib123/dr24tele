@@ -603,15 +603,10 @@ class UserController extends Controller
     {
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
-        // dd($userInfo);
         if (is_null($userInfo)) {
-
             return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
-
         try {
-
-
             $user = User::where('uuid', $uuid)->first();
             if ($user) {
                 UsersOrganization::where('user_id', $user->id)->delete();
