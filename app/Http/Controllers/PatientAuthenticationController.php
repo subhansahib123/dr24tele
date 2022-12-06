@@ -8,9 +8,11 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Organization;
 use App\Models\Patient;
 use App\Models\UsersOrganization;
+
+use Illuminate\Support\Str;
 use App\Models\Appointment;
 use App\AgoraToken\Src\RtcTokenBuilder;
-use Illuminate\Support\Facades\Session;
+use Session;
 
 class PatientAuthenticationController extends Controller
 {
@@ -53,14 +55,12 @@ class PatientAuthenticationController extends Controller
     }
     public function logout()
     {
-
         Auth::logout();
         Session::flush();
         return redirect()->route('patient.login')->withSucess(__('Successfully logged out!'));
     }
     public function patientDashboard()
     {
-        // dd(session('loggedInUser'));
         return view('patient_panel.dashboard');
     }
     public function login()
@@ -77,7 +77,6 @@ class PatientAuthenticationController extends Controller
 
 
             Auth::login($user);
-            session_start();
             session(['loggedInUser' => $user]);
             return redirect()->route('patient.dashboard')->withSuccess(__('Successfully Login'));
         } else {
@@ -91,6 +90,7 @@ class PatientAuthenticationController extends Controller
         $organizations = Organization::all();
         return view('patient_panel.register', compact('organizations'));
     }
+
     protected function adminLogin($orguuid)
     {
 
@@ -156,6 +156,49 @@ class PatientAuthenticationController extends Controller
 
             return ['error' => __($e->getMessage())];
         }
+    }
+    public function patientSignUp(Request $request)
+    {
+        $request->validate([
+            'username' => 'required|string',
+            'password' => 'required|string',
+            'givenName' => 'required|string',
+            'email' => 'required',
+            'gender_code' => 'required|string',
+            'phoneNumber' => 'required|string',
+            'dateOfBirth' => 'required',
+            'image' => 'required'
+        ]);
+        if ($request->hasFile('image')) {
+            $getImage = date('Y') . '/' . time() . '-' . rand(0, 999999) . '.' . $request->image->getClientOriginalExtension();
+            $request->image->move(public_path('uploads/patient/') . date('Y'), $getImage);
+            $image = $getImage;
+        } else {
+            $image = '';
+        }
+        if ($request->hasFile('reg_img')) {
+            $getImage = date('Y') . '/' . time() . '-' . rand(0, 999999) . '.' . $request->reg_img->getClientOriginalExtension();
+            $request->reg_img->move(public_path('uploads/patient/registrationCard') . date('Y'), $getImage);
+            $reg_img = $getImage;
+        } else {
+            $reg_img = '';
+        }
+        // dd($image,$reg_img);
+        $user = User::firstOrCreate([
+            'username' => $request->username,
+            'name' => $request->givenName,
+            'password' => $request->password,
+            'email' => $request->email,
+            'phone_number' => $request->phoneNumber,
+            'uuid' => Str::uuid(),
+            'PersonUuid' => Str::uuid(),
+            'status' => 1,
+            'image' => $image
+
+        ]);
+        $orgUuid=$request->orguuid;
+        // dd($user, $orgUuid);
+        return $this->patientMapped($user, $orgUuid);
     }
     public function store_user(Request $request)
     {
@@ -378,88 +421,26 @@ class PatientAuthenticationController extends Controller
             return ['error' => __($e->getMessage())];
         }
     }
-    protected function patientMapped($personId, $orgUuid)
+    protected function patientMapped($user, $orgUuid)
     {
-        $curl = curl_init();
-        $baseUrl = config('services.ehr.baseUrl');
-        $apiKey = config('services.ehr.apiKey');
-
-        $userInfo = session('ApiUserAction');
-        $userInfo = json_decode(json_encode($userInfo), true);
-        // dd($userInfo);
-        if (is_null($userInfo)) {
-
-            $this->adminLogin();
-            $userInfo = session('ApiUserAction');
-            $userInfo = json_decode(json_encode($userInfo), true);
-        }
-        // dd($request->PersonId);
-        $token = $userInfo['sessionInfo']['token'];
-
-        $req_url = $baseUrl . 'rest/admin/orgPersonMapping/add/' . $personId . '/' . $orgUuid;
-
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => $req_url,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'PATCH',
-            CURLOPT_HTTPHEADER => array(
-                'Authorization:' . $token,
-                'apikey:' . $apiKey
-            ),
-        ));
 
         try {
 
-            $response = curl_exec($curl);
-            if ($response == false) {
-                $error = curl_error($curl);
-                curl_close($curl);
+            $user = User::where('PersonUuid', $user->PersonUuid)->first();
+            $org = Organization::where('uuid', $orgUuid)->first();
+            $patient=Patient::firstOrCreate([
+                'user_id' => $user->id,
+                'organization_id' => $org->id,
+                'status' => 1,
+            ]);
+            $patientOrg=UsersOrganization::firstOrCreate([
 
-                return ['error' => __($error)];;
-            } else {
-                // dd($request->all());
-                $patients = json_decode($response);
-
-
-                if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
-                    $users = User::where('PersonId', $personId)->first();
-                    $org = Organization::where('uuid', $orgUuid)->first();
-                    Patient::firstOrCreate([
-                        'user_id' => $users->id,
-                        'organization_id' => $org->id,
-                        'status' => 1,
-                    ]);
-                    UsersOrganization::firstOrCreate([
-
-                        'status' => 1,
-                        'registration_code' => '123ABC',
-                        'user_id' => $users->id,
-                        'organization_id' => $org->id
-                    ]);
-
-                    curl_close($curl);
-                    return true;
-                } else if (isset($patients->message) && $patients->message == "API rate limit exceeded") {
-                    curl_close($curl);
-                    return ['error' => $patients->message];
-                } else if (isset($patients->message) && $patients->message == "Invalid User") {
-
-                    curl_close($curl);
-                    return ['error' => $patients->message];
-                } else if (isset($patients->message) && $patients->message == "Invalid Token") {
-
-                    curl_close($curl);
-                    return ['error' => $patients->message];
-                } else {
-                    curl_close($curl);
-                    return ['error' => $patients->message];
-                }
-            }
+                'status' => 1,
+                'registration_code' => '123ABC',
+                'user_id' => $user->id,
+                'organization_id' => $org->id
+            ]);
+            return redirect()->route('patient.login')->withSuccess(__('Patient is Successfully created'));
         } catch (\Exception $e) {
 
 
