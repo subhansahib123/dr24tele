@@ -145,7 +145,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     //paitent Register
 
     Route::get('/patient/register', [PatientAuthenticationController::class, 'register'])->name('patient.register');
-    Route::post('/patient/registered', [PatientAuthenticationController::class, 'store_user'])->name('patient.registered');
+    Route::post('/patient/registered', [PatientAuthenticationController::class, 'patientSignUp'])->name('patient.registered');
 
     //patient Login
     Route::get('/patient/login', [PatientAuthenticationController::class, 'login'])->name('patient.login');
