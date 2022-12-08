@@ -398,7 +398,6 @@ class UserController extends Controller
     {
         $roles = Role::all();
         $organizations = Organization::all();
-        // dd($roles);
         return view('admin_panel.totalUsers.roleEdit', ['user' => $user, 'roles' => $roles, 'organizations' => $organizations]);
     }
 
@@ -444,8 +443,11 @@ class UserController extends Controller
             // dd($user->id,$role->id,$organization->id);
 
 
+            if($organization->uuid=='c6bc6265-e876-414a-9672-a85e09280059'){
+            return redirect()->route('users.all.actual')->withSuccess(__('Successfully Created User'));
 
-            return redirect()->route('create.user')->withSuccess(__('Successfully Created User'));
+            }
+            return redirect()->route('users.list',[$organization->uuid])->withSuccess(__('Successfully Created User'));
         } catch (\Exception $e) {
 
             return redirect()->back()->withErrors(['error' => __($e->getMessage())]);

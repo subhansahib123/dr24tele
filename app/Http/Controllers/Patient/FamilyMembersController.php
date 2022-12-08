@@ -39,7 +39,7 @@ class FamilyMembersController extends Controller
                 'relation' => $request->relation,
                 'patient_id' => $userInfo,
             ]);
-            return redirect()->back()->withSuccess(__('Specialization is Successfully Created'));
+            return redirect()->route('showMembers')->withSuccess(__('Family Member is Successfully Created'));
         }
     }
     public function show()
@@ -71,7 +71,7 @@ class FamilyMembersController extends Controller
             'phone_number' => $request->phoneNumber,
             'relation' => $request->relation,
         ]);
-        return redirect()->back()->withSuccess(__('Member Details are Successfully Updated'));
+        return redirect()->route('showMembers')->withSuccess(__('Member Details are Successfully Updated'));
     }
     public function delete($id)
     {

@@ -8,6 +8,7 @@
 
         <!-- CONTAINER -->
         <div class="main-container container-fluid">
+        @include('admin_panel.frontend.includes.messages')
             <!-- Row -->
             <div class="row">
                 <div class="col-xl-12 col-md-12 col-sm-6">
@@ -30,7 +31,6 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            @include('admin_panel.frontend.includes.messages')
                             <div class="table-responsive">
 {{--                                <table class="table table-striped" id="datatable">--}}
 {{--                                    <thead>--}}
@@ -70,9 +70,6 @@
                                             </table>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="mt-4">
-                                    <a href="{{route('hospital.dashboard')}}" class="btn btn-info">Back</a>
                                 </div>
                             </div>
                         </div>

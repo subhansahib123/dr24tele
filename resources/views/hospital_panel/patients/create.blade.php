@@ -128,7 +128,7 @@
                             </div>
                             <div class="card-footer text-end">
                                 <button type="submit" class="btn btn-primary my-1">Create</button>
-                                <span><a href="{{route('dashboard')}}" class="btn btn-secondary  ">Cancel</a></span>
+                                <span><a href="{{route('hospital.dashboard')}}" class="btn btn-secondary  ">Cancel</a></span>
 
                                 {{-- <a href="javascript:void(0)" class="btn btn-danger my-1">Cancel</a> --}}
                             </div>

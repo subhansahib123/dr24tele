@@ -54,6 +54,7 @@ class PersonalDetails extends Controller
             'role' => 'required|string',
         ]);
         $user = User::with('doctor')->where('phone_number', $request->phoneNumber)->first();
+        dd($request->phoneNumber,$user);
         if ($user) {
             return view('doctor_panel.personalInfo.updatingNumber');
         } else {

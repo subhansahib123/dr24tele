@@ -32,7 +32,7 @@
                         <div class="card-body">
                             <form class="form-horizontal" action="{{route('hospitalDepartment.updated')}}" method="POST" enctype="multipart/form-data">
                                 @csrf
-                                <div class=" row mb-4">
+                                <div class=" row mb-1">
                                     <input type="hidden" name="parentOrgId" value="{{$organization->uuid}}">
                                     <label for="displayname" class="col-md-3 form-label"> Display Name</label>
                                     <div class="col-md-9">
@@ -46,14 +46,14 @@
 
                                 <input type="hidden" class="form-control" value="{{$depData->name}}" name="name">
 
-                                <div class=" row mb-4">
+                                <div class=" row mb-1">
                                     <label for="inputEmail3" class="col-md-3 form-label">Email</label>
                                     <div class="col-md-9">
                                         <input type="email" class="form-control" value="{{$depData->email}}" name="email" placeholder="Email" autocomplete="username">
                                     </div>
                                 </div>
 
-                                <div class=" row mb-4">
+                                <div class=" row mb-1">
                                     <label for="country" class="col-md-3 form-label"> Select Status </label>
                                     <div class="col-md-9">
                                         <select class="form-control" name="status" id="state">
@@ -67,7 +67,7 @@
                                 <div class=" row  mb-1">
                                     <label for="image" class="col-md-3 form-label"> Picture </label>
                                     <div class="col-md-9">
-                                        <input type="file" name="image" id="image">
+                                        <input type="file" class="form-control" name="image" id="image">
                                     </div>
                                 </div>
                                 <div class="mx-0 px-0 mt-4 row card-footer text-end">

@@ -8,6 +8,7 @@
 
         <!-- CONTAINER -->
         <div class="main-container container-fluid">
+            @include('admin_panel.frontend.includes.messages')
 
             <!-- Row -->
             <div class="row">
@@ -22,17 +23,15 @@
                             </div>
                             <div class="col-4">
                                 <span class="card-title"><strong>
-                                Specializations List
+                                        Specializations List
                                     </strong></span>
                             </div>
-
                             <div class="col-3 text-end">
                                 <a href="{{route('createSpecialization')}}" class="btn btn-sm btn-success">Add <i class="fa fa-plus" data-toggle="tooltip" data-placement="top" title="Add New"></i></a>
                                 <a href="{{route('dashboard')}}" class="btn btn-sm btn-info" data-toggle="Go Back">Back <i class="fa fa-reply"></i></a>
                             </div>
                         </div>
                         <div class="card-body">
-                            @include('admin_panel.frontend.includes.messages')
                             <div class="table-responsive">
                                 <div class="bg-light p-4 ">
                                     <div class="mt-4">
@@ -49,6 +48,7 @@
                                                 </td>
                                                 <td>
                                                     <a href="{{route('updateSpecialization',[$specialization->id])}}" class="btn btn-primary"><i class="fa fa-edit"></i></a>
+                                                    <a href="{{route('deleteSpecialization',[$specialization->id])}}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
                                                 </td>
                                             </tr>
                                             @endforeach
@@ -68,7 +68,6 @@
                 </div>
             </div>
         </div>
-        <!-- CONTAINER CLOSED -->
     </div>
 </div>
 @endsection

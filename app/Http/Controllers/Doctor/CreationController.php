@@ -131,9 +131,9 @@ class CreationController extends Controller
 
 
             if ($containsHospital) {
-                return redirect()->route('create.doctor')->withSuccess(__('Doctor is Successfully Created '));
+                return redirect()->route('hospitalDoctors.list',[$department->uuid])->withSuccess(__('Doctor is Successfully Created '));
             }
-            return redirect()->route('createDoctor')->withSuccess(__('Doctor is Successfully Created '));
+            return redirect()->route('doctors.list',[$department->uuid])->withSuccess(__('Doctor is Successfully Created '));
 
 
         } catch (\Exception $e) {

@@ -64,7 +64,7 @@ class HospitalPatientController extends Controller
     }
 
 
-    public function patientMapping($orgId, $userId)
+    protected function patientMapping($orgId, $userId)
     {
         try {
             Patient::firstOrCreate([
@@ -80,7 +80,7 @@ class HospitalPatientController extends Controller
                 'organization_id' => $orgId
             ]);
 
-            return redirect()->route('createHospital.patients')->withSuccess(__('Patient Successfully Created'));
+            return redirect()->route('hospitalAll.patients')->withSuccess(__('Patient Successfully Created'));
         } catch (\Exception $e) {
             return redirect()->route('createHospital.patients')->withErrors(['error' => __($e->getMessage())]);
         }

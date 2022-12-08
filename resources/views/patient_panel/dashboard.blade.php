@@ -19,7 +19,6 @@
                 </div>
             </div>
             <!-- PAGE-HEADER END -->
-
             <!-- ROW-1 OPEN -->
             <div class="row" id="user-profile">
                 <div class="col-lg-12">

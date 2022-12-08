@@ -113,7 +113,7 @@
                                 <div class=" row  mb-1">
                                     <label for="image" class="col-md-3 form-label"> Picture </label>
                                     <div class="col-md-9">
-                                        <input type="file" name="image" id="image">
+                                        <input class="form-control" type="file" name="image" id="image">
                                     </div>
                                 </div>
                                 <div class="mx-0 px-0 mt-4 row card-footer text-end">

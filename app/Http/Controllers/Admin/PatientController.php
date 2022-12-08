@@ -64,7 +64,7 @@ class PatientController extends Controller
         $users = User::all();
         return view('admin_panel.patients.create', ['users' => $users]);
     }
-    public function storePatients($UserData)
+    protected function storePatients($UserData)
     {
 
         // dd($UserData->uuid);
@@ -126,8 +126,10 @@ class PatientController extends Controller
                 'user_id' => $request->userId,
                 'organization_id' => $org->id
             ]);
-
-            return redirect()->route('create.patients')->withSuccess(__('Patient Successfully Created'));
+            if( $org->uuid=='c6bc6265-e876-414a-9672-a85e09280059'){
+            return redirect()->route('all.users')->withSuccess(__('Patient Successfully Created'));
+            }
+            return redirect()->route('patients.list',[$org->uuid])->withSuccess(__('Patient Successfully Created'));
         } catch (\Exception $e) {
 
 

@@ -30,7 +30,12 @@ class DoctorSpecializationController extends Controller
             return redirect()->back()->withErrors(['error' => 'This Specialization already exists.']);
         }
         DoctorSpecialization::firstOrCreate(['name' => $request->name]);
-        return redirect()->back()->withSuccess(__('Specialization is Successfully Created'));
+        $url = url()->previous();
+        $containsHospital = Str::contains($url, 'hospital');
+        if ($containsHospital == true) {
+            return redirect()->route('show.specialization')->withSuccess(__('Specialization is Successfully Created'));
+        }
+        return redirect()->route('showSpecialization')->withSuccess(__('Specialization is Successfully Created'));
     }
     public function show()
     {
@@ -68,6 +73,18 @@ class DoctorSpecializationController extends Controller
         $specialization = DoctorSpecialization::find($request->id);
         // dd($request->all());
         $specialization->update(['name' => $request->newName]);
-        return redirect()->back()->withSuccess(__('Specialization is Successfully Created'));
+        $url = url()->previous();
+        $containsHospital = Str::contains($url, 'hospital');
+        if ($containsHospital == true) {
+            return redirect()->route('show.specialization')->withSuccess(__('Specialization is Successfully Updated'));
+        }
+        return redirect()->route('showSpecialization')->withSuccess(__('Specialization is Successfully Updated'));
+    }
+    public function delete($id)
+    {
+        $doctor_specialization = DoctorSpecialization::find($id);
+        $doctor_specialization->delete();
+        // dd($id);
+        return redirect()->back()->withSuccess(__('Specialization is Successfully Deleted'));
     }
 }
