@@ -74,7 +74,7 @@
                                     <div class="col-lg-6 col-md-6 col-sm-12 my-0">
                                         <div class="form-group">
 
-                                            <div class="row mx-0">
+                                            <div class="row">
                                                 <label for="exampleInputnumber"><strong> Contact Number</strong></label>
                                             </div>
                                             <div class="row ">
@@ -123,7 +123,8 @@
                                     </div>
                                     <div class=" col-lg-6 col-md-6 col-sm-12 my-0">
 
-                                        <input type="file" name="image" id="image">
+                                    <label class="form-label" for="image">Picture</label>
+                                        <input class="form-control" type="file" name="image" id="image">
                                     </div>
                                 </div>
 

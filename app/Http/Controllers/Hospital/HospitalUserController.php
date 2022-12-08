@@ -173,7 +173,7 @@ class HospitalUserController extends Controller
                 'user_id' => $user->id,
                 'role_id' => $role->id
             ]);
-            return redirect()->route('createHospital.user')->withSuccess(__('Successfully User Created'));
+            return redirect()->route('allHospital.users')->withSuccess(__('Successfully User Created'));
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
@@ -192,7 +192,6 @@ class HospitalUserController extends Controller
             $doctors = Doctor::with('user')->where('department_id', $dep->id)->get();
             // dd($doctors);            
             return view('hospital_panel.doctors.showDoctors', ['doctors' => $doctors]);
-
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
             // return $e->getMessage();

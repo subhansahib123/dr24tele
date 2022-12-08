@@ -77,7 +77,7 @@ class HospitalDepartmentController extends Controller
                     'department_id' => $department->id,
                 ]);
             }
-            return redirect()->back()->withSuccess(__('Successfully Department Created'));
+            return redirect()->route('hospitalDepartments.list')->withSuccess(__('Successfully Department Created'));
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
@@ -159,7 +159,7 @@ class HospitalDepartmentController extends Controller
                 'image' => $image,
                 'email' => $request->email,
             ]);
-            return redirect()->back()->withSuccess(__('Department Successfully Updated'));
+            return redirect()->route('hospitalDepartments.list')->withSuccess(__('Department Successfully Updated'));
         } catch (\Exception $e) {
 
 

@@ -106,6 +106,7 @@ class homeController extends Controller
     public function appointment($id){
         if(Auth::check()){
             $doctor = Doctor::with('user','specialization')->find($id);
+            // dd($doctor->user->image);
             return view('public_panel.appointment', compact('doctor'));
         }
         else{

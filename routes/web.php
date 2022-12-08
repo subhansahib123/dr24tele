@@ -170,6 +170,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     //Update Specialization
     Route::get('/update/specialization/{id}', [DoctorSpecializationController::class, 'updateView'])->name('updateSpecialization');
     Route::post('/specialization/updated', [DoctorSpecializationController::class, 'update'])->name('specializationUpdated');
+    Route::get('/delete/specialization/{id}', [DoctorSpecializationController::class, 'delete'])->name('deleteSpecialization');
     //Create Department Specialization
     Route::get('/create/department-specialization', [DepartmentSpecializationController::class, 'index'])->name('create.departmentSpecialization');
     Route::post('/department-specialization/created', [DepartmentSpecializationController::class, 'create'])->name('departmentSpecialization.created');
@@ -178,6 +179,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     //Update Department Specialization
     Route::get('/update/department-specialization/{id}', [DepartmentSpecializationController::class, 'updateView'])->name('update.departmentSpecialization');
     Route::post('/department-specialization/updated', [DepartmentSpecializationController::class, 'update'])->name('departmentSpecialization.Updated');
+    Route::get('/delete/department-specialization/{id}', [DepartmentSpecializationController::class, 'delete'])->name('delete.departmentSpecialization');
     //Create Doctor
     Route::get('/create/doctor', [CreationController::class, 'create'])->name('createDoctor');
     Route::post('/doctor/created', [CreationController::class, 'store'])->name('doctorCreated');

@@ -190,7 +190,7 @@
                                     <div class=" row  mb-1">
                                         <label for="image" class="col-md-3 form-label"> Picture </label>
                                         <div class="col-md-9">
-                                            <input type="file" name="image" id="image">
+                                            <input class="form-control" type="file" name="image" id="image">
                                         </div>
                                         @if ($errors->has('image'))
                                             <span class="text-danger text-left">{{ $errors->first('image') }}</span>

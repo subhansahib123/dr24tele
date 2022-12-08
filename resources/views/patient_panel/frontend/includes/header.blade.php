@@ -85,7 +85,7 @@
                                         <div class="dropdown-item d-flex p-4">
                                             <a href="cart.html" class="open-file"></a>
                                             <span class="avatar avatar-xl br-5 me-3 align-self-center cover-image"
-                                                data-bs-image-src="../assets/images/pngs/6.jpg"></span>
+                                                data-bs-image-src="{{ ($userImage) ?  asset('uploads/patient/'.$userImage) : asset('public_assets/img/services/service-9.jpg') }}"></span>
                                             <div class="wd-50p">
                                                 <h5 class="mb-1">Black Digital Camera</h5>
                                                 <span>Status: <span class="text-danger">Out Stock</span></span>

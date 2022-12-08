@@ -43,7 +43,6 @@ class OrganizationController extends Controller
 
     public function createOrganization(Request $request)
     {
-        // dd($request->all());
         $request->validate([
             'name' => 'required|string',
             'displayname' => 'required|string',
@@ -83,7 +82,6 @@ class OrganizationController extends Controller
                 'level' => "SubOrg",
                 'image' => $image,
                 'organization_id' => $parent_org->id,
-
                 'displayname' => $request->displayname,
                 'contactperson_designation' => $request->contactperson_designation,
                 'contactperson' => $request->phoneNumber,
@@ -95,7 +93,7 @@ class OrganizationController extends Controller
                 'district' => $request->district,
                 'postalCode' => $request->postalCode
             ]);
-            return redirect()->back()->withSuccess('Successfully Created');
+            return redirect()->route('organization')->withSuccess('Organization Successfully Created ');
         } catch (\Exception $e) {
 
             return redirect()->back()->withErrors(['error' => __($e->getMessage())]);
@@ -200,6 +198,7 @@ class OrganizationController extends Controller
                     if (File::exists($previous_img)) {
                         File::delete($previous_img);
                     }
+
                 }
                 $getImage = date('Y') . '/' . time() . '-' . rand(0, 999999) . '.' . $request->image->getClientOriginalExtension();
                 $request->image->move(public_path('uploads/organization/') . date('Y'), $getImage);
@@ -207,6 +206,7 @@ class OrganizationController extends Controller
             } else {
                 $image = $org->image;
             }
+
 
             $org->update([
                 'status' => $request->status,
@@ -219,9 +219,9 @@ class OrganizationController extends Controller
                 'district' => $request->district,
                 'postalCode' => $request->postalCode
             ]);
-            return redirect()->back()->withSuccess(__('Organization Successfully Updated'));
+            return redirect()->route('organization')->withSuccess(__('Organization Successfully Updated'));
         } catch (\Exception $e) {
-            return redirect()->back()->withErrors(['error' => __($e->getMessage())]);
+            return redirect()->route('organization')->withErrors(['error' => __($e->getMessage())]);
         }
     }
 }

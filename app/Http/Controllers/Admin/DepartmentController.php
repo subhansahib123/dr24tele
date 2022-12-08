@@ -80,7 +80,8 @@ class DepartmentController extends Controller
                         'department_id' => $department->id,
                     ]);
                 }
-                return redirect()->back()->withSuccess(__('Successfully Department Created'));
+                // dd($org->uuid);
+                return redirect()->route('departments.list',[$org->uuid])->withSuccess(__('Successfully Department Created'));
             }
         } catch (\Exception $e) {
 
@@ -152,7 +153,6 @@ class DepartmentController extends Controller
             'name' => 'required|string',
             'status' => 'required|string',
             'email' => 'required|string',
-            'image' => 'required',
 
         ]);
 
@@ -161,6 +161,7 @@ class DepartmentController extends Controller
             if ($request->hasFile('image')) {
                 if (isset($dep) && $dep->image) {
                     $previous_img = public_path('uploads/organization/department/' . $dep->image);
+                    // dd($previous_img);
                     if (File::exists($previous_img)) {
                         File::delete($previous_img);
                     }
@@ -178,7 +179,9 @@ class DepartmentController extends Controller
                 'image'=> $image
 
             ]);
-            return redirect()->back()->withSuccess(__('Department  Successfully Updated'));
+            $org=Organization::where('id',$dep->organization_id)->first();
+            // dd($org);
+            return redirect()->route('departments.list',[$org->uuid])->withSuccess(__('Successfully Department Updated'));
 
         } catch (\Exception $e) {
 

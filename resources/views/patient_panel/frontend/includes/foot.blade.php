@@ -129,24 +129,20 @@
                 $('#txtPhone').val(formattedNumber.slice(formattedNumber.indexOf(' ') + 1, formattedNumber.length));
             }
         });
-
-
     </script>
     <!--Firebase---->
 
     <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase.js"></script>
     <script>
-        let loggedIn=`{{auth()->check()?1:0}}`
+        var loggedIn = `{{auth()->check()?1:0}}`;
+
+
+
+
         var user_id = '';
-        @auth
         if (loggedIn == 1) {
-            var user_id = {
-                {
-                    auth() - > user() - > id
-                }
-            };
+            var user_id = `{{ auth()->user()->id}}`;
         }
-        @endauth
     </script>
     <script src="{{asset('public_assets/js/firebase.js')}}"></script>
 

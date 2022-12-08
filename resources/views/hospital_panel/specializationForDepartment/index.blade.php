@@ -10,7 +10,7 @@
         <div class="main-container container-fluid">
 
         @include('admin_panel.frontend.includes.messages')
-x
+
             <!-- Row -->
             <div class="row">
                 <div class="col-xl-12 col-md-12 col-sm-6">

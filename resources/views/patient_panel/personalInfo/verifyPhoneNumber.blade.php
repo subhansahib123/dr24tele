@@ -14,7 +14,7 @@
                 <div class="form-group">
                     @include('admin_panel.frontend.includes.messages')
                 </div>
-                <div class="col-xl-8">
+                <div class="col-xl-12">
                     <div class="card">
                         <form action="{{ route('phone.numberVerified') }}" method="POST">
                             @csrf
@@ -40,7 +40,7 @@
                                                 <label for="currentPhoneNumber"><strong> Current Number</strong> </label>
                                             </div>
                                             <div class="col-6 px-0">
-                                                <input type="text" id="txtPhone" name="phoneNumberNew" class="form-control" value="{{auth()->user()->phone_number}}" placeholder="+91 *** ******">
+                                                <input type="text" disabled id="txtPhone" name="phoneNumberNew" class="form-control" value="{{auth()->user()->phone_number}}" placeholder="+91 *** ******">
                                                 <input type="hidden" class="form-control" id="phoneNumber">
                                             </div>
 

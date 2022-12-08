@@ -9,6 +9,7 @@
         <!-- CONTAINER -->
         <div class="main-container container-fluid">
 
+        @include('admin_panel.frontend.includes.messages')
 
 
             <!-- Row -->
@@ -35,7 +36,6 @@
                         </div>
                         <div class="card-body">
 
-                            @include('admin_panel.frontend.includes.messages')
                             {{-- <p>Use <code class="highlighter-rouge">.table-striped</code>to add zebra-striping to any table row within the <code class="highlighter-rouge">.tbody</code>.</p> --}}
                             <div class="table-responsive">
                                 <div class="bg-light p-4 ">

@@ -62,7 +62,7 @@ class PatientAuthenticationController extends Controller
     public function patientDashboard()
     {
         return view('patient_panel.dashboard');
-    }
+    }    
     public function login()
     {
         return view('patient_panel.login');

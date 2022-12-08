@@ -25,6 +25,7 @@
                             </div>
 
                             <div class="col-3 text-end">
+                            <a href="{{route('createHospital.patients')}}" class="btn btn-sm btn-success">Add <i class="fa fa-plus" data-toggle="tooltip" data-placement="top" title="Add New"></i></a>
                                 <a href="{{route('hospital.dashboard')}}" class="btn btn-sm btn-info" data-toggle="Go Back">Back <i class="fa fa-reply"></i></a>
 
                             </div>
@@ -39,7 +40,7 @@
                                         <table class="table table-striped" id="datatable">
                                             <thead>
                                                 <th scope="col" width="3%">Sr#</th>
-                                                <th scope="col" width="20%">Name</th>
+                                                <th scope="col" >Name</th>
                                                 <th scope="col" class="text-end">Action</th>
                                             </thead>
                                             @if($all_patients)

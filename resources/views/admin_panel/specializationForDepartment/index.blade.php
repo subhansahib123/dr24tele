@@ -9,6 +9,7 @@
         <!-- CONTAINER -->
         <div class="main-container container-fluid">
 
+        @include('admin_panel.frontend.includes.messages')
            
             <!-- Row -->
             <div class="row">
@@ -33,7 +34,6 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            @include('admin_panel.frontend.includes.messages')
                             <div class="table-responsive">
                                 <div class="bg-light p-4 ">
                                     <div class="mt-4">
@@ -50,6 +50,7 @@
                                                 </td>
                                                 <td>
                                                     <a href="{{route('update.departmentSpecialization',[$specialization->id])}}" class="btn btn-primary"><i class="fa fa-edit"></i></a>
+                                                    <a href="{{route('delete.departmentSpecialization',[$specialization->id])}}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
                                                 </td>
                                             </tr >
                                             @endforeach
