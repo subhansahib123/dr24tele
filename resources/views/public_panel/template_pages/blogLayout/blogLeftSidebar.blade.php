@@ -9,10 +9,10 @@
     <div class="breadcrumb-wrap bg-f br-3">
         <div class="container">
             <div class="breadcrumb-title">
-                <h2>Blog Left Sidebar</h2>
+                <h2>News &amp; Articles</h2>
                 <ul class="breadcrumb-menu list-style">
-                    <li><a href="index.html">Home </a></li>
-                    <li>Blog Left Sidebar</li>
+                    <li><a href="#">Home </a></li>
+                    <li>News &amp; Articles</li>
                 </ul>
             </div>
         </div>
@@ -40,7 +40,7 @@
                             <div class="popular-post-widget">
                                 <div class="pp-post-item">
                                     <a href="blog-details-right-sidebar.html" class="pp-post-img">
-                                        <img src="{{asset('public_assets/img/blog/post-thumb-1.jpg')}}" alt="Image">
+                                        <img src="{{asset('public_assets/img/webImages/image03.jpg')}}" alt="Image">
                                     </a>
                                     <div class="pp-post-info">
                                         <span>29 Jun, 2022</span>
@@ -53,7 +53,7 @@
                                 </div>
                                 <div class="pp-post-item">
                                     <a href="blog-details-right-sidebar.html" class="pp-post-img">
-                                        <img src="{{asset('public_assets/img/blog/post-thumb-2.jpg')}}" alt="Image">
+                                        <img src="{{asset('public_assets/img/webImages/image01.jpg')}}" alt="Image">
                                     </a>
                                     <div class="pp-post-info">
                                         <span>22 Jun, 2022</span>
@@ -66,7 +66,7 @@
                                 </div>
                                 <div class="pp-post-item">
                                     <a href="blog-details-right-sidebar.html" class="pp-post-img">
-                                        <img src="{{asset('public_assets/img/blog/post-thumb-3.jpg')}}" alt="Image">
+                                        <img src="{{asset('public_assets/img/webImages/image06.jpg')}}" alt="Image">
                                     </a>
                                     <div class="pp-post-info">
                                         <span>17 May, 2022</span>
@@ -137,7 +137,7 @@
                         <div class="col-lg-6 col-md-6">
                             <div class="blog-card style2">
                                 <div class="blog-img">
-                                    <img src="{{asset('public_assets/img/blog/blog-5.jpg')}}" alt="Image">
+                                    <img src="{{asset('public_assets/img/webImages/image07.jpg')}}" alt="Image">
                                     <a href="posts-by-date.html" class="blog-date"><span>22</span> Jun</a>
                                 </div>
                                 <div class="blog-info">
@@ -154,7 +154,7 @@
                         <div class="col-lg-6 col-md-6">
                             <div class="blog-card style2">
                                 <div class="blog-img">
-                                    <img src="{{asset('public_assets/img/blog/blog-6.jpg')}}" alt="Image">
+                                    <img src="{{asset('public_assets/img/webImages/image08.jpg')}}" alt="Image">
                                     <a href="posts-by-date.html" class="blog-date"><span>17</span>Jun</a>
                                 </div>
                                 <div class="blog-info">
@@ -171,42 +171,7 @@
                         <div class="col-lg-6 col-md-6">
                             <div class="blog-card style2">
                                 <div class="blog-img">
-                                    <img src="{{asset('public_assets/img/blog/blog-4.jpg')}}" alt="Image">
-                                    <a href="posts-by-date.html" class="blog-date"><span>25</span> May</a>
-                                </div>
-                                <div class="blog-info">
-                                    <ul class="blog-metainfo  list-style">
-                                        <li><i class="ri-user-unfollow-line"></i><a href="posts-by-author.html">Admin</a></li>
-                                        <li><i class="ri-wechat-line"></i>No Comment</li>
-                                    </ul>
-                                    <h3><a href="blog-details-right-sidebar.html">The Day I'd Spent At Square Medical Center</a></h3>
-                                    <p>Lorem Ipsum is simply dummy text the and standard dummy text ever since.</p>
-                                    <a href="blog-details-right-sidebar.html" class="link style2">Read More<i class="flaticon-right-arrow"></i></a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="blog-card style2">
-                                <div class="blog-img">
-                                    <img src="{{asset('public_assets/img/blog/blog-5.jpg')}}" alt="Image">
-                                    <a href="posts-by-date.html" class="blog-date"><span>22</span> May</a>
-                                </div>
-                                <div class="blog-info">
-                                    <ul class="blog-metainfo  list-style">
-                                        <li><i class="ri-user-unfollow-line"></i><a href="posts-by-author.html">Admin</a></li>
-                                        <li><i class="ri-wechat-line"></i>No Comment</li>
-                                    </ul>
-                                    <h3><a href="blog-details-right-sidebar.html">Financial Audit & Planning For Treatment Has Started</a></h3>
-                                    <p>Lorem Ipsum is simply dummy text the and standard dummy text ever since.</p>
-                                    <a href="blog-details-right-sidebar.html" class="link style2">Read More<i class="flaticon-right-arrow"></i></a>
-                                </div>
-                            </div>
-                            
-                        </div>
-                        <div class="col-lg-6 col-md-6">
-                            <div class="blog-card style2">
-                                <div class="blog-img">
-                                    <img src="{{asset('public_assets/img/blog/blog-6.jpg')}}" alt="Image">
+                                    <img src="{{asset('public_assets/img/webImages/image09.jpg')}}" alt="Image">
                                     <a href="posts-by-date.html" class="blog-date"><span>12</span>May</a>
                                 </div>
                                 <div class="blog-info">
@@ -223,7 +188,7 @@
                         <div class="col-lg-6 col-md-6">
                             <div class="blog-card style2">
                                 <div class="blog-img">
-                                    <img src="{{asset('public_assets/img/blog/blog-4.jpg')}}" alt="Image">
+                                    <img src="{{asset('public_assets/img/webImages/image10.jpg')}}" alt="Image">
                                     <a href="posts-by-date.html" class="blog-date"><span>07</span> May</a>
                                 </div>
                                 <div class="blog-info">

@@ -29,10 +29,10 @@
                             <div class="card-body">
                                 <form action="{{ route('doctor.eprescription.store') }}" method="POST">
                                     @csrf
-                                    <input type="hidden" name="organization_id" value="1">
-                                    <input type="hidden" name="doctor_id" value="1">
-                                    <input type="hidden" name="patient_id" value="1">
-                                    <input type="hidden" name="appointment_id" value="1">
+                                    <input type="hidden" name="organization_id" value="{{ $organization_id }}">
+                                    <input type="hidden" name="doctor_id" value="{{ $doctor_id }}">
+                                    <input type="hidden" name="patient_id" value="{{ $patient_id }}">
+                                    <input type="hidden" name="appointment_id" value="{{ $appointment_id }}">
                                     @if ($errors->any())
                                         <div class="alert alert-danger">
                                             <ul>
@@ -68,7 +68,7 @@
                                                 <td>
                                                     <div class="form-check">
                                                         <input name="eprescription[0][morning]" class="form-check-input"
-                                                               type="checkbox">
+                                                               type="checkbox"  value="1">
                                                         <label class="form-check-label"
                                                                for="flexCheckChecked">Morning</label>
                                                     </div>
@@ -76,7 +76,7 @@
                                                 <td>
                                                     <div class="form-check">
                                                         <input name="eprescription[0][after_noon]" id="afternoon"
-                                                               class="form-check-input" type="checkbox">
+                                                               class="form-check-input" type="checkbox" value="1">
                                                         <label class="form-check-label" for="afternoon">After
                                                             Noon</label>
                                                     </div>
@@ -84,7 +84,7 @@
                                                 <td>
                                                     <div class="form-check">
                                                         <input name="eprescription[0][evening]" id="evening"
-                                                               class="form-check-input" type="checkbox">
+                                                               class="form-check-input" type="checkbox" value="1">
                                                         <label class="form-check-label" for="evening">Evening</label>
                                                     </div>
                                                 </td>
@@ -137,7 +137,7 @@
         var i = 0;
         $("#add").click(function () {
             ++i;
-            $("#dynamicTable").append('<tr><td><input type="text" name="eprescription[' + i + '][medicine]" placeholder="Enter Medicine Name" class="form-control"/></td><td><input type="text" name="eprescription[' + i + '][comment]" placeholder="Enter Description" class="form-control"/></td><td><div class="form-check"><input  name="eprescription[' + i + '][morning]" class="form-check-input" type="checkbox"><label class="form-check-label" for="flexCheckChecked">Morning</label></div></td><td><div  class="form-check"><input  name="eprescription[' + i + '][after_noon]" id="afternoon" class="form-check-input" type="checkbox"><label class="form-check-label" for="afternoon">After Noon</label></div></td><td><div  class="form-check"><input  name="eprescription[' + i + '][evening]" id="evening" class="form-check-input" type="checkbox"><label class="form-check-label" for="evening">Evening</label></div></td><td><button type="button" class="btn btn-danger remove-tr">Remove</button></td></tr>');
+            $("#dynamicTable").append('<tr><td><input type="text" name="eprescription[' + i + '][medicine]" placeholder="Enter Medicine Name" class="form-control"/></td><td><input type="text" name="eprescription[' + i + '][comment]" placeholder="Enter Description" class="form-control"/></td><td><div class="form-check"><input   value="1"  name="eprescription[' + i + '][morning]" class="form-check-input" type="checkbox"><label class="form-check-label" for="flexCheckChecked">Morning</label></div></td><td><div  class="form-check"><input  name="eprescription[' + i + '][after_noon]"   value="1" id="afternoon" class="form-check-input" type="checkbox"><label class="form-check-label" for="afternoon">After Noon</label></div></td><td><div  class="form-check"><input  name="eprescription[' + i + '][evening]"  value="1" id="evening" class="form-check-input" type="checkbox"><label class="form-check-label" for="evening">Evening</label></div></td><td><button type="button" class="btn btn-danger remove-tr">Remove</button></td></tr>');
         });
         $(document).on('click', '.remove-tr', function () {
             $(this).parents('tr').remove();

@@ -28,8 +28,17 @@ class DepartmentSpecializationController extends Controller
         if (!Auth::check())
             return redirect()->route('logout')->withErrors(['error' => 'Login Token Expired ! Please login Again']);
 
+        $specialization = DepartmentSpecializations::where('name', $request->name)->first();
+        if ($specialization) {
+            return redirect()->back()->withErrors(['error' => 'This Specialization already exists.']);
+        }
         DepartmentSpecializations::firstOrCreate(['name' => $request->name]);
-        return redirect()->back()->withSuccess(__('Department Specialization is Successfully Created'));
+        $url = url()->previous();
+        $containsHospital = Str::contains($url, 'hospital');
+        if ($containsHospital == true) {
+            return redirect()->route('showDepartment.specialization')->withSuccess(__('Department Specialization is Successfully Created'));
+        }
+        return redirect()->route('show.departmentSpecialization')->withSuccess(__('Department Specialization is Successfully Created'));
     }
     public function show()
     {
@@ -66,6 +75,19 @@ class DepartmentSpecializationController extends Controller
         $specialization = DepartmentSpecializations::find($request->id);
         // dd($request->all());
         $specialization->update(['name' => $request->newName]);
-        return redirect()->back()->withSuccess(__('Specialization is Successfully Created'));
+        $url = url()->previous();
+        $containsHospital = Str::contains($url, 'hospital');
+        if ($containsHospital == true) {
+            return redirect()->route('showDepartment.specialization')->withSuccess(__('Department Specialization is Successfully Updated'));
+        }
+        return redirect()->route('show.departmentSpecialization')->withSuccess(__('Specialization is Successfully Updated'));
+    }
+    public function delete($id)
+    {
+        $department_specialization = DepartmentSpecializations::find($id);
+        // dd($id);
+
+        $department_specialization->delete();
+        return redirect()->back()->withSuccess(__('Department Specialization is Successfully Deleted'));
     }
 }

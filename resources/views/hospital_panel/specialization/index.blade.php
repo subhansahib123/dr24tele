@@ -8,6 +8,7 @@
 
         <!-- CONTAINER -->
         <div class="main-container container-fluid">
+        @include('admin_panel.frontend.includes.messages')
             <!-- Row -->
             <div class="row">
                 <div class="col-xl-12 col-md-12 col-sm-6">
@@ -30,24 +31,46 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            @include('admin_panel.frontend.includes.messages')
                             <div class="table-responsive">
-                                <table class="table table-striped" id="datatable">
-                                    <thead>
-                                        <th scope="col">Sr#</th>
-                                        <th scope="col">Name</th>
-                                        <th scope="col" class="text-end">Action</th>
-                                    </thead>
-                                    @foreach($specializations as $specialization)
-                                    <tr>
-                                        <td>{{$loop->index+1}}</td>
-                                        <td>{{$specialization->name}}</td>
-                                        <td class="text-end">
-                                            <a href="{{route('update.specialization',[$specialization->id])}}"><button class="btn btn-warning" data-toggle="tooltip" data-placement="top" title="Update"><i class="fa fa-edit"></i></button></a>
-                                        </td>
-                                    </tr>
-                                    @endforeach
-                                </table>
+{{--                                <table class="table table-striped" id="datatable">--}}
+{{--                                    <thead>--}}
+{{--                                        <th scope="col">Sr#</th>--}}
+{{--                                        <th scope="col">Name</th>--}}
+{{--                                        <th scope="col" class="text-end">Action</th>--}}
+{{--                                    </thead>--}}
+{{--                                    @foreach($specializations as $specialization)--}}
+{{--                                    <tr>--}}
+{{--                                        <td>{{$loop->index+1}}</td>--}}
+{{--                                        <td>{{$specialization->name}}</td>--}}
+{{--                                        <td class="text-end">--}}
+{{--                                            <a href="{{route('update.specialization',[$specialization->id])}}"><button class="btn btn-warning" data-toggle="tooltip" data-placement="top" title="Update"><i class="fa fa-edit"></i></button></a>--}}
+{{--                                        </td>--}}
+{{--                                    </tr>--}}
+{{--                                    @endforeach--}}
+{{--                                </table>--}}
+                                <div class="bg-light p-4 ">
+                                    <div class="mt-4">
+                                        <div class="table-responsive">
+                                            <table class="table table-striped" id="datatable">
+                                                <thead>
+                                                    <th scope="col">Sr#</th>
+                                                    <th scope="col">Name</th>
+                                                    <th scope="col" class="text-end">Action</th>
+                                                </thead>
+                                                @foreach($specializations as $specialization)
+                                                <tr>
+                                                    <td>{{$loop->index+1}}</td>
+                                                    <td>{{$specialization->name}}</td>
+                                                    <td class="text-end">
+                                                        <a href="{{route('update.specialization',[$specialization->id])}}"><button class="btn btn-warning" data-toggle="tooltip" data-placement="top" title="Update"><i class="fa fa-edit"></i></button></a>
+
+                                                    </td>
+                                                </tr>
+                                                @endforeach
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>

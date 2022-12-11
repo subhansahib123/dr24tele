@@ -43,7 +43,7 @@
                                                 <label for="currentPhoneNumber"><strong> Current Number</strong> </label>
                                             </div>
                                             <div class="col-6 px-0">
-                                                <input type="text" id="txtPhone" name="" class="form-control" placeholder="+91 *** ******">
+                                                <input type="text" id="txtPhone" name="phoneNumber" disabled class="form-control" value="{{auth()->user()->phone_number}}"  >
                                                 <input type="hidden" class="form-control" id="phoneNumber">
                                             </div>
 
@@ -54,7 +54,7 @@
                                         <div class="form-group">
 
                                             <label for="verification">Enter Code</label>
-                                            <input type="number" class="form-control" required="" id="verification" placeholder="code" maxlength="6">
+                                            <input type="number" class="form-control" required id="verification" placeholder="code" maxlength="6">
                                         </div>
                                     </div>
                                     <div class="col-lg-12 col-md-12 col-sm-12 col-12">

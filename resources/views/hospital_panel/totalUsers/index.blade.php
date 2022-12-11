@@ -4,6 +4,7 @@
     <div class="side-app">
         <!-- CONTAINER -->
         <div class="main-container container-fluid">
+        @include('admin_panel.frontend.includes.messages')
 
             <!-- Row -->
             <div class="row">
@@ -13,11 +14,11 @@
                             <div class="col-5">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Your Specialization's</li>
+                                    <li class="breadcrumb-item active" aria-current="page">Management User's</li>
                                 </ol>
                             </div>
                             <div class="col-4">
-                                <span class="card-title"><strong> Add Specializations</strong></span>
+                                <span class="card-title"><strong> Management List</strong></span>
                             </div>
 
                             <div class="col-3 text-end">
@@ -27,7 +28,6 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            @include('admin_panel.frontend.includes.messages')
                             {{-- <p>Use <code class="highlighter-rouge">.table-striped</code>to add zebra-striping to any table row within the <code class="highlighter-rouge">.tbody</code>.</p> --}}
                             <div class="table-responsive">
                                 <div class="bg-light p-4 rounded">
@@ -37,16 +37,19 @@
                                         <thead>
                                             <th scope="col" width="5%">Sr#</th>
                                             <th scope="col" width="20%">Name</th>
-                                            <th scope="col" width="1%">Guard</th>
+                                            <th scope="col" width="1%">Action</th>
                                         </thead>
-                                        @if($all_patients->Users)
-                                        @foreach($all_patients->Users as $all_patient)
+                                        @if($users)
+                                        @foreach($users as $user)
+
                                         <tr>
                                             <td>{{$loop->index+1}}</td>
                                             <td>
-                                                {{isset($all_patient->username)?$all_patient->username:'' }}
+                                                {{isset($user->username)?$user->username:'' }}
                                             </td>
-                                            <td></td>
+                                            <td class="text-end">
+                                                <a href="{{route('delete.hospitalUser',[$user->uuid])}}"><button class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button></a>
+                                            </td>
                                         </tr>
                                         @endforeach
                                         @else

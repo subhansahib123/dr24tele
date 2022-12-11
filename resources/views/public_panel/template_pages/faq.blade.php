@@ -25,8 +25,8 @@
             <div class="col-lg-6">
                 <div class="faq-img-wrap">
                     <img src="{{asset('public_assets/img/faq-shape.png')}}" alt="Image" class="faq-shape bounce">
-                    <img src="{{asset('public_assets/img/faq-img-1.jpg')}}" alt="Image" class="faq-img-one">
-                    <img src="{{asset('public_assets/img/faq-img-2.jpg')}}" alt="Image" class="faq-img-two">
+                    <img src="{{asset('public_assets/img/Vectors/Consultwithmultiplespecialist.jpg')}}" alt="Image" class="faq-img-one">
+                    <img src="{{asset('public_assets/img/Vectors/Orthopediacsolutions.jpg')}}" alt="Image" class="faq-img-two">
                 </div>
             </div>
             <div class="col-lg-6">

@@ -151,4 +151,36 @@ use App\Models\Appointment;
         $appointements = Appointment::where('doctor_id', $doctor_id)->get();
         return view('doctor_panel.appointement.index', compact('appointements'));
     }
+
+    public function appointmentList(){
+        if (!Auth::check()){
+            return response()->json([
+                'status' => [
+                    'status_code' => 200,
+                    'message' => 'Ok'
+                ],
+                'data' => [],
+                'message' => [
+                    "status_code"=> 200,
+                    'msg_status' => 'Login Token Expired ! Please login Again',
+                ]
+            ]);
+        }
+        $doctor_id = auth()->user()->doctor->id;
+        // dd($doctor_id);
+        $appointements = Appointment::with('doctor')->where('doctor_id', $doctor_id)->get();
+        return response()->json([
+            'status' => [
+                'status_code' => 200,
+                'message' => 'Ok'
+            ],
+            'data' => [
+                "appointments"=>$appointements,
+            ],
+            'message' => [
+                "status_code"=> 200,
+                'msg_status' => 'Fetch All Appointments Successfully',
+            ]
+        ]);
+    }
 }

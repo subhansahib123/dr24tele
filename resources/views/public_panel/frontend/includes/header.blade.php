@@ -191,7 +191,7 @@
                             <a href="{{ route('home.allDepartments') }}" class="nav-link">Find Departments</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('home.allDoctors') }}" class="nav-link">Find Doctors</a>
+                            <a href="{{ route('home.doctorSpecializations') }}" class="nav-link">Find Specializations</a>
                         </li>
                         {{-- <li class="nav-item">
                                     <a href="{{route('patient.login')}}" class="nav-link">Login</a>

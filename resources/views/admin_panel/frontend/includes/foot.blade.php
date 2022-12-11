@@ -87,9 +87,38 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/12.1.5/js/intlTelInput.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/12.1.5/js/utils.js"></script>
+    @if(Route::currentRouteName()=='single.organization')
     <script type="text/javascript">
         $(function() {
+            $('#txtPhone').intlTelInput({
+                autoHideDialCode: true,
+                autoPlaceholder: "polite",
+                dropdownContainer: document.body,
+                formatOnDisplay: true,
+                hiddenInput: "phoneNumber",
+                initialCountry: "auto",
+                nationalMode: true,
+                placeholderNumberType: "MOBILE",
+                preferredCountries: ['in'],
+                separateDialCode: true
+            });
+            FormatNumber();
+            $('#txtPhone').keyup(function() {
+                FormatNumber();
+            });
 
+            function FormatNumber() {
+                var number = $('#txtPhone').val();
+                var classf = $(".selected-flag > div").attr("class");
+                var flag = classf.slice(-2);
+                var formattedNumber = intlTelInputUtils.formatNumber(number, flag, intlTelInputUtils.numberFormat.INTERNATIONAL);
+                $('#txtPhone').val(formattedNumber.slice(formattedNumber.indexOf(' ') + 1, formattedNumber.length));
+            }
+        });
+    </script>
+    @else
+    <script type="text/javascript">
+        $(function() {
             var code = "+911234567890";
             $('#txtPhone').val(code);
             $('#txtPhone').intlTelInput({
@@ -118,6 +147,7 @@
             }
         });
     </script>
+    @endif
     @yield('foot_script')
 
 

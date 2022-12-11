@@ -85,7 +85,7 @@
                                         <div class="dropdown-item d-flex p-4">
                                             <a href="cart.html" class="open-file"></a>
                                             <span class="avatar avatar-xl br-5 me-3 align-self-center cover-image"
-                                                data-bs-image-src="../assets/images/pngs/6.jpg"></span>
+                                                data-bs-image-src="{{ ($userImage) ?  asset('uploads/patient/'.$userImage) : asset('public_assets/img/services/service-9.jpg') }}"></span>
                                             <div class="wd-50p">
                                                 <h5 class="mb-1">Black Digital Camera</h5>
                                                 <span>Status: <span class="text-danger">Out Stock</span></span>
@@ -328,7 +328,7 @@
                             <!-- SIDE-MENU -->
                             <div class="dropdown d-flex profile-1">
                                 <a href="javascript:void(0)" data-bs-toggle="dropdown" class="nav-link leading-none d-flex">
-                                    <img src="{{asset('assets/images/users/21.jpg')}}" alt="profile-user" class="avatar  profile-user brround cover-image">
+                                    <img {{$image=Auth::user()->image}} src="{{($image)? asset('uploads/patient/'. $image):asset('assets/images/users/21.jpg')}}" alt="profile-user" class="avatar  profile-user brround cover-image">
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
 

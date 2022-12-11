@@ -15,8 +15,8 @@ class CreateUsersOrganizationsTable extends Migration
     {
         Schema::create('users_organizations', function (Blueprint $table) {
             $table->id();
-            $table->string('registration_code');
-            $table->boolean('status');
+            $table->string('registration_code')->nullable();
+            $table->boolean('status')->nullable();
             $table->timestamps();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('organization_id');

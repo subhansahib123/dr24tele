@@ -155,7 +155,8 @@ class ScheduleController extends Controller
     //edit schedule
     public function edit($id){
         $schedule=Schedule::find($id);
-        return view('hospital_panel.Schedule.edit',compact('schedule'));
+        $doctor=Doctor::with('user')->where('id',$schedule->doctor_id)->first();
+        return view('hospital_panel.Schedule.edit',compact('schedule','doctor'));
 
     }
     public function update(Request $request){

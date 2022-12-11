@@ -12,22 +12,22 @@
                       </p>
                       <ul class="social-profile style1 list-style">
                           <li>
-                              <a href="https://facebook.com">
+                              <a href="#">
                                   <i class="ri-facebook-fill"></i>
                               </a>
                           </li>
                           <li>
-                              <a href="https://twitter.com">
+                              <a href="#">
                                   <i class="ri-twitter-fill"></i>
                               </a>
                           </li>
                           <li>
-                              <a href="https://instagram.com">
+                              <a href="#">
                                   <i class="ri-instagram-line"></i>
                               </a>
                           </li>
                           <li>
-                              <a href="https://linkedin.com">
+                              <a href="#">
                                   <i class="ri-linkedin-fill"></i>
                               </a>
                           </li>
@@ -51,15 +51,9 @@
                               </a>
                           </li>
                           <li>
-                              <a href="service-one.html">
+                              <a href="{{route('home.ourServices')}}">
                                   <i class="ri-arrow-right-s-line"></i>
                                   Our Services
-                              </a>
-                          </li>
-                          <li>
-                              <a href="{{route('ourTeam')}}">
-                                  <i class="ri-arrow-right-s-line"></i>
-                                  Our Team
                               </a>
                           </li>
                           <li>
@@ -75,18 +69,6 @@
                   <div class="footer-widget">
                       <h3 class="footer-widget-title">Important</h3>
                       <ul class="footer-menu list-style">
-                          <li>
-                              <a href="portfolio.html">
-                                  <i class="ri-arrow-right-s-line"></i>
-                                  Portfolio
-                              </a>
-                          </li>
-                          <li>
-                              <a href="{{route('bookAppointment')}}">
-                                  <i class="ri-arrow-right-s-line"></i>
-                                  Appointment
-                              </a>
-                          </li>
                           <li>
                               <a href="{{route('faq')}}">
                                   <i class="ri-arrow-right-s-line"></i>
@@ -116,12 +98,6 @@
                               <a href="{{route('aboutUs')}}">
                                   <i class="ri-arrow-right-s-line"></i>
                                   Why Choose Us
-                              </a>
-                          </li>
-                          <li>
-                              <a href="{{route('pricingPlan')}}">
-                                  <i class="ri-arrow-right-s-line"></i>
-                                  Pricing Plan
                               </a>
                           </li>
                           <li>

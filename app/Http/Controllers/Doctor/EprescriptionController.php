@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Doctor;
 use App\Http\Controllers\Controller;
 use App\Mail\Prescription;
 use App\Models\Doctor;
+use Mail;
 use App\Models\Eprescription;
 use App\Models\EprescriptionDetail;
 use App\Models\Patient;
@@ -29,8 +30,12 @@ class EprescriptionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($doctor_id,$patient_id, $organization_id, $appointment_id)
+    public function create(Request $request)
     {
+        $doctor_id = $request->doctor_id;
+        $patient_id = $request->patient_id;
+        $organization_id = $request->organization_id;
+        $appointment_id = $request->appointment_id;
         return view('doctor_panel.eprescription.create', compact('doctor_id','patient_id','organization_id', 'appointment_id'));
     }
 
@@ -58,12 +63,13 @@ class EprescriptionController extends Controller
 
         if ($eprescription) {
             foreach ($request->eprescription as $prescription) {
-                $eprescription->eprescriptiondetail->create([
-                    'medicine' => $prescription['medicine'],
-                    'morning' => $prescription['morning'],
-                    'after_noon' => $prescription['after_noon'],
-                    'evening' => $prescription['evening'],
-                    'comment' => $prescription['comment']
+                EprescriptionDetail::create([
+                    'eprescription_id' => $eprescription->id,
+                    'medicine' => (isset($prescription['medicine']) ? $prescription['medicine'] : ''),
+                    'morning' => (isset($prescription['morning']) ? $prescription['morning'] : 0),
+                    'after_noon' => (isset($prescription['after_noon']) ? $prescription['after_noon'] : 0),
+                    'evening' => (isset($prescription['evening']) ? $prescription['evening'] : 0),
+                    'comment' => (isset($prescription['comment']) ? $prescription['comment'] : '')
                 ]);
             }
         }

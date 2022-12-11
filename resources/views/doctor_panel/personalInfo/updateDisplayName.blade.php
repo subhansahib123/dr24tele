@@ -14,7 +14,7 @@
             <div class="row">
                 <div class="col-xl-12">
                     <div class="card">
-                        <form action="{{ route('displayNameUpdated.doctor') }}" method="POST">
+                        <form action="{{ route('displayNameUpdated') }}" method="POST">
                             @csrf
                             <div class="card-header">
                                 <div class="col-5">

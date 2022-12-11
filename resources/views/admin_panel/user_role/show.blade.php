@@ -9,7 +9,7 @@
         <!-- CONTAINER -->
         <div class="main-container container-fluid">
 
-            
+
             <!-- Row -->
             <div class="row">
                 <div class="col-xl-12 col-md-12 col-sm-6">
@@ -37,46 +37,31 @@
                             {{-- <p>Use <code class="highlighter-rouge">.table-striped</code>to add zebra-striping to any table row within the <code class="highlighter-rouge">.tbody</code>.</p> --}}
                             <div class="table-responsive">
                                 <div class="bg-light p-4  ed">
-                                    @foreach($roles as $role)
-                                    <h1>{{ $role->authority }} Role</h1>
+
                                     <div class="lead">
 
                                     </div>
 
                                     <div class="container mt-4">
-
-                                        <h3>Assigned permissions</h3>
-
-                                        <table class="table table-striped">
+                                        <table class="table table-striped" id="datatable">
                                             <thead>
-                                                <th scope="col" width="20%">Name</th>
-                                                <th scope="col" width="1%">Guard</th>
+                                                <th scope="col" width="20%">Role Name</th>
+                                                <th scope="col" width="1%">Created at</th>
                                             </thead>
-
-                                            @if($role->authPermissions)
-                                            @foreach($role->authPermissions as $permission)
+                                            @foreach($roles as $role)
                                             <tr>
-                                                <td>{{$permission->string}}</td>
+                                                <td>{{$role->name}}</td>
 
                                                 <td>
 
-                                                    {{$permission->authCRUD}}
+                                                    {{$role->created_at}}
 
                                                 </td>
-
-
                                             </tr>
                                             @endforeach
-                                            @endif
 
                                         </table>
                                     </div>
-                                    @endforeach
-                                </div>
-                                <div class="mt-4 card-footer text-end">
-                                    <!-- <a href="" class="btn btn-info">Edit</a> -->
-                                    <a href="{{route('dashboard')}}" class="btn btn-info">Back</a>
-
                                 </div>
                             </div>
                         </div>

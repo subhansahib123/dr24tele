@@ -54,7 +54,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
   Route::get('/logout', [AuthenticationController::class, 'logout'])->name('logout');
 
 
-  Route::group(['middleware' => ['guest']], function () {
+//  Route::group(['middleware' => ['guest']], function () {
 
 
 
@@ -70,11 +70,13 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
      */
     Route::get('/', [homeController::class, 'index'])->name('home.page');
     Route::get('/allHospitals', [homeController::class, 'allHospitals'])->name('home.allHospitals');
-    Route::get('/hospital/{slug}', [homeController::class, 'hospitalDetails'])->name('home.hospital_details');
+    Route::get('/our-services', [homeController::class, 'ourServices'])->name('home.ourServices');
+    Route::get('/hospital/{id}', [homeController::class, 'hospitalDetails'])->name('home.hospital_details');
     Route::get('/allDepartments', [homeController::class, 'allDepartments'])->name('home.allDepartments');
     Route::get('/getAllDepartments', [homeController::class, 'getAllDepartments'])->name('home.getAllDepartments');
-    Route::get('/department/{slug}', [homeController::class, 'departmentDetails'])->name('home.department_details');
-    Route::get('/allDoctors', [homeController::class, 'allDoctors'])->name('home.allDoctors');
+    Route::get('/department/{id}', [homeController::class, 'departmentDetails'])->name('home.department_details');
+    Route::get('/doctor-specializations', [homeController::class, 'doctorSpecializations'])->name('home.doctorSpecializations');
+    Route::get('/allDoctors/{id}', [homeController::class, 'allDoctors'])->name('home.allDoctors');
     Route::get('/getAllDoctors', [homeController::class, 'getAllDoctors'])->name('home.getAllDoctors');
     //departments
     Route::get('/departments/{orgid}', [homeController::class, 'departmentsOfHospital'])->name('departments.of.hospital');
@@ -145,7 +147,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     //paitent Register
 
     Route::get('/patient/register', [PatientAuthenticationController::class, 'register'])->name('patient.register');
-    Route::post('/patient/registered', [PatientAuthenticationController::class, 'store_user'])->name('patient.registered');
+    Route::post('/patient/registered', [PatientAuthenticationController::class, 'patientSignUp'])->name('patient.registered');
 
     //patient Login
     Route::get('/patient/login', [PatientAuthenticationController::class, 'login'])->name('patient.login');
@@ -153,9 +155,9 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
 
     Route::get('/conference/call', [PatientAuthenticationController::class, 'conference_call'])->name('conference');
-  });
+//  });
   //'permission'
-  Route::group(['prefix' => 'admin', 'middleware' => ['auth']], function () {
+  Route::group(['prefix' => 'admin', 'middleware' => ['auth','role:ehrnadmin']], function () {
 
     //temp Dashboard
     Route::get('/dashboard', [AuthenticationController::class, 'dashboard'])->name('dashboard');
@@ -170,6 +172,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     //Update Specialization
     Route::get('/update/specialization/{id}', [DoctorSpecializationController::class, 'updateView'])->name('updateSpecialization');
     Route::post('/specialization/updated', [DoctorSpecializationController::class, 'update'])->name('specializationUpdated');
+    Route::get('/delete/specialization/{id}', [DoctorSpecializationController::class, 'delete'])->name('deleteSpecialization');
     //Create Department Specialization
     Route::get('/create/department-specialization', [DepartmentSpecializationController::class, 'index'])->name('create.departmentSpecialization');
     Route::post('/department-specialization/created', [DepartmentSpecializationController::class, 'create'])->name('departmentSpecialization.created');
@@ -178,6 +181,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     //Update Department Specialization
     Route::get('/update/department-specialization/{id}', [DepartmentSpecializationController::class, 'updateView'])->name('update.departmentSpecialization');
     Route::post('/department-specialization/updated', [DepartmentSpecializationController::class, 'update'])->name('departmentSpecialization.Updated');
+    Route::get('/delete/department-specialization/{id}', [DepartmentSpecializationController::class, 'delete'])->name('delete.departmentSpecialization');
     //Create Doctor
     Route::get('/create/doctor', [CreationController::class, 'create'])->name('createDoctor');
     Route::post('/doctor/created', [CreationController::class, 'store'])->name('doctorCreated');
@@ -192,6 +196,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::get('/organization/list', [OrganizationController::class, 'organization'])->name('organization');
     Route::get('/create/organization', [OrganizationController::class, 'create'])->name('create.organization');
     Route::get('/delete/organisation/{uuid}', [OrganizationController::class, 'deleteOrganisation'])->name('delete.organisation');
+    Route::get('/delete/department/{uuid}', [DepartmentController::class, 'deleteDepartment'])->name('delete.department');
 
     Route::post('/organization', [OrganizationController::class, 'createOrganization'])->name('store.organization');
     //Get single record of organization and update it
@@ -226,9 +231,12 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::get('/mappingrole', [UserController::class, 'mapUser'])->name('mappingRole');
     Route::post('/mappedrole', [UserController::class, 'mapUserRole'])->name('role.mapped');
 
+    Route::get('/doctor/delete/{uuid}', [UserController::class, 'doctorDelete'])->name('doctor.delete');
+
     // These Routes are used to Map Roles to Users
     Route::get('/updatingrole/{orgUuid}/{userUuid}', [UserController::class, 'updateUserRole'])->name('updatingRole');
     Route::post('/updatedRole', [UserController::class, 'updateUserRoleStore'])->name('role.updated');
+    Route::get('/user/delete/{uuid}', [UserController::class, 'userDelete'])->name('user.delete');
 
 
     //This Route is used to Create Patient
@@ -248,8 +256,6 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
     //This Route is used to show Patients list
     Route::get('/patients/list/{uuid}', [PatientController::class, 'patientsList'])->name('patients.list');
-    //Show single patient
-    Route::get('/update/patient/{personId}', [PatientController::class, 'updatePatient'])->name('update.patient');
     //Update patient
     Route::post('/patient/updated', [PatientController::class, 'patientUpdated'])->name('patient.updated');
 
@@ -262,29 +268,30 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     //This Route is used to show Doctors list of a specific department
     Route::get('/users/list/{uuid}', [UserController::class, 'usersList'])->name('users.list');
     //Delete User
-    Route::get('/user/delete/{uuid}', [UserController::class, 'deleteUser'])->name('user.delete');
   });
 
 
 
 
-  Route::group(['prefix' => 'hospital', 'middleware' => ['auth']], function () {
+  Route::group(['prefix' => 'hospital', 'middleware' => ['auth','role:frontoffice,orgsuperadmin']], function () {
     // Routes used for login
 
     Route::get('/dashboard/page', [AuthenticationController::class, 'hospitalDashboard'])->name('hospital.dashboard');
-
+    Route::get('/delete/department/{uuid}', [HospitalDepartmentController::class, 'deleteDepartment'])->name('hospital.delete.department');
     //Update Hospital
     Route::get('/update/hospital', [HospitalUserController::class, 'updateHospital'])->name('updateHospital');
     Route::post('/hospital/updated', [HospitalUserController::class, 'hospitalUpdated'])->name('hospitalUpdated');
     //Update  Profile
     Route::get('/update/password', [HospitalUserController::class, 'updatePassword'])->name('updatePassword');
     Route::post('/password/updated', [HospitalUserController::class, 'passwordUpdated'])->name('passwordUpdated');
-
+    Route::get('/doctor/delete/{uuid}', [UserController::class, 'doctorDelete'])->name('hospital.doctor.delete');
     //Route that is used to view all users, all unmapped users and to create users
     Route::get('/all/users', [HospitalUserController::class, 'allHospitalUsers'])->name('allHospital.users');
     Route::get('/unmapped/users', [HospitalUserController::class, 'hospitalUnmappedUsers'])->name('hospitalUnmapped.Users');
     Route::get('/create/user', [HospitalUserController::class, 'createHospitalUser'])->name('createHospital.user');
     Route::post('/store/user', [HospitalUserController::class, 'storeHospitalUser'])->name('storeHospital.user');
+
+    Route::get('/user/delete/{uuid}', [HospitalUserController::class, 'userDelete'])->name('delete.hospitalUser');
 
     //Create Department Specialization
     Route::get('/create/department/specialization', [DepartmentSpecializationController::class, 'index'])->name('createDepartment.specialization');
@@ -326,6 +333,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
     //These Route is used to Create Mapped Patients
     Route::get('/all/patients', [HospitalPatientController::class, 'hospitalAllPatients'])->name('hospitalAll.patients');
+    Route::get('/patients/delete/{uuid}', [HospitalPatientController::class, 'patientDelete'])->name('delete.hospitalPatient');
 
     //This Route is used to view Departments
     Route::get('/departments/page', [HospitalDepartmentController::class, 'hospitalDepartmentsList'])->name('hospitalDepartments.list');
@@ -337,6 +345,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     //Route to update Department
     Route::get('/update/department/{uuid}', [HospitalDepartmentController::class, 'updateHospitalDepartment'])->name('updateHospital.department');
     Route::post('/department/updated', [HospitalDepartmentController::class, 'hospitalDepartmentUpdated'])->name('hospitalDepartment.updated');
+    Route::get('/delete/department/{uuid}', [DepartmentController::class, 'deleteDepartment'])->name('delete.hospitalDepartment');
 
 
     //This Route is used to show Doctors list of a specific department
@@ -346,8 +355,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     //Create Schedule For Doctors
     Route::get('/create/schedule', [ScheduleController::class, 'createSchedule'])->name('create.schedule');
     Route::post('/store/schedule', [ScheduleController::class, 'insert'])->name('store.schedule');
-    Route::get('/schedule/edit/{id}', [DoctorSchedule::class, 'edit'])->name('edit.schedule');
-    Route::post('update/schedule', [DoctorSchedule::class, 'update'])->name('update.schedule');
+    Route::get('/schedule/edit/{id}', [ScheduleController::class, 'edit'])->name('edit.schedule');
+    Route::post('update/schedule', [ScheduleController::class, 'update'])->name('update.schedule');
     //list of Schedules
     Route::get('/schedules/page', [ScheduleController::class, 'schedules'])->name('list.schedules');
     //Create Schedule For Doctors
@@ -360,12 +369,12 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::post('/hospital-coupon/assign', [HospitalCouponController::class, 'assignUserPost'])->name('hospital.coupon.assigncoupon');
     Route::post('/hospital-coupon/create', [HospitalCouponController::class, 'store'])->name('hospital.coupon.store');
   });
-  Route::group(['prefix' => 'doctor', 'middleware' => ['auth']], function () {
+  Route::group(['prefix' => 'doctor', 'middleware' => ['auth','role:practitioner']], function () {
     Route::get('/dashboard', [AuthenticationController::class, 'DoctorDashboard'])->name('doctor.dashboard');
 
     //Update User name
     Route::get('/update/displayName', [PersonalDetails::class, 'updateDisplayName'])->name('updateDisplayName');
-//    Route::post('/displayName/updated', [PersonalDetails::class, 'displayNameUpdated'])->name('displayNameUpdated');
+   Route::post('/displayName/updated', [PersonalDetails::class, 'displayNameUpdated'])->name('displayNameUpdated');
     //verify Phone Number
     Route::get('/verify/phoneNumber', [PersonalDetails::class, 'verifyPhoneNumber'])->name('verifyPhoneNumber');
     Route::post('/phoneNumber/verified', [PersonalDetails::class, 'phoneNumberVerified'])->name('phoneNumberVerified');
@@ -387,7 +396,8 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::get('/schedule/edit/{id}', [DoctorSchedule::class, 'edit'])->name('edit.schedule.doctor');
     Route::post('update/schedule', [DoctorSchedule::class, 'update'])->name('update.schedule.doctor');
     Route::get('/appointments', [DoctorSchedule::class, 'appointments'])->name('doctor.appointments');
-    Route::get('/eprescription/create/{doctor_id}/{patient_id}/{organization_id}/{appointment_id}', [EprescriptionController::class, 'create'])->name('doctor.eprescription.create');
+    Route::get('/appointments/list', [DoctorSchedule::class, 'appointmentList'])->name('doctor.appointments.list');
+    Route::get('/eprescription/create', [EprescriptionController::class, 'create'])->name('doctor.eprescription.create');
     Route::post('/eprescription/store', [EprescriptionController::class, 'store'])->name('doctor.eprescription.store');
 
   });

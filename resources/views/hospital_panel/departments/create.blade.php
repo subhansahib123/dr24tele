@@ -30,7 +30,7 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <form class="form-horizontal" action="{{route('hospitalDepartment.created')}}" method="POST">
+                            <form class="form-horizontal" action="{{route('hospitalDepartment.created')}}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class=" row mb-1">
                                     <label for="displayname" class="col-md-3 form-label"> Display Name</label>
@@ -85,7 +85,7 @@
                                 <div class=" row  mb-1">
                                     <label for="image" class="col-md-3 form-label"> Picture </label>
                                     <div class="col-md-9">
-                                        <input type="file" name="image" id="image">
+                                        <input type="file" class="form-control" name="image" id="image">
                                     </div>
                                 </div>
                                 <div class="mb-0 mt-4 card-footer text-end">

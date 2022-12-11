@@ -8,57 +8,66 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Organization;
 use App\Models\Patient;
 use App\Models\UsersOrganization;
+
+use Illuminate\Support\Str;
 use App\Models\Appointment;
 use App\AgoraToken\Src\RtcTokenBuilder;
-use Session;
+use Illuminate\Support\Facades\Session;
 
 class PatientAuthenticationController extends Controller
 {
-    public function appointments(){
-        $patient_id=auth()->user()->patient->id;
+    public function appointments()
+    {
+        $patient_id = auth()->user()->patient->id;
         // dd(Auth::user()->patient->id);
-        $appointements=Appointment::where('patient_id', $patient_id)->get();
-        return view('patient_panel.appointement.index',compact('appointements'));
+        $appointements = Appointment::where('patient_id', $patient_id)->get();
+        return view('patient_panel.appointement.index', compact('appointements'));
     }
-    public function conference_call(Request $request){
-       $channelname= $request->channelName;
-       $token= $request->token;
-        return view('conference',compact('channelname','token'));
+    public function conference_call(Request $request)
+    {
+        $channelname = $request->channelName;
+        $token = $request->token;
+        return view('conference', compact('channelname', 'token'));
     }
 
 
-     public function generate_token(Request $request)
+    public function generate_token(Request $request)
     {
 
 
-            $appID = "e4fc13e59b1d4105b5dd434a56a2bf94";
-            $appCertificate = "46369135cce54217935851efd0844afb";
-            $channelName = $request->channel;
-            $uid = (int) mt_rand(1000000000, 9999999999);
-            $uidStr = strval($uid);
-            $role = RtcTokenBuilder::RoleAttendee;
-            $expireTimeInSeconds = 2400;
-            $currentTimestamp = (new \DateTime("now", new \DateTimeZone('Asia/Karachi')))->getTimestamp();
-            $privilegeExpiredTs = $currentTimestamp + $expireTimeInSeconds;
+        $appID = "e4fc13e59b1d4105b5dd434a56a2bf94";
+        $appCertificate = "46369135cce54217935851efd0844afb";
+        $channelName = $request->channel;
+        $uid = (int) mt_rand(1000000000, 9999999999);
+        $uidStr = strval($uid);
+        $role = RtcTokenBuilder::RoleAttendee;
+        $expireTimeInSeconds = 2400;
+        $currentTimestamp = (new \DateTime("now", new \DateTimeZone('Asia/Karachi')))->getTimestamp();
+        $privilegeExpiredTs = $currentTimestamp + $expireTimeInSeconds;
 
-            $token = RtcTokenBuilder::buildTokenWithUid($appID, $appCertificate, $channelName, null, $role, $privilegeExpiredTs);
+        $token = RtcTokenBuilder::buildTokenWithUid($appID, $appCertificate, $channelName, null, $role, $privilegeExpiredTs);
 
 
 
-            $obj = ["token" => $token];
+        $obj = ["token" => $token];
 
-            return response()->json($obj);
-
+        return response()->json($obj);
     }
-    public function logout(){
-        Auth::logout();
+    public function logout()
+    {
+        session_start();
+        unset($userInfo);
+
         Session::flush();
+        Auth::logout();
         return redirect()->route('patient.login')->withSucess(__('Successfully logged out!'));
     }
-    public function patientDashboard(){
+    public function patientDashboard()
+    {
         return view('patient_panel.dashboard');
-    }
-    public function login(){
+    }    
+    public function login()
+    {
         return view('patient_panel.login');
     }
     public function performLogin(Request $request)
@@ -66,39 +75,40 @@ class PatientAuthenticationController extends Controller
         // dd($request->all());
         $user = User::where('phone_number',  $request->phoneNumber)->first();
 
-        
+
         if ($user) {
 
 
             Auth::login($user);
-            // dd(Auth::user());
+            session(['loggedInUser' => $user]);
             return redirect()->route('patient.dashboard')->withSuccess(__('Successfully Login'));
-
-
         } else {
             return redirect()->back()->withErrors(['error' => 'No User Exist']);
         }
     }
 
 
-    public function register(){
-        $organizations=Organization::all();
-        return view('patient_panel.register',compact('organizations'));
+    public function register()
+    {
+        $organizations = Organization::all();
+        return view('patient_panel.register', compact('organizations'));
     }
-    protected function adminLogin($orguuid){
+
+    protected function adminLogin($orguuid)
+    {
 
         // dd(1);
         // session(['ApiUserAction' => null]);
-         $curl = curl_init();
+        $curl = curl_init();
         $baseUrl = config('services.ehr.baseUrl');
         $apiKey = config('services.ehr.apiKey');
-        $organisation=Organization::where('uuid',$orguuid)->first();
+        $organisation = Organization::where('uuid', $orguuid)->first();
         // dd($organisation);
-        $user=UsersOrganization::with(['user'=>function($q){
-            $q->with(['user_role'=>function($qu){
-                $qu->where('role_id',1);
+        $user = UsersOrganization::with(['user' => function ($q) {
+            $q->with(['user_role' => function ($qu) {
+                $qu->where('role_id', 1);
             }]);
-        }])->where('organization_id',$organisation->id)->first();
+        }])->where('organization_id', $organisation->id)->first();
         dd($user);
         $data = ['username' => $user->user->username, 'password' => $user->user->password];
 
@@ -137,7 +147,6 @@ class PatientAuthenticationController extends Controller
                     session(['ApiUserAction' => $result_data]);
                     curl_close($curl);
                     return true;
-
                 } else if (isset($result_data->message) && $result_data->message == "API rate limit exceeded") {
                     curl_close($curl);
                     return ['error' => $result_data->message];
@@ -151,6 +160,49 @@ class PatientAuthenticationController extends Controller
             return ['error' => __($e->getMessage())];
         }
     }
+    public function patientSignUp(Request $request)
+    {
+        $request->validate([
+            'username' => 'required|string',
+            'password' => 'required|string',
+            'givenName' => 'required|string',
+            'email' => 'required',
+            'gender_code' => 'required|string',
+            'phoneNumber' => 'required|string',
+            'dateOfBirth' => 'required',
+            'image' => 'required'
+        ]);
+        if ($request->hasFile('image')) {
+            $getImage = date('Y') . '/' . time() . '-' . rand(0, 999999) . '.' . $request->image->getClientOriginalExtension();
+            $request->image->move(public_path('uploads/patient/') . date('Y'), $getImage);
+            $image = $getImage;
+        } else {
+            $image = '';
+        }
+        if ($request->hasFile('reg_img')) {
+            $getImage = date('Y') . '/' . time() . '-' . rand(0, 999999) . '.' . $request->reg_img->getClientOriginalExtension();
+            $request->reg_img->move(public_path('uploads/patient/registrationCard') . date('Y'), $getImage);
+            $reg_img = $getImage;
+        } else {
+            $reg_img = '';
+        }
+        // dd($image,$reg_img);
+        $user = User::firstOrCreate([
+            'username' => $request->username,
+            'name' => $request->givenName,
+            'password' => $request->password,
+            'email' => $request->email,
+            'phone_number' => $request->phoneNumber,
+            'uuid' => Str::uuid(),
+            'PersonUuid' => Str::uuid(),
+            'status' => 1,
+            'image' => $image
+
+        ]);
+        $orgUuid=$request->orguuid;
+        // dd($user, $orgUuid);
+        return $this->patientMapped($user, $orgUuid);
+    }
     public function store_user(Request $request)
     {
 
@@ -162,7 +214,7 @@ class PatientAuthenticationController extends Controller
             'email' => 'required',
             'gender_code' => 'required|string',
             'phoneNumber' => 'required|string',
-            'dateOfBirth'=>'required'
+            'dateOfBirth' => 'required'
         ]);
         $curl = curl_init();
         $baseUrl = config('services.ehr.baseUrl');
@@ -185,18 +237,17 @@ class PatientAuthenticationController extends Controller
 
             ]
         ];
-        $orguuid=$request->orguuid;
+        $orguuid = $request->orguuid;
 
         // $this->adminLogin($orguuid);
         $adminUserInfo = session('ApiUserAction');
         $adminUserInfo = json_decode(json_encode($adminUserInfo), true);
         // dd(session());
-        if ($adminUserInfo==null) {
+        if ($adminUserInfo == null) {
             $this->adminLogin($orguuid);
             $adminUserInfo = session('ApiUserAction');
-            dd($adminUserInfo );
+            dd($adminUserInfo);
             $adminUserInfo = json_decode(json_encode($adminUserInfo), true);
-
         }
         // dd($adminUserInfo);
         $token = $adminUserInfo['sessionInfo']['token'];
@@ -235,35 +286,35 @@ class PatientAuthenticationController extends Controller
                 if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
                     curl_close($curl);
                     //create patient here
-                   $personId=$this->storePatients($request,$user->uuid);
+                    $personId = $this->storePatients($request, $user->uuid);
 
-                   if(is_array($personId) && isset($personId['error'])){
+                    if (is_array($personId) && isset($personId['error'])) {
                         return redirect()->back()->withErrors($personId);
-                   }
+                    }
 
-                    $user=User::create([
+                    $user = User::create([
                         'username' => $user->username,
                         'name' => $request->givenName,
                         'password' => $request->password,
                         'email' => $request->email,
                         'phone_number' => $request->phoneNumber,
                         'uuid' => $user->uuid,
-                        'PersonId'=>$personId,
+                        'PersonId' => $personId,
                         'status' => 1
 
                     ]);
 
-                    $mapPatient=$this->patientMapped($personId,$orguuid);
+                    $mapPatient = $this->patientMapped($personId, $orguuid);
 
-                    if(is_array($mapPatient) && isset($mapPatient['error'])){
+                    if (is_array($mapPatient) && isset($mapPatient['error'])) {
                         return redirect()->back()->withErrors($mapPatient);
-                   }
-                //     $getPatientAuth=$this->getPatientAuth($request,$personId);
+                    }
+                    //     $getPatientAuth=$this->getPatientAuth($request,$personId);
 
-                //     // dd($getPatientAuth);
-                //     if(is_array($getPatientAuth) && isset($getPatientAuth['error'])){
-                //         return redirect()->back()->withErrors($getPatientAuth);
-                //    }
+                    //     // dd($getPatientAuth);
+                    //     if(is_array($getPatientAuth) && isset($getPatientAuth['error'])){
+                    //         return redirect()->back()->withErrors($getPatientAuth);
+                    //    }
                     return redirect()->back()->withSuccess(__('Successfully Registered Now you can Login'));
                 } else if (isset($user->message) && $user->message == "API rate limit exceeded") {
                     curl_close($curl);
@@ -287,7 +338,7 @@ class PatientAuthenticationController extends Controller
             return redirect()->back()->withErrors(['error' => __($e->getMessage())]);
         }
     }
-    protected function storePatients($request,$uuid)
+    protected function storePatients($request, $uuid)
     {
         $curl = curl_init();
         $baseUrl = config('services.ehr.baseUrl');
@@ -373,8 +424,36 @@ class PatientAuthenticationController extends Controller
             return ['error' => __($e->getMessage())];
         }
     }
-    protected function patientMapped($personId,$orgUuid)
+    protected function patientMapped($user, $orgUuid)
     {
+
+        try {
+
+            $user = User::where('PersonUuid', $user->PersonUuid)->first();
+            $org = Organization::where('uuid', $orgUuid)->first();
+            $patient=Patient::firstOrCreate([
+                'user_id' => $user->id,
+                'organization_id' => $org->id,
+                'status' => 1,
+            ]);
+            $patientOrg=UsersOrganization::firstOrCreate([
+
+                'status' => 1,
+                'registration_code' => '123ABC',
+                'user_id' => $user->id,
+                'organization_id' => $org->id
+            ]);
+            return redirect()->route('patient.login')->withSuccess(__('Patient is Successfully created'));
+        } catch (\Exception $e) {
+
+
+            return ['error' => __($e->getMessage())];
+        }
+    }
+    //plan with appointment service
+    protected function getPatientAuth($request, $personId)
+    {
+
         $curl = curl_init();
         $baseUrl = config('services.ehr.baseUrl');
         $apiKey = config('services.ehr.apiKey');
@@ -384,14 +463,21 @@ class PatientAuthenticationController extends Controller
         // dd($userInfo);
         if (is_null($userInfo)) {
 
-             $this->adminLogin();
+            $this->adminLogin();
             $userInfo = session('ApiUserAction');
             $userInfo = json_decode(json_encode($userInfo), true);
         }
-        // dd($request->PersonId);
-        $token = $userInfo['sessionInfo']['token'];
 
-        $req_url = $baseUrl . 'rest/admin/orgPersonMapping/add/' . $personId . '/' . $orgUuid;
+        $token = $userInfo['sessionInfo']['token'];
+        // dd($baseUrl);
+        $data = [
+            'user' => ['username' => $request->username, 'password' => $request->password],
+
+            'person' => ['personId' => $personId, 'givenName' => $request->givenName]
+        ];
+        // dd($data);
+        $req_url = $baseUrl . 'rest/admin/user?role=person';
+        // $params=array('role'=>'person'); .http_build_query($params)
 
         curl_setopt_array($curl, array(
             CURLOPT_URL => $req_url,
@@ -401,118 +487,22 @@ class PatientAuthenticationController extends Controller
             CURLOPT_TIMEOUT => 0,
             CURLOPT_FOLLOWLOCATION => true,
             CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'PATCH',
-            CURLOPT_HTTPHEADER => array(
-                'Authorization:' . $token,
-                'apikey:' . $apiKey
-            ),
-        ));
-
-        try {
-
-            $response = curl_exec($curl);
-            if ($response == false) {
-                $error = curl_error($curl);
-                curl_close($curl);
-
-                return ['error' => __($error)];;
-            } else {
-                // dd($request->all());
-                $patients = json_decode($response);
-
-
-                if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 200) {
-                    $users = User::where('PersonId', $personId)->first();
-                    $org = Organization::where('uuid', $orgUuid)->first();
-                    Patient::firstOrCreate([
-                        'user_id' => $users->id,
-                        'organization_id' => $org->id,
-                        'status' => 1,
-                    ]);
-                    UsersOrganization::firstOrCreate([
-
-                        'status' => 1,
-                        'registration_code' => '123ABC',
-                        'user_id' => $users->id,
-                        'organization_id' => $org->id
-                    ]);
-
-                    curl_close($curl);
-                    return true;
-                } else if (isset($patients->message) && $patients->message == "API rate limit exceeded") {
-                    curl_close($curl);
-                    return ['error' => $patients->message];
-                } else if (isset($patients->message) && $patients->message == "Invalid User") {
-
-                    curl_close($curl);
-                    return ['error' => $patients->message];
-                } else if (isset($patients->message) && $patients->message == "Invalid Token") {
-
-                    curl_close($curl);
-                    return ['error' => $patients->message];
-                } else {
-                    curl_close($curl);
-                    return ['error' => $patients->message];
-                }
-            }
-        } catch (\Exception $e) {
-
-
-            return ['error' => __($e->getMessage())];
-        }
-    }
-    //plan with appointment service
-    protected function getPatientAuth($request ,$personId){
-
-          $curl = curl_init();
-        $baseUrl = config('services.ehr.baseUrl');
-        $apiKey = config('services.ehr.apiKey');
-
-        $userInfo = session('ApiUserAction');
-        $userInfo = json_decode(json_encode($userInfo), true);
-        // dd($userInfo);
-        if (is_null($userInfo)) {
-
-             $this->adminLogin();
-            $userInfo = session('ApiUserAction');
-            $userInfo = json_decode(json_encode($userInfo), true);
-        }
-
-        $token = $userInfo['sessionInfo']['token'];
-        // dd($baseUrl);
-        $data=[
-            'user'=>['username'=>$request->username,'password'=>$request->password],
-
-            'person'=>['personId'=>$personId,'givenName'=>$request->givenName]
-        ];
-        // dd($data);
-        $req_url = $baseUrl .'rest/admin/user?role=person';
-        // $params=array('role'=>'person'); .http_build_query($params)
-
-        curl_setopt_array($curl, array(
-            CURLOPT_URL =>$req_url,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
             CURLOPT_CUSTOMREQUEST => 'POST',
             CURLOPT_POSTFIELDS => json_encode($data),
             CURLOPT_HTTPHEADER => array(
-                'Authorization: '.$token,
-                'apikey: '.$apiKey,
+                'Authorization: ' . $token,
+                'apikey: ' . $apiKey,
                 'Content-Type: application/json'
             ),
         ));
-        try{
+        try {
 
 
 
 
-        $response = curl_exec($curl);
-        // dd($response);
-        if ($response == false) {
+            $response = curl_exec($curl);
+            // dd($response);
+            if ($response == false) {
                 $error = curl_error($curl);
                 curl_close($curl);
                 // dd($error);
@@ -543,11 +533,8 @@ class PatientAuthenticationController extends Controller
                     return ['error' => $patient->message];
                 }
             }
-        }
-        catch(\Exception $e){
+        } catch (\Exception $e) {
             return ['error' => __($e->getMessage())];
         }
-
-
     }
 }

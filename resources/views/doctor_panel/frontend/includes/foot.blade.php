@@ -11,8 +11,8 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <!-- JQUERY JS -->
     <script src="{{asset('assets/js/jquery.min.js')}}"></script>
-     <!-- SHOW PASSWORD JS -->
-     <script src="{{asset('assets/js/show-password.min.js')}}"></script>
+    <!-- SHOW PASSWORD JS -->
+    <script src="{{asset('assets/js/show-password.min.js')}}"></script>
     <!-- BOOTSTRAP JS -->
     <script src="{{asset('assets/plugins/bootstrap/js/popper.min.js')}}"></script>
     <script src="{{asset('assets/plugins/bootstrap/js/bootstrap.min.js')}}"></script>
@@ -70,8 +70,8 @@
 
     <!-- Adding Fire base -->
     <script src="{{asset('public_assets/js/firebase.js')}}"></script>
-	<!-- TypeHead js -->
-	{{-- <script src="../assets/plugins/bootstrap5-typehead/autocomplete.js"></script>
+    <!-- TypeHead js -->
+    {{-- <script src="../assets/plugins/bootstrap5-typehead/autocomplete.js"></script>
     <script src="../assets/js/typehead.js"></script> --}}
 
     <!-- INTERNAL INDEX JS -->
@@ -96,46 +96,77 @@
         });
     </script>
 
-<!-- Active NAv----->
+    <!-- Active NAv----->
 
-<script>
+    <script>
+        /*** add active class and stay opened when selected ***/
+        var url = window.location;
 
-    /*** add active class and stay opened when selected ***/
-    var url = window.location;
+        // for sidebar menu entirely but not cover treeview
+        $('ul.side-menu a').filter(function() {
+            if (this.href) {
+                return this.href == url || url.href.indexOf(this.href) == 0;
+            }
+        }).addClass('active');
 
-    // for sidebar menu entirely but not cover treeview
-    $('ul.side-menu a').filter(function() {
-        if (this.href) {
-            return this.href == url || url.href.indexOf(this.href) == 0;
-        }
-    }).addClass('active');
-
-    // for the treeview
-    $('ul.slide-menu a').filter(function() {
-        if (this.href) {
-            return this.href == url || url.href.indexOf(this.href) == 0;
-        }
-    }).parentsUntil(".side-menu > .nav-tree").addClass('open').prev('a').addClass('active').parent().addClass('is-expanded');
-
-
+        // for the treeview
+        $('ul.slide-menu a').filter(function() {
+            if (this.href) {
+                return this.href == url || url.href.indexOf(this.href) == 0;
+            }
+        }).parentsUntil(".side-menu > .nav-tree").addClass('open').prev('a').addClass('active').parent().addClass('is-expanded');
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('.js-example-basic-multiple').select2();
+        });
     </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/12.1.5/css/intlTelInput.css" />
-<!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>  -->
+    <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>  -->
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/12.1.5/js/intlTelInput.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/12.1.5/js/utils.js"></script>
+    @if(Route::currentRouteName()=='verifyPhoneNumber')
+    <script type="text/javascript">
+        $(function() {
+            $('#txtPhone').intlTelInput({
+                autoHideDialCode: true,
+                autoPlaceholder: "polite",
+                dropdownContainer: document.body,
+                formatOnDisplay: true,
+                hiddenInput: "phoneNumber",
+                initialCountry: "auto",
+                nationalMode: true,
+                placeholderNumberType: "MOBILE",
+                preferredCountries: ['in'],
+                separateDialCode: true
+            });
+            FormatNumber();
+            $('#txtPhone').keyup(function() {
+                FormatNumber();
+            });
+
+            function FormatNumber() {
+                var number = $('#txtPhone').val();
+                var classf = $(".selected-flag > div").attr("class");
+                var flag = classf.slice(-2);
+                var formattedNumber = intlTelInputUtils.formatNumber(number, flag, intlTelInputUtils.numberFormat.INTERNATIONAL);
+                $('#txtPhone').val(formattedNumber.slice(formattedNumber.indexOf(' ') + 1, formattedNumber.length));
+            }
+        });
+    </script>
+    @else
     <script type="text/javascript">
         function FormatNumber() {
             var number = $('#txtPhone').val();
             var classf = $(".selected-flag > div").attr("class");
             var flag = classf.slice(-2);
             var formattedNumber = intlTelInputUtils.formatNumber(number, flag, intlTelInputUtils.numberFormat
-            .INTERNATIONAL);
+                .INTERNATIONAL);
             $('#txtPhone').val(formattedNumber.slice(formattedNumber.indexOf(' ') + 1, formattedNumber.length));
         }
         $(function() {
             var code = "+911234567890";
-
-             if ($('#txtPhone').length && $('#txtPhoneNew').length) {
+            if ($('#txtPhone').length && $('#txtPhoneNew').length) {
                 $('#txtPhoneNew').val(code);
                 $('#txtPhoneNew').intlTelInput({
                     autoHideDialCode: true,
@@ -170,9 +201,8 @@
                 $('#txtPhone').keyup(function() {
                     FormatNumber();
                 });
-            }
-            else if($('#txtPhone').length){
-                     $('#txtPhone').val(code);
+            } else if ($('#txtPhone').length) {
+                $('#txtPhone').val(code);
                 $('#txtPhone').intlTelInput({
                     autoHideDialCode: true,
                     autoPlaceholder: "ON",
@@ -189,8 +219,8 @@
                 $('#txtPhone').keyup(function() {
                     FormatNumber();
                 });
-            }else if($('#txtPhoneNew').length){
-                     $('#txtPhoneNew').val(code);
+            } else if ($('#txtPhoneNew').length) {
+                $('#txtPhoneNew').val(code);
                 $('#txtPhoneNew').intlTelInput({
                     autoHideDialCode: true,
                     autoPlaceholder: "ON",
@@ -208,24 +238,31 @@
                     FormatNumber();
                 });
             }
-
         });
     </script>
+    @endif
     <!--Firebase---->
     <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase.js"></script>
-<script>
-var loggedIn = {{ auth()->check() ? 1 : 0 }};
-var user_id='';
-@auth
-    if(loggedIn==1){
-    var user_id={{auth()->user()->id}};
-    }
-@endauth
+    <script>
+    {{--var loggedIn = {--}}
 
-</script>
-<script src="{{asset('public_assets/js/firebase.js')}}"></script>
+    {{-- auth()-> check() ? 1 : 0--}}
+
+    {{--};--}}
+    {{--var user_id = '';--}}
+    {{--@auth--}}
+    {{--if (loggedIn == 1) {--}}
+    {{-- var user_id = {--}}
+    {{-- {--}}
+    {{-- auth() - > user() - > id--}}
+    {{-- }--}}
+    {{-- };--}}
+    {{--}--}}
+    {{--@endauth--}}
+    </script>
+    <script src="{{asset('public_assets/js/firebase.js')}}"></script>
     <!----Custom Function To Manage-->
     @yield('foot_script');
-</body>
+    </body>
 
-</html>
+    </html>

@@ -30,26 +30,26 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            <form class="form-horizontal" action="{{route('update.department')}}" method="POST">
+                            <form class="form-horizontal" action="{{route('update.department')}}" enctype="multipart/form-data" method="POST">
                                 @csrf
                                 <div class=" row mb-4">
-                                    <input type="hidden" name="parentOrgId" value="{{$parentOrgId->uuid}}">
+                                    <input type="hidden" name="DepUuid" value="{{$depData->uuid}}">
                                     <label for="displayname" class="col-md-3 form-label"> Display Name</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" value="{{$organization->displayname}}" name="displayname" id="displayname" placeholder="Display Name" autocomplete="displayname">
+                                        <input type="text" class="form-control" value="{{ $depData->display_name }}" name="displayname" id="displayname"
+                                               placeholder="Display Name" autocomplete="displayname">
                                     </div>
                                     @if ($errors->has('displayname'))
                                     <span class="text-danger text-left">{{ $errors->first('displayname') }}</span>
                                     @endif
                                 </div>
-                                <input type="hidden" class="form-control" value="{{$organization->uuid}}" name="DepUuid" id="OrgUuid" placeholder="Display Name" autocomplete="OrgUuid">
 
                                 <input type="hidden" class="form-control" value="{{$depData->name}}" name="name">
 
                                 <div class=" row mb-4">
                                     <label for="inputEmail3" class="col-md-3 form-label">Email</label>
                                     <div class="col-md-9">
-                                        <input type="email" class="form-control" value="{{$organization->email}}" name="email" placeholder="Email" autocomplete="username">
+                                        <input type="email" class="form-control" value="{{$depData->email}}" name="email" placeholder="Email" >
                                     </div>
                                 </div>
 
@@ -59,16 +59,17 @@
                                     <div class="col-md-9">
                                         <select class="form-control" name="status" id="state">
                                             <option value="">Select</option>
-                                            <option value="Enabled" {{$organization->status=="Enabled"?"selected":''}}>Enable</option>
-                                            <option value="Disabled    " {{$organization->status=="Disabled"?"selected":''}}>Disable</option>
+                                            <option value="Enabled" {{$depData->status=="Enabled"?"selected":''}}>Enable</option>
+                                            <option value="Disabled" {{$depData->status=="Disabled"?"selected":''}}>Disable</option>
 
                                         </select>
                                     </div>
                                 </div>
+                                <input type="hidden" name="pre_image" value="">
                                 <div class=" row  mb-1">
                                     <label for="image" class="col-md-3 form-label">Picture</label>
                                     <div class="col-md-9">
-                                        <input type="file" name="image" id="image">
+                                        <input class="form-control" type="file" name="image" id="image">
                                     </div>
                                 </div>
                                 <div class="mb-0 mt-4 row text-end">

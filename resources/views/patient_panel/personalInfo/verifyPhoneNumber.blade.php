@@ -14,9 +14,9 @@
                 <div class="form-group">
                     @include('admin_panel.frontend.includes.messages')
                 </div>
-                <div class="col-xl-8">
+                <div class="col-xl-12">
                     <div class="card">
-                        <form action="{{ route('phone.numberVerified') }}" method="POST">
+                        <form action="{{ route('phone.numberVerified') }}"  id="login_form" method="POST">
                             @csrf
                             <div class="card-header">
                                 <div class="col-5">
@@ -34,13 +34,13 @@
                             </div>
                             <div class="card-body">
                                 <div class="row">
-                                <div class="col-lg-12 col-md-12" id="numbercon">
+                                    <div class="col-lg-12 col-md-12" id="numbercon">
                                         <div class="form-group row">
                                             <div class="col-6 px-1">
                                                 <label for="currentPhoneNumber"><strong> Current Number</strong> </label>
                                             </div>
                                             <div class="col-6 px-0">
-                                                <input type="text" id="txtPhone" name="" class="form-control" placeholder="+91 *** ******">
+                                                <input type="text" disabled id="txtPhone" name="phoneNumberNew" class="form-control" value="{{auth()->user()->phone_number}}" >
                                                 <input type="hidden" class="form-control" id="phoneNumber">
                                             </div>
 
@@ -51,7 +51,7 @@
                                         <div class="form-group">
 
                                             <label for="verification">Enter Code</label>
-                                            <input type="number" class="form-control" required="" id="verification" placeholder="code" maxlength="6">
+                                            <input type="number" class="form-control" required id="verification" placeholder="code" maxlength="6">
                                         </div>
                                     </div>
                                     <div class="col-lg-12 col-md-12 col-sm-12 col-12">
