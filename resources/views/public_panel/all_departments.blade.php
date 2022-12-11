@@ -75,7 +75,7 @@
         <div class="row">
             <div class="col-xl-6 offset-xl-3 col-lg-8 offset-lg-2 col-md-10 offset-md-1">
                 <div class="section-title style2 text-center mb-40">
-                    <span>Our Services</span>
+                    <span>Serving Departments</span>
                     <h2>Think Hard &amp; Focus On The Patient's Well-Being</h2>
                 </div>
             </div>
@@ -99,8 +99,8 @@
                                     <span class="service-icon"><i class="flaticon-hospital-ward"></i></span>
                                 </div>
                                 <div class="service-info " style="justify-content:center ;">
-                                    <h2><a href="{{route('home.department_details',$department->id)}}">{{strtoupper($department->display_name)}}</a></h2>
-                                    <h3>Total Doctors: {{count($department->doctor)}}</a></h3>
+                                    <h3><a href="{{route('home.department_details',$department->id)}}">{{strtoupper($department->display_name)}}</a></h3>
+                                    <h5>Total Doctors: {{count($department->doctor)}}</a></h3>
                                     <a href="{{route('home.department_details',$department->id)}}" class="link style2">Explore More</a>
                                 </div>
                             </div>

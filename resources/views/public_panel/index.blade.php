@@ -53,58 +53,8 @@
                     <div class="hero-appointment" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="200">
                         <img src="{{asset('public_assets/img/hero/hero-shape-4.png')}}" alt="Image" class="hero-shape-two rotate">
                         <div class="hero-appointment-img bg-f" ></div>
-                        <div class="hero-appointment-form">
-                            <div class="row fg-opt-wrap">
-                                <div class="col-sm-5">
-                                    <div class="fg-opt">
-                                        <span>Date</span>
-                                        <p>13 Jul, 20222</p>
-                                    </div>
-                                </div>
-                                <div class="col-sm-3">
-                                    <div class="fg-opt">
-                                        <span>Time</span>
-                                        <p>9:30 PM</p>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="fg-opt">
-                                        <button type="button" class="btn style1">Edit Time</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row  fg-opt-wrap">
-                                <div class="col-sm-5">
-                                    <div class="fg-opt">
-                                        <span>Doctor</span>
-                                        <p>Dr. Kate Winslate</p>
-                                    </div>
-                                </div>
-                                <div class="col-sm-3">
-                                    <div class="fg-opt">
-                                        <span>Branch</span>
-                                        <p>Radiology</p>
-                                    </div>
-                                </div>
-                                <div class="col-sm-4">
-                                    <div class="fg-opt">
-                                        <button type="button" class="btn style2">Book Now</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                     <div class="hero-doctor" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="300">
-                        <div class="about-doctor-box">
-                            <div class="doctor-img">
-                                <img src="{{asset('public_assets/img/about/doctor-1.jpg')}}" alt="Image">
-                            </div>
-                            <div class="doctor-info">
-                                <h5>Dr. Kate Winslet</h5>
-                                <span>Radiology</span>
-                            </div>
-                            <button type="button" class="btn style1">Select</button>
-                        </div>
                         <div class="hero-doctor-bg bg-f"></div>
                     </div>
                 </div>
@@ -273,8 +223,8 @@
                                         </div>
                                         <div class="service-info">
                                             <h3><a href="{{route('home.hospital_details',$organization->id)}}">{{strtoupper($organization->name)}}</a></h3>
-                                            <h3>Total Departments: {{count($organization->department)}}</h3>
-                                            <h3>Best Department : {{strtoupper($organization->department[0]->display_name)}}</h3>
+                                            <h5>Total Departments: {{count($organization->department)}}</h5>
+                                            <h5>Best Department : {{strtoupper($organization->department[0]->display_name)}}</h5>
 {{--                                            <a href="{{route('departments.of.hospital',$organization->id)}}" class="link style2">Explore More</a>--}}
                                             <a href="{{route('home.hospital_details',$organization->id)}}" class="link style2">Explore More</a>
                                         </div>

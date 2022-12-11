@@ -40,6 +40,10 @@ class homeController extends Controller
             dd($e->getMessage());
         }
     }
+    public function ourServices()
+    {
+        return view('public_panel.OurServices');
+    }
     public function hospitalDetails($id)
     {
         // \DB::enableQueryLog(); // Enable query log
@@ -94,7 +98,6 @@ class homeController extends Controller
     {
 
         $doctorSpecializations = DoctorSpecialization::all();
-
         return view('public_panel.DoctorSpecialization', compact('doctorSpecializations'));
     }
     protected function getAllDoctors(Request $request)

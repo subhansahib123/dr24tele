@@ -8,8 +8,8 @@
         <div class="row">
             <div class="col-xl-6 offset-xl-3 col-lg-8 offset-lg-2 col-md-10 offset-md-1">
                 <div class="section-title style2 text-center mb-40">
-                    <span>Department Name</span>
-                    <h2>{{$department->display_name}}</h2>
+                    <span>{{$department->display_name}}</span>
+                    <h2>Our Doctors</h2>
                 </div>
             </div>
         </div>

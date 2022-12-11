@@ -70,6 +70,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
      */
     Route::get('/', [homeController::class, 'index'])->name('home.page');
     Route::get('/allHospitals', [homeController::class, 'allHospitals'])->name('home.allHospitals');
+    Route::get('/our-services', [homeController::class, 'ourServices'])->name('home.ourServices');
     Route::get('/hospital/{id}', [homeController::class, 'hospitalDetails'])->name('home.hospital_details');
     Route::get('/allDepartments', [homeController::class, 'allDepartments'])->name('home.allDepartments');
     Route::get('/getAllDepartments', [homeController::class, 'getAllDepartments'])->name('home.getAllDepartments');
