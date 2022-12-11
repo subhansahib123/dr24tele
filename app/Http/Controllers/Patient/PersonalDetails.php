@@ -32,28 +32,19 @@ class PersonalDetails extends Controller
     public function phoneNumberUpdated(Request $request)
     {
         $user = User::with('doctor')->where('phone_number', auth()->user()->phone_number)->first();
-        // dd($user);
+        // dd($request->all(),$user);   
 
         $request->validate([
-            'phoneNumberNew' => 'required|string',
+            'newPhoneNumber' => 'required|string',
         ]);
         $user->update(['phone_number' => $request->phoneNumberNew]);
         // dd($user->phone_number);
-        return redirect()->route('verifyPhoneNumber')->withSuccess(__('Phone Number is Successfully Updated'));
+        return redirect()->route('verify.phoneNumber')->withSuccess(__('Phone Number is Successfully Updated'));
     }
 
     public function phoneNumberVerified(Request $request)
     {
-        // dd($request->all());
-        $request->validate([
-            'phoneNumber' => 'required|string',
-            'role' => 'required|string',
-        ]);
-        $user = User::with('patient')->where('phone_number', $request->phoneNumber)->first();
-        if ($user) {
-            return view('patient_panel.personalInfo.updatingNumber');
-        } else {
-            return redirect()->back()->withErrors(['error' => 'Current Phone Number is not correct']);
-        }
+        
+        return view('patient_panel.personalInfo.updatingNumber');
     }
 }

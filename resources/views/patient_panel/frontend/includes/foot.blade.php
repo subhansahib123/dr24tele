@@ -195,6 +195,25 @@
                     FormatNumber();
                 });
             }
+            else if( $('#txtPhoneNew').length) {
+                $('#txtPhoneNew').val(code);
+                $('#txtPhoneNew').intlTelInput({
+                    autoHideDialCode: true,
+                    autoPlaceholder: "ON",
+                    dropdownContainer: document.body,
+                    formatOnDisplay: true,
+                    hiddenInput: "newPhoneNumber",
+                    initialCountry: "auto",
+                    nationalMode: true,
+                    placeholderNumberType: "MOBILE",
+                    preferredCountries: ['US'],
+                    separateDialCode: true
+                });
+                FormatNumber();
+                $('#txtPhoneNew').keyup(function() {
+                    FormatNumber();
+                });
+            }
         });
     </script>
     @endif

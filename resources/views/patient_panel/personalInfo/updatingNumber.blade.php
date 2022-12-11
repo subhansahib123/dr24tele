@@ -36,11 +36,9 @@
 
                                     <div class="col-lg-12 col-md-12">
                                         <div class="form-group row">
-                                            <div class="col-6 px-2">
-                                                <label for="txtPhoneNew"><strong>New  Number</strong></label>
-                                            </div>
-                                            <div class="col-6 px-0">
-
+                                            <div class="col-12 px-2">
+                                                <label for="txtPhoneNew"><strong>New Number</strong></label>
+               
                                                 <input type="text" id="txtPhoneNew" class="form-control" placeholder="Number">
                                                 <input type="hidden" class="form-control" id="phoneNumberNew">
                                             </div>
