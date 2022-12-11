@@ -267,16 +267,16 @@
                             @foreach ($organizations as $organization )
                                 <div class="col-xl-4 col-lg-6 col-md-6 mb-3">
                                     <div class="service-card style1 h-100">
-                                        <div class="service-img">
-                                            <img src="{{asset('public_assets/img/services/service-9.jpg')}}" alt="Image">
+                                        <div class="service-img text-center">
+                                            <img src="{{($organization->image)? asset('uploads/organization/'. $organization->image) : asset('public_assets/img/services/service-9.jpg')}}" alt="Image">
                                             <span class="service-icon"><i class="flaticon-hospital-ward"></i></span>
                                         </div>
                                         <div class="service-info">
-                                            <h2><a href="{{route('home.hospital_details',$organization->slug)}}">{{strtoupper($organization->slug)}}</a></h2>
+                                            <h3><a href="{{route('home.hospital_details',$organization->id)}}">{{strtoupper($organization->name)}}</a></h3>
                                             <h3>Total Departments: {{count($organization->department)}}</h3>
-                                            <h3>Best Department : {{strtoupper($organization->department[0]->name)}}</h3>
+                                            <h3>Best Department : {{strtoupper($organization->department[0]->display_name)}}</h3>
 {{--                                            <a href="{{route('departments.of.hospital',$organization->id)}}" class="link style2">Explore More</a>--}}
-                                            <a href="{{route('home.hospital_details',$organization->slug)}}" class="link style2">Explore More</a>
+                                            <a href="{{route('home.hospital_details',$organization->id)}}" class="link style2">Explore More</a>
                                         </div>
                                     </div>
                                 </div>

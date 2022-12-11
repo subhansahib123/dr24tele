@@ -20,6 +20,9 @@ use Illuminate\Support\Str;
 
 use Illuminate\Support\Facades\Session;
 
+use function PHPUnit\Framework\isEmpty;
+use function PHPUnit\Framework\isNull;
+
 class HospitalUserController extends Controller
 {
     public function allHospitalUsers()
@@ -86,12 +89,21 @@ class HospitalUserController extends Controller
             'password' => 'required|string',
             'phoneNumber' => 'required|string',
             'email' => 'required|string',
+            'image' => 'required',
         ]);
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
         if (is_null($userInfo)) {
             return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
+        if ($request->hasFile('image')) {
+            $getImage = date('Y') . '/' . time() . '-' . rand(0, 999999) . '.' . $request->image->getClientOriginalExtension();
+            $request->image->move(public_path('uploads/organization/management/') . date('Y'), $getImage);
+            $image = $getImage;
+        } else {
+            $image = '';
+        }
+        // dd($image);
         $organis_db = \auth()->user()->user_organization->organization;
         try {
             $user = User::firstOrCreate([
@@ -102,7 +114,8 @@ class HospitalUserController extends Controller
                 'uuid' => Str::uuid(),
                 'email' => $request->email,
                 'PersonId' => Str::uuid(),
-                'status' => 1
+                'status' => 1,
+                'image' => $image,
 
             ]);
             UsersOrganization::firstOrCreate([
@@ -402,94 +415,36 @@ class HospitalUserController extends Controller
     public
     function passwordUpdated(Request $request)
     {
-        // dd($request->all());
+        $request->validate([
+            'password' => 'required|confirmed|min:6',
+            'currentPassword' => 'required'
+        ]);
+        // dd(auth()->user()->id);
+        $userId = auth()->user()->id;
 
-        $curl = curl_init();
-        $baseUrl = config('services.ehr.baseUrl');
-        $apiKey = config('services.ehr.apiKey');
-        $userInfo = session('loggedInUser');
-        $userInfo = json_decode(json_encode($userInfo), true);
-        if (is_null($userInfo)) {
-
+        if (is_null($userId)) {
             return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
-        $userId = auth()->user()->id;
-        // dd($userInfo);
-        $token = $userInfo['sessionInfo']['token'];
-        $data = ['currentpassword' => $request->currentpassword, 'newpassword' => $request->newpassword,];
-        // dd($token);
-        curl_setopt_array($curl, array(
-            CURLOPT_URL => $baseUrl . 'rest/admin/user/changePassword',
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 0,
-            CURLOPT_FOLLOWLOCATION => true,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'POST',
-            CURLOPT_POSTFIELDS => json_encode($data),
-            CURLOPT_HTTPHEADER => array(
-                'Content-Type: application/json',
-                'Accept: application/json',
-                'Authorization:' . $token,
-                'apikey: ' . $apiKey
-            ),
-        ));
 
         try {
-            $response = curl_exec($curl);
-            $password = json_decode($response);
-
-            // dd($response,$password);
-            if ($response == false) {
-                curl_close($curl);
-
-                return curl_error($curl);
-            } else {
-                if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 401) {
-                    curl_close($curl);
-                    return redirect()->back()->withErrors(['error' => $password->message]);
-                }
-
-                // dd(2);
-
+            $user = User::where('id', $userId)->first();
+            if ($user->password == $request->currentPassword) {
+                // dd(1);
                 session_start();
                 unset($userInfo);
 
                 Session::flush();
                 Auth::logout();
 
-                if ($response == 'Success !! A password changed sucessfully') {
-                    // dd(1);
-                    curl_close($curl);
-                    $user = User::where('id', $userId)->first();
-                    $user->update(['password' => $request->newpassword]);
-                    return redirect()->route('hospital.login')->withSuccess(__('Password Update Successfully'));
-                } else if (curl_getinfo($curl, CURLINFO_HTTP_CODE) == 400) {
-                    curl_close($curl);
-                    return redirect()->route('hospital.login')->withErrors(['error' => __($password->message)]);
-                } else if (isset($password->message) && $password->message == "API rate limit exceeded") {
-                    curl_close($curl);
-
-                    return redirect()->route('hospital.login')->withErrors(['error' => __($password->message)]);
-                } else if (isset($password->message) && $password->message == "Invalid User") {
-
-                    curl_close($curl);
-                    return redirect()->route('hospital.login')->withErrors(['error' => $password->message]);
-                } else if (isset($password->message) && $password->message == "Invalid Token") {
-
-                    curl_close($curl);
-                    return redirect()->route('hospital.login')->withErrors(['error' => $password->message]);
-                } else {
-
-                    curl_close($curl);
-                    return redirect()->route('hospital.login')->withErrors(['error' => $password->message]);
-                }
+                $user->update(['password' => $request->password]);
+                return redirect()->route('hospital.login')->withSuccess(__('Password Update Successfully'));
             }
+            // dd(2);
+            return redirect()->back()->withErrors(['error' => 'Your Current Password is not Correct']);
         } catch (\Exception $e) {
 
             // dd($e->getMessage());
-            return redirect()->route('hospital.login')->withErrors(['error' => $e->getMessage()]);
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
         }
     }
 }

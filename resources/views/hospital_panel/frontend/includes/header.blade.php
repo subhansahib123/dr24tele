@@ -333,7 +333,7 @@
                             <div class="dropdown d-flex profile-1">
                                 <a href="javascript:void(0)" data-bs-toggle="dropdown"
                                     class="nav-link leading-none d-flex">
-                                    <img src="{{asset('assets/images/users/21.jpg')}}" alt="profile-user"
+                                    <img  {{$image=Auth::user()->image}} src="{{($image)? asset('uploads/organization/management/'. $image):asset('assets/images/users/21.jpg')}}" alt="profile-user"
                                         class="avatar  profile-user brround cover-image">
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">

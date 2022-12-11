@@ -161,7 +161,9 @@
                                 </div>
                                 <div class="dr-info">
                                     <h6>{{ $doctor->user->name }}</h6>
-                                    <p>{{ (count($doctor->specialization) > 0) ? $doctor->specialization->name : '' }}</p>
+                                    @foreach($doctor->specialization as $specialization)
+                                    <p>{{  $specialization->name  }}</p>
+                                    @endforeach
                                 </div>
                             </div>
                             <div class="fee-details">
