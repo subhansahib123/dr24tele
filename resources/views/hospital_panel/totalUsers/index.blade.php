@@ -4,6 +4,7 @@
     <div class="side-app">
         <!-- CONTAINER -->
         <div class="main-container container-fluid">
+        @include('admin_panel.frontend.includes.messages')
 
             <!-- Row -->
             <div class="row">
@@ -13,11 +14,11 @@
                             <div class="col-5">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Your Specialization's</li>
+                                    <li class="breadcrumb-item active" aria-current="page">Management User's</li>
                                 </ol>
                             </div>
                             <div class="col-4">
-                                <span class="card-title"><strong> Add Specializations</strong></span>
+                                <span class="card-title"><strong> Management List</strong></span>
                             </div>
 
                             <div class="col-3 text-end">
@@ -27,7 +28,6 @@
                             </div>
                         </div>
                         <div class="card-body">
-                            @include('admin_panel.frontend.includes.messages')
                             {{-- <p>Use <code class="highlighter-rouge">.table-striped</code>to add zebra-striping to any table row within the <code class="highlighter-rouge">.tbody</code>.</p> --}}
                             <div class="table-responsive">
                                 <div class="bg-light p-4 rounded">

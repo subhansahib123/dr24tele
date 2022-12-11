@@ -12,7 +12,7 @@ use App\Models\UsersOrganization;
 use Illuminate\Support\Str;
 use App\Models\Appointment;
 use App\AgoraToken\Src\RtcTokenBuilder;
-use Session;
+use Illuminate\Support\Facades\Session;
 
 class PatientAuthenticationController extends Controller
 {
@@ -55,8 +55,11 @@ class PatientAuthenticationController extends Controller
     }
     public function logout()
     {
-        Auth::logout();
+        session_start();
+        unset($userInfo);
+
         Session::flush();
+        Auth::logout();
         return redirect()->route('patient.login')->withSucess(__('Successfully logged out!'));
     }
     public function patientDashboard()

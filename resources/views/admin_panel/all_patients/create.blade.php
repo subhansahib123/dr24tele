@@ -17,7 +17,7 @@
                 </div>
                 <div class="col-xl-12">
                     <div class="card">
-                        <form action="{{ route('store.user') }}" method="POST">
+                        <form action="{{ route('store.user') }}" enctype="multipart/form-data" method="POST">
                             @csrf
                             <div class="card-header">
                                 <div class="col-5">
@@ -49,11 +49,11 @@
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-12 my-0">
                                         <div class="form-group">
-                                            <label  for="middleName">Middle Name</label>
+                                            <label for="middleName">Middle Name</label>
                                             <input class="form-control" id="middleName" placeholder="Enter Middle Name" name="middlename" value="">
                                         </div>
                                     </div>
-                                    
+
                                     <div class="col-lg-6 col-md-6 col-sm-12 my-0">
 
                                         <div class="form-group">
@@ -83,7 +83,7 @@
                                                 <label for="exampleInputnumber"><strong> Contact Number</strong></label>
                                             </div>
                                             <div class="row ">
-                                                <input type="text" id="txtPhone" name="" class="form-control">
+                                                <input type="text" id="txtPhone" name="" class="form-control" placeholder="+91 1234567890">
                                                 <input type="hidden" class="form-control" id="phoneNumber">
                                             </div>
 
@@ -92,7 +92,7 @@
                                     <div class="col-lg-6 col-md-6 col-sm-12 my-0">
                                         <div class="form-group">
                                             <label class="form-label" for="Birth">Date of Birth</label>
-                                            <input type="date" class="form-control" id="Birth" placeholder="Date of Birth" name="dateOfBirth" value="">
+                                            <input type="date" class="form-control" class="form-control" id="Birth" placeholder="Date of Birth" name="dateOfBirth" value="">
                                         </div>
                                     </div>
 
@@ -124,25 +124,30 @@
                                             <!-- <input type="text" class="form-control" name="" id="gender" value=""> -->
                                         </div>
                                     </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 my-0">
+                                        <label for="Birth">Profile Image</label>
+                                        <input type="file" name="image" id="image" class="form-control">
+                                    </div>
                                 </div>
-
                             </div>
-                            <div class="card-footer text-end ">
-                                <button type="submit" class="btn btn-primary my-1">Create</button>
-                                <span><a href="{{route('dashboard')}}" class="btn btn-secondary  ">Cancel</a></span>
 
-                                {{-- <a href="javascript:void(0)" class="btn btn-danger my-1">Cancel</a> --}}
-                            </div>
-                        </form>
                     </div>
+                    <div class="card-footer text-end ">
+                        <button type="submit" class="btn btn-primary my-1">Create</button>
+                        <span><a href="{{route('dashboard')}}" class="btn btn-secondary  ">Cancel</a></span>
+
+                        {{-- <a href="javascript:void(0)" class="btn btn-danger my-1">Cancel</a> --}}
+                    </div>
+                    </form>
                 </div>
             </div>
-            <!-- ROW-1 CLOSED -->
-
         </div>
-        <!--CONTAINER CLOSED -->
+        <!-- ROW-1 CLOSED -->
 
     </div>
+    <!--CONTAINER CLOSED -->
+
+</div>
 </div>
 
 @endsection

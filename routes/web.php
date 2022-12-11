@@ -70,11 +70,12 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
      */
     Route::get('/', [homeController::class, 'index'])->name('home.page');
     Route::get('/allHospitals', [homeController::class, 'allHospitals'])->name('home.allHospitals');
-    Route::get('/hospital/{slug}', [homeController::class, 'hospitalDetails'])->name('home.hospital_details');
+    Route::get('/hospital/{id}', [homeController::class, 'hospitalDetails'])->name('home.hospital_details');
     Route::get('/allDepartments', [homeController::class, 'allDepartments'])->name('home.allDepartments');
     Route::get('/getAllDepartments', [homeController::class, 'getAllDepartments'])->name('home.getAllDepartments');
-    Route::get('/department/{slug}', [homeController::class, 'departmentDetails'])->name('home.department_details');
-    Route::get('/allDoctors', [homeController::class, 'allDoctors'])->name('home.allDoctors');
+    Route::get('/department/{id}', [homeController::class, 'departmentDetails'])->name('home.department_details');
+    Route::get('/doctor-specializations', [homeController::class, 'doctorSpecializations'])->name('home.doctorSpecializations');
+    Route::get('/allDoctors/{id}', [homeController::class, 'allDoctors'])->name('home.allDoctors');
     Route::get('/getAllDoctors', [homeController::class, 'getAllDoctors'])->name('home.getAllDoctors');
     //departments
     Route::get('/departments/{orgid}', [homeController::class, 'departmentsOfHospital'])->name('departments.of.hospital');

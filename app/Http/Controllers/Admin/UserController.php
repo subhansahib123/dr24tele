@@ -222,14 +222,23 @@ class UserController extends Controller
             'password' => 'required|string',
             'phoneNumber' => 'required|string',
             'email' => 'required|string',
+            'image' => 'required',
         ]);
-        // dd($request->all());
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
         if (is_null($userInfo)) {
 
             return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
+        if ($request->hasFile('image')) {
+            $getImage = date('Y') . '/' . time() . '-' . rand(0, 999999) . '.' . $request->image->getClientOriginalExtension();
+            $request->image->move(public_path('uploads/organization/management/') . date('Y'), $getImage);
+            $image = $getImage;
+        } else {
+            $image = '';
+        }
+        // dd($image);
+
         try {
 
             $user = User::firstOrCreate([
@@ -241,7 +250,7 @@ class UserController extends Controller
                 'uuid' => Str::uuid(),
                 'PersonId' => Str::uuid(),
                 'status' => 1,
-                'image' => 1
+                'image' => $image
 
             ]);
             // dd($user);

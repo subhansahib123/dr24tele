@@ -94,6 +94,7 @@
     </script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/12.1.5/js/intlTelInput.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/12.1.5/js/utils.js"></script>
+    @if(Route::currentRouteName()=='updateHospital')
     <script type="text/javascript">
         $(function() {
 
@@ -126,6 +127,39 @@
         });
         var number = $("#txtPhone").intlTelInput('getNumber');
     </script>
+    @else
+    <script type="text/javascript">
+        $(function() {
+            var code = "+911234567890";
+            $('#txtPhone').val(code);
+            $('#txtPhone').intlTelInput({
+                autoHideDialCode: true,
+                autoPlaceholder: "ON",
+                dropdownContainer: document.body,
+                formatOnDisplay: true,
+                hiddenInput: "phoneNumber",
+                initialCountry: "auto",
+                nationalMode: true,
+                placeholderNumberType: "MOBILE",
+                preferredCountries: ['US'],
+                separateDialCode: true
+            });
+            FormatNumber();
+            $('#txtPhone').keyup(function() {
+                FormatNumber();
+            });
+
+            function FormatNumber() {
+                var number = $('#txtPhone').val();
+                var classf = $(".selected-flag > div").attr("class");
+                var flag = classf.slice(-2);
+                var formattedNumber = intlTelInputUtils.formatNumber(number, flag, intlTelInputUtils.numberFormat.INTERNATIONAL);
+                $('#txtPhone').val(formattedNumber.slice(formattedNumber.indexOf(' ') + 1, formattedNumber.length));
+            }
+        });
+        var number = $("#txtPhone").intlTelInput('getNumber');
+    </script>
+    @endif
     <!-- Active NAv----->
 
     <script>
