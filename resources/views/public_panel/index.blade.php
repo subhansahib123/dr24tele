@@ -224,8 +224,8 @@
                                         <div class="service-info">
                                             <h3><a href="{{route('home.hospital_details',$organization->id)}}">{{strtoupper($organization->name)}}</a></h3>
                                             <h5>Total Departments: {{count($organization->department)}}</h5>
-                                            <h5>Best Department : {{strtoupper($organization->department[0]->display_name)}}</h5>
-{{--                                            <a href="{{route('departments.of.hospital',$organization->id)}}" class="link style2">Explore More</a>--}}
+                                            {{--                                            <h5>Best Department : {{strtoupper($organization->department[0]->display_name)}}</h5>
+                                            <a href="{{route('departments.of.hospital',$organization->id)}}" class="link style2">Explore More</a>--}}
                                             <a href="{{route('home.hospital_details',$organization->id)}}" class="link style2">Explore More</a>
                                         </div>
                                     </div>

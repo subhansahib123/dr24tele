@@ -188,10 +188,10 @@
                                     </ul>
                                 </li> --}}
                         <li class="nav-item">
-                            <a href="{{ route('home.allDepartments') }}" class="nav-link">Find Departments</a>
+                            <a href="{{ route('home.departmentSpecializations') }}" class="nav-link">Department Specializations</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ route('home.doctorSpecializations') }}" class="nav-link">Find Specializations</a>
+                            <a href="{{ route('home.doctorSpecializations') }}" class="nav-link">Doctor Specializations</a>
                         </li>
                         {{-- <li class="nav-item">
                                     <a href="{{route('patient.login')}}" class="nav-link">Login</a>

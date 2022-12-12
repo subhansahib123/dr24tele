@@ -14,7 +14,9 @@ use App\Models\Schedule;
 use App\Models\Appointment;
 use Illuminate\Support\Facades\Auth;
 use App\AgoraToken\Src\RtcTokenBuilder;
+use App\Models\DepartmentSpecializations;
 use App\Models\DoctorSpecialization;
+use App\Models\SpecializedDepartment;
 
 class homeController extends Controller
 {
@@ -56,10 +58,10 @@ class homeController extends Controller
         return view('public_panel.hospital_details', compact('hospital'));
     }
     //All Departments
-    public function allDepartments(Request $request)
+    public function allDepartments($id)
     {
-
-        $departments = Department::has('doctor')->orderBy('id', 'desc')->paginate(6);
+        
+        $departments = DepartmentSpecializations::where('id',$id)->first();
         // dd($departments);
         return view('public_panel.all_departments', compact('departments'));
     }
@@ -83,7 +85,7 @@ class homeController extends Controller
     {
         $department = Department::where('id', $id)->first();
         $doctors = Doctor::with('user', 'specializedDoctor')->where('department_id', $id)->get();
-
+        // dd( $department,$doctors);y  
         return view('public_panel.department_details', compact('department', 'doctors'));
     }
     //All Doctors
@@ -91,14 +93,21 @@ class homeController extends Controller
     {
 
         $doctors = DoctorSpecialization::where('id', $id)->first();
-        // dd($doctors->name);
+        // dd($doctors);
         return view('public_panel.all_doctors', compact('doctors'));
     }
     public function doctorSpecializations(Request $request)
     {
 
-        $doctorSpecializations = DoctorSpecialization::all();
+        $doctorSpecializations = DoctorSpecialization::has('specializedDoctor')->get();
+        // dd($doctorSpecializations);
         return view('public_panel.DoctorSpecialization', compact('doctorSpecializations'));
+    }public function departmentSpecializations(Request $request)
+    {
+
+        $departmentSpecializations = DepartmentSpecializations::has('Department')->get();
+        // dd($departmentSpecializations);
+        return view('public_panel.DepartmentSpecialization', compact('departmentSpecializations'));
     }
     protected function getAllDoctors(Request $request)
     {

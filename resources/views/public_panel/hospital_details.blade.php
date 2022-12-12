@@ -27,7 +27,7 @@
                                 <div class="service-info">
                                     <h3><a href="{{route('home.department_details',$department->id)}}">{{strtoupper($department->display_name)}}</a></h3>
                                     <h5>Total Doctors: {{count($department->doctor)}} </h5>
-                                    <h5>Best Doctor: {{isset($department->doctor[0]->user->name)?$department->doctor[0]->user->name:''}}</h5>
+                                   {{-- <h5>Best Doctor: {{isset($department->doctor[0]->user->name)?$department->doctor[0]->user->name:''}}</h5>--}}
                                     <a href="{{route('home.department_details',$department->id)}}" class="link style2">Explore More</a>
                                 </div>
                             </div>
