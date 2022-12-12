@@ -30,6 +30,6 @@ class Department extends Model
     }
     public function specialization()
     {
-        return $this->hasOne(SpecializedDepartment::class,'department_id');
+        return $this->belongsToMany(DepartmentSpecializations::class,'specialized_departments','department_id','specialization_id');
     }
 }
