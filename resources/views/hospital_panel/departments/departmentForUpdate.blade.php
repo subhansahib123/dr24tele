@@ -46,12 +46,6 @@
 
                                 <input type="hidden" class="form-control" value="{{$depData->name}}" name="name">
 
-                                <div class=" row mb-1">
-                                    <label for="inputEmail3" class="col-md-3 form-label">Email</label>
-                                    <div class="col-md-9">
-                                        <input type="email" class="form-control" value="{{$depData->email}}" name="email" placeholder="Email" autocomplete="username">
-                                    </div>
-                                </div>
 
                                 <div class=" row mb-1">
                                     <label for="country" class="col-md-3 form-label"> Select Status </label>
@@ -65,7 +59,7 @@
                                     </div>
                                 </div>
                                 <div class=" row  mb-1">
-                                    <label for="image" class="col-md-3 form-label"> Picture </label>
+                                    <label for="image" class="col-md-3 form-label"> Picture <strong> 1140*650</strong> </label>
                                     <div class="col-md-9">
                                         <input type="file" class="form-control" name="image" id="image">
                                     </div>

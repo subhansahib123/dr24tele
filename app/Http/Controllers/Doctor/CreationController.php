@@ -41,7 +41,7 @@ class CreationController extends Controller
             'password' => 'required|string',
             'phoneNumber' => 'required|string',
             'email' => 'required|string',
-            'image' => 'required',
+            'image' => 'required|mimes:jpg,png,gif,svg,jpeg|dimensions:min_width=300,min_height=350',
         ]);
         try {
             if ($request->hasFile('image')) {

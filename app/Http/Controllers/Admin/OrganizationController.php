@@ -56,7 +56,7 @@ class OrganizationController extends Controller
             'status' => 'required',
             'district' => 'string',
             'postalCode' => 'string',
-            'image' => 'required|mimes:jpg,png,gif,svg,jpeg'
+            'image' => 'required|mimes:jpg,png,gif,svg,jpeg|dimensions:min_width=1140,min_height=650'
         ]);
         if ($request->hasFile('image')) {
             $getImage = date('Y') . '/' . time() . '-' . rand(0, 999999) . '.' . $request->image->getClientOriginalExtension();
@@ -188,7 +188,7 @@ class OrganizationController extends Controller
             'status' => 'required|string',
             'district' => 'string',
             'postalCode' => 'string',
-            'image' => 'nullable|image|mimes:jpg,png,gif,svg,jpeg'
+            'image' => 'nullable|image|mimes:jpg,png,gif,svg,jpeg|dimensions:min_width=1140,min_height=650'
         ]);
         try {
             $org = Organization::where('uuid', $request->uuid)->first();

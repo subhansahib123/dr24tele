@@ -35,9 +35,8 @@ class HospitalDepartmentController extends Controller
         $request->validate([
             'name' => 'required|string',
             'status' => 'required|string',
-            'email' => 'required|string',
             'level' => 'string',
-            'image' => 'required',
+            'image' => 'nullable|image|mimes:jpg,png,gif,svg,jpeg|dimensions:min_width=1140,min_height=650',
             'specialization_id.*' => 'required|string',
         ]);
 
@@ -61,7 +60,6 @@ class HospitalDepartmentController extends Controller
             }
             Department::Create([
                 'name' => $request->name . '_' . $org->name,
-                'email' => $request->email,
                 'image' => $image,
                 'organization_id' => $org->id,
                 'display_name' => $request->displayname,
@@ -123,10 +121,9 @@ class HospitalDepartmentController extends Controller
     {
         // dd($request->all());
         $request->validate([
-            'image' => 'nullable|image|mimes:jpg,png,gif,svg,jpeg',
+            'image' => 'nullable|image|mimes:jpg,png,gif,svg,jpeg|dimensions:min_width=1140,min_height=650',
             'displayname' => 'required|string',
             'status' => 'required|string',
-            'email' => 'required|string',
         ]);
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
@@ -157,7 +154,6 @@ class HospitalDepartmentController extends Controller
                 'status' => $request->status,
                 'display_name' => $request->displayname,
                 'image' => $image,
-                'email' => $request->email,
             ]);
             return redirect()->route('hospitalDepartments.list')->withSuccess(__('Department Successfully Updated'));
         } catch (\Exception $e) {

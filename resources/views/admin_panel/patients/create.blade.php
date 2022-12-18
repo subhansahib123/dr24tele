@@ -123,7 +123,7 @@
                                     </div>
                                     <div class=" col-lg-6 col-md-6 col-sm-12 my-0">
 
-                                    <label class="form-label" for="image">Picture</label>
+                                    <label class="form-label" for="image">Profile Image <strong> 300*350</strong></label>
                                         <input class="form-control" type="file" name="image" id="image">
                                     </div>
                                 </div>

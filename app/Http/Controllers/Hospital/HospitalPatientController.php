@@ -21,7 +21,7 @@ class HospitalPatientController extends Controller
             'password' => 'required|string',
             'phoneNumber' => 'required|string',
             'email' => 'required|string',
-            'image' => 'nullable|image|mimes:jpg,png,gif,svg,jpeg',
+            'image' => 'required|mimes:jpg,png,gif,svg,jpeg|dimensions:min_width=300,min_height=350',
         ]);
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
