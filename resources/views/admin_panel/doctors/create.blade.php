@@ -116,7 +116,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-6">
-                                            <label for="Birth">Profile Image</label>
+                                            <label for="Birth">Profile Image <strong> 300*350</strong></label>
                                             <input type="file" name="image" id="image" class="form-control">
                                         </div>
                                     </div>

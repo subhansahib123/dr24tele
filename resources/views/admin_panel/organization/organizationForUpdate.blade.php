@@ -124,9 +124,9 @@
                                     @endif
                                 </div>
                                 <div class=" row  mb-1">
-                                    <label for="image" class="col-md-3 form-label"> Picture </label>
+                                    <label for="image" class="col-md-3 form-label"> Picture <strong> 1140*650</strong></label>
                                     <div class="col-md-9">
-                                        <input type="file" name="image" id="image">
+                                        <input type="file" class="form-control" name="image" id="image">
                                     </div>
                                     @if ($errors->has('image'))
                                         <span class="text-danger text-left">{{ $errors->first('image') }}</span>

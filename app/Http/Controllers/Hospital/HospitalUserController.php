@@ -89,7 +89,7 @@ class HospitalUserController extends Controller
             'password' => 'required|string',
             'phoneNumber' => 'required|string',
             'email' => 'required|string',
-            'image' => 'required',
+            'image' => 'required|mimes:jpg,png,gif,svg,jpeg|dimensions:min_width=300,min_height=350',
         ]);
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
@@ -359,7 +359,10 @@ class HospitalUserController extends Controller
             'name' => 'required|string',
             'status' => 'required|string',
             'email' => 'required|string',
-            'image' => 'nullable|image|mimes:jpg,png,gif,svg,jpeg',
+            'country' => 'required',
+            'state' => 'required',
+            'city' => 'required',
+            'image' => 'nullable|image|mimes:jpg,png,gif,svg,jpeg|dimensions:min_width=1140,min_height=650',
             'contactperson' => 'required|string',
             'phoneNumber' => 'required|string',
         ]);

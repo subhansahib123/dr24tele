@@ -75,6 +75,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::get('/allDepartments/{id}', [homeController::class, 'allDepartments'])->name('home.allDepartments');
     Route::get('/getAllDepartments', [homeController::class, 'getAllDepartments'])->name('home.getAllDepartments');
     Route::get('/department/{id}', [homeController::class, 'departmentDetails'])->name('home.department_details');
+    Route::get('/doctor/{id}', [homeController::class, 'doctorDetails'])->name('home.doctor_details');
     Route::get('/doctor-specializations', [homeController::class, 'doctorSpecializations'])->name('home.doctorSpecializations');
     Route::get('/department-specializations', [homeController::class, 'departmentSpecializations'])->name('home.departmentSpecializations');
     Route::get('/allDoctors/{id}', [homeController::class, 'allDoctors'])->name('home.allDoctors');

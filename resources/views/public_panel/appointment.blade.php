@@ -159,16 +159,12 @@
                                         src="{{ ($doctor->user->image) ? asset('uploads/organization/department/doctor/'. $doctor->user->image) : asset('public_assets/img/services/service-9.jpg')}}"
                                         alt="Image">
                                 </div>
-                                <div class="dr-info">
-                                    <h6>{{ $doctor->user->name }}</h6>
+                                <div class="dr-info text-capitalize">
+                                    <h6 >{{ $doctor->user->name }}</h6>
                                     @foreach($doctor->specialization as $specialization)
                                     <p>{{  $specialization->name  }}</p>
                                     @endforeach
                                 </div>
-                            </div>
-                            <div class="fee-details">
-                                <h6>Doctor Fee</h6>
-                                <span></span>
                             </div>
                         </div>
                     </div>

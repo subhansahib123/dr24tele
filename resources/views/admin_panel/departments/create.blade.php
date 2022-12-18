@@ -50,12 +50,6 @@
                                     @endif
                                 </div>
                                 <div class=" row  mb-1">
-                                    <label for="inputEmail3" class="col-md-3 form-label">Email</label>
-                                    <div class="col-md-9">
-                                        <input type="email" class="form-control" value="{{old('email')}}" name="email" placeholder="Email">
-                                    </div>
-                                </div>
-                                <div class=" row  mb-1">
                                     <label for="specialization" class="col-md-3 form-label"> Select Specialization</label>
                                     <div class="col-md-9">
                                         <select class="form-control js-example-basic-multiple" name="specialization_id[]" multiple="multiple" id=" specialization">
@@ -96,7 +90,7 @@
                                     </div>
                                 </div>
                                 <div class=" row  mb-1">
-                                    <label for="image" class="col-md-3 form-label">Picture</label>
+                                    <label for="image" class="col-md-3 form-label">Picture <strong> 1140*650</strong></label>
                                     <div class="col-md-9">
                                         <input class="form-control" type="file" name="image" id="image">
                                     </div>

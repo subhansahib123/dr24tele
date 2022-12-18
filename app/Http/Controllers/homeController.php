@@ -14,17 +14,24 @@ use App\Models\Schedule;
 use App\Models\Appointment;
 use Illuminate\Support\Facades\Auth;
 use App\AgoraToken\Src\RtcTokenBuilder;
+use App\Models\City;
 use App\Models\DepartmentSpecializations;
 use App\Models\DoctorSpecialization;
 use App\Models\SpecializedDepartment;
+use App\Models\State;
 
 class homeController extends Controller
 {
     public function index(Request $request)
     {
-
         $organizations = Organization::has('department')->orderBy('id', 'desc')->paginate(6);
         return view('public_panel.index', compact('organizations'));
+    }
+    public function index2(Request $request)
+    {
+
+        $organizations = Organization::has('department')->orderBy('id', 'desc')->paginate(6);
+        return view('public_panel.index01', compact('organizations'));
     }
     protected function allHospitals(Request $request)
     {
@@ -50,12 +57,19 @@ class homeController extends Controller
     {
         // \DB::enableQueryLog(); // Enable query log
         $hospital = Organization::has('department')->where('id', $id)->first();
+        $departmentSpecializations = DepartmentSpecializations::has('Department')->get();
+        $doctorSpecializations = DoctorSpecialization::has('specializedDoctor')->get();
+
 
         // $departments=Department::has('doctor')->orderBy('id','desc')->paginate(6);
         // dd(\DB::getQueryLog()); // Show results of log
+        $state=State::where('id',$hospital->state)->first();
+        $city=City::where('id',$hospital->city)->first();
+        $stateName=$state->name;
+        $cityName=$city->name;
 
         // dd($hospital->departments);
-        return view('public_panel.hospital_details', compact('hospital'));
+        return view('public_panel.hospital_details', compact('hospital','stateName','cityName','departmentSpecializations','doctorSpecializations'));
     }
     //All Departments
     public function allDepartments($id)
@@ -84,9 +98,25 @@ class homeController extends Controller
     public function departmentDetails($id)
     {
         $department = Department::where('id', $id)->first();
+        $departmentSpecializations = DepartmentSpecializations::has('Department')->get();
+        $doctorSpecializations = DoctorSpecialization::has('specializedDoctor')->get();
         $doctors = Doctor::with('user', 'specializedDoctor')->where('department_id', $id)->get();
         // dd( $department,$doctors);y  
-        return view('public_panel.department_details', compact('department', 'doctors'));
+        $state=State::where('id',$department->organization->state)->first();
+        $city=City::where('id',$department->organization->city)->first();
+        $stateName=$state->name;
+        $cityName=$city->name;
+
+        return view('public_panel.department_details', compact('department', 'doctors','departmentSpecializations','doctorSpecializations','stateName','cityName'));
+    }
+    public function doctorDetails($id)
+    {
+        $doctor = Doctor::with('user', 'specializedDoctor')->where('id', $id)->first();
+        $departmentSpecializations = DepartmentSpecializations::has('Department')->get();
+        $doctorSpecializations = DoctorSpecialization::has('specializedDoctor')->get();
+        // dd( $department,$doctors);y  
+      
+        return view('public_panel.doctor_details', compact('doctor','departmentSpecializations','doctorSpecializations'));
     }
     //All Doctors
     public function allDoctors($id)
@@ -140,7 +170,7 @@ class homeController extends Controller
         // dd(Auth::check());
         if (isset(auth()->user()->patient)) {
             $doctor = Doctor::with('user', 'specialization')->find($id);
-            // dd($doctor->specialization[0]->name);   
+            // dd($doctor);   
             return view('public_panel.appointment', compact('doctor'));
         } else {
             session_start();
