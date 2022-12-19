@@ -4078,15 +4078,15 @@ select {
    Hero  Section  CSS
 -------------------------------*/
 .hero-bg-one {
-  background-image: url(../img/hero/hero-img-5.jpg);
+  background-image: url(../img/about/about-img-11.jpg);
 }
 
 .hero-bg-two {
-  background-image: url(../img/hero/hero-img-6.jpg);
+  background-image: url(../img/about/about-img-09.jpg);
 }
 
 .hero-bg-three {
-  background-image: url(../img/hero/hero-img-7.jpg);
+  background-image: url(../img/about/about-img-08.jpg);
 }
 
 .hero-wrap {
@@ -4411,7 +4411,7 @@ select {
 
 .hero-wrap.style3 {
   margin-top: 98px;
-  background-image: url(../img/hero/hero-bg-1.jpg);
+  background-image: url(../img/Vectors/background.jpg);
   position: relative;
   z-index: 1;
 }
@@ -5110,7 +5110,7 @@ select {
   width: 100%;
   height: 20%;
   z-index: -1;
-  background-color: #14467B;
+  /* background-color: #14467B; */
 }
 
 .service-card {
@@ -5364,7 +5364,7 @@ select {
 }
 
 .appointment-wrap.style2 .promo-bg {
-  background-image: url(../img/about/promo-bg-2.jpg);
+  background-image: url(../img/about/about-img-10.jpg);
   height: calc(100% + 30px);
   position: relative;
   top: -30px;
@@ -5504,7 +5504,7 @@ select {
    Why Choose US  Section  CSS
 -------------------------------*/
 .wh-bg-3 {
-  background-image: url(../img/why-choose-us/wh-img-3.jpg);
+  background-image: url(../img/about/about-img-12.jpg);
 }
 
 .wh-wrap.style1 .wh-img-wrap {

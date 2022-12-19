@@ -4,13 +4,12 @@
 <!-- Hero Section End -->
 
 <!-- Service Section Start -->
-<section class="service-wrap style2 mt-100 ptb-100">
+<section class="service-wrap style2 mt-100 pb-40 pt-100">
     <div class="container">
         <div class="row">
             <div class="col-xl-6 offset-xl-3 col-lg-8 offset-lg-2 col-md-10 offset-md-1">
                 <div class="section-title style2 text-center mb-40">
-                    <span>{{$departments->name}}</span>
-                    <h2>Departments we have</h2>
+                    <h2>Our Specialized Departments</h2>
                 </div>
             </div>
         </div>
@@ -34,8 +33,8 @@
                                     <span class="service-icon"><i class="flaticon-hospital-ward"></i></span>
                                 </div>
                                 <div class="service-info " style="justify-content:center ;">
-                                    <h3><a href="{{route('home.department_details',$department->id)}}">{{strtoupper($department->display_name)}}</a></h3>
-                                    <h5>Hospital : {{$department->organization->displayname}}</h5>
+                                    <h3 class="text-capitalize"><a href="{{route('home.department_details',$department->id)}}">Name: {{$department->display_name}}</a></h3>
+                                    <h5 class="text-capitalize">Hospital: {{$department->organization->displayname}}</h5>
                                     <h5>Total Doctors: {{count($department->doctor)}}</h5>
                                     <a href="{{route('home.department_details',$department->id)}}" class="link style2">Explore More</a>
                                 </div>
@@ -51,6 +50,92 @@
     </div>
 </section>
 <!-- Service Section End -->
+<!-- Counter Section Start -->
+<div class="counter-wrap pt-100 pb-25  bg-blue">
+    <div class="container">
+        <div class="counter-card-wrap style1 pb-75">
+            <div class="counter-card style1">
+                <span class="counter-icon">
+                    <i class="flaticon-admision-form"></i>
+                </span>
+                <div class="counter-text">
+                    <h2 class="counter-num">
+                        <span class="odometer" data-count="60"></span>
+                        <span class="target">+</span>
+                    </h2>
+                    <p>Project Completed</p>
+                </div>
+            </div>
+            <div class="counter-card style1">
+                <span class="counter-icon">
+                    <i class="flaticon-doctor"></i>
+                </span>
+                <div class="counter-text">
+                    <h2 class="counter-num">
+                        <span class="odometer" data-count="99"></span>
+                        <span class="target">%</span>
+                    </h2>
+                    <p>Patients Satisfied</p>
+                </div>
+            </div>
+            <div class="counter-card style1">
+                <span class="counter-icon">
+                    <i class="flaticon-medical-operation"></i>
+                </span>
+                <div class="counter-text">
+                    <h2 class="counter-num">
+                        <span class="odometer" data-count="700"></span>
+                        <span class="target">+</span>
+                    </h2>
+                    <p>Medical Beds</p>
+                </div>
+            </div>
+            <div class="counter-card style1">
+                <span class="counter-icon">
+                    <i class="flaticon-blood-test"></i>
+                </span>
+                <div class="counter-text">
+                    <h2 class="counter-num">
+                        <span class="odometer" data-count="70"></span>
+                        <span class="target">+</span>
+                    </h2>
+                    <p>Laboratory Experts</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Testimonial Section Start -->
+
+<section class="style1 mtb-100 ">
+    <div class="container">
+        <div class="cta-wrap ">
+            <div class="row gx-5 align-items-center">
+                <div class="col-xl-8 col-lg-7">
+                    <div class="cta-content">
+                        <div class="cta-logo">
+                            <img src="{{asset('public_assets/img/logo.png')}}" width="100px" alt="Image">
+                        </div>
+                        <div class="content-title">
+                            <h2>Don't Hesitate To Contact us</h2>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Architecto inventore voluptatem possimus quibusdam veritatis. Accusamus ipsum saepe quas.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xl-4 col-lg-5">
+                    <div class="cta-btn">
+                        <a href="#" class="btn style1">Make Appointment</a>
+                        <a href="#" class="btn style2">Contact Us</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Testimonial Section End -->
+
+
 @endsection
 @push('js')
 <script type="text/javascript">

@@ -70,7 +70,7 @@
     <!-- About Section End -->
 
     <!-- Counter Section Start -->
-    <div class="counter-wrap pt-100 pb-75  bg-blue">
+    <!-- <div class="counter-wrap pt-100 pb-75  bg-blue">
         <div class="container">
             <div class="counter-card-wrap style1 pb-75">
                 <div class="counter-card style1">
@@ -123,7 +123,121 @@
                 </div>
             </div>
         </div>
-    </div>  
+    </div>   -->
+
+    <section class="wh-wrap style3 ptb-100 bg-chathamas">
+        <div class="container">
+            <div class="row gx-5 align-items-center">
+                <div class="col-lg-6 order-lg-1 order-md-2 order-2 aos-init aos-animate" data-aos="fade-right" data-aos-duration="1200" data-aos-delay="200">
+                    <div class="wh-content">
+                        <div class="content-title style2">
+                            <span>Why Choose us</span>
+                            <h2>We Care about your health and guide you the best way. </h2>
+                            <p>We guide you to the best way to improve your health and live a healthier life. Our tips and advice are based on years of experience and research, so you can be sure you're getting the best possible advice.</p>
+                        </div>
+                        <div class="feature-item-wrap">
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <i class="ri-check-line"></i>
+                                </div>
+                                <div class="feature-text">
+                                    <h3>Mental Health Solution</h3>
+                                    <p> There are a number of effective treatments available. The most important thing is to seek help from a qualified professional who can tailor a treatment plan to your specific needs.</p>
+                                </div>
+                            </div>
+                            <div class="feature-item">
+                                <div class="feature-icon">
+                                    <i class="ri-check-line"></i>
+                                </div>
+                                <div class="feature-text">
+                                    <h3>Timely Cured from Disease</h3>
+                                    <p>No matter what type of disease you have been diagnosed with, it is important to follow your doctor's instructions and get plenty of rest. </p>
+                                </div>
+                            </div>
+                        </div>
+                        <a href="about.html" class="btn style1">Get More info</a>
+                    </div>
+                </div>
+                <div class="col-lg-6 order-lg-2 order-md-1 order-1 aos-init aos-animate" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="200">
+                    <div class="wh-img-wrap">
+                        <div class="wh-bg-3 bg-f"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Service Section Start -->
+    <section class="service-wrap style3 ptb-100 bg-athens">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-6 offset-xl-3 col-lg-8 offset-lg-2 col-md-10 offset-md-1" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="200">
+                    <div class="section-title style1 text-center mb-40">
+                        <span>Our Services</span>
+                        <h2>Think Hard &amp; Focus On The Patient's Well-Being</h2>
+                    </div>
+                </div>
+            </div>
+            <div class="service-slider-one style2 owl-carousel">
+                <div class="service-card style3" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="200">
+                    <div class="service-img">
+                        <img src="http://localhost:8000/public_assets/img/Vectors/Orthopediacsolutions.jpg" alt="Image">
+                        <span class="service-icon"><i class="flaticon-traumatology"></i></span>
+                    </div>
+                    <div class="service-info">
+                        <h3><a href="service-details.html">Orthopedic Solution</a></h3>
+                        <p>It is a long established fact that reader will content of page when looks layout.</p>
+                        <a href="service-details.html" class="link style2">Explore More</a>
+                    </div>
+                </div>
+                <div class="service-card style3" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="400">
+                    <div class="service-img">
+                        <img src="http://localhost:8000/public_assets/img/services/PatientOnboarding.jpg" alt="Image">
+                        <span class="service-icon"><i class="flaticon-hospital-ward"></i></span>
+                    </div>
+                    <div class="service-info">
+                        <h3><a href="service-details.html">Patient Onboarding</a></h3>
+                        <p>It is a long established fact that reader will content of page when looks layout.</p>
+                        <a href="service-details.html" class="link style2">Explore More</a>
+                    </div>
+                </div>
+                <div class="service-card style3" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="600">
+                    <div class="service-img">
+                        <img src="http://localhost:8000/public_assets/img/services/SpecialistAdvise.jpg" alt="Image">
+                        <span class="service-icon"><i class="flaticon-nurse"></i></span>
+                    </div>
+                    <div class="service-info">
+                        <h3><a href="service-details.html">Specialist Advise</a></h3>
+                        <p>It is a long established fact that reader will content of page when looks layout.</p>
+                        <a href="service-details.html" class="link style2">Explore More</a>
+                    </div>
+                </div>
+                <div class="service-card style3" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="800">
+                    <div class="service-img">
+                        <img src="http://localhost:8000/public_assets/img/Vectors/HeartCheck up.jpg" alt="Image">
+                        <span class="service-icon"><i class="flaticon-health-care"></i></span>
+                    </div>
+                    <div class="service-info">
+                        <h3><a href="service-details.html">Heart Checkup</a></h3>
+                        <p>It is a long established fact that reader will content of page when looks layout.</p>
+                        <a href="service-details.html" class="link style2">Explore More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Service Section End -->
+
+
+
+
+
+
+
+
+
+
+
+
 </div>
 <!-- Content wrapper end -->
 

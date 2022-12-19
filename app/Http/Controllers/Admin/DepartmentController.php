@@ -32,10 +32,9 @@ class DepartmentController extends Controller
         $request->validate([
             'name'  => 'required|string',
             'status' => 'required|string',
-            'email' => 'required|string',
             'level' => 'required|string',
             'organization' => 'required|string',
-            'image' => 'required',
+            'image' => 'nullable|image|mimes:jpg,png,gif,svg,jpeg|dimensions:min_width=1140,min_height=650',
             'specialization_id.*' => 'required|string',
         ]);
         if ($request->hasFile('image')) {
@@ -62,7 +61,6 @@ class DepartmentController extends Controller
                 $dep= Department::firstOrCreate([
                     'name' => $request->name . '_' . $orgName->name,
                     'organization_id' => $org->id,
-                    'email'=>$request->email,
                     'display_name' => $request->displayname,
                     'status'=>$request->status,
                     'image' => $image,
@@ -152,7 +150,7 @@ class DepartmentController extends Controller
         $request->validate([
             'name' => 'required|string',
             'status' => 'required|string',
-            'email' => 'required|string',
+            'image'=>'nullable|image|mimes:jpg,png,gif,svg,jpeg|dimensions:min_width=1140,min_height=650',
 
         ]);
 
@@ -174,7 +172,6 @@ class DepartmentController extends Controller
             }
             $dep->update([
                 'display_name' => $request->displayname,
-                'email'=>$request->email,
                 'status'=>$request->status,
                 'image'=> $image
 

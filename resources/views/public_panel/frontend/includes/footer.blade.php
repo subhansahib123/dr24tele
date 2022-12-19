@@ -126,19 +126,19 @@
                       <h3 class="footer-widget-title">Official Info</h3>
                       <ul class="contact-info list-style">
                           <li>
-                              <i class="flaticon-map"></i>
-                              <h6>Location</h6>
-                              <p>2767 Sunrise Street, NY 1002, USA</p>
-                          </li>
-                          <li>
                               <i class="flaticon-email-1"></i>
                               <h6>Email</h6>
-                              <a href="mailto:hello@teli.com">hello@teli.com</a>
+                              <a href="mailto:hello@teli.com">info@drtele.co</a>
                           </li>
                           <li>
                               <i class="flaticon-phone-call-1"></i>
                               <h6>Phone</h6>
-                              <a href="tel:13454567877">+1-3454-5678-77</a>
+                              <a href="tel:13454567877"> +91 79-94945555</a>
+                          </li>
+                          <li>
+                              <i class="flaticon-map"></i>
+                              <h6>Location</h6>
+                              <p>Mbedcare Pvt Ltd, Sebastian Road, Kaloor P.O Cochin 682017 , Kerala, India</p>
                           </li>
                       </ul>
                   </div>

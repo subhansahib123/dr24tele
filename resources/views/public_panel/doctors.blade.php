@@ -89,17 +89,17 @@
                      <div class="blog-card style2">
                          <div class="blog-img">
                              <img src="http://localhost:8000/public_assets/img/blog/blog-5.jpg" alt="Image">
-                             <a href="posts-by-date.html" class="blog-date"><span>22</span> Jun</a>
+                             <a href="#" class="blog-date"><span>22</span> Jun</a>
                          </div>
                          <div class="blog-info">
                              <ul class="blog-metainfo  list-style">
-                                 <li><i class="ri-user-unfollow-line"></i><a href="posts-by-author.html">Admin</a></li>
+                                 <li><i class="ri-user-unfollow-line"></i><a href="#">Admin</a></li>
                                  <li><i class="ri-wechat-line"></i>No Comment</li>
                              </ul>
-                             <h3><a href="blog-details-right-sidebar.html">Telehealth Services Are Ready To Help Your
+                             <h3><a href="#">Telehealth Services Are Ready To Help Your
                                      Family </a></h3>
                              <p>Lorem Ipsum is simply dummy text the and standard dummy text ever since.</p>
-                             <a href="blog-details-right-sidebar.html" class="link style2">Read More<i
+                             <a href="#" class="link style2">Read More<i
                                      class="flaticon-right-arrow"></i></a>
                          </div>
                      </div>
@@ -109,17 +109,17 @@
                      <div class="blog-card style2">
                          <div class="blog-img">
                              <img src="http://localhost:8000/public_assets/img/blog/blog-6.jpg" alt="Image">
-                             <a href="posts-by-date.html" class="blog-date"><span>17</span>Jun</a>
+                             <a href="#" class="blog-date"><span>17</span>Jun</a>
                          </div>
                          <div class="blog-info">
                              <ul class="blog-metainfo  list-style">
-                                 <li><i class="ri-user-unfollow-line"></i><a href="posts-by-author.html">Admin</a></li>
+                                 <li><i class="ri-user-unfollow-line"></i><a href="#">Admin</a></li>
                                  <li><i class="ri-wechat-line"></i>No Comment</li>
                              </ul>
-                             <h3><a href="blog-details-right-sidebar.html">10 Tips To Lead A Healthy And Happy Life</a>
+                             <h3><a href="#">10 Tips To Lead A Healthy And Happy Life</a>
                              </h3>
                              <p>Lorem Ipsum is simply dummy text the and standard dummy text ever since.</p>
-                             <a href="blog-details-right-sidebar.html" class="link style2">Read More<i
+                             <a href="#" class="link style2">Read More<i
                                      class="flaticon-right-arrow"></i></a>
                          </div>
                      </div>
@@ -129,17 +129,17 @@
                      <div class="blog-card style2">
                          <div class="blog-img">
                              <img src="http://localhost:8000/public_assets/img/blog/blog-4.jpg" alt="Image">
-                             <a href="posts-by-date.html" class="blog-date"><span>25</span> May</a>
+                             <a href="#" class="blog-date"><span>25</span> May</a>
                          </div>
                          <div class="blog-info">
                              <ul class="blog-metainfo  list-style">
-                                 <li><i class="ri-user-unfollow-line"></i><a href="posts-by-author.html">Admin</a></li>
+                                 <li><i class="ri-user-unfollow-line"></i><a href="#">Admin</a></li>
                                  <li><i class="ri-wechat-line"></i>No Comment</li>
                              </ul>
-                             <h3><a href="blog-details-right-sidebar.html">The Day I'd Spent At Square Medical Center</a>
+                             <h3><a href="#">The Day I'd Spent At Square Medical Center</a>
                              </h3>
                              <p>Lorem Ipsum is simply dummy text the and standard dummy text ever since.</p>
-                             <a href="blog-details-right-sidebar.html" class="link style2">Read More<i
+                             <a href="#" class="link style2">Read More<i
                                      class="flaticon-right-arrow"></i></a>
                          </div>
                      </div>
