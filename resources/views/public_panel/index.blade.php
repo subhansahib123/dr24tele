@@ -17,7 +17,7 @@
                             <p>Dr.Tele is an innovative telemedicine program that allows you to get the best care possible without having to travel to see a doctor in person. We save you time and money by eliminating unnecessary trips and waiting rooms. Just by scheduling an appointment with our physicians online. </p>
                             <div class="hero-btn">
                                 <a href="#" class="btn style1">Find Out More</a>
-                                <a class="play-video" data-fancybox="" href="#">
+                                <a class="play-video" data-fancybox="" href="https://www.youtube.com/watch?v=VuhbscB3puc">
                                     <span class="video-icon">
                                         <i class="ri-play-fill"></i>
                                     </span>
