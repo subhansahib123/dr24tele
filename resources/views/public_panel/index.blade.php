@@ -242,7 +242,7 @@
             </div>
             <div class="col-lg-6">
                 <div class="promo-bg bg-f">
-                    <a class="play-now" data-fancybox="" href="#">
+                    <a class="play-now" data-fancybox="" href="https://www.youtube.com/watch?v=VuhbscB3puc">
                         <i class="ri-play-fill"></i>
                         <span class="ripple"></span>
                     </a>

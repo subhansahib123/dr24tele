@@ -12,11 +12,11 @@
                             </li>
                             <li>
                                 <span><i class="ri-phone-fill"></i></span>
-                                <a href="tel:2455921125">(+245) 592 1125</a>
+                                <a href="tel:2455921125">+91 79-94945555</a>
                             </li>
                             <li>
                                 <span><i class="ri-map-pin-fill"></i></span>
-                                <p>2767 Sunrise Street, NY 1002, USA</p>
+                                <p>Mbedcare Pvt Ltd, Kerala, India</p>
                             </li>
                         </ul>
                     </div>

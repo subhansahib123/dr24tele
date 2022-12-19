@@ -7,7 +7,8 @@
         <div class="row gx-5">
             <div class="col-xl-8">
                 <div class="service-desc">
-                    <a class="single-service-img" data-fancybox="gallery" href="assets/img/portfolio/single-portfolio-1.jpg">
+                    <a class="single-service-img" data-fancybox="gallery" 
+                    ="assets/img/portfolio/single-portfolio-1.jpg">
                         <img src="{{($department->image)? asset('uploads/organization/department/'. $department->image) : asset('public_assets/img/services/service-9.jpg')}}" alt="Image">
                     </a>
                     <h2>Medical Specialties</h2>
