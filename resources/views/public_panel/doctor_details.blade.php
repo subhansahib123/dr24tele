@@ -65,14 +65,6 @@
                             </div>
                             @endif
                             <div class="portfolio-info-item">
-                                <p style="font-size: 15px;"><i class="ri-phone-line"></i>Cell-No:</p>
-                                <span>{{$doctor->user->phone_number}}</span>
-                            </div>
-                            <div class="portfolio-info-item">
-                                <p><i class="ri-mail-line"></i>E-Mail:</p>
-                                <span>{{$doctor->user->email}}</span>
-                            </div>
-                            <div class="portfolio-info-item">
                                 <p><i class="ri-hospital-line"></i>Depart:</p>
                                 <span>{{$doctor->department->display_name}}</span>
                             </div>

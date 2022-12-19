@@ -124,8 +124,8 @@
                 </div>
                 <div class="col-xl-4 col-lg-5">
                     <div class="cta-btn">
-                        <a href="appointment.html" class="btn style1">Make Appointment</a>
-                        <a href="contact.html" class="btn style2">Contact Us</a>
+                        <a href="#" class="btn style1">Make Appointment</a>
+                        <a href="#" class="btn style2">Contact Us</a>
                     </div>
                 </div>
             </div>

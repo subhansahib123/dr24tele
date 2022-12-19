@@ -30,7 +30,7 @@
                             <span class="service-icon"><i class="flaticon-hospital-ward"></i></span>
                         </div>
                         <div class="service-info">
-                            <h3><a href="service-details.html">{{$department->name}}</a></h3>
+                            <h3><a href="#">{{$department->name}}</a></h3>
                             <p>It is a long established fact that reader will content of page when looks layout.</p>
                             <a href="{{route('doctors.of.department',$department->id)}}" class="link style2">Find Doctors</a>
                         </div>
@@ -40,11 +40,11 @@
 
             </div>
             <ul class="page-nav list-style">
-                <li><a href="service-one.html"><i class="ri-arrow-left-s-line"></i></a></li>
-                <li><a class="active" href="service-one.html">1</a></li>
-                <li><a href="service-one.html">2</a></li>
-                <li><a href="service-one.html">3</a></li>
-                <li><a href="service-one.html"><i class="ri-arrow-right-s-line"></i></a></li>
+                <li><a href="#"><i class="ri-arrow-left-s-line"></i></a></li>
+                <li><a class="active" href="#">1</a></li>
+                <li><a href="#">2</a></li>
+                <li><a href="#">3</a></li>
+                <li><a href="#"><i class="ri-arrow-right-s-line"></i></a></li>
             </ul>
         </div>
     </section>
