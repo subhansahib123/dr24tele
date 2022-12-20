@@ -347,7 +347,7 @@
 
         function getData(page, query) {
             $.ajax({
-                url: '/allHospitals?page=' + page + '&query=' + query,
+                url: '{{route('home.page')}}'+'?page=' + page + '&query=' + query,
                 type: "get",
                 success: function(data) {
                     if (data.length > 0) {
