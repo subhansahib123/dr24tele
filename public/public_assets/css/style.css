@@ -4078,15 +4078,15 @@ select {
    Hero  Section  CSS
 -------------------------------*/
 .hero-bg-one {
-  background-image: url(../img/about/about-img-11.jpg);
+  background-image: url(../img/Vectors/banner01.jpg);
 }
 
 .hero-bg-two {
-  background-image: url(../img/about/about-img-09.jpg);
+  background-image: url(../img/Vectors/banner03.jpg);
 }
 
 .hero-bg-three {
-  background-image: url(../img/about/about-img-08.jpg);
+  background-image: url(../img/Vectors/banner02.jpg);
 }
 
 .hero-wrap {
@@ -4718,7 +4718,7 @@ select {
 }
 
 .about-wrap.style1 .about-content .about-promo-video {
-  background-image: url(../img/webImages/image06.jpg);
+  background-image: url(../img/webImages/image06.webp);
   height: 150px;
   border-radius: 10px;
 }
@@ -5364,7 +5364,7 @@ select {
 }
 
 .appointment-wrap.style2 .promo-bg {
-  background-image: url(../img/about/about-img-10.jpg);
+  background-image: url(../img/Vectors/img09.jpg);
   height: calc(100% + 30px);
   position: relative;
   top: -30px;
@@ -5504,7 +5504,7 @@ select {
    Why Choose US  Section  CSS
 -------------------------------*/
 .wh-bg-3 {
-  background-image: url(../img/about/about-img-12.jpg);
+  background-image: url(../img/about/img02.jpg);
 }
 
 .wh-wrap.style1 .wh-img-wrap {
