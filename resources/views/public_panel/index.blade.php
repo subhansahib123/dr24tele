@@ -29,10 +29,6 @@
                     <div class="col-lg-6">
                         <div class="hero-img-wrap bg-f hero-bg-one">
                             <img src="{{asset('public_assets/img/hero/hero-shape-7.png')}}" alt="Image" class="hero-shape-three">
-                            <div class="hero-promo-box">
-                                <span class="promo-icon"><i class="flaticon-blood-test"></i></span>
-                                <h2>700+ <span>Labratory Experts</span></h2>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -58,11 +54,7 @@
                     </div>
                     <div class="col-lg-6">
                         <div class="hero-img-wrap bg-f hero-bg-two">
-                            <img src="{{asset('public_assets/img/hero/hero-shape-7.png')}}" alt="Image" class="hero-shape-three">
-                            <div class="hero-promo-box">
-                                <span class="promo-icon"><i class="flaticon-support"></i></span>
-                                <h2>24/7 <span>Service Available</span></h2>
-                            </div>
+                            <img src="{{asset('public_assets/img/hero/hero-shape-7.png')}}" alt="Image" class="hero-shape-three">   
                         </div>
                     </div>
                 </div>
@@ -89,10 +81,6 @@
                     <div class="col-lg-6">
                         <div class="hero-img-wrap bg-f hero-bg-three">
                             <img src="{{asset('public_assets/img/hero/hero-shape-7.png')}}" alt="Image" class="hero-shape-three">
-                            <div class="hero-promo-box">
-                                <span class="promo-icon"><i class="flaticon-user-2"></i></span>
-                                <h2>700+ <span>Happy Clients</span></h2>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -116,12 +104,8 @@
         <div class="row gx-5 align-items-center">
             <div class="col-lg-6 aos-init" data-aos="fade-right" data-aos-duration="1200" data-aos-delay="200">
                 <div class="about-img-wrap">
-                    <img src="{{asset('public_assets/img/about/about-img-06.jpg')}}" alt="Image" class="about-img-one">
-                    <img src="{{asset('public_assets/img/about/about-img-07.jpg')}}" alt="Image" class="about-img-two">
-                    <div class="about-promo-box">
-                        <span class="promo-icon"><i class="flaticon-medical-operation"></i></span>
-                        <h2>700+ <span>Labratory Experts</span></h2>
-                    </div>
+                    <img src="{{asset('public_assets/img/Vectors/img06.jpg')}}" alt="Image" class="about-img-one">
+                    <img src="{{asset('public_assets/img/Vectors/img05.jpg')}}" alt="Image" class="about-img-two">   
                 </div>
             </div>
             <div class="col-lg-6 aos-init" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="200">

@@ -145,6 +145,6 @@
               </div>
           </div>
       </div>
-      <p class="copyright-text"><i class="ri-copyright-line"></i> <span>Teli</span>. All Rights Reserved By <a href="https://hibotheme.com/">HiboTheme</a></p>
+      <p class="copyright-text"><i class="ri-copyright-line"></i> <span>DrTele</span> . All Rights Reserved By <a href="#">EasyEnd & Monsters</a></p>
   </footer>
   <!-- Footer Section End -->

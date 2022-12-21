@@ -80,53 +80,26 @@
                             </div>
                         </div>
                         <div class="sidebar-widget categories">
-                            <h4>Categories</h4>
+                            <h4>Department Specialization</h4>
                             <div class="category-box">
                                 <ul class="list-style">
+                                    @foreach($departmentSpecializations as $departmentSpecialization)
                                     <li>
-                                        <a href="service-one.html">
-                                            Orthopedic Solutions
+                                        <a class="text-capitalize" href="{{route('home.allDepartments',$departmentSpecialization->id)}}">
+                                            {{$departmentSpecialization->name}}
                                         </a>
                                     </li>
-                                    <li>
-                                        <a href="service-one.html">
-                                            Cardiology Solutions
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="service-one.html">
-                                            Dental Services
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="service-one.html">
-                                            Eye Care Services
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="service-one.html">
-                                            Gastrology Services
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="service-one.html">
-                                            Neurology Services
-                                        </a>
-                                    </li>
+                                    @endforeach
                                 </ul>
                             </div>
                         </div>
                         <div class="sidebar-widget tags">
-                            <h4>Popular Tags </h4>
+                            <h4>Doctor Specialization </h4>
                             <div class="tag-list">
                                 <ul class="list-style">
-                                    <li><a href="posts-by-tag.html">Health</a></li>
-                                    <li><a href="posts-by-tag.html">Medicine</a></li>
-                                    <li><a href="posts-by-tag.html">Dental</a></li>
-                                    <li><a href="posts-by-tag.html">Acne</a></li>
-                                    <li><a href="posts-by-tag.html">Doctor</a></li>
-                                    <li><a href="posts-by-tag.html">Eye Care</a></li>
-                                    <li><a href="posts-by-tag.html">Patient</a></li>
+                                    @foreach($doctorSpecializations as $doctorSpecialization)
+                                    <li><a class="text-capitalize" href="{{route('home.allDoctors',$doctorSpecialization->id)}}">{{$doctorSpecialization->name}}</a></li>
+                                    @endforeach
                                 </ul>
                             </div>
                         </div>

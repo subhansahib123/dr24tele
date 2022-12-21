@@ -11,7 +11,7 @@
             <div class="breadcrumb-title">
                 <h2>About Us</h2>
                 <ul class="breadcrumb-menu list-style">
-                    <li><a href="index.html">Home</a></li>
+                    <li><a href="{{route('home.page')}}">Home</a></li>
                     <li>About Us</li>
                 </ul>
             </div>
@@ -155,7 +155,7 @@
                                 </div>
                             </div>
                         </div>
-                        <a href="about.html" class="btn style1">Get More info</a>
+                        <a href="#" class="btn style1">Get More info</a>
                     </div>
                 </div>
                 <div class="col-lg-6 order-lg-2 order-md-1 order-1 aos-init aos-animate" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="200">
@@ -180,46 +180,46 @@
             <div class="service-slider-one style2 owl-carousel">
                 <div class="service-card style3" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="200">
                     <div class="service-img">
-                        <img src="http://localhost:8000/public_assets/img/Vectors/Orthopediacsolutions.jpg" alt="Image">
+                        <img src="{{asset('public_assets/img/Vectors/Orthopediacsolutions.jpg')}}" alt="Image">
                         <span class="service-icon"><i class="flaticon-traumatology"></i></span>
                     </div>
                     <div class="service-info">
-                        <h3><a href="service-details.html">Orthopedic Solution</a></h3>
+                        <h3><a href="">Orthopedic Solution</a></h3>
                         <p>It is a long established fact that reader will content of page when looks layout.</p>
-                        <a href="service-details.html" class="link style2">Explore More</a>
+                        <a href="#" class="link style2">Explore More</a>
                     </div>
                 </div>
                 <div class="service-card style3" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="400">
                     <div class="service-img">
-                        <img src="http://localhost:8000/public_assets/img/services/PatientOnboarding.jpg" alt="Image">
+                        <img src="{{asset('public_assets/img/services/PatientOnboarding.jpg')}}" alt="Image">
                         <span class="service-icon"><i class="flaticon-hospital-ward"></i></span>
                     </div>
                     <div class="service-info">
-                        <h3><a href="service-details.html">Patient Onboarding</a></h3>
+                        <h3><a href="#">Patient Onboarding</a></h3>
                         <p>It is a long established fact that reader will content of page when looks layout.</p>
-                        <a href="service-details.html" class="link style2">Explore More</a>
+                        <a href="#" class="link style2">Explore More</a>
                     </div>
                 </div>
                 <div class="service-card style3" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="600">
                     <div class="service-img">
-                        <img src="http://localhost:8000/public_assets/img/services/SpecialistAdvise.jpg" alt="Image">
+                        <img src="{{asset('public_assets/img/services/SpecialistAdvise.jpg')}}" alt="Image">
                         <span class="service-icon"><i class="flaticon-nurse"></i></span>
                     </div>
                     <div class="service-info">
-                        <h3><a href="service-details.html">Specialist Advise</a></h3>
+                        <h3><a href="#">Specialist Advise</a></h3>
                         <p>It is a long established fact that reader will content of page when looks layout.</p>
-                        <a href="service-details.html" class="link style2">Explore More</a>
+                        <a href="#" class="link style2">Explore More</a>
                     </div>
                 </div>
                 <div class="service-card style3" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="800">
                     <div class="service-img">
-                        <img src="http://localhost:8000/public_assets/img/Vectors/HeartCheck up.jpg" alt="Image">
+                        <img src="{{asset('public_assets/img/Vectors/HeartCheck up.jpg')}}" alt="Image">
                         <span class="service-icon"><i class="flaticon-health-care"></i></span>
                     </div>
                     <div class="service-info">
-                        <h3><a href="service-details.html">Heart Checkup</a></h3>
+                        <h3><a href="#">Heart Checkup</a></h3>
                         <p>It is a long established fact that reader will content of page when looks layout.</p>
-                        <a href="service-details.html" class="link style2">Explore More</a>
+                        <a href="#" class="link style2">Explore More</a>
                     </div>
                 </div>
             </div>
