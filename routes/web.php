@@ -75,7 +75,6 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::get('/allDepartments/{id}', [homeController::class, 'allDepartments'])->name('home.allDepartments');
     Route::get('/getAllDepartments', [homeController::class, 'getAllDepartments'])->name('home.getAllDepartments');
     Route::get('/department/{id}', [homeController::class, 'departmentDetails'])->name('home.department_details');
-    Route::get('/doctor/{id}', [homeController::class, 'doctorDetails'])->name('home.doctor_details');
     Route::get('/doctor-specializations', [homeController::class, 'doctorSpecializations'])->name('home.doctorSpecializations');
     Route::get('/department-specializations', [homeController::class, 'departmentSpecializations'])->name('home.departmentSpecializations');
     Route::get('/allDoctors/{id}', [homeController::class, 'allDoctors'])->name('home.allDoctors');
@@ -146,6 +145,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::get('/doctor/login', [AuthenticationController::class, 'showDoctorLogin'])->name('doctor.login');
     Route::post('/doctor/logined', [AuthenticationController::class, 'doctorLogin'])->name('doctor.loggedin');
 
+    Route::get('/doctor/{id}', [homeController::class, 'doctorDetails'])->name('home.doctor_details');
     //paitent Register
 
     Route::get('/patient/register', [PatientAuthenticationController::class, 'register'])->name('patient.register');
