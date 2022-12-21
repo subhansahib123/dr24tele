@@ -7,84 +7,66 @@
 
 
 <!-- Service Section Start -->
-<section class="service-wrap style2 mt-100 ptb-100">
-    <div class="container">
-        <div class="row">
-
-            <div class="col-xl-6 offset-xl-3 col-lg-8 offset-lg-2 col-md-10 offset-md-1">
-                <div class="section-title style2 text-center mb-40">
-                    <span>Our Services</span>
-                    <h2>We're Providing Best Services</h2>
-                </div>
-            </div>
-        </div>
-        <div class="row justify-content-center">
-            <div class="col-xl-12">
-                <div class="d-flex justify-content-end">
-                    <div class="mb-3 w-25">
-                        <input type="text" class="form-control" id="search-doctor" placeholder="Search ..." name="search" value="">
+<section class="service-wrap style3 mt-100 ptb-100 bg-athens">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-6 offset-xl-3 col-lg-8 offset-lg-2 col-md-10 offset-md-1" data-aos="fade-up" data-aos-duration="1200" data-aos-delay="200">
+                    <div class="section-title style1 text-center mb-40">
+                        <span>Our Services</span>
+                        <h2>Think Hard &amp; Focus On The Patient's Well-Being</h2>
                     </div>
                 </div>
             </div>
-            <div class="col-xl-12">
-                <div id="get-hospitals">
-                    <div class="row">
-                        <div class="col-xl-4 col-lg-6 col-md-6 mb-3">
-                            <div class="service-card style1 h-100">
-                                <div class="service-img text-center">
-                                    <img src="{{asset('public_assets/img/services/Pathology.jpg')}}" alt="Image">
-                                    <span class="service-icon"><i class="flaticon-hospital-ward"></i></span>
-                                </div>
-                                <div class="service-info">
-                                    <a href="#">
-                                        <h3>Pathology</h3>
-                                    </a>
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit sint, corporis delectus numquam.</p>
-                                    <a href="#" class="link style2">Explore More</a>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-4 col-lg-6 col-md-6 mb-3">
-                            <div class="service-card style1 h-100">
-                                <div class="service-img text-center">
-                                    <img src="{{asset('public_assets/img/services/SpecialistAdvise.jpg')}}" alt="Image">
-                                    <span class="service-icon"><i class="flaticon-hospital-ward"></i></span>
-                                </div>
-                                <div class="service-info">
-                                    <a href="#">
-                                        <h3>Specialist Advise</h3>
-                                    </a>
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit sint, corporis delectus numquam.</p>
-                                    <a href="#" class="link style2">Explore More</a>
-
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-xl-4 col-lg-6 col-md-6 mb-3">
-                            <div class="service-card style1 h-100">
-                                <div class="service-img text-center">
-                                    <img src="{{asset('public_assets/img/services/PatientOnboarding.jpg')}}" alt="Image">
-                                    <span class="service-icon"><i class="flaticon-hospital-ward"></i></span>
-                                </div>
-                                <div class="service-info">
-                                    <a href="#">
-                                        <h3>Patient Onboarding</h3>
-                                    </a>
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Suscipit sint, corporis delectus numquam.</p>
-                                    <a href="#" class="link style2">Explore More</a>
-
-                                </div>
-                            </div>
-                        </div>
+            <div class="service-slider-one style2 owl-carousel">
+                <div class="service-card style3" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="200">
+                    <div class="service-img">
+                        <img src="{{asset('public_assets/img/Vectors/Orthopediacsolutions.jpg')}}" alt="Image">
+                        <span class="service-icon"><i class="flaticon-traumatology"></i></span>
                     </div>
-                    <input type="hidden" name="hidden_page" id="hidden_page" value="1" />
+                    <div class="service-info">
+                        <h3><a href="">Orthopedic Solution</a></h3>
+                        <p>It is a long established fact that reader will content of page when looks layout.</p>
+                        <a href="#" class="link style2">Explore More</a>
+                    </div>
+                </div>
+                <div class="service-card style3" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="400">
+                    <div class="service-img">
+                        <img src="{{asset('public_assets/img/services/PatientOnboarding.jpg')}}" alt="Image">
+                        <span class="service-icon"><i class="flaticon-hospital-ward"></i></span>
+                    </div>
+                    <div class="service-info">
+                        <h3><a href="#">Patient Onboarding</a></h3>
+                        <p>It is a long established fact that reader will content of page when looks layout.</p>
+                        <a href="#" class="link style2">Explore More</a>
+                    </div>
+                </div>
+                <div class="service-card style3" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="600">
+                    <div class="service-img">
+                        <img src="{{asset('public_assets/img/services/SpecialistAdvise.jpg')}}" alt="Image">
+                        <span class="service-icon"><i class="flaticon-nurse"></i></span>
+                    </div>
+                    <div class="service-info">
+                        <h3><a href="#">Specialist Advise</a></h3>
+                        <p>It is a long established fact that reader will content of page when looks layout.</p>
+                        <a href="#" class="link style2">Explore More</a>
+                    </div>
+                </div>
+                <div class="service-card style3" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="800">
+                    <div class="service-img">
+                        <img src="{{asset('public_assets/img/Vectors/HeartCheck up.jpg')}}" alt="Image">
+                        <span class="service-icon"><i class="flaticon-health-care"></i></span>
+                    </div>
+                    <div class="service-info">
+                        <h3><a href="#">Heart Checkup</a></h3>
+                        <p>It is a long established fact that reader will content of page when looks layout.</p>
+                        <a href="#" class="link style2">Explore More</a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
-<!-- Service Section End -->
+    </section>
+    <!-- Service Section End -->
+
 @endsection
 @push('js')
 <script type="text/javascript">

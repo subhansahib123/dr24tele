@@ -27,7 +27,7 @@
                          <div class="owl-item cloned" style="width: 305.25px; margin-right: 25px;">
                              <div class="team-card style1 aos-init aos-animate" data-aos="fade-up" data-aos-duration="1200"
                                  data-aos-delay="400">
-                                 <img src="http://localhost:8000/public_assets/img/team/team-3.jpg"  alt="Image">
+                                 <img src="{{asset('public_assets/img/team/team-3.jpg')}}"  alt="Image">
                                  <div class="team-info">
                                      <a href="{{route('load.appointment',$doctor->id)}}" class="team-mail"><i
                                              class="ri-mail-send-line"></i></a>
@@ -88,7 +88,7 @@
                      data-aos-duration="1200" data-aos-delay="200">
                      <div class="blog-card style2">
                          <div class="blog-img">
-                             <img src="http://localhost:8000/public_assets/img/blog/blog-5.jpg" alt="Image">
+                             <img src="{{asset('public_assets/img/blog/blog-5.jpg')}}" alt="Image">
                              <a href="#" class="blog-date"><span>22</span> Jun</a>
                          </div>
                          <div class="blog-info">
@@ -108,7 +108,7 @@
                      data-aos-duration="1200" data-aos-delay="300">
                      <div class="blog-card style2">
                          <div class="blog-img">
-                             <img src="http://localhost:8000/public_assets/img/blog/blog-6.jpg" alt="Image">
+                             <img src="{{asset('public_assets/img/blog/blog-6.jpg')}}" alt="Image">
                              <a href="#" class="blog-date"><span>17</span>Jun</a>
                          </div>
                          <div class="blog-info">
@@ -128,7 +128,7 @@
                      data-aos-duration="1200" data-aos-delay="400">
                      <div class="blog-card style2">
                          <div class="blog-img">
-                             <img src="http://localhost:8000/public_assets/img/blog/blog-4.jpg" alt="Image">
+                             <img src="{{asset('public_assets/img/blog/blog-4.jpg')}}" alt="Image">
                              <a href="#" class="blog-date"><span>25</span> May</a>
                          </div>
                          <div class="blog-info">
