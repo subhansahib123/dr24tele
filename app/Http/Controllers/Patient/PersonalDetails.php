@@ -33,18 +33,19 @@ class PersonalDetails extends Controller
     {
         $user = User::with('doctor')->where('phone_number', auth()->user()->phone_number)->first();
         // dd($request->all(),$user);   
+        if (!Auth::check())
+            return redirect()->route('logout')->withErrors(['error' => 'Login Token Expired ! Please login Again']);
 
         $request->validate([
             'newPhoneNumber' => 'required|string',
         ]);
-        $user->update(['phone_number' => $request->phoneNumberNew]);
-        // dd($user->phone_number);
+        $user->update(['phone_number' => $request->newPhoneNumber]);
         return redirect()->route('verify.phoneNumber')->withSuccess(__('Phone Number is Successfully Updated'));
     }
 
     public function phoneNumberVerified(Request $request)
     {
-        
+
         return view('patient_panel.personalInfo.updatingNumber');
     }
 }
