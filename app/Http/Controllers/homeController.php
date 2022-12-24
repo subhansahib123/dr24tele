@@ -25,6 +25,14 @@ class homeController extends Controller
     public function index(Request $request)
     {
         $organizations = Organization::has('department')->orderBy('id', 'desc')->paginate(6);
+        if ($request->ajax()){
+            $search = $request->get('query');
+            $organizations=Organization::has('department')->orderBy('id','desc')->where(function ($q) use ($search){
+                if (!empty($search)){
+                    $q->where('name','like','%'.$search.'%');
+                }
+            })->paginate(6);
+        }
         return view('public_panel.index', compact('organizations'));
     }
     public function index2(Request $request)
@@ -74,7 +82,7 @@ class homeController extends Controller
     //All Departments
     public function allDepartments($id)
     {
-        
+
         $departments = DepartmentSpecializations::where('id',$id)->first();
         // dd($departments);
         return view('public_panel.all_departments', compact('departments'));
@@ -101,7 +109,7 @@ class homeController extends Controller
         $departmentSpecializations = DepartmentSpecializations::has('Department')->get();
         $doctorSpecializations = DoctorSpecialization::has('specializedDoctor')->get();
         $doctors = Doctor::with('user', 'specializedDoctor')->where('department_id', $id)->get();
-        // dd( $department,$doctors);y  
+        // dd( $department,$doctors);y
         $state=State::where('id',$department->organization->state)->first();
         $city=City::where('id',$department->organization->city)->first();
         $stateName=$state->name;
@@ -114,8 +122,8 @@ class homeController extends Controller
         $doctor = Doctor::with('user', 'specializedDoctor')->where('id', $id)->first();
         $departmentSpecializations = DepartmentSpecializations::has('Department')->get();
         $doctorSpecializations = DoctorSpecialization::has('specializedDoctor')->get();
-        // dd( $department,$doctors);y  
-      
+        // dd( $department,$doctors);y
+
         return view('public_panel.doctor_details', compact('doctor','departmentSpecializations','doctorSpecializations'));
     }
     //All Doctors
@@ -130,12 +138,28 @@ class homeController extends Controller
     {
 
         $doctorSpecializations = DoctorSpecialization::has('specializedDoctor')->get();
+        if ($request->ajax()){
+            $search = $request->get('query');
+            $doctorSpecializations=DoctorSpecialization::has('specializedDoctor')->orderBy('id','desc')->where(function ($q) use ($search){
+                if (!empty($search)){
+                    $q->where('name','like','%'.$search.'%');
+                }
+            })->paginate(6);
+        }
         // dd($doctorSpecializations);
         return view('public_panel.DoctorSpecialization', compact('doctorSpecializations'));
     }public function departmentSpecializations(Request $request)
     {
 
         $departmentSpecializations = DepartmentSpecializations::has('Department')->get();
+        if ($request->ajax()){
+            $search = $request->get('query');
+            $departmentSpecializations=DepartmentSpecializations::has('Department')->orderBy('id','desc')->where(function ($q) use ($search){
+                if (!empty($search)){
+                    $q->where('name','like','%'.$search.'%');
+                }
+            })->paginate(6);
+        }
         // dd($departmentSpecializations);
         return view('public_panel.DepartmentSpecialization', compact('departmentSpecializations'));
     }
@@ -170,7 +194,7 @@ class homeController extends Controller
         // dd(Auth::check());
         if (isset(auth()->user()->patient)) {
             $doctor = Doctor::with('user', 'specialization')->find($id);
-            // dd($doctor);   
+            // dd($doctor);
             return view('public_panel.appointment', compact('doctor'));
         } else {
             session_start();
