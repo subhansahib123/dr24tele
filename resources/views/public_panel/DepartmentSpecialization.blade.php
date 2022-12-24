@@ -7,10 +7,10 @@
 
 
 <!-- Service Section Start -->
-<section class="service-wrap style2 mt-100 pt-100 pb-50"  
+<section class="service-wrap style2 mt-100 pt-100 pb-50"
 @if(count($departmentSpecializations)>3)
     style="padding-bottom: 110px"
-@else 
+@else
     style="padding-bottom:260px"
 @endif
 >
@@ -206,7 +206,7 @@
 
         function getData(page, query) {
             $.ajax({
-                url: '/getAllDoctors?page=' + page + '&query=' + query,
+                url: '{{route('home.departmentSpecializations')}}'+'?page=' + page + '&query=' + query,
                 type: "get",
                 success: function(data) {
                     if (data.length > 0) {

@@ -145,7 +145,6 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::get('/doctor/login', [AuthenticationController::class, 'showDoctorLogin'])->name('doctor.login');
     Route::post('/doctor/logined', [AuthenticationController::class, 'doctorLogin'])->name('doctor.loggedin');
 
-    Route::get('/doctor/{id}', [homeController::class, 'doctorDetails'])->name('home.doctor_details');
     //paitent Register
 
     Route::get('/patient/register', [PatientAuthenticationController::class, 'register'])->name('patient.register');
@@ -431,4 +430,9 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
     Route::get('/appointments', [PatientAuthenticationController::class, 'appointments'])->name('appointments');
   });
+
+
+  //Please Don't Change the location of this Route Other-Wise U have to face lots of errors
+  Route::get('/doctor/{id}', [homeController::class, 'doctorDetails'])->name('home.doctor_details');
+
 });

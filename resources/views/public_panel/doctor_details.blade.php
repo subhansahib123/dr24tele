@@ -52,7 +52,7 @@
                         <div class="portfolio-info-item-wrap">
                             <div class="portfolio-info-item">
                                 <p><i class="ri-calendar-line"></i>Name:</p>
-                                <span>Dr.{{$doctor->user->name}}</span>
+                                <span class="text-capitalize">Dr.{{$doctor->user->name}}</span>
                             </div>
                             @if(count($doctor->specialization)>0)
                             <div class="portfolio-info-item" style="font-size:14px ;">
@@ -66,7 +66,7 @@
                             @endif
                             <div class="portfolio-info-item">
                                 <p><i class="ri-hospital-line"></i>Depart:</p>
-                                <span>{{$doctor->department->display_name}}</span>
+                                <span class="text-capitalize">{{$doctor->department->display_name}}</span>
                             </div>
                         </div>
                     </div>
