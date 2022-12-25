@@ -231,7 +231,6 @@
             var user_id = `{{ auth()->user()->id}}`;
         }
     </script>
-    <script src="{{asset('public_assets/js/firebase.js')}}"></script>
 
     <script>
         /*** add active class and stay opened when selected ***/
@@ -255,6 +254,8 @@
 
     <!----Custom Function To Manage-->
     @yield('foot_script');
+    <script src="{{asset('public_assets/js/firebase.js')}}"></script>
+
     </body>
 
     </html>

@@ -45,14 +45,14 @@ window.onload = function () {
             .catch(function (error) {
                 alert(error);
             });
-        // messaging.onMessage(function (payload) {
-        //     const title = payload.notification.title;
-        //     const options = {
-        //         body: payload.notification.body,
-        //         icon: payload.notification.icon,
-        //     };
-        //     new Notification(title, options);
-        // });
+        messaging.onMessage(function (payload) {
+            const title = payload.notification.title;
+            const options = {
+                body: payload.notification.body,
+                icon: payload.notification.icon,
+            };
+            new Notification(title, options);
+        });
     }
 };
 function render() {
