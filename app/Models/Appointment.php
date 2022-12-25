@@ -15,6 +15,8 @@ class Appointment extends Model
         'description',
         'doctor_id',
         'patient_id',
+        'Call_Status',
+        'appointment_link',
         'slot_id'
 
     ];

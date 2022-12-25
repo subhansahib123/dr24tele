@@ -244,25 +244,19 @@
     <!--Firebase---->
     <script src="https://www.gstatic.com/firebasejs/8.3.2/firebase.js"></script>
     <script>
-    {{--var loggedIn = {--}}
+        var loggedIn = `{{auth()->check()?1:0}}`;
 
-    {{-- auth()-> check() ? 1 : 0--}}
 
-    {{--};--}}
-    {{--var user_id = '';--}}
-    {{--@auth--}}
-    {{--if (loggedIn == 1) {--}}
-    {{-- var user_id = {--}}
-    {{-- {--}}
-    {{-- auth() - > user() - > id--}}
-    {{-- }--}}
-    {{-- };--}}
-    {{--}--}}
-    {{--@endauth--}}
+
+
+        var user_id = '';
+        if (loggedIn == 1) {
+            var user_id = `{{ auth()->user()->id}}`;
+        }
     </script>
-    <script src="{{asset('public_assets/js/firebase.js')}}"></script>
-    <!----Custom Function To Manage-->
     @yield('foot_script');
+    <script src="{{asset('public_assets/js/firebase.js')}}"></script>
+
     </body>
 
     </html>

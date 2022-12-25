@@ -25,11 +25,11 @@ class homeController extends Controller
     public function index(Request $request)
     {
         $organizations = Organization::has('department')->orderBy('id', 'desc')->paginate(6);
-        if ($request->ajax()){
+        if ($request->ajax()) {
             $search = $request->get('query');
-            $organizations=Organization::has('department')->orderBy('id','desc')->where(function ($q) use ($search){
-                if (!empty($search)){
-                    $q->where('name','like','%'.$search.'%');
+            $organizations = Organization::has('department')->orderBy('id', 'desc')->where(function ($q) use ($search) {
+                if (!empty($search)) {
+                    $q->where('name', 'like', '%' . $search . '%');
                 }
             })->paginate(6);
         }
@@ -71,19 +71,19 @@ class homeController extends Controller
 
         // $departments=Department::has('doctor')->orderBy('id','desc')->paginate(6);
         // dd(\DB::getQueryLog()); // Show results of log
-        $state=State::where('id',$hospital->state)->first();
-        $city=City::where('id',$hospital->city)->first();
-        $stateName=$state->name;
-        $cityName=$city->name;
+        $state = State::where('id', $hospital->state)->first();
+        $city = City::where('id', $hospital->city)->first();
+        $stateName = $state->name;
+        $cityName = $city->name;
 
         // dd($hospital->departments);
-        return view('public_panel.hospital_details', compact('hospital','stateName','cityName','departmentSpecializations','doctorSpecializations'));
+        return view('public_panel.hospital_details', compact('hospital', 'stateName', 'cityName', 'departmentSpecializations', 'doctorSpecializations'));
     }
     //All Departments
     public function allDepartments($id)
     {
 
-        $departments = DepartmentSpecializations::where('id',$id)->first();
+        $departments = DepartmentSpecializations::where('id', $id)->first();
         // dd($departments);
         return view('public_panel.all_departments', compact('departments'));
     }
@@ -110,12 +110,12 @@ class homeController extends Controller
         $doctorSpecializations = DoctorSpecialization::has('specializedDoctor')->get();
         $doctors = Doctor::with('user', 'specializedDoctor')->where('department_id', $id)->get();
         // dd( $department,$doctors);y
-        $state=State::where('id',$department->organization->state)->first();
-        $city=City::where('id',$department->organization->city)->first();
-        $stateName=$state->name;
-        $cityName=$city->name;
+        $state = State::where('id', $department->organization->state)->first();
+        $city = City::where('id', $department->organization->city)->first();
+        $stateName = $state->name;
+        $cityName = $city->name;
 
-        return view('public_panel.department_details', compact('department', 'doctors','departmentSpecializations','doctorSpecializations','stateName','cityName'));
+        return view('public_panel.department_details', compact('department', 'doctors', 'departmentSpecializations', 'doctorSpecializations', 'stateName', 'cityName'));
     }
     public function doctorDetails($id)
     {
@@ -124,7 +124,7 @@ class homeController extends Controller
         $doctorSpecializations = DoctorSpecialization::has('specializedDoctor')->get();
         // dd( $department,$doctors);y
 
-        return view('public_panel.doctor_details', compact('doctor','departmentSpecializations','doctorSpecializations'));
+        return view('public_panel.doctor_details', compact('doctor', 'departmentSpecializations', 'doctorSpecializations'));
     }
     //All Doctors
     public function allDoctors($id)
@@ -138,25 +138,26 @@ class homeController extends Controller
     {
 
         $doctorSpecializations = DoctorSpecialization::has('specializedDoctor')->get();
-        if ($request->ajax()){
+        if ($request->ajax()) {
             $search = $request->get('query');
-            $doctorSpecializations=DoctorSpecialization::has('specializedDoctor')->orderBy('id','desc')->where(function ($q) use ($search){
-                if (!empty($search)){
-                    $q->where('name','like','%'.$search.'%');
+            $doctorSpecializations = DoctorSpecialization::has('specializedDoctor')->orderBy('id', 'desc')->where(function ($q) use ($search) {
+                if (!empty($search)) {
+                    $q->where('name', 'like', '%' . $search . '%');
                 }
             })->paginate(6);
         }
         // dd($doctorSpecializations);
         return view('public_panel.DoctorSpecialization', compact('doctorSpecializations'));
-    }public function departmentSpecializations(Request $request)
+    }
+    public function departmentSpecializations(Request $request)
     {
 
         $departmentSpecializations = DepartmentSpecializations::has('Department')->get();
-        if ($request->ajax()){
+        if ($request->ajax()) {
             $search = $request->get('query');
-            $departmentSpecializations=DepartmentSpecializations::has('Department')->orderBy('id','desc')->where(function ($q) use ($search){
-                if (!empty($search)){
-                    $q->where('name','like','%'.$search.'%');
+            $departmentSpecializations = DepartmentSpecializations::has('Department')->orderBy('id', 'desc')->where(function ($q) use ($search) {
+                if (!empty($search)) {
+                    $q->where('name', 'like', '%' . $search . '%');
                 }
             })->paginate(6);
         }
@@ -271,9 +272,9 @@ class homeController extends Controller
         if ($request->has('link') && $request->link == 'true') {
             $channelName = "DrTele" . rand() . $request->user_id . "channel";
             $owner_id = $request->owner;
-            $agoraToken = $this->generate_token($channelName, $owner_id);
-            $conference_link = 'https://virtual-care.drtele.co/token?identity=tilde_' . $channelName;
-            $patient_link = 'https://virtual-care.drtele.co/patient';
+            // $agoraToken = $this->generate_token($channelName, $owner_id);
+            $conference_link = 'https://virtual-care.drtele.co/tilde_' . $channelName;
+            $patient_link = 'https://virtual-care.drtele.co/tilde_' . $channelName;
 
             $data = [
                 "to" => $FcmToken,
@@ -286,6 +287,10 @@ class homeController extends Controller
 
 
             ];
+            $str = $request->title;
+            preg_match_all('!\d+!', $str, $appointment_id);
+            Appointment::where('id',$appointment_id)->update(['Call_Status'=>1,'appointment_link'=>$conference_link]);
+
         } else {
             $data = [
                 "to" => $FcmToken,

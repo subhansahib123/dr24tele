@@ -37,7 +37,7 @@
                                             <th scope="col">Name</th>
                                             <th scope="col">Start</th>
                                             <th scope="col">End</th>
-                                            <th scope="col">Comments</th>
+                                            <th scope="col">Call Status</th>
                                             <th class="text-end">Doctor</th>
                                         </thead>
 
@@ -47,7 +47,9 @@
                                             <td>{{ $loop->index + 1 }}</td>
                                             <td>{{ date('d-m-Y H:i A', strtotime($schedule->start)) }}</td>
                                             <td>{{ date('d-m-Y H:i A', strtotime($schedule->end)) }}</td>
-                                            <td>{{ $schedule->comment }}</td>
+                                            @if($schedule->Call_Status == 1)
+                                            <td><a href="{{$schedule->appointment_link}}" class="btn btn-primary">Call</a></td>
+                                            @endif
                                             <td>{{ $schedule->doctor->user->username }}</td>
                                         </tr>
                                         @endforeach
