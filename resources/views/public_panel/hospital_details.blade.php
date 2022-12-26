@@ -72,7 +72,7 @@
                         </div>
                     </div>
                     <div class="sidebar-widget tags">
-                        <h4>Department Specialization </h4>
+                        <h4>Doctor Specialization </h4>
                         <div class="tag-list">
                             <ul class="list-style">
                                 @foreach($doctorSpecializations as $doctorSpecialization)
