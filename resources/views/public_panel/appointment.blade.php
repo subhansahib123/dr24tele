@@ -443,7 +443,9 @@
                         "coupon": coupon,
                         "hospital": hospital,
                         "comments": $('textarea[name="comments"]').val(),
-                        'stripeToken': paymentToken
+                        'stripeToken': paymentToken,
+                        'appointment_link':'',
+
 
                     },
 
