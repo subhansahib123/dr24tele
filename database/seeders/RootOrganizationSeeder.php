@@ -16,6 +16,7 @@ class RootOrganizationSeeder extends Seeder
     {
         Organization::create([
             'name' => 'dr-tele',
+            'displayname' => 'Dr Tele',
             'slug'=>'dr-tele',
             'uuid'=>'c6bc6265-e876-414a-9672-a85e09280059',
             'status' => 'Enabled',

@@ -10,7 +10,8 @@
             <div class="breadcrumb-title">
                 <h2>Terms Of Service</h2>
                 <ul class="breadcrumb-menu list-style">
-                    <li><a href="index.html">Home </a></li>
+                                        <li><a href="{{route('home.page')}}">Home </a></li>
+
                     <li>Terms Of Service</li>
                 </ul>
             </div>
@@ -25,7 +26,7 @@
                 <div class="col-xl-10 offset-xl-1">
                     <div class="single-terms">
                         <h3>Legal Disclaimer: </h3>
-                        <p>We may collect personal identification information from Users in a variety of ways, including, but not limited to, when Users visit our site, subscribe to the newsletter, fill out a form, and in connection with other <strong>activities</strong>, services, features or resources we make available on our Site. Users may be asked for, as appropriate, name, email address, mailing address, phone number, <a href="index.html">company name</a>. We will collect personal identification information from Users only if they voluntarily consent such information to us. Users can always refuse to supply personally identification information, except that it may prevent them from engaging in certain Site related activities.</p>
+                        <p>We may collect personal identification information from Users in a variety of ways, including, but not limited to, when Users visit our site, subscribe to the newsletter, fill out a form, and in connection with other <strong>activities</strong>, services, features or resources we make available on our Site. Users may be asked for, as appropriate, name, email address, mailing address, phone number, <a href="#">company name</a>. We will collect personal identification information from Users only if they voluntarily consent such information to us. Users can always refuse to supply personally identification information, except that it may prevent them from engaging in certain Site related activities.</p>
                     </div>
                     <div class="single-terms">
                         <h3>Credit Reporting Terms of Service</h3>

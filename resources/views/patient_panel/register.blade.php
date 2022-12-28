@@ -8,7 +8,8 @@
             <div class="breadcrumb-title">
                 <h2>Patient Register</h2>
                 <ul class="breadcrumb-menu list-style">
-                    <li><a href="index.html">Home </a></li>
+                                        <li><a href="{{route('home.page')}}">Home </a></li>
+
                     <li>Register</li>
                 </ul>
             </div>

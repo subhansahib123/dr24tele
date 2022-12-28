@@ -10,7 +10,7 @@
             <div class="breadcrumb-title">
                 <h2>Contact Us</h2>
                 <ul class="breadcrumb-menu list-style">
-                    <li><a href="index.html">Home </a></li>
+                    <li><a href="{{route('home.page')}}">Home </a></li>
                     <li>Contact Us</li>
                 </ul>
             </div>
@@ -29,7 +29,7 @@
                         </span>
                         <div class="contact-info">
                             <h3>Visit Us Anytime</h3>
-                            <p>342/A, Milson Avenue, Brook Lane, San Francisco, USA
+                            <p>Mbedcare Pvt Ltd, Sebastian Road, Kaloor P.O Cochin 682017 , Kerala, India
                             </p>
                         </div>
                     </div>
@@ -41,8 +41,7 @@
                         </span>
                         <div class="contact-info">
                             <h3>Send An Email</h3>
-                            <a href="mailto:hello@teli.com">hello@teli.com</a>
-                            <a href="mailto:support@teli.com">support@teli.com</a>
+                            <a href="mailto:hello@teli.com">info@drtele.co</a>
                         </div>
                     </div>
                 </div>
@@ -53,8 +52,7 @@
                         </span>
                         <div class="contact-info">
                             <h3>Call Center</h3>
-                            <a href="tel:88098787868">+44 587 154765</a>
-                            <a href="tel:88098787869">+55 576 234532</a>
+                            <a href="tel:+91 79-94945555">+91 79-94945555</a>
                         </div>
                     </div>
                 </div>
@@ -99,7 +97,7 @@
                                     <div class="form-check checkbox">
                                         <input name="gridCheck" value="I agree to the terms and privacy policy." class="form-check-input" type="checkbox" id="gridCheck" required>
                                         <label class="form-check-label" for="gridCheck">
-                                            I agree to the <a class="link style1" href="terms-of-service.html">terms &amp; conditions</a> and <a class="link style1" href="privacy-policy.html">privacy policy</a>
+                                            I agree to the <a class="link style1" href="{{route('termsOfService')}}">terms &amp; conditions</a> and <a class="link style1" href="{{route('privacyPolicy')}}">privacy policy</a>
                                         </label>
                                         <div class="help-block with-errors gridCheck-error"></div>
                                     </div>

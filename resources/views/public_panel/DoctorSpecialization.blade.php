@@ -26,7 +26,7 @@
                 <div class="col-xl-12">
                     <div class="d-flex justify-content-end">
                         <div class="mb-3 w-25">
-                            <input type="text" class="form-control" id="search-doctor" placeholder="Search ..." name="search" value="">
+                            <input type="text" class="form-control" id="search-doctor" placeholder="Search ..." name="  rch" value="">
                         </div>
                     </div>
                 </div>

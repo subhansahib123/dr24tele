@@ -8,7 +8,7 @@
 
         <!-- CONTAINER -->
         <div class="main-container container-fluid">
-        @include('admin_panel.frontend.includes.messages')
+            @include('admin_panel.frontend.includes.messages')
 
             <!-- Row -->
             <div class="row mt-3">
@@ -23,7 +23,7 @@
                             </div>
                             <div class="col-4">
                                 <span class="card-title"><strong>
-                                 Patients List
+                                        Patients List
                                     </strong></span>
                             </div>
 
@@ -42,7 +42,8 @@
 
                                     <table class="table table-striped" id="datatable">
                                         <thead>
-                                            <th scope="col" width="30%" >Name</th>
+                                            <th scope="col" width="30%">Name</th>
+                                            <th scope="col">Username</th>
                                             <th class="col text-end">Action</th>
                                         </thead>
 
@@ -53,6 +54,11 @@
                                             <td>
 
                                                 {{$patient->user->name}}
+
+                                            </td>
+                                            <td>
+
+                                                {{$patient->user->username}}
 
                                             </td>
                                             <td class="text-end">

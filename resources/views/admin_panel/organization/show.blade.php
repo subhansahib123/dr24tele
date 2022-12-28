@@ -47,7 +47,7 @@
                                         @foreach($organizations as $organization)
                                         <tr>
                                             <td>
-                                                {{$organization->name}}
+                                                {{$organization->displayname}}
                                             </td>
                                             <td class="text-end">
                                                 <a href="{{route('single.organization',['uuid'=>$organization->uuid])}}"><button class="btn btn-info" title="Update"><i class="fa fa-edit"></i></button></a>
