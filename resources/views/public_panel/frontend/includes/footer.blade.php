@@ -4,7 +4,7 @@
           <div class="row pt-100 pb-75">
               <div class="col-xl-3 col-lg-5 col-md-5 col-sm-12">
                   <div class="footer-widget">
-                      <a href="index.html" class="footer-logo">
+                      <a href="{{route('home.page')}}" class="footer-logo">
                           <img src="{{asset('public_assets/img/logo.png')}}" width="120px" alt="Image">
                       </a>
                       <p class="comp-desc">
@@ -107,7 +107,7 @@
                               </a>
                           </li>
                           <li>
-                              <a href="login.html">
+                              <a href="patient.login">
                                   <i class="ri-arrow-right-s-line"></i>
                                   Login
                               </a>

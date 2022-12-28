@@ -11,7 +11,8 @@
             <div class="breadcrumb-title">
                 <h2>Privacy Policy</h2>
                 <ul class="breadcrumb-menu list-style">
-                    <li><a href="index.html">Home </a></li>
+                                        <li><a href="{{route('home.page')}}">Home </a></li>
+
                     <li>Privacy Policy</li>
                 </ul>
             </div>
@@ -27,7 +28,7 @@
                     <div class="single-terms">
                         <h3>Information Collection</h3>
                         <p>
-                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Maxime nulla minus quasi. Voluptatem, <a href="index.html">company name</a> saepe ullam autem magni quod sint tempore, eius molestias aliquam debitis. Neque saepe dignissimos repudiandae fuga.
+                            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Maxime nulla minus quasi. Voluptatem, <a href="#">company name</a> saepe ullam autem magni quod sint tempore, eius molestias aliquam debitis. Neque saepe dignissimos repudiandae fuga.
                         </p>
                         <p>
                             Lorem ipsum dolor sit amet consectetur, adipisicing elit. Nihil eveniet quas dignissimos <strong>activities</strong> ea pariatur corrupti rerum deserunt, ipsum, ipsa eos veniam aspernatur fuga, optio soluta? Libero neque reiciendis cupiditate dolores nam. Earum eius similique sapiente. Iure, sit non. At fuga ipsam veniam.

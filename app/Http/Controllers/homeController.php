@@ -29,7 +29,7 @@ class homeController extends Controller
             $search = $request->get('query');
             $organizations = Organization::has('department')->orderBy('id', 'desc')->where(function ($q) use ($search) {
                 if (!empty($search)) {
-                    $q->where('name', 'like', '%' . $search . '%');
+                    $q->where('displayname', 'like', '%' . $search . '%');
                 }
             })->paginate(6);
         }

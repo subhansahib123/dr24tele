@@ -18,13 +18,13 @@
             </div>
         </div>
         <div class="row justify-content-center">
-            <div class="col-xl-12">
+            <!-- <div class="col-xl-12">
                 <div class="d-flex justify-content-end">
                     <div class="mb-3 w-25">
                         <input type="text" class="form-control" id="search-doctor" placeholder="Search ..." name="search" value="">
                     </div>
                 </div>
-            </div>
+            </div> -->
             <div class="col-xl-12">
                 <div id="get-hospitals">
                     <div class="row">

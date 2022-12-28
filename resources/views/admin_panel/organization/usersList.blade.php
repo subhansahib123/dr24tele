@@ -9,7 +9,7 @@
         <!-- CONTAINER -->
         <div class="main-container container-fluid">
 
-        @include('admin_panel.frontend.includes.messages')
+            @include('admin_panel.frontend.includes.messages')
             <!-- Row -->
             <div class="row">
                 <div class="col-xl-12 col-md-12 col-sm-6">
@@ -23,7 +23,7 @@
                             </div>
                             <div class="col-4">
                                 <span class="card-title"><strong>
-                                 Management List
+                                        Management List
                                     </strong></span>
                             </div>
 
@@ -40,8 +40,9 @@
 
                                     <table class="table table-striped" id="datatable">
                                         <thead>
-                                            <th scope="col">User Name</th>
                                             <th scope="col">Name</th>
+                                            <th scope="col">User Name</th>
+
                                             <th scope="col" class="text-end">Action</th>
                                         </thead>
 
@@ -49,13 +50,14 @@
                                         @foreach($users as $user)
                                         <tr>
                                             <td>
-                                                {{$user->username}}
-
-                                            </td>
-                                            <td>
                                                 {{$user->name}}
 
                                             </td>
+                                            <td>
+                                                {{$user->username}}
+
+                                            </td>
+
                                             <td class="text-end">
                                                 <a href="{{route('user.delete',[$user->uuid])}}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
                                             </td>

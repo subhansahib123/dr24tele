@@ -39,39 +39,39 @@
                             <h4>Popular Posts</h4>
                             <div class="popular-post-widget">
                                 <div class="pp-post-item">
-                                    <a href="blog-details-right-sidebar.html" class="pp-post-img">
+                                    <a href="#" class="pp-post-img">
                                         <img src="{{asset('public_assets/img/webImages/image03.jpg')}}" alt="Image">
                                     </a>
                                     <div class="pp-post-info">
                                         <span>29 Jun, 2022</span>
                                         <h6>
-                                            <a href="blog-details-no-sidebar.html">
+                                            <a href="#">
                                                 3 Tips For Child Health During This Pandemic
                                             </a>
                                         </h6>
                                     </div>
                                 </div>
                                 <div class="pp-post-item">
-                                    <a href="blog-details-right-sidebar.html" class="pp-post-img">
+                                    <a href="#" class="pp-post-img">
                                         <img src="{{asset('public_assets/img/webImages/image01.jpg')}}" alt="Image">
                                     </a>
                                     <div class="pp-post-info">
                                         <span>22 Jun, 2022</span>
                                         <h6>
-                                            <a href="blog-details-no-sidebar.html">
+                                            <a href="#">
                                                 Importance Of Regular Eye Checkup For Adult
                                             </a>
                                         </h6>
                                     </div>
                                 </div>
                                 <div class="pp-post-item">
-                                    <a href="blog-details-right-sidebar.html" class="pp-post-img">
+                                    <a href="#" class="pp-post-img">
                                         <img src="{{asset('public_assets/img/webImages/image06.jpg')}}" alt="Image">
                                     </a>
                                     <div class="pp-post-info">
                                         <span>17 May, 2022</span>
                                         <h6>
-                                            <a href="blog-details-no-sidebar.html">
+                                            <a href="#">
                                                 From Mediable Origin To Modern Treatment Era
                                             </a>
                                         </h6>
@@ -111,16 +111,16 @@
                             <div class="blog-card style2">
                                 <div class="blog-img">
                                     <img src="{{asset('public_assets/img/webImages/image07.jpg')}}" alt="Image">
-                                    <a href="posts-by-date.html" class="blog-date"><span>22</span> Jun</a>
+                                    <a href="#" class="blog-date"><span>22</span> Jun</a>
                                 </div>
                                 <div class="blog-info">
                                     <ul class="blog-metainfo  list-style">
-                                        <li><i class="ri-user-unfollow-line"></i><a href="posts-by-author.html">Admin</a></li>
+                                        <li><i class="ri-user-unfollow-line"></i><a href="#">Admin</a></li>
                                         <li><i class="ri-wechat-line"></i>No Comment</li>
                                     </ul>
-                                    <h3><a href="blog-details-right-sidebar.html">Telehealth Services Are Ready To Help Your Family </a></h3>
+                                    <h3><a href="#">Telehealth Services Are Ready To Help Your Family </a></h3>
                                     <p>Lorem Ipsum is simply dummy text the and standard dummy text ever since.</p>
-                                    <a href="blog-details-right-sidebar.html" class="link style2">Read More<i class="flaticon-right-arrow"></i></a>
+                                    <a href="#" class="link style2">Read More<i class="flaticon-right-arrow"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -128,16 +128,16 @@
                             <div class="blog-card style2">
                                 <div class="blog-img">
                                     <img src="{{asset('public_assets/img/webImages/image08.jpg')}}" alt="Image">
-                                    <a href="posts-by-date.html" class="blog-date"><span>17</span>Jun</a>
+                                    <a href="#" class="blog-date"><span>17</span>Jun</a>
                                 </div>
                                 <div class="blog-info">
                                     <ul class="blog-metainfo  list-style">
-                                        <li><i class="ri-user-unfollow-line"></i><a href="posts-by-author.html">Admin</a></li>
+                                        <li><i class="ri-user-unfollow-line"></i><a href="#">Admin</a></li>
                                         <li><i class="ri-wechat-line"></i>No Comment</li>
                                     </ul>
-                                    <h3><a href="blog-details-right-sidebar.html">10 Tips To Lead A Healthy And Happy Life</a></h3>
+                                    <h3><a href="#">10 Tips To Lead A Healthy And Happy Life</a></h3>
                                     <p>Lorem Ipsum is simply dummy text the and standard dummy text ever since.</p>
-                                    <a href="blog-details-right-sidebar.html" class="link style2">Read More<i class="flaticon-right-arrow"></i></a>
+                                    <a href="#" class="link style2">Read More<i class="flaticon-right-arrow"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -145,16 +145,16 @@
                             <div class="blog-card style2">
                                 <div class="blog-img">
                                     <img src="{{asset('public_assets/img/webImages/image09.jpg')}}" alt="Image">
-                                    <a href="posts-by-date.html" class="blog-date"><span>12</span>May</a>
+                                    <a href="#" class="blog-date"><span>12</span>May</a>
                                 </div>
                                 <div class="blog-info">
                                     <ul class="blog-metainfo  list-style">
-                                        <li><i class="ri-user-unfollow-line"></i><a href="posts-by-author.html">Admin</a></li>
+                                        <li><i class="ri-user-unfollow-line"></i><a href="#">Admin</a></li>
                                         <li><i class="ri-wechat-line"></i>No Comment</li>
                                     </ul>
-                                    <h3><a href="blog-details-right-sidebar.html">How Does Science Help In Dental Surgery Research </a></h3>
+                                    <h3><a href="#">How Does Science Help In Dental Surgery Research </a></h3>
                                     <p>Lorem Ipsum is simply dummy text the and standard dummy text ever since.</p>
-                                    <a href="blog-details-right-sidebar.html" class="link style2">Read More<i class="flaticon-right-arrow"></i></a>
+                                    <a href="#" class="link style2">Read More<i class="flaticon-right-arrow"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -162,26 +162,26 @@
                             <div class="blog-card style2">
                                 <div class="blog-img">
                                     <img src="{{asset('public_assets/img/webImages/image10.jpg')}}" alt="Image">
-                                    <a href="posts-by-date.html" class="blog-date"><span>07</span> May</a>
+                                    <a href="#" class="blog-date"><span>07</span> May</a>
                                 </div>
                                 <div class="blog-info">
                                     <ul class="blog-metainfo  list-style">
-                                        <li><i class="ri-user-unfollow-line"></i><a href="posts-by-author.html">Admin</a></li>
+                                        <li><i class="ri-user-unfollow-line"></i><a href="#">Admin</a></li>
                                         <li><i class="ri-wechat-line"></i>No Comment</li>
                                     </ul>
-                                    <h3><a href="blog-details-right-sidebar.html">How To Recover Health Faster With Online Session</a></h3>
+                                    <h3><a href="#">How To Recover Health Faster With Online Session</a></h3>
                                     <p>Lorem Ipsum is simply dummy text the and standard dummy text ever since.</p>
-                                    <a href="blog-details-right-sidebar.html" class="link style2">Read More<i class="flaticon-right-arrow"></i></a>
+                                    <a href="#" class="link style2">Read More<i class="flaticon-right-arrow"></i></a>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <ul class="page-nav list-style">
-                        <li><a href="blog-right-sidebar.html"><i class="ri-arrow-left-s-line"></i></a></li>
-                        <li><a class="active" href="blog-right-sidebar.html">1</a></li>
-                        <li><a href="blog-right-sidebar.html">2</a></li>
-                        <li><a href="blog-right-sidebar.html">3</a></li>
-                        <li><a href="blog-right-sidebar.html"><i class="ri-arrow-right-s-line"></i></a></li>
+                        <li><a href="#"><i class="ri-arrow-left-s-line"></i></a></li>
+                        <li><a class="active" href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#"><i class="ri-arrow-right-s-line"></i></a></li>
                     </ul>
                 </div>
             </div>
