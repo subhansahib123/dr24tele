@@ -10,7 +10,8 @@
             <div class="breadcrumb-title">
                 <h2>Pricing Plan</h2>
                 <ul class="breadcrumb-menu list-style">
-                    <li><a href="index.html">Home </a></li>
+                                        <li><a href="{{route('home.page')}}">Home </a></li>
+
                     <li>Pricing Plan</li>
                 </ul>
             </div>

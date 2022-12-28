@@ -53,7 +53,7 @@
                 </div>
                 <div class="service-card style3" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="800">
                     <div class="service-img">
-                        <img src="{{asset('public_assets/img/Vectors/HeartCheck up.jpg')}}" alt="Image">
+                        <img src="{{asset('public_assets/img/Vectors/HeartCheckup.jpg')}}" alt="Image">
                         <span class="service-icon"><i class="flaticon-health-care"></i></span>
                     </div>
                     <div class="service-info">

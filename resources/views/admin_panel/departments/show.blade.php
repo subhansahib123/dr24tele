@@ -47,7 +47,7 @@
                                         <tr>
 
                                             <td>
-                                                {{$department->name}}
+                                                {{$department->display_name}}
 
                                             </td>
                                             <td class="text-end">

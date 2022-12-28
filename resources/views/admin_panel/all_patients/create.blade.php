@@ -128,16 +128,17 @@
                                         <label for="Birth">Profile Image <strong> 300*350</strong></label>
                                         <input type="file" name="image" id="image" class="form-control">
                                     </div>
+                                    <div class="card-footer text-end ">
+                                        <button type="submit" class="btn btn-primary my-1">Create</button>
+                                        <span><a href="{{route('dashboard')}}" class="btn btn-secondary  ">Cancel</a></span>
+
+                                        {{-- <a href="javascript:void(0)" class="btn btn-danger my-1">Cancel</a> --}}
+                                    </div>
                                 </div>
                             </div>
 
                     </div>
-                    <div class="card-footer text-end ">
-                        <button type="submit" class="btn btn-primary my-1">Create</button>
-                        <span><a href="{{route('dashboard')}}" class="btn btn-secondary  ">Cancel</a></span>
 
-                        {{-- <a href="javascript:void(0)" class="btn btn-danger my-1">Cancel</a> --}}
-                    </div>
                     </form>
                 </div>
             </div>

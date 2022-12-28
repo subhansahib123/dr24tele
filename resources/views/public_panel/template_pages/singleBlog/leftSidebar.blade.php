@@ -12,7 +12,8 @@
             <div class="breadcrumb-title">
                 <h2>Blog Details Left Sidebar</h2>
                 <ul class="breadcrumb-menu list-style">
-                    <li><a href="index.html">Home </a></li>
+                                        <li><a href="{{route('home.page')}}">Home </a></li>
+
                     <li><a href="blog-left-sidebar.html">Blog</a></li>
                     <li>Blog Details Left Sidebar</li>
                 </ul>

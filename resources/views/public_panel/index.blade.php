@@ -43,7 +43,7 @@
                             <p>We are dedicated to make life easier for people who live outside the major cities. It allows patients to consult a doctor online whenever they need, be it for a visit or even to have a consultation before going out of country. </p>
                             <div class="hero-btn">
                                 <a href="#" class="btn style1">Find Out More</a>
-                                <a class="play-video" data-fancybox="" href="#">
+                                <a class="play-video" data-fancybox="" href="https://www.youtube.com/watch?v=VuhbscB3puc">
                                     <span class="video-icon">
                                         <i class="ri-play-fill"></i>
                                     </span>
@@ -69,7 +69,7 @@
                             <p>Easy and secure way to see a doctor that truly understand every individual patient. DR.TELE has invested in a complete platform to help patients share their health information with doctors, medical services and pharmaceutical companies.</p>
                             <div class="hero-btn">
                                 <a href="#" class="btn style1">Find Out More</a>
-                                <a class="play-video" data-fancybox="" href="#">
+                                <a class="play-video" data-fancybox="" href="https://www.youtube.com/watch?v=VuhbscB3puc">
                                     <span class="video-icon">
                                         <i class="ri-play-fill"></i>
                                     </span>
@@ -175,13 +175,14 @@
                 <div id="get-hospitals">
                     <div class="row">
                         @foreach ($organizations as $organization )
+                        @if($organization->status=='Enabled')
                         <div class="col-xl-4 col-lg-6 col-md-6 mb-3">
                             <div class="service-card style1 h-100">
                                 <div class="service-img text-center">
                                     <img src="{{($organization->image)? asset('uploads/organization/'. $organization->image) : asset('public_assets/img/services/service-9.jpg')}}" alt="Image">
                                 </div>
                                 <div class="service-info">
-                                    <h3 class="text-capitalize"><a href="{{route('home.hospital_details',$organization->id)}}">Name: {{$organization->name}}</a></h3>
+                                    <h3 class="text-capitalize"><a href="{{route('home.hospital_details',$organization->id)}}">Name: {{$organization->displayname}}</a></h3>
                                     <h5>Total Departments: {{count($organization->department)}}</h5>
                                     {{-- <h5>Best Department : {{$organization->department[0]->display_name}}</h5>
                                     <a href="{{route('departments.of.hospital',$organization->id)}}" class="link style2">Explore More</a>--}}
@@ -189,6 +190,7 @@
                                 </div>
                             </div>
                         </div>
+                        @endif
                         @endforeach
                         <div class="d-flex justify-content-center">
                             {!! $organizations->render() !!}
@@ -283,7 +285,7 @@
             </div>
             <div class="service-card style3" data-aos="fade-left" data-aos-duration="1200" data-aos-delay="800">
                 <div class="service-img">
-                    <img src="{{asset('public_assets/img/Vectors/HeartCheck up.jpg')}}" alt="Image">
+                    <img src="{{asset('public_assets/img/Vectors/HeartCheckup.jpg')}}" alt="Image">
                     <span class="service-icon"><i class="flaticon-health-care"></i></span>
                 </div>
                 <div class="service-info">
