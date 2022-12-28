@@ -46,7 +46,7 @@
                                                 <div class="form-group col-6">
 
                                                     <label for="start">Doctors</label>
-                                                    <input type="text" disabled class="form-control" value="{{$doctor->user->name}}" >
+                                                    <input type="text" disabled class="form-control" value="{{$doctor->user->name}}">
 
                                                 </div>
                                                 <div class="form-group col-6">
@@ -107,10 +107,11 @@
                                                     </label>
 
                                                 </div>
-                                                
+
                                                 <div class="px-0 card-footer text-end">
                                                     <div>
                                                         <button class="btn btn-primary" type="submit">Save</button>
+                                                        <span><a href="{{route('hospital.dashboard')}}" class="btn btn-info  ">Cancel</a></span>
                                                     </div>
                                                 </div>
 
