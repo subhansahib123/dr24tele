@@ -20,13 +20,15 @@
                                     <li class="breadcrumb-item active" aria-current="page">All Schedule</li>
                                 </ol>
                             </div>
-                            <div class="col-4">
+                            <div class="col-3">
                                 <span class="card-title"><strong>
                                         Schedule List
                                     </strong></span>
                             </div>
 
-                            <div class="col-3 text-end">
+                            <div class="col-4 text-end">
+                                <a href="{{route('create.schedule')}}" class="btn btn-sm btn-success">Add <i class="fa fa-plus" data-toggle="tooltip" data-placement="top" title="Add New"></i></a>
+                                <a href="{{route('hospital.dashboard')}}" class="btn btn-sm btn-info" data-toggle="Go Back">Back <i class="fa fa-reply"></i></a>
 
                             </div>
                         </div>

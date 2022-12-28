@@ -10,8 +10,8 @@
         <div class="main-container container-fluid">
             <!-- ROW-1 OPEN -->
             <div class="form-group">
-                    @include('hospital_panel.frontend.includes.messages')
-                </div>
+                @include('hospital_panel.frontend.includes.messages')
+            </div>
             <div class="row">
                 <div class="col-xl-12">
                     <div class="card">
@@ -20,12 +20,12 @@
                             <div class="col-5">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Doctor  Schedule</li>
+                                    <li class="breadcrumb-item active" aria-current="page">Doctor Schedule</li>
                                 </ol>
                             </div>
                             <div class="col-4">
                                 <span class="card-title"><strong>
-                                Schedule Details
+                                        Schedule Details
                                     </strong></span>
                             </div>
 
@@ -39,7 +39,7 @@
 
                                 <div class="list-group">
                                     <div class="list-group-item" data-acc-step>
-                                         <div data-acc-content>
+                                        <div data-acc-content>
                                             <div class="my-3 row">
                                                 <div class="form-group col-6">
 
@@ -117,6 +117,8 @@
                                                 <div class=" px-0 mt-4  card-footer text-end">
                                                     <div>
                                                         <button class="btn btn-primary" type="submit">Save</button>
+                                                        <span><a href="{{route('hospital.dashboard')}}" class="btn btn-info  ">Cancel</a></span>
+
                                                     </div>
                                                 </div>
 

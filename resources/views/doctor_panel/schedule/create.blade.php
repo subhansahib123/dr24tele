@@ -98,7 +98,7 @@
                                                 <div class="mb-0 mt-4 mx-0 row text-end">
                                                     <div class="col mx-0">
                                                         <button class="btn btn-primary" type="submit">Create</button>
-                                                        <span><a href="{{route('dashboard')}}" class="btn btn-secondary  ">Cancel</a></span>
+                                                        <span><a href="{{route('doctor.dashboard')}}" class="btn btn-secondary  ">Cancel</a></span>
 
                                                     </div>
                                                 </div>

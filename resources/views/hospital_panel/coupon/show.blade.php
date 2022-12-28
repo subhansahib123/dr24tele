@@ -21,13 +21,15 @@
                                     <li class="breadcrumb-item active" aria-current="page">All Coupons</li>
                                 </ol>
                             </div>
-                            <div class="col-4">
+                            <div class="col-3">
                                 <span class="card-title"><strong>
                                        Coupons List
                                     </strong></span>
                             </div>
 
-                            <div class="col-3 text-end">
+                            <div class="col-4 text-end">
+                            <a href="{{route('hospital.coupon.create')}}" class="btn btn-sm btn-success">Add <i class="fa fa-plus" data-toggle="tooltip" data-placement="top" title="Add New"></i></a>
+
                                 <a href="{{route('hospital.dashboard')}}" class="btn btn-sm btn-info" data-toggle="Go Back">Back <i class="fa fa-reply"></i></a>
 
                             </div>

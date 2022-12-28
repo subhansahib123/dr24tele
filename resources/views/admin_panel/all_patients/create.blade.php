@@ -124,7 +124,7 @@
                                             <!-- <input type="text" class="form-control" name="" id="gender" value=""> -->
                                         </div>
                                     </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-12 my-0">
+                                    <div class="col-lg-6 col-md-6 col-sm-12 mt-0 mx-4 ">
                                         <label for="Birth">Profile Image <strong> 300*350</strong></label>
                                         <input type="file" name="image" id="image" class="form-control">
                                     </div>
