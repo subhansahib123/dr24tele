@@ -45,7 +45,7 @@
                                         <tr>
                                             <td>{{$loop->index+1}}</td>
                                             <td>
-                                                {{isset($user->username)?$user->username:'' }}
+                                                {{isset($user->name)?$user->name:'' }}
                                             </td>
                                             <td class="text-end">
                                                 <a href="{{route('delete.hospitalUser',[$user->uuid])}}"><button class="btn btn-danger" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></button></a>

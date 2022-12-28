@@ -75,7 +75,7 @@ class HospitalCouponController extends Controller
              'uuid'=> Str::uuid()->toString(),'status'=>$request->status, 'organization_id' => $request->hospital, 'discount' => $request->discount,
              'created_by' => \auth()->user()->id]);
         if($coupon) {
-            return redirect()->back()->withSuccess(__('Coupon is Successfully Created'));
+            return redirect()->route('hospital.coupon.index')->withSuccess(__('Coupon is Successfully Created'));
         }
     }
 

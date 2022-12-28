@@ -43,7 +43,7 @@
                                     @foreach($departments as $department)
                                     <tr>
                                         <td>{{$loop->index+1}}</td>
-                                        <td>{{$department->name}}</td>
+                                        <td>{{$department->display_name}}</td>
                                         <td class="text-end">
                                             <a href="{{route('updateHospital.department',['uuid'=>$department->uuid])}}"><button class="btn btn-warning" data-toggle="tooltip" data-placement="top" title="Update"><i class="fa fa-edit"></i></button></a>
                                             <a href="{{route('hospitalDoctors.list',['uuid'=>$department->uuid])}}"><button class="btn btn-primary" data-toggle="tooltip" data-placement="top" title="Doctors"><i class="fa fa-user"></i></button></a>

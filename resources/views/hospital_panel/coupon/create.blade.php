@@ -3,7 +3,7 @@
 @section('content')
 
 
-<div class="main-content app-content mt-5" style="margin-top:350px">
+<div class="main-content app-content mt-3" style="margin-top:350px">
     <div class="side-app">
 
         <!-- CONTAINER -->
@@ -41,8 +41,7 @@
                             </div>
 
                             <div class="col-3 text-end">
-                                <a href="{{route('hospital.dashboard')}}" class="btn btn-sm btn-info" data-toggle="Go Back">Back <i class="fa fa-reply"></i></a>
-
+                             
                             </div>
                         </div>
                         <div class="container">
@@ -121,7 +120,7 @@
                                     @endif
                                 </div>
 
-                                <div class="mb-0 mt-4 row card-footer text-end">
+                                <div class="mb-0 mt-4 row px-0 card-footer text-end">
                                     <div class="col">
 
                                         <button class="btn btn-primary" type="submit">Create</button>

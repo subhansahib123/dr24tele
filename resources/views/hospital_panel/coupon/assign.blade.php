@@ -58,9 +58,10 @@
                                     <span class="text-danger text-left">{{ $errors->first('patients') }}</span>
                                     @endif
                                 </div>
-                                <div class="px-0; card-footer text-end">
+                                <div class="px-0 mx-0 card-footer text-end">
                                     <div >
                                         <input type="submit" value="Submit" class="btn btn-primary">
+                                        <span><a href="{{route('hospital.dashboard')}}" class="btn btn-info  ">Cancel</a></span>
                                     </div>
                                 </div>
                             </form>
