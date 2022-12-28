@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\PersonController;
 use App\Http\Controllers\API\Doctor\APIDoctorAuthenticationController;
 use App\Http\Controllers\API\Doctor\APIDoctorScheduleController;
 use App\Http\Controllers\API\Doctor\APIDoctorSpecializationController;
+use App\Http\Controllers\API\Front\MainController;
 use App\Http\Controllers\API\Patient\APIFamilyMembersController;
 use App\Http\Controllers\API\Patient\APIPatientAuthenticationController;
 use App\Http\Controllers\API\Patient\APIPersonalDetailsController;
@@ -48,7 +49,15 @@ Route::post('/send-web-notification', [homeController::class, 'sendWebNotificati
 Route::get('/agoraToken',[PatientAuthenticationController::class,'generate_token' ]);
 
 Route::get('/convert-currency',[CurrencyController::class,'ConvertCurrency'])->name('convert.currency');
-
+//Front
+Route::get('/', [MainController::class, 'index']);
+Route::get('/hospital/{id}', [MainController::class, 'hospitalDetails']);
+Route::get('/department/{id}', [MainController::class, 'departmentDetails']);
+Route::get('/allDoctors/{id}', [MainController::class, 'allDoctors']);
+Route::get('/department-specializations', [MainController::class, 'departmentSpecializations']);
+Route::get('/allDepartments/{id}', [MainController::class, 'allDepartments']);
+Route::get('/doctor-specializations', [MainController::class, 'doctorSpecializations']);
+Route::get('/getAllDoctors', [MainController::class, 'getAllDoctors']);
 //Patient
 Route::post('/patient/logined', [APIPatientAuthenticationController::class, 'performLogin']);
 Route::group(['prefix' => 'patient','middleware' => ['auth:sanctum']], function () {
