@@ -16,13 +16,11 @@ class HospitalPatientController extends Controller
     public function storeHospitalPatients(Request $request)
     {
         $request->validate([
-            'username' => 'required|string',
             'name' => 'required|string',
-            'password' => 'required|string',
             'phoneNumber' => 'required|string',
             'email' => 'required|string',
-            'image' => 'required|mimes:jpg,png,gif,svg,jpeg|dimensions:min_width=300,min_height=350',
         ]);
+
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
         if (is_null($userInfo)) {
@@ -30,6 +28,8 @@ class HospitalPatientController extends Controller
         }
         $orgId = \auth()->user()->user_organization->organization;
         if ($request->hasFile('image')) {
+            $request->validate(['image' => 'required|mimes:jpg,png,gif,svg,jpeg|dimensions:min_width=300,min_height=350']);
+
             $getImage = date('Y') . '/' . time() . '-' . rand(0, 999999) . '.' . $request->image->getClientOriginalExtension();
             $request->image->move(public_path('uploads/organization/patients/') . date('Y'), $getImage);
             $image = $getImage;
@@ -37,10 +37,11 @@ class HospitalPatientController extends Controller
             $image = '';
         }
         try {
+            // dd($request->all());
             $UserData = User::firstOrCreate([
-                'username' => $request->username,
-                'name' => $request->name,
-                'password' => $request->password,
+                'username' => '',
+                'name' => $request->name.' '.$request->middlename,
+                'password' => '',
                 'email' => $request->email,
                 'phone_number' => $request->phoneNumber,
                 'uuid' => Str::uuid(),

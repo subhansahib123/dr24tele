@@ -65,7 +65,7 @@ class PatientAuthenticationController extends Controller
     public function patientDashboard()
     {
         return view('patient_panel.dashboard');
-    }    
+    }
     public function login()
     {
         return view('patient_panel.login');
@@ -76,14 +76,14 @@ class PatientAuthenticationController extends Controller
         $user = User::where('phone_number',  $request->phoneNumber)->first();
 
 
-        if ($user) {
+        if ($user->patient) {
 
 
             Auth::login($user);
             session(['loggedInUser' => $user]);
             return redirect()->route('patient.dashboard')->withSuccess(__('Successfully Login'));
         } else {
-            return redirect()->back()->withErrors(['error' => 'No User Exist']);
+            return redirect()->route('patient.register')->withSuccess(__('To Login Get Registered First'));
         }
     }
 
@@ -163,16 +163,14 @@ class PatientAuthenticationController extends Controller
     public function patientSignUp(Request $request)
     {
         $request->validate([
-            'username' => 'required|string',
-            'password' => 'required|string',
             'givenName' => 'required|string',
             'email' => 'required',
             'gender_code' => 'required|string',
             'phoneNumber' => 'required|string',
             'dateOfBirth' => 'required',
-            'image' => 'required'
         ]);
         if ($request->hasFile('image')) {
+            $request->validate(['image' => 'required|mimes:jpg,png,gif,svg,jpeg|dimensions:min_width=300,min_height=350']);
             $getImage = date('Y') . '/' . time() . '-' . rand(0, 999999) . '.' . $request->image->getClientOriginalExtension();
             $request->image->move(public_path('uploads/patient/') . date('Y'), $getImage);
             $image = $getImage;
@@ -188,9 +186,9 @@ class PatientAuthenticationController extends Controller
         }
         // dd($image,$reg_img);
         $user = User::firstOrCreate([
-            'username' => $request->username,
+            'username' => '',
             'name' => $request->givenName,
-            'password' => $request->password,
+            'password' => '',
             'email' => $request->email,
             'phone_number' => $request->phoneNumber,
             'uuid' => Str::uuid(),
@@ -199,7 +197,7 @@ class PatientAuthenticationController extends Controller
             'image' => $image
 
         ]);
-        $orgUuid=$request->orguuid;
+        $orgUuid = $request->orguuid;
         // dd($user, $orgUuid);
         return $this->patientMapped($user, $orgUuid);
     }
@@ -431,12 +429,12 @@ class PatientAuthenticationController extends Controller
 
             $user = User::where('PersonUuid', $user->PersonUuid)->first();
             $org = Organization::where('uuid', $orgUuid)->first();
-            $patient=Patient::firstOrCreate([
+            $patient = Patient::firstOrCreate([
                 'user_id' => $user->id,
                 'organization_id' => $org->id,
                 'status' => 1,
             ]);
-            $patientOrg=UsersOrganization::firstOrCreate([
+            $patientOrg = UsersOrganization::firstOrCreate([
 
                 'status' => 1,
                 'registration_code' => '123ABC',

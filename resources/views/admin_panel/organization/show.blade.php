@@ -19,12 +19,12 @@
                             <div class="col-5">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page"> Registered Organizations </li>
+                                    <li class="breadcrumb-item active" aria-current="page"> Registered  Hospitals </li>
                                 </ol>
                             </div>
                             <div class="col-4">
                                 <span class="card-title"><strong>
-                                        Organizations List
+                                         Hospitals List
                                     </strong></span>
                             </div>
 
@@ -50,9 +50,9 @@
                                                 {{$organization->displayname}}
                                             </td>
                                             <td class="text-end">
-                                                <a href="{{route('single.organization',['uuid'=>$organization->uuid])}}"><button class="btn btn-info" title="Update"><i class="fa fa-edit"></i></button></a>
+                                                <a href="{{route('single.organization',['uuid'=>$organization->uuid])}}"><button class="btn btn-info" title="Update Hospital"><i class="fa fa-edit"></i></button></a>
 
-                                                <a href="{{route('users.list',['uuid'=>$organization->uuid])}}"><button class="btn btn-primary" title="Users"><i class="fa fa-users"></i></button></a>
+                                                <a href="{{route('users.list',['uuid'=>$organization->uuid])}}"><button class="btn btn-primary" title="Management Users"><i class="fa fa-users"></i></button></a>
 
                                                 <a href="{{route('patients.list',['uuid'=>$organization->uuid])}}"><button class="btn btn-warning" title="Patients"><i class="fa fa-user-plus"></i></button></a>
 

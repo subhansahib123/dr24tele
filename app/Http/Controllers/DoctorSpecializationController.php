@@ -80,11 +80,4 @@ class DoctorSpecializationController extends Controller
         }
         return redirect()->route('showSpecialization')->withSuccess(__('Specialization is Successfully Updated'));
     }
-    public function delete($id)
-    {
-        $doctor_specialization = DoctorSpecialization::find($id);
-        $doctor_specialization->delete();
-        // dd($id);
-        return redirect()->back()->withSuccess(__('Specialization is Successfully Deleted'));
-    }
 }

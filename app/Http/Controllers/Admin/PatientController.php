@@ -18,12 +18,9 @@ class PatientController extends Controller
     {
         // dd($request->all());
         $request->validate([
-            'username' => 'required|string',
             'name' => 'required|string',
-            'password' => 'required|string',
             'phoneNumber' => 'required|string',
             'email' => 'required|string',
-            'image' => 'required|mimes:jpg,png,gif,svg,jpeg|dimensions:min_width=300,min_height=350',
         ]);
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
@@ -32,6 +29,8 @@ class PatientController extends Controller
             return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
         if ($request->hasFile('image')) {
+            $request->validate(['image' => 'required|mimes:jpg,png,gif,svg,jpeg|dimensions:min_width=300,min_height=350']);
+
             $getImage = date('Y') . '/' . time() . '-' . rand(0, 999999) . '.' . $request->image->getClientOriginalExtension();
             $request->image->move(public_path('uploads/organization/patients/') . date('Y'), $getImage);
             $image = $getImage;
@@ -41,9 +40,9 @@ class PatientController extends Controller
         // dd($image);
         try {
             $UserData = User::firstOrCreate([
-                'username' => $request->username,
-                'name' => $request->name,
-                'password' => $request->password,
+                'username' => '',
+                'name' => $request->name.' '.$request->middlename,
+                'password' => '',
                 'email' => $request->email,
                 'phone_number' => $request->phoneNumber,
                 'uuid' => Str::uuid(),
@@ -126,10 +125,10 @@ class PatientController extends Controller
                 'user_id' => $request->userId,
                 'organization_id' => $org->id
             ]);
-            if( $org->uuid=='c6bc6265-e876-414a-9672-a85e09280059'){
-            return redirect()->route('all.users')->withSuccess(__('Patient Successfully Created'));
+            if ($org->uuid == 'c6bc6265-e876-414a-9672-a85e09280059') {
+                return redirect()->route('all.users')->withSuccess(__('Patient Successfully Created'));
             }
-            return redirect()->route('patients.list',[$org->uuid])->withSuccess(__('Patient Successfully Created'));
+            return redirect()->route('patients.list', [$org->uuid])->withSuccess(__('Patient Successfully Created'));
         } catch (\Exception $e) {
 
 

@@ -40,16 +40,11 @@
                                 <div class="bg-light p-4 ">
                                     <table class="table table-striped" id="datatable">
                                         <thead>
-                                            <th scope="col" width="30%" >Name</th>
-                                            <th scope="col" width="30%">User Name</th>
+                                            <th scope="col" width="30%">Name</th>
                                             <th class="col text-end">Action</th>
                                         </thead>
                                         @foreach($doctors as $doctor)
                                         <tr>
-                                            <td>
-                                                {{$doctor->user->username}}
-
-                                            </td>
                                             <td>
                                                 {{$doctor->user->name}}
                                             </td>

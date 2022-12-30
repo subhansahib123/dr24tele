@@ -107,7 +107,7 @@
                               </a>
                           </li>
                           <li>
-                              <a href="patient.login">
+                              <a href="{{route('patient.login')}}">
                                   <i class="ri-arrow-right-s-line"></i>
                                   Login
                               </a>

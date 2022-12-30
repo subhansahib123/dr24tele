@@ -42,7 +42,7 @@ class PersonalDetails extends Controller
 
         $user->update(['phone_number' => $request->phoneNumberNew]);
         // dd($user );
-        return redirect()->route('verifyPhoneNumber')->withSuccess(__('Phone Number is Successfully Updated'));
+        return redirect()->route('logout')->withSuccess(__('Phone Number is Successfully Updated'));
     }
 
     public function phoneNumberVerified(Request $request)

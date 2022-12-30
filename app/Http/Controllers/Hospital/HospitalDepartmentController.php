@@ -33,10 +33,9 @@ class HospitalDepartmentController extends Controller
     public function hospitalDepartmentCreated(Request $request)
     {
         $request->validate([
-            'name' => 'required|string',
+            'displayname' => 'required|string',
             'status' => 'required|string',
             'level' => 'string',
-            'image' => 'nullable|image|mimes:jpg,png,gif,svg,jpeg|dimensions:min_width=1140,min_height=650',
             'specialization_id.*' => 'required|string',
         ]);
 
@@ -52,6 +51,7 @@ class HospitalDepartmentController extends Controller
         $org = Organization::where('uuid', $orgId)->first();
         try {
             if ($request->hasFile('image')) {
+                $request->validate(['image' => 'nullable|image|mimes:jpg,png,gif,svg,jpeg|dimensions:min_width=1140,min_height=650']);
                 $getImage = date('Y') . '/' . time() . '-' . rand(0, 999999) . '.' . $request->image->getClientOriginalExtension();
                 $request->image->move(public_path('uploads/organization/department/') . date('Y'), $getImage);
                 $image = $getImage;
@@ -59,7 +59,7 @@ class HospitalDepartmentController extends Controller
                 $image = '';
             }
             Department::Create([
-                'name' => $request->name . '_' . $org->name,
+                'name' => $request->displayname . '_' . $org->name,
                 'image' => $image,
                 'organization_id' => $org->id,
                 'display_name' => $request->displayname,
@@ -67,7 +67,7 @@ class HospitalDepartmentController extends Controller
                 'uuid' => Str::uuid(),
                 'status' => $request->status
             ]);
-            $department = Department::where('name', $request->name . '_' . $org->name)->first();
+            $department = Department::where('name', $request->displayname . '_' . $org->name)->first();
             $specializations = $request->specialization_id;
             foreach ($specializations as $specialization) {
                 SpecializedDepartment::Create([
@@ -109,7 +109,6 @@ class HospitalDepartmentController extends Controller
         try {
             // dd( $organization, $depData);
             return view('hospital_panel.departments.departmentForUpdate', ['organization' => $organization, 'depData' => $depData]);
-
         } catch (\Exception $e) {
 
 
@@ -174,8 +173,7 @@ class HospitalDepartmentController extends Controller
             $orgDb = Department::where('uuid', $uuid)->first();
             if ($orgDb->status == 'Disabled') {
                 $orgDb->update(['status' => 'Enabled']);
-            }
-            else{
+            } else {
                 $orgDb->update(['status' => 'Disabled']);
             }
             return redirect()->back()->withSuccess(__('Successfully Organization Status Updated'));

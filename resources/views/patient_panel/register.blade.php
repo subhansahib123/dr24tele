@@ -8,7 +8,7 @@
             <div class="breadcrumb-title">
                 <h2>Patient Register</h2>
                 <ul class="breadcrumb-menu list-style">
-                                        <li><a href="{{route('home.page')}}">Home </a></li>
+                    <li><a href="{{route('home.page')}}">Home </a></li>
 
                     <li>Register</li>
                 </ul>
@@ -20,11 +20,11 @@
     <!-- Account Section start -->
     <section class="Login-wrap pt-100 pb-75">
         <div class="container">
-            <div class="row gx-5">
-                <div class="col-xl-6 offset-xl-3 col-lg-8 offset-lg-2">
+            <div class="row ">
+                <div class="col-xl-10 offset-xl-1 col-md-10 offset-md-1 col-sm-12">
                     <div class="login-form-wrap">
                         <div class="login-header">
-                            <h3>Register</h3>
+                            <h3 class="text-center">Register</h3>
                             @include('admin_panel.frontend.includes.messages')
 
                         </div>
@@ -32,39 +32,17 @@
                             @csrf
 
                             <div class="row">
-
-
-                                <div class="col-lg-6 col-6 col-md-6 col-sm-12">
+                                <div class="col-lg-6   col-md-6 col-sm-12">
                                     <div class="form-group">
-                                        <label>Username</label>
+                                        <label> Name</label>
 
-                                        <input type="text" value="{{old('username')}}" name="username" class="form-control" placeholder="Enter Username">
-                                        @if ($errors->has('username'))
-                                        <span class="text-danger text-left">{{ $errors->first('username') }}</span>
-                                        @endif
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-6 col-md-6 col-sm-12">
-                                    <div class="form-group">
-                                        <label>Password</label>
-
-                                        <input type="text" value="{{old('password')}}" name="password" class="form-control" placeholder="Enter Password">
-                                        @if ($errors->has('password'))
-                                        <span class="text-danger text-left">{{ $errors->first('password') }}</span>
-                                        @endif
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-6 col-md-6 col-sm-12">
-                                    <div class="form-group">
-                                        <label>Given Name</label>
-
-                                        <input type="text" value="{{old('givenName')}}" name="givenName" class="form-control" placeholder="Enter Given Name">
+                                        <input type="text" value="{{old('givenName')}}" name="givenName" class="form-control" placeholder="Enter Name">
                                         @if ($errors->has('givenName'))
                                         <span class="text-danger text-left">{{ $errors->first('givenName') }}</span>
                                         @endif
                                     </div>
                                 </div>
-                                <div class="col-lg-6 col-6 col-md-6 col-sm-12">
+                                <div class="col-lg-6   col-md-6 col-sm-12">
                                     <div class="form-group">
                                         <label>Email</label>
 
@@ -74,29 +52,8 @@
                                         @endif
                                     </div>
                                 </div>
-                                <div class="col-lg-6 col-6 col-md-6 col-sm-12">
-                                    <div class="form-group">
-                                        <label>Phone Number</label>
 
-                                        <input type="text" id="txtPhone" value="+9113231" class="form-control" placeholder="+91 *** ******">
-                                        <input type="hidden" class="form-control" id="phoneNumber">
-                                        @if ($errors->has('phoneNumber'))
-                                        <span class="text-danger text-left">{{ $errors->first('phoneNumber') }}</span>
-                                        @endif
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-6 col-md-6 col-sm-12">
-                                    <div class="form-group">
-                                        <label>Date of Birth</label>
-
-                                        <input type="date" id="number" value="{{old('dateOfBirth')}}" name="dateOfBirth" class="form-control" placeholder="Enter Date of Birth*">
-                                        @if ($errors->has('dateOfBirth'))
-                                        <span class="text-danger text-left">{{ $errors->first('dateOfBirth') }}</span>
-                                        @endif
-                                    </div>
-                                </div>
-                                
-                                <div class="col-lg-6 col-6 col-md-6 col-sm-12">
+                                <div class="col-lg-6   col-md-6 col-sm-12">
                                     <div class="form-group">
                                         <label>Gender</label>
 
@@ -114,7 +71,34 @@
                                         @endif
                                     </div>
                                 </div>
-                                <div class="col-lg-6 col-6 col-md-6 col-sm-12"  >
+                                <div class="col-lg-6   col-md-6 col-sm-12">
+                                    <div class="form-group">
+                                        <label>Date of Birth</label>
+
+                                        <input type="date" id="number" value="{{old('dateOfBirth')}}" name="dateOfBirth" class="form-control" placeholder="Enter Date of Birth*">
+                                        @if ($errors->has('dateOfBirth'))
+                                        <span class="text-danger text-left">{{ $errors->first('dateOfBirth') }}</span>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="col-lg-6   col-md-6 col-sm-12">
+                                    <div class="form-group">
+                                        <label>Phone Number</label>
+
+                                        <input type="text" id="txtPhone" class="form-control" placeholder="+91 *** ******">
+                                        <input type="hidden" class="form-control" id="phoneNumber">
+                                        @if ($errors->has('phoneNumber'))
+                                        <span class="text-danger text-left">{{ $errors->first('phoneNumber') }}</span>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class=" col-lg-6 col-md-8 col-sm-12 mb-3">
+                                    <label for="image" class="col-md-3 form-label">Picture</label>
+                                    <div class="col-md-9">
+                                        <input class="form-control  mt-3" type="file" name="image" id="image">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6   col-md-6 col-sm-12">
                                     <div class="form-group">
                                         <label> Organisation</label>
 
@@ -130,13 +114,8 @@
                                         @endif
                                     </div>
                                 </div>
-                                <div class=" col-lg-6 col-6 col-md-6 col-sm-12">
-                                    <label for="image" class="col-md-3 form-label">Picture</label>
-                                    <div class="col-md-9">
-                                        <input type="file" name="image" id="image">
-                                    </div>
-                                </div>
-                                <div class="col-lg-12 col-12 col-md-12 col-sm-12" id="organization">
+
+                                <!-- <div class="col-lg-12 col-12 col-md-12 col-sm-12" id="organization">
                                     <div class="form-group row">
                                         <div class="col-8 mt-3">
                                             <p><strong> Already Registered with Organization</strong></p>
@@ -177,7 +156,7 @@
                                         <input type="number" name="atm_card" placeholder="Card Number" class="form-control">
 
                                     </div>
-                                </div>
+                                </div> -->
 
 
                                 {{-- <div class="col-lg-12 col-md-12 col-sm-12 col-12">
@@ -198,17 +177,17 @@
                                 {{-- <div class="col-lg-6 col-md-6 col-sm-6 col-6 text-end mb-20">
                                         <a href="#" class="link style1">Forgot Password?</a>
                                     </div> --}}
+                                <div class="row  gx-0">
+                                    <div class="col-lg-3  offset-lg-0  col-md-4 offset-md-0 col-sm-10 offset-sm-1  mt-5 text-center">
+                                        <div class="form-group">
+                                            <button type="submit" class="btn style1 w-100 d-block">
+                                                Register
+                                            </button>
 
-                                <div class="col-lg-12">
-                                    <div class="form-group">
-                                        <button type="submit" class="btn style1 w-100 d-block">
-                                            Register
-                                        </button>
-
+                                        </div>
                                     </div>
                                 </div>
-
-                                <div class="col-md-12">
+                                <div class="col-md-6 ">
                                     <p class="mb-0">Already have an Account? <a class="link style1" href="{{route('patient.login')}}">Login</a></p>
                                 </div>
                             </div>

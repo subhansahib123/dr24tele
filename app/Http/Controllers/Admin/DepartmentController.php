@@ -30,14 +30,14 @@ class DepartmentController extends Controller
         $orgName = Organization::where('uuid', $request->organization)->first();
         // dd( $orgName );
         $request->validate([
-            'name'  => 'required|string',
+            'displayname' => 'required|string',
             'status' => 'required|string',
             'level' => 'required|string',
             'organization' => 'required|string',
-            'image' => 'nullable|image|mimes:jpg,png,gif,svg,jpeg|dimensions:min_width=1140,min_height=650',
             'specialization_id.*' => 'required|string',
         ]);
         if ($request->hasFile('image')) {
+            $request->validate(['image' => 'nullable|image|mimes:jpg,png,gif,svg,jpeg|dimensions:min_width=1140,min_height=650',]);
             $getImage = date('Y') . '/' . time() . '-' . rand(0, 999999) . '.' . $request->image->getClientOriginalExtension();
             $request->image->move(public_path('uploads/organization/department/') . date('Y'), $getImage);
             $image = $getImage;
@@ -55,31 +55,30 @@ class DepartmentController extends Controller
         // dd($parent_org_uuid);
 
         try {
-            if ($request->name) {
-                // dd($request->level,$request->all());
-                $org = Organization::where('uuid',  $parent_org_uuid)->first();
-                $dep= Department::firstOrCreate([
-                    'name' => $request->name . '_' . $orgName->name,
-                    'organization_id' => $org->id,
-                    'display_name' => $request->displayname,
-                    'status'=>$request->status,
-                    'image' => $image,
-                    'level' => "SubOrg",
-                    'uuid' => Str::uuid(),
+            // dd($request->level,$request->all());
+            $org = Organization::where('uuid',  $parent_org_uuid)->first();
+            $dep = Department::firstOrCreate([
+                'name' => $request->displayname.'_'.$org->name,
+                'organization_id' => $org->id,
+                'display_name' => $request->displayname,
+                'status' => $request->status,
+                'image' => $image,
+                'level' => "SubOrg",
+                'uuid' => Str::uuid(),
+            ]);
+            $department = Department::where('display_name', $request->displayname )->first();
+            // dd($dep);
+            $specializations = $request->specialization_id;
+            // dd($specializations,$department);
+            foreach ($specializations as $specialization) {
+                // dd($specialization);
+                SpecializedDepartment::Create([
+                    'specialization_id' => $specialization,
+                    'department_id' => $department->id,
                 ]);
-                $department = Department::where('name', $request->name . '_' . $org->name)->first();
-                // dd($dep);
-                $specializations = $request->specialization_id;
-                // dd($specializations,$department);
-                foreach ($specializations as $specialization) {
-                    // dd($specialization);
-                    SpecializedDepartment::Create([
-                        'specialization_id' => $specialization,
-                        'department_id' => $department->id,
-                    ]);
-                }
+
                 // dd($org->uuid);
-                return redirect()->route('departments.list',[$org->uuid])->withSuccess(__('Successfully Department Created'));
+                return redirect()->route('departments.list', [$org->uuid])->withSuccess(__('Successfully Department Created'));
             }
         } catch (\Exception $e) {
 
@@ -150,13 +149,12 @@ class DepartmentController extends Controller
         $request->validate([
             'name' => 'required|string',
             'status' => 'required|string',
-            'image'=>'nullable|image|mimes:jpg,png,gif,svg,jpeg|dimensions:min_width=1140,min_height=650',
-
         ]);
 
         try {
             $dep = Department::where('uuid', $request->DepUuid)->first();
             if ($request->hasFile('image')) {
+            $request->validate(['image' => 'nullable|image|mimes:jpg,png,gif,svg,jpeg|dimensions:min_width=1140,min_height=650',]);
                 if (isset($dep) && $dep->image) {
                     $previous_img = public_path('uploads/organization/department/' . $dep->image);
                     // dd($previous_img);
@@ -172,14 +170,13 @@ class DepartmentController extends Controller
             }
             $dep->update([
                 'display_name' => $request->displayname,
-                'status'=>$request->status,
-                'image'=> $image
+                'status' => $request->status,
+                'image' => $image
 
             ]);
-            $org=Organization::where('id',$dep->organization_id)->first();
+            $org = Organization::where('id', $dep->organization_id)->first();
             // dd($org);
-            return redirect()->route('departments.list',[$org->uuid])->withSuccess(__('Successfully Department Updated'));
-
+            return redirect()->route('departments.list', [$org->uuid])->withSuccess(__('Successfully Department Updated'));
         } catch (\Exception $e) {
 
 

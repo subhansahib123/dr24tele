@@ -39,27 +39,14 @@
 
                                     <div class="col-lg-6 col-md-6 col-sm-12">
                                         <div class="form-group">
-                                            <label for="Name">Name</label>
-                                            <input type="text" class="form-control" name="name" value="" id="Name" placeholder="Enter Name">
+                                            <label for="Name">First Name</label>
+                                            <input type="text" class="form-control" name="name" value="" id="Name" placeholder="Enter First Name">
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-12">
                                         <div class="form-group">
-                                            <label class="form-label" for="middleName">Middle Name</label>
-                                            <input class="form-control" id="middleName" placeholder="Enter Middle Name" name="middlename" value="">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-12">
-                                        <div class="form-group">
-
-                                            <label for="Username">Username</label>
-                                            <input type="text" class="form-control" name="username" value="" id="Username" placeholder="Username">
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-6 col-sm-12">
-                                        <div class="form-group">
-                                            <label for="Password">Password</label>
-                                            <input type="text" class="form-control" name="password" id="Password" placeholder="Password">
+                                            <label class="form-label" for="middleName">Last Name</label>
+                                            <input class="form-control" id="middleName" placeholder="Enter Last Name" name="middlename" value="">
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-12">
