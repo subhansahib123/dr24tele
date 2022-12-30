@@ -48,7 +48,6 @@
                                                 </td>
                                                 <td>
                                                     <a href="{{route('updateSpecialization',[$specialization->id])}}" class="btn btn-primary"><i class="fa fa-edit"></i></a>
-                                                    <a href="{{route('deleteSpecialization',[$specialization->id])}}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
                                                 </td>
                                             </tr>
                                             @endforeach

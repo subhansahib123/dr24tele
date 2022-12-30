@@ -57,10 +57,11 @@
                     </div>
                 </div>
             </div>
-            <div class="row gx-5">
-                <div class="col-xl-8 col-lg-7 col-12">
+            <div class="row gx-0 mx-0">
+                <div class="col-xl-1 col-lg-1 align-self-start"></div>
+                <div class="col-xl-10 col-lg-10 col-12">
                     <div class="contact-form">
-                        <h3>Send Us A Message</h3>
+                        <h3 class="align-center">Send Us A Message</h3>
                         <form class="form-wrap" id="contactForm">
                             <div class="row">
                                 <div class="col-md-6">
@@ -111,12 +112,7 @@
                         </form>
                     </div>
                 </div>
-                <div class="col-xl-4 col-lg-5 col-md-12">
-                    <div class="comp-map">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3151.8385385572983!2d144.95358331584498!3d-37.81725074201705!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad65d4dd5a05d97%3A0x3e64f855a564844d!2s121%20King%20St%2C%20Melbourne%20VIC%203000%2C%20Australia!5e0!3m2!1sen!2sbd!4v1612419490850!5m2!1sen!2sbd">
-                        </iframe>
-                    </div>
-                </div>
+                <div class="col-xl-1 col-lg-1 align-self-end"></div>
             </div>
         </div>
     </section>

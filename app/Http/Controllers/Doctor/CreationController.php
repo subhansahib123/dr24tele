@@ -36,9 +36,7 @@ class CreationController extends Controller
             return redirect()->route('logout')->withErrors(['error' => 'Login Token Expired ! Please login Again']);
 
         $request->validate([
-            'username' => 'required|string',
             'name' => 'required|string',
-            'password' => 'required|string',
             'phoneNumber' => 'required|string',
             'email' => 'required|string',
             'image' => 'required|mimes:jpg,png,gif,svg,jpeg|dimensions:min_width=300,min_height=350',
@@ -54,17 +52,17 @@ class CreationController extends Controller
 
 
             User::create([
-                'username' => $request->username,
+                'username' => '',
                 'name' => $request->name . ' ' . $request->middlename,
                 'image' => $image,
-                'password' => $request->password,
+                'password' => '',
                 'email' => $request->email,
                 'phone_number' => $request->phoneNumber,
                 'uuid' => Str::uuid(),
                 'PersonId' => Str::uuid(),
                 'status' => 1
             ]);
-            $user = User::where('username', $request->username)->first();
+            $user = User::where('phone_number', $request->phoneNumber)->first();
             $userUuid = $user->uuid;
             return $this->mapDoctor($userUuid);
 

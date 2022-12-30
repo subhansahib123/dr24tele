@@ -37,7 +37,7 @@
                                 <div class="col-lg-12" id="numbercon">
                                     <div class="form-group">
                                         {{-- <input id="text" name="fname" type="text" placeholder="Username Or Email Address" required=""> --}}
-                                        <input type="text" id="txtPhone" value="+9113231" class="form-control" placeholder="+91 *** ******">
+                                        <input type="text" id="txtPhone"  class="form-control" placeholder="+91 *** ******">
                                         <input type="hidden" class="form-control" id="phoneNumber">
                                     </div>
                                 </div>
@@ -58,17 +58,6 @@
                                     <div id="recaptcha-container"></div>
 
 
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-                                    <div class="checkbox style3">
-                                        <input type="checkbox" id="test_1">
-                                        <label for="test_1">
-                                            Remember Me
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-sm-6 col-6 text-end mb-20">
-                                    <a href="recover-password.html" class="link style1">Forgot Password?</a>
                                 </div>
 
                                 <div class="col-lg-12" id="sendoptbtn">

@@ -33,11 +33,13 @@
                                 <input type="hidden" value="{{$userUuid}}" name="user">
                                 <div class="row">
                                     <div class="form-group col-lg-6 col-md-6 col-sm-12">
-                                        <label for="organization">Organisation</label>
+                                        <label for="organization"> Hospital</label>
                                         <select class="form-control" name="organization" id="organization">
+                                        <option value='' selected>Select Hospital</option>
+
                                             @if($organizations)
                                             @foreach ($organizations as $organization)
-                                            <option value="{{$organization->uuid}}">{{$organization->name}}</option>
+                                            <option value="{{$organization->uuid}}">{{$organization->displayname}}</option>
                                             @endforeach
                                             @endif
                                         </select>
@@ -94,7 +96,7 @@
                 var option = "<option value='' selected>Select Department</option>";
                 data.forEach(function(row, index) {
                     // console.log(row,index);
-                    option += `<option value='${row.uuid}'>${row.name}</option>`;
+                    option += `<option value='${row.uuid}'>${row.display_name}</option>`;
                 });
                 $('#departments').html(option);
             }

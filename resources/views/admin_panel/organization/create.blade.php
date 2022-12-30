@@ -18,12 +18,12 @@
                                 <div class="col-5">
                                     <ol class="breadcrumb">
                                         <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                                        <li class="breadcrumb-item active" aria-current="page">Create Organization</li>
+                                        <li class="breadcrumb-item active" aria-current="page">Create  Hospital</li>
                                     </ol>
                                 </div>
                                 <div class="col-4">
                                 <span class="card-title"><strong>
-                                        Organization Details
+                                         Hospital Details
                                     </strong></span>
                                 </div>
 

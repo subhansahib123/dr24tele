@@ -82,12 +82,5 @@ class DepartmentSpecializationController extends Controller
         }
         return redirect()->route('show.departmentSpecialization')->withSuccess(__('Specialization is Successfully Updated'));
     }
-    public function delete($id)
-    {
-        $department_specialization = DepartmentSpecializations::find($id);
-        // dd($id);
-
-        $department_specialization->delete();
-        return redirect()->back()->withSuccess(__('Department Specialization is Successfully Deleted'));
-    }
+    
 }
