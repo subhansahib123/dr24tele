@@ -60,6 +60,8 @@ Route::get('/doctor-specializations', [MainController::class, 'doctorSpecializat
 Route::get('/getAllDoctors', [MainController::class, 'getAllDoctors']);
 //Patient
 Route::post('/patient/logined', [APIPatientAuthenticationController::class, 'performLogin']);
+Route::get('/patient/get-organizations', [APIPatientAuthenticationController::class, 'getOrganizations']);
+Route::post('/patient/registered', [APIPatientAuthenticationController::class, 'patientSignUp']);
 Route::group(['prefix' => 'patient','middleware' => ['auth:sanctum']], function () {
     Route::post('/member/created', [APIFamilyMembersController::class, 'create'])->name('api.membersCreated');
     Route::get('/member/list', [APIFamilyMembersController::class, 'list'])->name('api.membersList');
