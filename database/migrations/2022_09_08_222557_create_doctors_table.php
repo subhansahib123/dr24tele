@@ -18,6 +18,7 @@ class CreateDoctorsTable extends Migration
             $table->id();
             $table->boolean('status');
             $table->timestamps();
+            $table->string('prefix')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('department_id');
             $table->foreign('department_id')->references('id')->on('departments')->onDelete('cascade');

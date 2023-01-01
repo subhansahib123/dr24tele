@@ -119,18 +119,13 @@ class AuthenticationController extends Controller
 
         $user = User::with('doctor')->where('phone_number',  $request->phoneNumber)->first();
         // dd($user);
-        if (!isset($user->doctor))
-            return redirect()->back()->withErrors(['error' => 'User is not associated with any Department']);
-
+        
         // dd($user->doctor);
-        $organisation = $user->doctor->department;
-        // dd  ($organisation->name);
-        if (is_null($organisation))
-
-            return redirect()->back()->withErrors(['error' => 'No Department record found in database']);
-
+       
         if ($user) {
 
+            if (!isset($user->doctor))
+            return redirect()->back()->withErrors(['error' => 'User is not associated with any Department']);
 
             Auth::login($user);
 

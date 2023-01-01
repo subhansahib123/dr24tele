@@ -15,7 +15,7 @@ class AddColumnToDepartments extends Migration
     {
         Schema::table('departments', function (Blueprint $table) {
             $table->unsignedBigInteger('specialization_id')->nullable();
-            $table->foreign('specialization_id')->references('id')->on('doctor_specializations')->cascadeOnDelete();
+            $table->foreign('specialization_id')->references('id')->on('department_specializations')->cascadeOnDelete();
         });
     }
 

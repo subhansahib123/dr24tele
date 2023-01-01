@@ -166,13 +166,13 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     // This Route shows list of All Registered roles
     Route::get('/roles', [AuthenticationController::class, 'roles'])->name('roles');
     //Create Specialization
-    Route::get('/create/specialization', [DoctorSpecializationController::class, 'index'])->name('createSpecialization');
-    Route::post('/specialization/created', [DoctorSpecializationController::class, 'create'])->name('specializationCreated');
-    //List of Specialization
-    Route::get('/show/specialization', [DoctorSpecializationController::class, 'show'])->name('showSpecialization');
-    //Update Specialization
-    Route::get('/update/specialization/{id}', [DoctorSpecializationController::class, 'updateView'])->name('updateSpecialization');
-    Route::post('/specialization/updated', [DoctorSpecializationController::class, 'update'])->name('specializationUpdated');
+    // Route::get('/create/specialization', [DoctorSpecializationController::class, 'index'])->name('createSpecialization');
+    // Route::post('/specialization/created', [DoctorSpecializationController::class, 'create'])->name('specializationCreated');
+    // //List of Specialization
+    // Route::get('/show/specialization', [DoctorSpecializationController::class, 'show'])->name('showSpecialization');
+    // //Update Specialization
+    // Route::get('/update/specialization/{id}', [DoctorSpecializationController::class, 'updateView'])->name('updateSpecialization');
+    // Route::post('/specialization/updated', [DoctorSpecializationController::class, 'update'])->name('specializationUpdated');
     //Create Department Specialization
     Route::get('/create/department-specialization', [DepartmentSpecializationController::class, 'index'])->name('create.departmentSpecialization');
     Route::post('/department-specialization/created', [DepartmentSpecializationController::class, 'create'])->name('departmentSpecialization.created');
@@ -302,13 +302,13 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::post('/department-specialization/updated', [DepartmentSpecializationController::class, 'update'])->name('department.specializationUpdated');
 
     //Create Doctor Specialization
-    Route::get('/create/doctor-specialization', [DoctorSpecializationController::class, 'index'])->name('create.specialization');
-    Route::post('/doctor-specialization/created', [DoctorSpecializationController::class, 'create'])->name('specialization.created');
-    //List of Doctor Specialization
-    Route::get('/show/doctor-specialization', [DoctorSpecializationController::class, 'show'])->name('show.specialization');
-    //Update Doctor Specialization
-    Route::get('/update/doctor-specialization/{id}', [DoctorSpecializationController::class, 'updateView'])->name('update.specialization');
-    Route::post('/doctor-specialization/updated', [DoctorSpecializationController::class, 'update'])->name('specialization.updated');
+    // Route::get('/create/doctor-specialization', [DoctorSpecializationController::class, 'index'])->name('create.specialization');
+    // Route::post('/doctor-specialization/created', [DoctorSpecializationController::class, 'create'])->name('specialization.created');
+    // //List of Doctor Specialization
+    // Route::get('/show/doctor-specialization', [DoctorSpecializationController::class, 'show'])->name('show.specialization');
+    // //Update Doctor Specialization
+    // Route::get('/update/doctor-specialization/{id}', [DoctorSpecializationController::class, 'updateView'])->name('update.specialization');
+    // Route::post('/doctor-specialization/updated', [DoctorSpecializationController::class, 'update'])->name('specialization.updated');
 
     //Create Doctor
     Route::get('/create/doctor', [CreationController::class, 'create'])->name('create.doctor');
@@ -368,7 +368,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::post('/hospital-coupon/assign', [HospitalCouponController::class, 'assignUserPost'])->name('hospital.coupon.assigncoupon');
     Route::post('/hospital-coupon/create', [HospitalCouponController::class, 'store'])->name('hospital.coupon.store');
   });
-  Route::group(['prefix' => 'doctor', 'middleware' => ['auth','role:practitioner']], function () {
+  Route::group(['prefix' => 'doctor', 'middleware' => ['auth','role:practitioner',]], function () {
     Route::get('/dashboard', [AuthenticationController::class, 'DoctorDashboard'])->name('doctor.dashboard');
 
     //Update User name

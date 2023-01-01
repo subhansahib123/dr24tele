@@ -34,17 +34,8 @@
                 </li>
                 <li class="slide">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
-                            class="side-menu__icon fa fa-stethoscope"></i><span class="side-menu__label">
-                            Doctor's Specialization</span><i class="angle fe fe-chevron-right"></i></a>
-                    <ul class="slide-menu nav-tree">
-                        <li><a href="{{ route('create.specialization') }}" class="slide-item"> Create </a></li>
-                        <li><a href="{{ route('show.specialization') }}" class="slide-item">list</a></li>
-                    </ul>
-                </li>
-                <li class="slide">
-                    <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
                             class="side-menu__icon fa fa-id-card-o"></i><span class="side-menu__label">
-                            Depart's Specialization</span><i class="angle fe fe-chevron-right"></i></a>
+                             Specializations</span><i class="angle fe fe-chevron-right"></i></a>
                     <ul class="slide-menu nav-tree">
                         <li><a href="{{ route('createDepartment.specialization') }}" class="slide-item"> Create </a></li>
                         <li><a href="{{ route('showDepartment.specialization') }}" class="slide-item">list</a></li>

@@ -25,7 +25,7 @@
                     <div class="login-form-wrap">
                         <div class="login-header">
                             <h3>Login</h3>
-                            @include('admin_panel.frontend.includes.messages')
+                            @include('public_panel.frontend.includes.messages')
                             <div class="alert alert-danger" id="error" style="display: none;"></div>
 
                             <div class="alert alert-success" id="successAuth" style="display: none;"></div>
@@ -72,10 +72,10 @@
                                         </button>
 
                                     </div>
-                                </div>
-                                <!-- <div class="col-md-12">
-                                    <p class="mb-0">Don't have an Account? <a class="link style1" href="register.html">Create One</a></p>
                                 </div> -->
+                                <div class="col-md-12">
+                                    <p class="mb-0">Don't have an Account? <a class="link style1" href="register.html">Create One</a></p>
+                                </div>
                                 <!-- <div class="col-lg-12">
                                     <div class="form-group">
                                         <button type="submit" class="btn style1 w-100 d-block">
@@ -83,7 +83,7 @@
                                         </button>
 
                                     </div>
-                                </div> -->
+                                </div>-->
                             </div>
                         </form>
                     </div>

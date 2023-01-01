@@ -32,12 +32,12 @@ class DepartmentController extends Controller
         $request->validate([
             'displayname' => 'required|string',
             'status' => 'required|string',
-            'level' => 'required|string',
             'organization' => 'required|string',
             'specialization_id.*' => 'required|string',
+            'image' => 'nullable|image|mimes:jpg,png,gif,svg,jpeg|dimensions:min_width=1140,min_height=650'
+
         ]);
         if ($request->hasFile('image')) {
-            $request->validate(['image' => 'nullable|image|mimes:jpg,png,gif,svg,jpeg|dimensions:min_width=1140,min_height=650',]);
             $getImage = date('Y') . '/' . time() . '-' . rand(0, 999999) . '.' . $request->image->getClientOriginalExtension();
             $request->image->move(public_path('uploads/organization/department/') . date('Y'), $getImage);
             $image = $getImage;
@@ -58,7 +58,7 @@ class DepartmentController extends Controller
             // dd($request->level,$request->all());
             $org = Organization::where('uuid',  $parent_org_uuid)->first();
             $dep = Department::firstOrCreate([
-                'name' => $request->displayname.'_'.$org->name,
+                'name' =>strtolower(str_replace(' ','',$request->displayname)). '_' .$org->name,
                 'organization_id' => $org->id,
                 'display_name' => $request->displayname,
                 'status' => $request->status,
@@ -66,15 +66,14 @@ class DepartmentController extends Controller
                 'level' => "SubOrg",
                 'uuid' => Str::uuid(),
             ]);
-            $department = Department::where('display_name', $request->displayname )->first();
-            // dd($dep);
+            // dd($department);
             $specializations = $request->specialization_id;
             // dd($specializations,$department);
             foreach ($specializations as $specialization) {
                 // dd($specialization);
                 SpecializedDepartment::Create([
                     'specialization_id' => $specialization,
-                    'department_id' => $department->id,
+                    'department_id' => $dep->id,
                 ]);
 
                 // dd($org->uuid);
@@ -165,13 +164,11 @@ class DepartmentController extends Controller
                 $getImage = date('Y') . '/' . time() . '-' . rand(0, 999999) . '.' . $request->image->getClientOriginalExtension();
                 $request->image->move(public_path('uploads/organization/department/') . date('Y'), $getImage);
                 $image = $getImage;
-            } else {
-                $image = '';
             }
             $dep->update([
                 'display_name' => $request->displayname,
                 'status' => $request->status,
-                'image' => $image
+                'image' => $dep->image
 
             ]);
             $org = Organization::where('id', $dep->organization_id)->first();

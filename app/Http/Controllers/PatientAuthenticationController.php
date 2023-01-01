@@ -76,8 +76,10 @@ class PatientAuthenticationController extends Controller
         $user = User::where('phone_number',  $request->phoneNumber)->first();
 
 
-        if ($user->patient) {
+        if ($user) {
 
+            if (!isset($user->patient))
+            return redirect()->back()->withErrors(['error' => 'Please register as Patient to Login']);
 
             Auth::login($user);
             session(['loggedInUser' => $user]);
