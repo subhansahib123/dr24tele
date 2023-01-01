@@ -41,15 +41,6 @@
                                     @endif
                                 </div>
                                 <div class=" row  mb-1">
-                                    <label for="username" class="col-md-3 form-label"> User Name</label>
-                                    <div class="col-md-9">
-                                        <input type="text" class="form-control" value="{{old('name')}}" name="name" id="username" placeholder="Username">
-                                    </div>
-                                    @if ($errors->has('name'))
-                                    <span class="text-danger text-left">{{ $errors->first('name') }}</span>
-                                    @endif
-                                </div>
-                                <div class=" row  mb-1">
                                     <label for="specialization" class="col-md-3 form-label"> Select Specialization</label>
                                     <div class="col-md-9">
                                         <select class="form-control js-example-basic-multiple" name="specialization_id[]" multiple="multiple" id=" specialization">
@@ -83,7 +74,7 @@
                                             <option value="">Select</option>
                                             @if($organizations)
                                             @foreach ($organizations as $organization)
-                                            <option value="{{$organization->uuid}}">{{$organization->name}}</option>
+                                            <option value="{{$organization->uuid}}">{{$organization->displayname}}</option>
                                             @endforeach
                                             @endif
                                         </select>

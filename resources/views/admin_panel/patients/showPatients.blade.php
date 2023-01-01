@@ -18,7 +18,7 @@
                             <div class="col-5">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Organization Patients</li>
+                                    <li class="breadcrumb-item active" aria-current="page"> Hospital Patients</li>
                                 </ol>
                             </div>
                             <div class="col-4">
@@ -43,7 +43,6 @@
                                     <table class="table table-striped" id="datatable">
                                         <thead>
                                             <th scope="col" width="30%">Name</th>
-                                            <th scope="col">Username</th>
                                             <th class="col text-end">Action</th>
                                         </thead>
 
@@ -56,11 +55,7 @@
                                                 {{$patient->user->name}}
 
                                             </td>
-                                            <td>
-
-                                                {{$patient->user->username}}
-
-                                            </td>
+                                            
                                             <td class="text-end">
                                                 <a href="{{route('patient.delete',[$patient->user->uuid])}}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
                                             </td>

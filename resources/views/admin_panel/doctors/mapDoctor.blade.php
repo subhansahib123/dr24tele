@@ -33,11 +33,13 @@
                                 <input type="hidden" value="{{$userUuid}}" name="user">
                                 <div class="row">
                                     <div class="form-group col-lg-6 col-md-6 col-sm-12">
-                                        <label for="organization">Organisation</label>
+                                        <label for="organization"> Hospital</label>
                                         <select class="form-control" name="organization" id="organization">
+                                            <option value='' selected>Select Hospital</option>
+
                                             @if($organizations)
                                             @foreach ($organizations as $organization)
-                                            <option value="{{$organization->uuid}}">{{$organization->name}}</option>
+                                            <option value="{{$organization->uuid}}">{{$organization->displayname}}</option>
                                             @endforeach
                                             @endif
                                         </select>
@@ -55,6 +57,35 @@
                                         <span class="text-danger text-left">{{ $errors->first('departments') }}</span>
                                         @endif
                                     </div>
+
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                        <div class="form-group">
+                                            <label class="form-label" for="specialization">Specialization</label>
+                                            <select class="form-select js-example-basic-multiple" name="specialization_id[]" multiple="multiple" id=" specialization">
+                                                @if($specializations)
+                                                @foreach($specializations as $specialization)
+                                                <option value="{{$specialization->id}}">{{$specialization->name}}</option>
+                                                @endforeach
+                                                @endif
+                                            </select>
+                                            <!-- <input type="text" class="form-control" name="" id="gender" value=""> -->
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                        <div class="form-group">
+                                            <label class="form-label" for="prefix">Pre-fix</label>
+                                            <select class="form-select" name="prefix" id="prefix">
+                                                <option value="">
+                                                    Select
+                                                </option>
+                                                <option value="Dr">
+                                                    Dr
+                                                </option>
+                                            </select>
+                                            <!-- <input type="text" class="form-control" name="" id="gender" value=""> -->
+                                        </div>
+                                    </div>
+
                                 </div>
                                 <div class="form-group text-end">
                                     <!-- <label for="role">Roles</label> -->
@@ -94,7 +125,7 @@
                 var option = "<option value='' selected>Select Department</option>";
                 data.forEach(function(row, index) {
                     // console.log(row,index);
-                    option += `<option value='${row.uuid}'>${row.name}</option>`;
+                    option += `<option value='${row.uuid}'>${row.display_name}</option>`;
                 });
                 $('#departments').html(option);
             }

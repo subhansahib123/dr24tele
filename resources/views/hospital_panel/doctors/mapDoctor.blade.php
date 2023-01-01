@@ -43,12 +43,38 @@
                                             <option value="">Select</option>
                                             @if($departments)
                                             @foreach($departments as $department)
-                                            <option value="{{$department->uuid}}">{{$department->name}}</option>
+                                            <option value="{{$department->uuid}}">{{$department->display_name}}</option>
                                             @endforeach
                                             @endif
                                         </select>
                                     </div>
-
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                        <div class="form-group">
+                                            <label class="form-label" for="specialization">Specialization</label>
+                                            <select class="form-select js-example-basic-multiple" name="specialization_id[]" multiple="multiple" id=" specialization">
+                                                @if($specializations)
+                                                @foreach($specializations as $specialization)
+                                                <option value="{{$specialization->id}}">{{$specialization->name}}</option>
+                                                @endforeach
+                                                @endif
+                                            </select>
+                                            <!-- <input type="text" class="form-control" name="" id="gender" value=""> -->
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12">
+                                        <div class="form-group">
+                                            <label class="form-label" for="prefix">Pre-fix</label>
+                                            <select class="form-select" name="prefix" id="prefix">
+                                                <option value="">
+                                                    Select
+                                                </option>
+                                                <option value="Dr">
+                                                    Dr
+                                                </option>
+                                            </select>
+                                            <!-- <input type="text" class="form-control" name="" id="gender" value=""> -->
+                                        </div>
+                                    </div>
                                 </div>
 
                             </div>

@@ -32,7 +32,7 @@
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12">
                         <div class="form-group">
-                            <label for="role">Organization</label>
+                            <label for="role"> Hospital</label>
                             <select class="form-control" value="{{old('role')}}" name="organisation" id="role">
                                 <option value="">Select</option>
                                 @if($organizations)

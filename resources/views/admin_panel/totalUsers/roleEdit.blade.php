@@ -33,16 +33,17 @@
                                 <div class="row">
                                     <div class="form-group col-lg-6 col-md-6 col-sm-12  my-1">
                                         <label for="user">User</label>
-                                        <input class="form-control" type="text" disabled value="{{$user->username}}">
+                                        <input class="form-control" type="text" disabled value="{{$user->name}}">
                                         <input type="hidden" value="{{$user->uuid}}" name="user" id="user">
                                     </div>
 
                                     <div class="form-group col-lg-6 col-md-6 col-sm-12  my-1">
-                                        <label for="organizations">Organisation</label>
+                                        <label for="organizations"> Hospital</label>
                                         <select class="form-control" name="organizations" id="organization">
+                                        <option value='' selected>Select Hospital</option>
                                             @if($organizations)
                                             @foreach ($organizations as $organization)
-                                            <option value="{{$organization->uuid}}">{{$organization->name}}</option>
+                                            <option value="{{$organization->uuid}}">{{$organization->displayname}}</option>
                                             @endforeach
                                             @endif
                                         </select>
@@ -50,6 +51,7 @@
                                     <div class="form-group col-lg-6 col-md-6 col-sm-12  my-1">
                                         <label for="role">Roles</label>
                                         <select class="form-control" value="{{old('role')}}" name="role" id="role">
+                                        <option value='' selected>Select Role</option>
                                             @if($roles)
                                             @foreach ($roles as $role)
                                             @if($role->name=='Practitioner')
@@ -68,7 +70,7 @@
                                         </select>
                                     </div>
                                     <div class="form-group col-lg-12 col-md-12 col-sm-12 my-3">
-                                        <label for="organizations">Map In Organisation
+                                        <label for="organizations">Map In Hospital
 
                                             <input type="checkbox" id="onlyinOrg" />
                                         </label>
@@ -123,7 +125,7 @@
                 var option = "<option value='' selected>Select Department</option>";
                 data.forEach(function(row, index) {
                     // console.log(row,index);
-                    option += `<option value='${row.uuid}'>${row.name}</option>`;
+                    option += `<option value='${row.uuid}'>${row.display_name}</option>`;
                 });
                 $('#departments').html(option);
             }

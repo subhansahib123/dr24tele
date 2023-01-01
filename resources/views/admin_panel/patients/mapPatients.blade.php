@@ -35,20 +35,20 @@
                                     <div class="col-lg-6 col-md-6 col-sm-12">
                                         <div class="form-group">
                                             <label for="user">Patient Name</label>
-                                            <input class="form-control" type="text" disabled value="{{$user->username}}">
+                                            <input class="form-control" type="text" disabled value="{{$user->name}}">
                                             <input type="hidden" value="{{$user->id}}" name="userId">
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-12">
 
                                         <div class="form-group">
-                                            <label for="role">Organization</label>
+                                            <label for="role"> Hospital</label>
                                             <select class="form-control" value="{{old('role')}}" name="organisation" id="role">
-                                                <option value="">Select</option>
+                                                <option value="">Select Hospital</option>
                                                 @if($organizations)
-
+                                                
                                                 @foreach ($organizations as $organization)
-                                                <option value="{{$organization->uuid}}">{{$organization->name}}</option>
+                                                <option value="{{$organization->uuid}}">{{$organization->displayname}}</option>
                                                 @endforeach
 
                                                 @endif

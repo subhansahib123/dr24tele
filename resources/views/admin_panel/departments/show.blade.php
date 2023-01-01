@@ -16,7 +16,7 @@
                             <div class="col-5">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                                    <li class="breadcrumb-item active" aria-current="page">Organization Departments</li>
+                                    <li class="breadcrumb-item active" aria-current="page"> Hospital Departments</li>
                                 </ol>
                             </div>
                             <div class="col-4">
@@ -51,9 +51,9 @@
 
                                             </td>
                                             <td class="text-end">
-                                                <a href="{{route('single.department',['uuid'=>$department->uuid])}}"><button class="btn btn-info"><i class="fa fa-edit"></i></button></a>
-                                                <a href="{{route('doctors.list',['uuid'=>$department->uuid])}}"><button class="btn btn-primary"><i class="fa fa-users"></i></button></a>
-                                                <a href="{{route('delete.department',['uuid'=>$department->uuid])}}"><button class="btn btn-danger" title="In-Active"><i class="fa fa-trash"></i></button></a>
+                                                <a href="{{route('single.department',['uuid'=>$department->uuid])}}"><button class="btn btn-info" title="Update Department"><i class="fa fa-edit"></i></button></a>
+                                                <a href="{{route('doctors.list',['uuid'=>$department->uuid])}}"><button class="btn btn-primary" title="Doctors"><i class="fa fa-users"></i></button></a>
+                                                <a href="{{route('delete.department',['uuid'=>$department->uuid])}}"><button class="btn btn-danger" title="Delete"><i class="fa fa-trash"></i></button></a>
                                             </td>
 
                                             

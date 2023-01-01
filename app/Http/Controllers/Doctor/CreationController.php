@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Doctor;
 
 use App\Http\Controllers\Controller;
 use App\Models\Department;
+use App\Models\DepartmentSpecializations;
 use App\Models\Doctor;
 use App\Models\DoctorSpecialization;
 use App\Models\Organization;
@@ -36,9 +37,7 @@ class CreationController extends Controller
             return redirect()->route('logout')->withErrors(['error' => 'Login Token Expired ! Please login Again']);
 
         $request->validate([
-            'username' => 'required|string',
             'name' => 'required|string',
-            'password' => 'required|string',
             'phoneNumber' => 'required|string',
             'email' => 'required|string',
             'image' => 'required|mimes:jpg,png,gif,svg,jpeg|dimensions:min_width=300,min_height=350',
@@ -54,21 +53,19 @@ class CreationController extends Controller
 
 
             User::create([
-                'username' => $request->username,
+                'username' => '',
                 'name' => $request->name . ' ' . $request->middlename,
                 'image' => $image,
-                'password' => $request->password,
+                'password' => '',
                 'email' => $request->email,
                 'phone_number' => $request->phoneNumber,
                 'uuid' => Str::uuid(),
                 'PersonId' => Str::uuid(),
                 'status' => 1
             ]);
-            $user = User::where('username', $request->username)->first();
+            $user = User::where('phone_number', $request->phoneNumber)->first();
             $userUuid = $user->uuid;
             return $this->mapDoctor($userUuid);
-
-
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => __($e->getMessage())]);
         }
@@ -84,14 +81,15 @@ class CreationController extends Controller
         $userInfo = json_decode(json_encode($userInfo), true);
         $organizations = Organization::all();
         // dd($departments);
+        $specializations = DepartmentSpecializations::all();
 
         if ($containsHospital) {
 
             $organization = \auth()->user()->user_organization->organization;
             $departments = Department::where('organization_id', $organization->id)->get();
-            return view('hospital_panel.doctors.mapDoctor', ['organization' => $organization, 'departments' => $departments, 'userUuid' => $userUuid]);
+            return view('hospital_panel.doctors.mapDoctor', ['organization' => $organization, 'departments' => $departments, 'userUuid' => $userUuid,'specializations' => $specializations]);
         }
-        return view('admin_panel.doctors.mapDoctor', ['organizations' => $organizations, 'userUuid' => $userUuid]);
+        return view('admin_panel.doctors.mapDoctor', ['organizations' => $organizations, 'userUuid' => $userUuid,'specializations' => $specializations]);
     }
 
     public function doctorMapped(Request $request)
@@ -113,8 +111,12 @@ class CreationController extends Controller
                 'user_id' => $user->id,
                 'image' => '',
                 'department_id' => $department->id,
-
+                'prefix' => $request->prefix
             ]);
+            $doctor = Doctor::where('user_id', $user->id)->first();
+            // dd($request->specialization_id);
+            $specializations = $request->specialization_id;
+            $doctor->specialization()->sync($specializations);
             UsersOrganization::firstOrCreate([
 
                 'status' => 1,
@@ -131,11 +133,9 @@ class CreationController extends Controller
 
 
             if ($containsHospital) {
-                return redirect()->route('hospitalDoctors.list',[$department->uuid])->withSuccess(__('Doctor is Successfully Created '));
+                return redirect()->route('hospitalDoctors.list', [$department->uuid])->withSuccess(__('Doctor is Successfully Created '));
             }
-            return redirect()->route('doctors.list',[$department->uuid])->withSuccess(__('Doctor is Successfully Created '));
-
-
+            return redirect()->route('doctors.list', [$department->uuid])->withSuccess(__('Doctor is Successfully Created '));
         } catch (\Exception $e) {
             if ($containsHospital) {
                 return redirect()->route('create.doctor')->withErrors(['error' => __($e->getMessage())]);

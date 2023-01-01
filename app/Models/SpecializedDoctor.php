@@ -19,6 +19,6 @@ class SpecializedDoctor extends Model
     }
     public function specialization()
     {
-        return $this->belongsTo(Doctor::class,'specialization_id');
+        return $this->belongsTo(DepartmentSpecializations::class,'specialization_id');
     }
 }

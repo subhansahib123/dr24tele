@@ -13,8 +13,18 @@
                 <h1 class="page-title">Profile</h1>
                 <div>
                     <ol class="breadcrumb">
-                        <li class="breadcrumb-item"><a href="javascript:void(0)">Pages</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Profile</li>
+                        <div class="dropdown d-flex profile-1">
+                            <a href="javascript:void(0)" data-bs-toggle="dropdown" class="nav-link profile-button rounded-pill py-3 px-4 leading-none d-flex">
+                                Update Profile
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                <a class="dropdown-item" href="{{route('displayNameUpdate')}}">
+                                    <i class="dropdown-icon fe fe-user"></i> Update Name
+                                </a><a class="dropdown-item" href="{{route('verify.phoneNumber')}}">
+                                    <i class="dropdown-icon fe fe-user"></i> Update Phone No
+                                </a>
+                            </div>
+                        </div>
                     </ol>
                 </div>
             </div>

@@ -25,7 +25,7 @@
                     <div class="login-form-wrap">
                         <div class="login-header">
                             <h3>Login</h3>
-                            @include('admin_panel.frontend.includes.messages')
+                            @include('public_panel.frontend.includes.messages')
                             <div class="alert alert-danger" id="error" style="display: none;"></div>
 
                             <div class="alert alert-success" id="successAuth" style="display: none;"></div>
@@ -37,7 +37,7 @@
                                 <div class="col-lg-12" id="numbercon">
                                     <div class="form-group">
                                         {{-- <input id="text" name="fname" type="text" placeholder="Username Or Email Address" required=""> --}}
-                                        <input type="text" id="txtPhone" value="+91 * **" class="form-control" placeholder="+91 * **">
+                                        <input type="text" id="txtPhone" class="form-control" placeholder="+91 * **">
                                         <input type="hidden" class="form-control" id="phoneNumber">
 
                                     </div>
@@ -55,17 +55,7 @@
 
 
                                 </div>
-                                <div class="col-lg-6 col-md-6 col-sm-6 col-6">
-                                    <div class="checkbox style3">
-                                        <input type="checkbox" id="test_1">
-                                        <label for="test_1">
-                                            Remember Me
-                                        </label>
-                                    </div>
-                                </div>
-                                <div class="col-lg-6 col-md-6 col-sm-6 col-6 text-end mb-20">
-                                    <a href="recover-password.html" class="link style1">Forgot Password?</a>
-                                </div>
+                                
 
                                 <div class="col-lg-12" id="sendoptbtn">
                                     <div class="form-group">
@@ -82,10 +72,10 @@
                                         </button>
 
                                     </div>
-                                </div>
-                                <!-- <div class="col-md-12">
-                                    <p class="mb-0">Don't have an Account? <a class="link style1" href="register.html">Create One</a></p>
                                 </div> -->
+                                <div class="col-md-12">
+                                    <p class="mb-0">Don't have an Account? <a class="link style1" href="register.html">Create One</a></p>
+                                </div>
                                 <!-- <div class="col-lg-12">
                                     <div class="form-group">
                                         <button type="submit" class="btn style1 w-100 d-block">
@@ -93,7 +83,7 @@
                                         </button>
 
                                     </div>
-                                </div> -->
+                                </div>-->
                             </div>
                         </form>
                     </div>

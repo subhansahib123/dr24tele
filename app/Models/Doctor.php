@@ -11,6 +11,7 @@ class Doctor extends Model
     protected $table="doctors";
     protected $fillable=[
         "status",
+        "prefix",
         'user_id',
         'department_id',
         'image',
@@ -39,7 +40,7 @@ class Doctor extends Model
     }
     public function specialization()
     {
-        return $this->belongsToMany(DoctorSpecialization::class,'specialized_doctors','doctor_id','specialization_id');
+        return $this->belongsToMany(DepartmentSpecializations::class,'specialized_doctors','doctor_id','specialization_id');
     }
     public function specializedDoctor()
     {
