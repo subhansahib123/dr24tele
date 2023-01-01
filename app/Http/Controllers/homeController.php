@@ -66,7 +66,6 @@ class homeController extends Controller
         // \DB::enableQueryLog(); // Enable query log
         $hospital = Organization::has('department')->where('id', $id)->first();
         $departmentSpecializations = DepartmentSpecializations::has('Department')->get();
-        $doctorSpecializations = DoctorSpecialization::has('specializedDoctor')->get();
 
 
         // $departments=Department::has('doctor')->orderBy('id','desc')->paginate(6);
@@ -77,7 +76,7 @@ class homeController extends Controller
         $cityName = $city->name;
 
         // dd($hospital->departments);
-        return view('public_panel.hospital_details', compact('hospital', 'stateName', 'cityName', 'departmentSpecializations', 'doctorSpecializations'));
+        return view('public_panel.hospital_details', compact('hospital', 'stateName', 'cityName', 'departmentSpecializations'));
     }
     //All Departments
     public function allDepartments($id)
@@ -107,7 +106,6 @@ class homeController extends Controller
     {
         $department = Department::where('id', $id)->first();
         $departmentSpecializations = DepartmentSpecializations::has('Department')->get();
-        $doctorSpecializations = DoctorSpecialization::has('specializedDoctor')->get();
         $doctors = Doctor::with('user', 'specializedDoctor')->where('department_id', $id)->get();
         // dd( $department,$doctors);y
         $state = State::where('id', $department->organization->state)->first();
@@ -115,16 +113,15 @@ class homeController extends Controller
         $stateName = $state->name;
         $cityName = $city->name;
 
-        return view('public_panel.department_details', compact('department', 'doctors', 'departmentSpecializations', 'doctorSpecializations', 'stateName', 'cityName'));
+        return view('public_panel.department_details', compact('department', 'doctors', 'departmentSpecializations', 'stateName', 'cityName'));
     }
     public function doctorDetails($id)
     {
         $doctor = Doctor::with('user', 'specializedDoctor')->where('id', $id)->first();
         $departmentSpecializations = DepartmentSpecializations::has('Department')->get();
-        $doctorSpecializations = DoctorSpecialization::has('specializedDoctor')->get();
         // dd( $department,$doctors);y
 
-        return view('public_panel.doctor_details', compact('doctor', 'departmentSpecializations', 'doctorSpecializations'));
+        return view('public_panel.doctor_details', compact('doctor', 'departmentSpecializations'));
     }
     //All Doctors
     public function allDoctors($id)

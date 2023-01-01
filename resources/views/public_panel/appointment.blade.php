@@ -506,7 +506,9 @@
 
                 if (data != undefined && data.length != 0) {
                     user_id = data.user_id;
+                    var i=100;
                     data.schedules.forEach(element => {
+                        i=i+119;
                         var dbDateStart = moment(element.start).format('YYYY-MM-DDTHH:mm:ss');
                         var dbDateEnd = moment(element.end).format('YYYY-MM-DDTHH:mm:ss');
                         all_events.push({
@@ -514,7 +516,8 @@
                             "doctor": element.doctor_id,
                             "start": dbDateStart,
                             "end": dbDateEnd,
-                            "title": element.comment
+                            "title": element.comment,
+                            "color":'#000'+i
                         })
                     });
                     var calendarEl = document.getElementById('doc-calender');

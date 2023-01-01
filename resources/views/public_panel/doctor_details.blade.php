@@ -84,16 +84,6 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="sidebar-widget tags">
-                        <h4>Doctor Specialization </h4>
-                        <div class="tag-list">
-                            <ul class="list-style">
-                                @foreach($doctorSpecializations as $doctorSpecialization)
-                                <li><a class="text-capitalize" href="{{route('home.allDoctors',$doctorSpecialization->id)}}">{{$doctorSpecialization->name}}</a></li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
