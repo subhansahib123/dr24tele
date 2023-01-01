@@ -332,15 +332,6 @@
                                     <img {{$image=Auth::user()->image}} src="{{($image)? asset('uploads/organization/department/doctor/'. $image):asset('assets/images/users/21.jpg')}}" alt="profile-user" class="avatar  profile-user brround cover-image">
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
-                                    <a class="dropdown-item" href="{{route('updateDisplayName')}}">
-                                        <i class="dropdown-icon fe fe-user"></i> Update Name
-                                    </a>
-                                    <a class="dropdown-item" href="{{route('verifyPhoneNumber')}}">
-                                        <i class="dropdown-icon fe fe-user"></i> Update Phone No
-                                    </a>
-                                    <a class="dropdown-item" href="{{route('doctorSpecialization')}}">
-                                        <i class="dropdown-icon fe fe-user"></i> Specialization
-                                    </a>
                                     <div class="drop-heading">
                                         <div class="text-center">
                                             <h5 class="text-dark mb-0 fs-14 fw-semibold">@auth

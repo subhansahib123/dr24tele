@@ -20,4 +20,8 @@ class DepartmentSpecializations extends Model
     {
         return $this->belongsToMany(Department::class,'specialized_departments','specialization_id','department_id');
     }
+    public function specializedDoctor()
+    {
+        return $this->belongsToMany(Doctor::class,'specialized_doctors','specialization_id','doctor_id');
+    }
 }

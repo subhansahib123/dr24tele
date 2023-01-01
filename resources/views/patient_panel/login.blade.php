@@ -18,14 +18,14 @@
     <!-- Breadcrumb End -->
 
     <!-- Account Section start -->
-    <section class="Login-wrap pt-100 pb-75">
+    <section class="Login-wrap pt-10 pb-75">
         <div class="container">
             <div class="row gx-5">
                 <div class="col-xl-6 offset-xl-3 col-lg-8 offset-lg-2">
                     <div class="login-form-wrap">
                         <div class="login-header">
                             <h3>Login</h3>
-                            @include('admin_panel.frontend.includes.messages')
+                            @include('public_panel.frontend.includes.messages')
                             <div class="alert alert-danger" id="error" style="display: none;"></div>
 
                             <div class="alert alert-success" id="successAuth" style="display: none;"></div>
@@ -82,8 +82,8 @@
                                 <!-- <div class="col-lg-12">
                                     <div class="form-group"> <button type="submit" class="btn style1 w-100 d-block">Login </button>
 
-                                    </div>
-                                </div> -->
+                                    </div> -->
+                                </div>
                             </div>
                         </form>
                     </div>

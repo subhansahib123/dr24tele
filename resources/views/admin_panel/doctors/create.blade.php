@@ -15,7 +15,7 @@
                 </div>
                 <div class="col-xl-12">
                     <div class="card">
-                        <form action="{{route('doctorCreated')}}" method="POST"  enctype="multipart/form-data">
+                        <form action="{{route('doctorCreated')}}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="card-header">
                                 <div class="col-5">
@@ -101,11 +101,9 @@
                                             <!-- <input type="text" class="form-control" name="" id="gender" value=""> -->
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="col-6">
-                                            <label for="Birth">Profile Image <strong> 300*350</strong></label>
-                                            <input type="file" name="image" id="image" class="form-control">
-                                        </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
+                                        <label for="Birth">Profile Image <strong> 300*350</strong></label>
+                                        <input type="file" name="image" id="image" class="form-control">
                                     </div>
                                 </div>
 

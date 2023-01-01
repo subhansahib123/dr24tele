@@ -27,8 +27,7 @@
                         <div class="select-lang">
                             <i class="ri-earth-fill"></i>
                             <div class="navbar-option-item navbar-language dropdown language-option">
-                                <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown"
-                                    aria-haspopup="true" aria-expanded="false">
+                                <button class="dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <span class="lang-name"></span>
                                 </button>
                                 <div class="dropdown-menu language-dropdown-menu">
@@ -38,7 +37,7 @@
                                     </a>
                                     {{-- <a class="dropdown-item" href="#">
                                         <img src="{{asset('public_assets/img/china.png')}}" alt="flag">
-                                        简体中文
+                                    简体中文
                                     </a>
                                     <a class="dropdown-item" href="#">
                                         <img src="{{asset('public_assets/img/uae.png')}}" alt="flag">
@@ -78,10 +77,8 @@
         <div class="container">
             <nav class="navbar navbar-expand-md navbar-light">
                 <a class="navbar-brand" href="{{ route('home.page') }}">
-                    <img class="logo-light" src="{{ asset('public_assets/img/logo.png') }}" width="120px"
-                        alt="logo">
-                    <img class="logo-dark" src="{{ asset('public_assets/img/logo.png') }}" width="120px"
-                        alt="logo">
+                    <img class="logo-light" src="{{ asset('public_assets/img/logo.png') }}" width="120px" alt="logo">
+                    <img class="logo-dark" src="{{ asset('public_assets/img/logo.png') }}" width="120px" alt="logo">
                 </a>
                 <div class="collapse navbar-collapse main-menu-wrap" id="navbarSupportedContent">
                     <div class="menu-close d-lg-none">
@@ -89,7 +86,7 @@
                     </div>
                     <ul class="navbar-nav ms-auto">
                         <li class="nav-item">
-                            <a href="{{ route('home.page') }}" class="nav-link active">
+                            <a href="{{ route('home.page') }}" class="nav-link ">
                                 Home
                                 {{-- <i class="ri-arrow-down-s-line"></i> --}}
                             </a>
@@ -115,90 +112,106 @@
 
                             </a></li>
 
-                        {{-- <li class="nav-item">
-                            <a href="about.html" class="nav-link">
-                                About
-                                <i class="ri-arrow-down-s-line"></i>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li class="nav-item">
-                                    <a href="{{route('aboutUs')}}" class="nav-link">About Us</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="portfolio.html" class="nav-link">Our Portfolio</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="portfolio-details.html" class="nav-link">Single Portfolio</a>
-                                </li>
-                            </ul>
+                        
+                        {{--<li class="nav-item">
+                            <a href="portfolio.html" class="nav-link">Our Portfolio</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="portfolio-details.html" class="nav-link">Single Portfolio</a>
+                        </li>
+                    </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            Services
+                            <i class="ri-arrow-down-s-line"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="nav-item">
+                                <a href="service-one.html" class="nav-link">Service One</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="service-two.html" class="nav-link">Service Two</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="service-details.html" class="nav-link">Single Service</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            Pages
+                            <i class="ri-arrow-down-s-line"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="nav-item">
+                                <a href="{{route('ourTeam')}}" class="nav-link">Our Team</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('bookAppointment')}}" class="nav-link">Book Appointment</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('faq')}}" class="nav-link">FAQ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('pricingPlan')}}" class="nav-link">Pricing Plan</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('testimonials')}}" class="nav-link">Testimonials</a>
                         </li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">
-                                Services
-                                <i class="ri-arrow-down-s-line"></i>
+                                User Pages
+                                <i class="ri-arrow-right-s-line"></i>
                             </a>
                             <ul class="dropdown-menu">
                                 <li class="nav-item">
-                                    <a href="service-one.html" class="nav-link">Service One</a>
+                                    <a href="login.html" class="nav-link">Login</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="service-two.html" class="nav-link">Service Two</a>
+                                    <a href="register.html" class="nav-link">Register</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="service-details.html" class="nav-link">Single Service</a>
+                                    <a href="recover-password.html" class="nav-link">Recover Password</a>
                                 </li>
                             </ul>
+                        </li> --}}
+                        <li class="nav-item">
+                            <a href="{{ route('home.departmentSpecializations') }}" class="nav-link">Specializations</a>
                         </li>
-                        <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                Pages
-                                <i class="ri-arrow-down-s-line"></i>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li class="nav-item">
-                                    <a href="{{route('ourTeam')}}" class="nav-link">Our Team</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{route('bookAppointment')}}" class="nav-link">Book Appointment</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{route('faq')}}" class="nav-link">FAQ</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{route('pricingPlan')}}" class="nav-link">Pricing Plan</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="{{route('testimonials')}}" class="nav-link">Testimonials</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        User Pages
-                                        <i class="ri-arrow-right-s-line"></i>
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li class="nav-item">
-                                            <a href="login.html" class="nav-link">Login</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="register.html" class="nav-link">Register</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="recover-password.html" class="nav-link">Recover Password</a>
-                                        </li>
-                                    </ul>
-                                </li> --}}
-                        <li class="nav-item">
-                            <a href="{{ route('home.departmentSpecializations') }}" class="nav-link">Department Specializations</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{ route('home.doctorSpecializations') }}" class="nav-link">Doctor Specializations</a>
+                        <li class="nav-item mt-4 gx-0">
+                            <div class="input-group rounded">
+                                <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
+                                <span class=" border-0" id="search-addon">
+                                    <i class="fas fa-search"></i>
+                                </span>
+                            </div>
                         </li>
                         {{-- <li class="nav-item">
-                                    <a href="{{route('patient.login')}}" class="nav-link">Login</a>
-                                </li> --}}
-                        <li class="nav-item">
-                            <a href="{{route('contactUs')}}" class="nav-link">Contact Us</a>
+                                    <a href="{{route('patient.login')}}" class="profile-button rounded my-3 py-3 px-3 mx-1">Login</a>
+                        </li> --}}
+                        @if(auth()->user())
+                        <li class="nav-item " >
+                            @if(isset(auth()->user()->user_role))
+                            @if(auth()->user()->username=='nissi' || auth()->user()->username=='akhil')
+                            <a href="{{route('dashboard')}}" class="profile-button rounded  py-2 px-4  "> Profile</a>
+                            @elseif(auth()->user()->user_role->role_id=='3')
+                            <a href="{{route('hospital.dashboard')}}" class="profile-button rounded  py-2 px-4 ">Profile</a>
+                            @elseif(auth()->user()->user_role->role_id=='4')
+                            <a href="{{route('doctor.dashboard')}}" class="profile-button rounded  py-2 px-4 ">Profile</a>
+                            @endif
+
+                            @elseif(auth()->user()->patient())
+                            <a href="{{route('patient.dashboard')}}" class="profile-button rounded  py-2 px-4">Profile</a>
+                            @endif
                         </li>
+                        @else
+                        <li class="nav-item">
+                            <a href="{{route('patient.login')}}" class="profile-button rounded  py-2 px-4">Login</a>
+                        </li>
+                        @endif
+
+
 
                     </ul>
                     </li>
@@ -216,40 +229,40 @@
                                     <ul class="dropdown-menu">
                                         <li class="nav-item">
                                             <a href="{{route('blogGrid')}}" class="nav-link">Blog Grid</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{{route('blogLeftSidebar')}}" class="nav-link">Blog Left Sidebar</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{{route('blogRightSidebar')}}" class="nav-link">Blog Right Sidebar</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="#" class="nav-link">
-                                        Single Blog
-                                        <i class="ri-arrow-right-s-line"></i>
-                                    </a>
-                                    <ul class="dropdown-menu">
-                                        <li class="nav-item">
-                                            <a href="{{route('noSidebar')}}" class="nav-link">Blog Details No Sidebar</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{{route('leftSidebar')}}" class="nav-link">Blog Details Left Sidebar</a>
-                                        </li>
-                                        <li class="nav-item">
-                                            <a href="{{route('rightSidebar')}}" class="nav-link">Blog Details Right Sidebar</a>
-                                        </li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{{route('contactUs')}}" class="nav-link">Contact Us</a>
-                        </li>
-                        <li class="nav-item d-lg-none">
-                            <a href="appointment.html" class="nav-link btn style1">Book Appointment</a>
-                        </li>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{route('blogLeftSidebar')}}" class="nav-link">Blog Left Sidebar</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{route('blogRightSidebar')}}" class="nav-link">Blog Right Sidebar</a>
+                    </li>
+                    </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            Single Blog
+                            <i class="ri-arrow-right-s-line"></i>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li class="nav-item">
+                                <a href="{{route('noSidebar')}}" class="nav-link">Blog Details No Sidebar</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{route('leftSidebar')}}" class="nav-link">Blog Details Left Sidebar</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="{{route('rightSidebar')}}" class="nav-link">Blog Details Right Sidebar</a>
+                            </li>
+                        </ul>
+                    </li>
+                    </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{route('contactUs')}}" class="nav-link">Contact Us</a>
+                    </li>
+                    <li class="nav-item d-lg-none">
+                        <a href="appointment.html" class="nav-link btn style1">Book Appointment</a>
+                    </li>
                     </ul>
                     <div class="other-options md-none">
                         <div class="option-item">

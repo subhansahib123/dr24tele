@@ -76021,4 +76021,14 @@ textarea.form-control {
     width:100px !important;
 }
 
+.profile-button{
+  background-color: #2490EB;
+
+  color: #fff !important;
+}
+.profile-button:hover{
+  color: #fff !important;    
+  background-color: #14467B;
+  transition: 0.5s;
+}
 /*# sourceMappingURL=style.css.map */
