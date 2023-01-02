@@ -91,7 +91,7 @@
                         center: 'title',
                         right: 'dayGridMonth,timeGridWeek,timeGridDay'
                     },
-                    initialView: 'timeGridWeek',
+                    initialView: 'dayGridMonth',
                     nowIndicator: true,
                     initialDate: new Date(),
                     navLinks: true,

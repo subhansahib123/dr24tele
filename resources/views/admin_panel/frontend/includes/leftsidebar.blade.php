@@ -45,19 +45,16 @@
                     </ul>
                 </li>
                 <li class="slide">
-                    <a class="side-menu__item has-link" data-bs-toggle="slide" href="{{ route('create.newDepartment') }}"><i class="side-menu__icon zmdi zmdi-hospital"></i><span class="side-menu__label">Departments</span></a>
+                    <a class="side-menu__item has-link" data-bs-toggle="slide" href="{{ route('create.newDepartment',['uuid'=>'c6bc6265-e876-414a-9672-a85e09280059']) }}"><i class="side-menu__icon zmdi zmdi-hospital"></i><span class="side-menu__label">Departments</span></a>
                 </li>
                 <li class="slide">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i class="side-menu__icon fe fe-users"></i><span class="side-menu__label"> Managements</span><i class="angle fe fe-chevron-right"></i></a>
                     <ul class="slide-menu nav-tree">
-                        <li><a href="{{ route('create.user') }}" class="slide-item"> Create</a></li>
+                        <li><a href="{{ route('create.user',['uuid'=>'c6bc6265-e876-414a-9672-a85e09280059']) }}" class="slide-item"> Create</a></li>
                         <!-- <li><a href="{{ route('users.unmapped') }}" class="slide-item">Unmapped Users</a></li> -->
                         <li><a href="{{ route('users.all.actual') }}" class="slide-item"> List</a></li>
 
                     </ul>
-                </li>
-                <li class="slide">
-                    <a class="side-menu__item has-link" data-bs-toggle="slide" href="{{ route('createDoctor') }}"><i class="side-menu__icon fa fa-user-md"></i><span class="side-menu__label">Doctors</span></a>
                 </li>
                 
 
@@ -71,7 +68,7 @@
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i class="side-menu__icon fa fa-wheelchair"></i><span class="side-menu__label">
                             Patients</span><i class="angle fe fe-chevron-right"></i></a>
                     <ul class="slide-menu nav-tree">
-                        <li><a href="{{ route('create.patients') }}" class="slide-item"> Create</a></li>
+                        <li><a href="{{ route('create.patients',['uuid'=>'c6bc6265-e876-414a-9672-a85e09280059']) }}" class="slide-item"> Create</a></li>
                         <li><a href="{{ route('all.users') }}" class="slide-item"> List</a></li>
                     </ul>
                 </li>

@@ -204,7 +204,7 @@ class HospitalUserController extends Controller
             $dep = Department::where('uuid', $uuid)->first();
             $doctors = Doctor::with('user')->where('department_id', $dep->id)->get();
             // dd($doctors);            
-            return view('hospital_panel.doctors.showDoctors', ['doctors' => $doctors]);
+            return view('hospital_panel.doctors.showDoctors', ['doctors' => $doctors,'uuid'=>$uuid]);
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => $e->getMessage()]);
             // return $e->getMessage();

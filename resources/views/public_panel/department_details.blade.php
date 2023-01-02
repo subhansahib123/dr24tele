@@ -7,7 +7,7 @@
         <div class="row gx-5">
             <div class="col-xl-8">
                 <div class="service-desc">
-                    <a class="single-service-img" data-fancybox="gallery" 
+                    <a class="single-service-img" data-fancybox="gallery"
                     ="assets/img/portfolio/single-portfolio-1.jpg">
                         <img src="{{($department->image)? asset('uploads/organization/department/'. $department->image) : asset('public_assets/img/services/service-9.jpg')}}" alt="Image">
                     </a>
@@ -77,16 +77,6 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="sidebar-widget tags">
-                        <h4>Doctor Specialization </h4>
-                        <div class="tag-list">
-                            <ul class="list-style">
-                                @foreach($doctorSpecializations as $doctorSpecialization)
-                                <li><a class="text-capitalize" href="{{route('home.allDoctors',$doctorSpecialization->id)}}">{{$doctorSpecialization->name}}</a></li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -117,7 +107,7 @@
                                 <div class="service-info">
 
                                     <h5 class="text-capitalize"><a href="{{route('home.doctor_details',$doctor->id)}}">Name: {{$doctor->user->name}}</a></h5>
-                                
+
                                     <a href="{{route('home.doctor_details',$doctor->id)}}" class="link style2">Explore More</a>
                                 </div>
                             </div>

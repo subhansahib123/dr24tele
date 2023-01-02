@@ -67,19 +67,7 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="row  mb-1">
-                                    <label for="organization" class="col-md-3 form-label">Organizations</label>
-                                    <div class="col-md-9">
-                                        <select class="form-control" name="organization" id="organization">
-                                            <option value="">Select</option>
-                                            @if($organizations)
-                                            @foreach ($organizations as $organization)
-                                            <option value="{{$organization->uuid}}">{{$organization->displayname}}</option>
-                                            @endforeach
-                                            @endif
-                                        </select>
-                                    </div>
-                                </div>
+                                <input type="hidden" name="orgId" value="{{$uuid}}">
                                 <div class=" row  mb-1">
                                     <label for="image" class="col-md-3 form-label">Picture <strong> 1140*650</strong></label>
                                     <div class="col-md-9">

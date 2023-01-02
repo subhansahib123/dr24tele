@@ -105,6 +105,7 @@
                                         <label for="Birth">Profile Image <strong> 300*350</strong></label>
                                         <input type="file" name="image" id="image" class="form-control">
                                     </div>
+                                    <input type="hidden" name="uuid" value="{{$uuid}}">
                                 </div>
 
                             </div>

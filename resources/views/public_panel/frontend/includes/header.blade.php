@@ -103,11 +103,11 @@
                                 </li>
                             </ul> -->
                         </li>
-                        <li class="nav-item"> <a href="{{ route('home.page') }}" class="nav-link">
+                        <li class="nav-item"> <a href="{{ route('hospitalsList') }}" class="nav-link">
                                 Hospitals
 
                             </a></li>
-                        <li class="nav-item"> <a href="#" class="nav-link">
+                        <li class="nav-item"> <a href="{{route('howItWorks')}}" class="nav-link">
                                 How It works
 
                             </a></li>

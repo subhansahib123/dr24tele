@@ -70,6 +70,7 @@
 
                                         </div>
                                     </div>
+                                    <input type="hidden" name="orgId" value="{{$orgId}}">
                                     <div class="col-lg-6 col-md-6 col-sm-12 my-0">
                                         <div class="form-group">
                                             <label class="form-label" for="Birth">Date of Birth</label>
