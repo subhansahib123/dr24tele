@@ -28,7 +28,7 @@
                             </div>
 
                             <div class="col-3 text-end">
-                                <a href="{{route('create.patients')}}" class="btn btn-sm btn-success">Add <i class="fa fa-plus" data-toggle="tooltip" data-placement="top" title="Add New"></i></a>
+                                <a href="{{route('create.patients',$organization->uuid)}}" class="btn btn-sm btn-success">Add <i class="fa fa-plus" data-toggle="tooltip" data-placement="top" title="Add New"></i></a>
                                 <a href="{{route('dashboard')}}" class="btn btn-sm btn-info" data-toggle="Go Back">Back <i class="fa fa-reply"></i></a>
                             </div>
                         </div>
@@ -42,24 +42,33 @@
 
                                     <table class="table table-striped" id="datatable">
                                         <thead>
+                                        <th scope="col" width="3%">Sr#</th>
+
                                             <th scope="col" width="30%">Name</th>
                                             <th class="col text-end">Action</th>
                                         </thead>
 
 
                                         @foreach($patients as $patient)
+                                        @if(isset($patient->user->user_organization->id))
+                                        @if($patient->user->user_organization->organization->id == $organization->id)
+
                                         <tr>
 
+                                                <td>{{$loop->index+1}}</td>
+                                    
                                             <td>
 
                                                 {{$patient->user->name}}
 
                                             </td>
-                                            
+
                                             <td class="text-end">
                                                 <a href="{{route('patient.delete',[$patient->user->uuid])}}" class="btn btn-danger"><i class="fa fa-trash"></i></a>
                                             </td>
                                         </tr>
+                                        @endif
+                                        @endif
                                         @endforeach
 
                                     </table>

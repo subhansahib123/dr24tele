@@ -19,16 +19,16 @@ use Illuminate\Support\Facades\Auth;
 
 class CreationController extends Controller
 {
-    public function create()
+    public function create($uuid)
     {
         if (!Auth::check())
             return redirect()->route('logout')->withErrors(['error' => 'Login Token Expired ! Please login Again']);
         $url = url()->previous();
         $containsHospital = Str::contains($url, 'hospital');
         if ($containsHospital) {
-            return view('hospital_panel.doctors.create');
+            return view('hospital_panel.doctors.create',['uuid'=>$uuid]);
         }
-        return view('admin_panel.doctors.create');
+        return view('admin_panel.doctors.create',['uuid'=>$uuid]);
     }
 
     public function store(Request $request)
@@ -65,31 +65,32 @@ class CreationController extends Controller
             ]);
             $user = User::where('phone_number', $request->phoneNumber)->first();
             $userUuid = $user->uuid;
-            return $this->mapDoctor($userUuid);
+            $depUuid=$request->uuid;
+        return $this->mapDoctor($userUuid,$depUuid);
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => __($e->getMessage())]);
         }
     }
 
-    public function mapDoctor($userUuid)
+    public function mapDoctor($userUuid,$depUuid)
     {
+
         if (!Auth::check())
             return redirect()->route('logout')->withErrors(['error' => 'Login Token Expired ! Please login Again']);
         $url = url()->previous();
         $containsHospital = Str::contains($url, 'hospital');
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
-        $organizations = Organization::all();
         // dd($departments);
         $specializations = DepartmentSpecializations::all();
 
         if ($containsHospital) {
-
-            $organization = \auth()->user()->user_organization->organization;
-            $departments = Department::where('organization_id', $organization->id)->get();
-            return view('hospital_panel.doctors.mapDoctor', ['organization' => $organization, 'departments' => $departments, 'userUuid' => $userUuid,'specializations' => $specializations]);
+            
+            return view('hospital_panel.doctors.mapDoctor', ['depUuid' => $depUuid, 'userUuid' => $userUuid,'specializations' => $specializations]);
         }
-        return view('admin_panel.doctors.mapDoctor', ['organizations' => $organizations, 'userUuid' => $userUuid,'specializations' => $specializations]);
+        $dep = Department::where('uuid',$depUuid)->first();
+        $departments = Department::where('organization_id', $dep->organization_id)->get();
+        return view('admin_panel.doctors.mapDoctor', ['departments' => $departments, 'userUuid' => $userUuid,'specializations' => $specializations]);
     }
 
     public function doctorMapped(Request $request)
@@ -100,11 +101,9 @@ class CreationController extends Controller
         // dd($request->all());
         if (!Auth::check())
             return redirect()->route('logout')->withErrors(['error' => 'Login Token Expired ! Please login Again']);
-        $orgUuid = $request->organization;
         try {
             $user = User::where('uuid', $request->user)->first();
             $department = Department::where('uuid', $request->department)->first();
-            $organization = Organization::where('uuid', $orgUuid)->first();
             // dd($user,$department ,$organization);
             Doctor::create([
                 'status' => 1,
@@ -114,7 +113,6 @@ class CreationController extends Controller
                 'prefix' => $request->prefix
             ]);
             $doctor = Doctor::where('user_id', $user->id)->first();
-            // dd($request->specialization_id);
             $specializations = $request->specialization_id;
             $doctor->specialization()->sync($specializations);
             UsersOrganization::firstOrCreate([
@@ -122,7 +120,7 @@ class CreationController extends Controller
                 'status' => 1,
                 'registration_code' => '123ABC',
                 'user_id' => $user->id,
-                'organization_id' => $organization->id
+                'organization_id' => $department->organization_id
             ]);
             User_Role::firstOrCreate([
                 'user_id' => $user->id,

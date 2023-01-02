@@ -22,6 +22,7 @@ class CreateOrganizationsTable extends Migration
             $table->string('country')->nullable();
             $table->string('state')->nullable();
             $table->string('city')->nullable();
+            $table->boolean('featured_status')->default(0);
             $table->string('email')->nullable();
             $table->string('building')->nullable();
             $table->string('district')->nullable();

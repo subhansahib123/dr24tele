@@ -16,24 +16,23 @@ use Illuminate\Support\Str;
 
 class DepartmentController extends Controller
 {
-    public function index()
+    public function index($uuid)
     {
         $organizations = Organization::all();
         $specializations = DepartmentSpecializations::all();
         // dd($specializations);
-        return view('admin_panel.departments.create', ['organizations' => $organizations, 'specializations' => $specializations]);
+        return view('admin_panel.departments.create', ['organizations' => $organizations, 'specializations' => $specializations,'uuid'=>$uuid]);
     }
     public function create(Request $request)
     {
         // dd($request->email());
 
-        $orgName = Organization::where('uuid', $request->organization)->first();
-        // dd( $orgName );
+        $organization = Organization::where('uuid', $request->orgId)->first();
+        // dd( $orgName->id );
         $request->validate([
             'displayname' => 'required|string',
             'status' => 'required|string',
-            'organization' => 'required|string',
-            'specialization_id.*' => 'required|string',
+            'specialization_id.*' => 'required',
             'image' => 'nullable|image|mimes:jpg,png,gif,svg,jpeg|dimensions:min_width=1140,min_height=650'
 
         ]);
@@ -51,15 +50,13 @@ class DepartmentController extends Controller
             return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
 
-        $parent_org_uuid = $request->has('input_org') ? $request->input_org : $request->organization;
+        // $parent_org_uuid = $request->has('input_org') ? $request->input_org : $request->organization;
         // dd($parent_org_uuid);
 
         try {
-            // dd($request->level,$request->all());
-            $org = Organization::where('uuid',  $parent_org_uuid)->first();
             $dep = Department::firstOrCreate([
-                'name' =>strtolower(str_replace(' ','',$request->displayname)). '_' .$org->name,
-                'organization_id' => $org->id,
+                'name' =>strtolower(str_replace(' ','',$request->displayname)). '_' .$organization->name,
+                'organization_id' => $organization->id,
                 'display_name' => $request->displayname,
                 'status' => $request->status,
                 'image' => $image,
@@ -77,7 +74,7 @@ class DepartmentController extends Controller
                 ]);
 
                 // dd($org->uuid);
-                return redirect()->route('departments.list', [$org->uuid])->withSuccess(__('Successfully Department Created'));
+                return redirect()->route('departments.list', [$organization->uuid])->withSuccess(__('Successfully Department Created'));
             }
         } catch (\Exception $e) {
 
@@ -126,7 +123,7 @@ class DepartmentController extends Controller
             $org = Organization::where('uuid', $uuid)->first();
             $departments = Department::where('organization_id', $org->id)->get();
             // dd($departments);
-            return view('admin_panel.departments.show', ['departments' => $departments]);
+            return view('admin_panel.departments.show', ['departments' => $departments,'uuid'=>$uuid]);
         } catch (\Exception $e) {
 
 
@@ -149,7 +146,6 @@ class DepartmentController extends Controller
             'name' => 'required|string',
             'status' => 'required|string',
         ]);
-
         try {
             $dep = Department::where('uuid', $request->DepUuid)->first();
             if ($request->hasFile('image')) {

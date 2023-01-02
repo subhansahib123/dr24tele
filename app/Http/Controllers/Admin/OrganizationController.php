@@ -11,6 +11,7 @@ use App\Models\Country;
 use App\Models\State;
 use App\Models\City;
 use App\Models\Department;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
@@ -144,7 +145,21 @@ class OrganizationController extends Controller
             return redirect()->back()->withErrors(['error' => __($e->getMessage())]);
         }
     }
+    public function featureOrganization($uuid)
+    {
+        if(!Auth::check()){
+            return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
+        }
+        $organization=Organization::where('uuid',$uuid)->first();
+        if($organization->featured_status=='1'){
+            $organization->update(['featured_status'=>'0']);
+        return redirect()->route('organization')->withSuccess(__('Organization Successfully Featured status Updated'));
+        }else{
+            $organization->update(['featured_status'=>'1']);
+        return redirect()->route('organization')->withSuccess(__('Organization Successfully Featured '));
 
+        }
+    }
     public function singleOrganization($uuid)
     {
         $userInfo = session('loggedInUser');

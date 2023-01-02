@@ -98,11 +98,6 @@
 
                 </li>
                 <li class="slide">
-                    <a class="side-menu__item has-link" data-bs-toggle="slide" href="{{ route('create.doctor') }}"><i
-                            class="side-menu__icon fa fa-user-md"></i><span
-                            class="side-menu__label">Doctors</span></a>
-                </li>
-                <li class="slide">
                     <a class="side-menu__item" data-bs-toggle="slide" href="javascript:void(0)"><i
                             class="side-menu__icon fa fa-wheelchair"></i><span
                             class="side-menu__label">Patients</span><i class="angle fe fe-chevron-right"></i></a>

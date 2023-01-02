@@ -35,19 +35,9 @@
                             <div class="card-body">
                                 <div class="row">
                                     <input type="hidden" value="{{$userUuid}}" name="user">
-                                    <input type="hidden" value="{{$organization->uuid}}" name="organization">
 
-                                    <div class="form-group col-lg-6 col-md-6 col-sm-12" id="depart_p">
-                                        <label for="organizations">Departments</label>
-                                        <select class="form-control" name="department" id="departments">
-                                            <option value="">Select</option>
-                                            @if($departments)
-                                            @foreach($departments as $department)
-                                            <option value="{{$department->uuid}}">{{$department->display_name}}</option>
-                                            @endforeach
-                                            @endif
-                                        </select>
-                                    </div>
+                                    <input type="hidden" name="department" value="{{$depUuid}}">
+
                                     <div class="col-lg-6 col-md-6 col-sm-12">
                                         <div class="form-group">
                                             <label class="form-label" for="specialization">Specialization</label>

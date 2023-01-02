@@ -54,111 +54,116 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
   Route::get('/logout', [AuthenticationController::class, 'logout'])->name('logout');
 
 
-//  Route::group(['middleware' => ['guest']], function () {
+  //  Route::group(['middleware' => ['guest']], function () {
 
 
 
 
-    /**
-     * Register Routes
-     */
-    // Route::get('/register', [AuthenticationController::class,'showRegister'])->name('register.show');
-    // Route::post('/register', [AuthenticationController::class,'register'])->name('register.perform');
+  /**
+   * Register Routes
+   */
+  // Route::get('/register', [AuthenticationController::class,'showRegister'])->name('register.show');
+  // Route::post('/register', [AuthenticationController::class,'register'])->name('register.perform');
 
-    /**
-     * Login Routes
-     */
-    Route::get('/', [homeController::class, 'index'])->name('home.page');
-    Route::get('/allHospitals', [homeController::class, 'allHospitals'])->name('home.allHospitals');
-    Route::get('/our-services', [homeController::class, 'ourServices'])->name('home.ourServices');
-    Route::get('/hospital/{id}', [homeController::class, 'hospitalDetails'])->name('home.hospital_details');
-    Route::get('/allDepartments/{id}', [homeController::class, 'allDepartments'])->name('home.allDepartments');
-    Route::get('/getAllDepartments', [homeController::class, 'getAllDepartments'])->name('home.getAllDepartments');
-    Route::get('/department/{id}', [homeController::class, 'departmentDetails'])->name('home.department_details');
-    Route::get('/doctor-specializations', [homeController::class, 'doctorSpecializations'])->name('home.doctorSpecializations');
-    Route::get('/department-specializations', [homeController::class, 'departmentSpecializations'])->name('home.departmentSpecializations');
-    Route::get('/allDoctors/{id}', [homeController::class, 'allDoctors'])->name('home.allDoctors');
-    Route::get('/getAllDoctors', [homeController::class, 'getAllDoctors'])->name('home.getAllDoctors');
-    //departments
-    Route::get('/departments/{orgid}', [homeController::class, 'departmentsOfHospital'])->name('departments.of.hospital');
-    //doctors
-    Route::get('/doctors/{dptId}', [homeController::class, 'doctorsOfDepartment'])->name('doctors.of.department');
-    //appointment page
-    Route::get('appointment/doctor/{id}', [homeController::class, 'appointment'])->name('load.appointment');
-    //About_Us Page
-    Route::get('/about-us', [TemplateController::class, 'aboutUs'])->name('aboutUs');
-    //About_Us Page
-    Route::get('/contact-us', [TemplateController::class, 'contactUs'])->name('contactUs');
+  /**
+   * Login Routes
+   */
+  Route::get('/', [homeController::class, 'index'])->name('home.page');
+  Route::get('/allHospitals', [homeController::class, 'allHospitals'])->name('home.allHospitals');
+  Route::get('/our-services', [homeController::class, 'ourServices'])->name('home.ourServices');
+  Route::get('/hospital/{id}', [homeController::class, 'hospitalDetails'])->name('home.hospital_details');
+  Route::get('/allDepartments/{id}', [homeController::class, 'allDepartments'])->name('home.allDepartments');
+  Route::get('/getAllDepartments', [homeController::class, 'getAllDepartments'])->name('home.getAllDepartments');
+  Route::get('/department/{id}', [homeController::class, 'departmentDetails'])->name('home.department_details');
+  Route::get('/doctor-specializations', [homeController::class, 'doctorSpecializations'])->name('home.doctorSpecializations');
+  Route::get('/department-specializations', [homeController::class, 'departmentSpecializations'])->name('home.departmentSpecializations');
+  Route::get('/allDoctors/{id}', [homeController::class, 'allDoctors'])->name('home.allDoctors');
+  Route::get('/getAllDoctors', [homeController::class, 'getAllDoctors'])->name('home.getAllDoctors');
+  //departments
+  Route::get('/departments/{orgid}', [homeController::class, 'departmentsOfHospital'])->name('departments.of.hospital');
+  //doctors
+  Route::get('/doctors/{dptId}', [homeController::class, 'doctorsOfDepartment'])->name('doctors.of.department');
+  //appointment page
+  Route::get('appointment/doctor/{id}', [homeController::class, 'appointment'])->name('load.appointment');
+  //About_Us Page
+  Route::get('/about-us', [TemplateController::class, 'aboutUs'])->name('aboutUs');
+  //About_Us Page
+  Route::get('/contact-us', [TemplateController::class, 'contactUs'])->name('contactUs');
 
-    //Rating page
+  // How it Works
+  Route::get('/how-it-works', [TemplateController::class, 'howItWorks'])->name('howItWorks');
+  // How it Works
+  Route::get('/hospitals-list', [TemplateController::class, 'hospitalsList'])->name('hospitalsList');
 
-    Route::get('/rate-doctor', [PatientsFeedbackController::class, 'index'])->name('rateDoctor');
-    Route::post('/doctor/rated', [PatientsFeedbackController::class, 'store'])->name('doctorRated');
-    //Bl0g Grid Page
-    Route::get('/blog-grid', [TemplateController::class, 'blogGrid'])->name('blogGrid');
-    //Blog Left Sidebar Page
-    Route::get('/blog-right-sidebar', [TemplateController::class, 'blogRightSidebar'])->name('blogRightSidebar');
-    //Blog Right Sidebar Page
-    Route::get('/blog-left-sidebar', [TemplateController::class, 'blogLeftSidebar'])->name('blogLeftSidebar');
+  //Rating page
 
-    //Left Sidebar Page
-    Route::get('/left-sidebar', [TemplateController::class, 'leftSidebar'])->name('leftSidebar');
-    //Right Sidebar Page
-    Route::get('/right-sidebar', [TemplateController::class, 'rightSidebar'])->name('rightSidebar');
-    //No Sidebar Page
-    Route::get('/no-sidebar', [TemplateController::class, 'noSidebar'])->name('noSidebar');
+  Route::get('/rate-doctor', [PatientsFeedbackController::class, 'index'])->name('rateDoctor');
+  Route::post('/doctor/rated', [PatientsFeedbackController::class, 'store'])->name('doctorRated');
+  //Bl0g Grid Page
+  Route::get('/blog-grid', [TemplateController::class, 'blogGrid'])->name('blogGrid');
+  //Blog Left Sidebar Page
+  Route::get('/blog-right-sidebar', [TemplateController::class, 'blogRightSidebar'])->name('blogRightSidebar');
+  //Blog Right Sidebar Page
+  Route::get('/blog-left-sidebar', [TemplateController::class, 'blogLeftSidebar'])->name('blogLeftSidebar');
 
-
-    //Book Appointment Page
-    Route::get('/book-appointment', [TemplateController::class, 'bookAppointment'])->name('bookAppointment');
-    //Team Page
-    Route::get('/our-team', [TemplateController::class, 'ourTeam'])->name('ourTeam');
-    //Faq Page
-    Route::get('/faq', [TemplateController::class, 'faq'])->name('faq');
-
-    //Privacy Policy Page
-    Route::get('/privacy-policy', [TemplateController::class, 'privacyPolicy'])->name('privacyPolicy');
-    //Error Page
-    Route::get('/error-page', [TemplateController::class, 'errorPage'])->name('errorPage');
-    //No Sidebar Page
-    Route::get('/terms-of-service', [TemplateController::class, 'termsOfService'])->name('termsOfService');
-
-    //Testimonials Page
-    Route::get('/testimonials', [TemplateController::class, 'testimonials'])->name('testimonials');
-    //No Sidebar Page
-    Route::get('/pricing-plan', [TemplateController::class, 'pricingPlan'])->name('pricingPlan');
+  //Left Sidebar Page
+  Route::get('/left-sidebar', [TemplateController::class, 'leftSidebar'])->name('leftSidebar');
+  //Right Sidebar Page
+  Route::get('/right-sidebar', [TemplateController::class, 'rightSidebar'])->name('rightSidebar');
+  //No Sidebar Page
+  Route::get('/no-sidebar', [TemplateController::class, 'noSidebar'])->name('noSidebar');
 
 
+  //Book Appointment Page
+  Route::get('/book-appointment', [TemplateController::class, 'bookAppointment'])->name('bookAppointment');
+  //Team Page
+  Route::get('/our-team', [TemplateController::class, 'ourTeam'])->name('ourTeam');
+  //Faq Page
+  Route::get('/faq', [TemplateController::class, 'faq'])->name('faq');
 
-    //patient login
-    // Route::get('/login',[AuthController::class,'login'])->name('patient.login');
+  //Privacy Policy Page
+  Route::get('/privacy-policy', [TemplateController::class, 'privacyPolicy'])->name('privacyPolicy');
+  //Error Page
+  Route::get('/error-page', [TemplateController::class, 'errorPage'])->name('errorPage');
+  //No Sidebar Page
+  Route::get('/terms-of-service', [TemplateController::class, 'termsOfService'])->name('termsOfService');
 
-    // Admin Login
-    Route::get('/admin/login', [AuthenticationController::class, 'showLogin'])->name('login.show');
-    Route::post('/admin/login', [AuthenticationController::class, 'login'])->name('login.perform');
-
-    //hospital login
-    Route::get('/hospital/login/page', [AuthenticationController::class, 'showHospitalLogin'])->name('hospital.login');
-    Route::post('/hospital/logined', [AuthenticationController::class, 'hospitalLogin'])->name('hospital.loggedin');
-
-    //doctor login
-    Route::get('/doctor/login', [AuthenticationController::class, 'showDoctorLogin'])->name('doctor.login');
-    Route::post('/doctor/logined', [AuthenticationController::class, 'doctorLogin'])->name('doctor.loggedin');
-
-    //paitent Register
-
-    Route::get('/patient/register', [PatientAuthenticationController::class, 'register'])->name('patient.register');
-    Route::post('/patient/registered', [PatientAuthenticationController::class, 'patientSignUp'])->name('patient.registered');
-
-    //patient Login
-    Route::get('/patient/login', [PatientAuthenticationController::class, 'login'])->name('patient.login');
-    Route::post('/patient/logined', [PatientAuthenticationController::class, 'performLogin'])->name('patient.loggedin');
+  //Testimonials Page
+  Route::get('/testimonials', [TemplateController::class, 'testimonials'])->name('testimonials');
+  //No Sidebar Page
+  Route::get('/pricing-plan', [TemplateController::class, 'pricingPlan'])->name('pricingPlan');
 
 
-    Route::get('/conference/call', [PatientAuthenticationController::class, 'conference_call'])->name('conference');
-//  });
+
+  //patient login
+  // Route::get('/login',[AuthController::class,'login'])->name('patient.login');
+
+  // Admin Login
+  Route::get('/admin/login', [AuthenticationController::class, 'showLogin'])->name('login.show');
+  Route::post('/admin/login', [AuthenticationController::class, 'login'])->name('login.perform');
+
+  //hospital login
+  Route::get('/hospital/login/page', [AuthenticationController::class, 'showHospitalLogin'])->name('hospital.login');
+  Route::post('/hospital/logined', [AuthenticationController::class, 'hospitalLogin'])->name('hospital.loggedin');
+
+  //doctor login
+  Route::get('/doctor/login', [AuthenticationController::class, 'showDoctorLogin'])->name('doctor.login');
+  Route::post('/doctor/logined', [AuthenticationController::class, 'doctorLogin'])->name('doctor.loggedin');
+
+  //paitent Register
+
+  Route::get('/patient/register', [PatientAuthenticationController::class, 'register'])->name('patient.register');
+  Route::post('/patient/registered', [PatientAuthenticationController::class, 'patientSignUp'])->name('patient.registered');
+
+  //patient Login
+  Route::get('/patient/login', [PatientAuthenticationController::class, 'login'])->name('patient.login');
+  Route::post('/patient/logined', [PatientAuthenticationController::class, 'performLogin'])->name('patient.loggedin');
+
+
+  Route::get('/conference/call', [PatientAuthenticationController::class, 'conference_call'])->name('conference');
+  //  });
   //'permission'
-  Route::group(['prefix' => 'admin', 'middleware' => ['auth','role:ehrnadmin']], function () {
+  Route::group(['prefix' => 'admin', 'middleware' => ['auth', 'role:ehrnadmin']], function () {
 
     //temp Dashboard
     Route::get('/dashboard', [AuthenticationController::class, 'dashboard'])->name('dashboard');
@@ -182,11 +187,11 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::get('/update/department-specialization/{id}', [DepartmentSpecializationController::class, 'updateView'])->name('update.departmentSpecialization');
     Route::post('/department-specialization/updated', [DepartmentSpecializationController::class, 'update'])->name('departmentSpecialization.Updated');
     //Create Doctor
-    Route::get('/create/doctor', [CreationController::class, 'create'])->name('createDoctor');
+    Route::get('/create/doctor/{uuid}', [CreationController::class, 'create'])->name('createDoctor');
     Route::post('/doctor/created', [CreationController::class, 'store'])->name('doctorCreated');
-     //This Route is used to Map Patient with reference to Organization
-     Route::get('/map/doctor/{$userUuid}', [CreationController::class, 'mapDoctor'])->name('mapDoctor');
-     Route::post('/doctor/mapped', [CreationController::class, 'doctorMapped'])->name('doctorMapped');
+    //This Route is used to Map Patient with reference to Organization
+    Route::get('/map/doctor/{userUuid}/{depUuid}', [CreationController::class, 'mapDoctor'])->name('mapDoctor');
+    Route::post('/doctor/mapped', [CreationController::class, 'doctorMapped'])->name('doctorMapped');
 
     // This Route shows list of All Registered Professions
     Route::get('/professions', [ProfessionController::class, 'professions'])->name('professions');
@@ -196,6 +201,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::get('/create/organization', [OrganizationController::class, 'create'])->name('create.organization');
     Route::get('/delete/organisation/{uuid}', [OrganizationController::class, 'deleteOrganisation'])->name('delete.organisation');
     Route::get('/delete/department/{uuid}', [DepartmentController::class, 'deleteDepartment'])->name('delete.department');
+    Route::get('/feature/organization/{uuid}', [OrganizationController::class, 'featureOrganization'])->name('featureOrganization');
 
     Route::post('/organization', [OrganizationController::class, 'createOrganization'])->name('store.organization');
     //Get single record of organization and update it
@@ -205,7 +211,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
 
     //create Department
-    Route::get('/create/departments', [DepartmentController::class, 'index'])->name('create.newDepartment');
+    Route::get('/create/departments/{uuid}', [DepartmentController::class, 'index'])->name('create.newDepartment');
     Route::post('/department/created', [DepartmentController::class, 'create'])->name('newDepartment.created');
 
 
@@ -223,11 +229,11 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::get('/all/users', [UserController::class, 'allusers'])->name('all.users');
 
     // These Routes are used to create Users
-    Route::get('/create/user', [UserController::class, 'create_user'])->name('create.user');
+    Route::get('/create/user/{uuid}', [UserController::class, 'create_user'])->name('create.user');
     Route::post('/store/user', [UserController::class, 'store_user'])->name('store.user');
 
     // These Routes are used to Map Roles to Users
-    Route::get('/mappingrole', [UserController::class, 'mapUser'])->name('mappingRole');
+    Route::get('/mappingrole/{orgId}', [UserController::class, 'mapUser'])->name('mappingRole');
     Route::post('/mappedrole', [UserController::class, 'mapUserRole'])->name('role.mapped');
 
     Route::get('/doctor/delete/{uuid}', [UserController::class, 'doctorDelete'])->name('doctor.delete');
@@ -239,7 +245,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
 
     //This Route is used to Create Patient
-    Route::get('/create/patients', [PatientController::class, 'createPatients'])->name('create.patients');
+    Route::get('/create/patients/{uuid}', [PatientController::class, 'createPatients'])->name('create.patients');
     Route::post('/store/patients', [PatientController::class, 'patient'])->name('store.patients');
 
     //This Route is used to Map Patient with reference to Organization
@@ -272,7 +278,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
 
 
-  Route::group(['prefix' => 'hospital', 'middleware' => ['auth','role:frontoffice,orgsuperadmin']], function () {
+  Route::group(['prefix' => 'hospital', 'middleware' => ['auth', 'role:frontoffice,orgsuperadmin']], function () {
     // Routes used for login
 
     Route::get('/dashboard/page', [AuthenticationController::class, 'hospitalDashboard'])->name('hospital.dashboard');
@@ -311,11 +317,11 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     // Route::post('/doctor-specialization/updated', [DoctorSpecializationController::class, 'update'])->name('specialization.updated');
 
     //Create Doctor
-    Route::get('/create/doctor', [CreationController::class, 'create'])->name('create.doctor');
+    Route::get('/create/doctor/{uuid}', [CreationController::class, 'create'])->name('create.doctor');
     Route::post('/doctor/created', [CreationController::class, 'store'])->name('doctor.created');
-     //This Route is used to Map Patient with reference to Organization
-     Route::get('/map/doctor/{$userUuid}', [CreationController::class, 'mapDoctor'])->name('map.doctor');
-     Route::post('/doctor/mapped', [CreationController::class, 'doctorMapped'])->name('doctor.mapped');
+    //This Route is used to Map Patient with reference to Organization
+    Route::get('/map/doctor/{$userUuid}/{depUuid}', [CreationController::class, 'mapDoctor'])->name('map.doctor');
+    Route::post('/doctor/mapped', [CreationController::class, 'doctorMapped'])->name('doctor.mapped');
 
     // These Routes are used to Map Roles to Users
     Route::get('/mapping/role/', [HospitalUserController::class, 'mapHospitalUser'])->name('mapHospital.user');
@@ -368,12 +374,12 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::post('/hospital-coupon/assign', [HospitalCouponController::class, 'assignUserPost'])->name('hospital.coupon.assigncoupon');
     Route::post('/hospital-coupon/create', [HospitalCouponController::class, 'store'])->name('hospital.coupon.store');
   });
-  Route::group(['prefix' => 'doctor', 'middleware' => ['auth','role:practitioner',]], function () {
+  Route::group(['prefix' => 'doctor', 'middleware' => ['auth', 'role:practitioner',]], function () {
     Route::get('/dashboard', [AuthenticationController::class, 'DoctorDashboard'])->name('doctor.dashboard');
 
     //Update User name
     Route::get('/update/displayName', [PersonalDetails::class, 'updateDisplayName'])->name('updateDisplayName');
-   Route::post('/displayName/updated', [PersonalDetails::class, 'displayNameUpdated'])->name('displayNameUpdated');
+    Route::post('/displayName/updated', [PersonalDetails::class, 'displayNameUpdated'])->name('displayNameUpdated');
     //verify Phone Number
     Route::get('/verify/phoneNumber', [PersonalDetails::class, 'verifyPhoneNumber'])->name('verifyPhoneNumber');
     Route::post('/phoneNumber/verified', [PersonalDetails::class, 'phoneNumberVerified'])->name('phoneNumberVerified');
@@ -398,7 +404,6 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::get('/appointments/list', [DoctorSchedule::class, 'appointmentList'])->name('doctor.appointments.list');
     Route::get('/eprescription/create', [EprescriptionController::class, 'create'])->name('doctor.eprescription.create');
     Route::post('/eprescription/store', [EprescriptionController::class, 'store'])->name('doctor.eprescription.store');
-
   });
   Route::group(['prefix' => 'patient', 'middleware' => ['auth']], function () {
     Route::get('/logout', [PatientAuthenticationController::class, 'logout'])->name('patient.logout');
@@ -432,5 +437,4 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
   //Please Don't Change the location of this Route Other-Wise U have to face lots of errors
   Route::get('/doctor/{id}', [homeController::class, 'doctorDetails'])->name('home.doctor_details');
-
 });

@@ -24,15 +24,8 @@ class homeController extends Controller
 {
     public function index(Request $request)
     {
-        $organizations = Organization::has('department')->orderBy('id', 'desc')->paginate(6);
-        if ($request->ajax()) {
-            $search = $request->get('query');
-            $organizations = Organization::has('department')->orderBy('id', 'desc')->where(function ($q) use ($search) {
-                if (!empty($search)) {
-                    $q->where('displayname', 'like', '%' . $search . '%');
-                }
-            })->paginate(6);
-        }
+        $organizations = Organization::where('featured_status',1)->where('status','Enabled')->get();
+        // dd($organizations);
         return view('public_panel.index', compact('organizations'));
     }
     public function index2(Request $request)

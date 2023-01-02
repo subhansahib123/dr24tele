@@ -65,6 +65,11 @@
                                                 @else
                                                 <a href="{{route('delete.organisation',['uuid'=>$organization->uuid])}}"><button class="btn btn-info" title="Active"><i class="fa fa-eye"></i></button></a>
                                                 @endif
+                                                @if($organization->featured_status == '1')
+                                                <a href="{{route('featureOrganization',['uuid'=>$organization->uuid])}}"><button class="btn btn-secondary" title="UnFeatured"><i class="fa fa-eye-slash"></i></button></a>
+                                                @else
+                                                <a href="{{route('featureOrganization',['uuid'=>$organization->uuid])}}"><button class="btn btn-primary" title="Featured"><i class="fa fa-eye"></i></button></a>
+                                                @endif
 
                                             </td>
 
