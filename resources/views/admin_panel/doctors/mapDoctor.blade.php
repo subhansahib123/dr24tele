@@ -33,28 +33,18 @@
                                 <input type="hidden" value="{{$userUuid}}" name="user">
                                 <div class="row">
                                     <div class="form-group col-lg-6 col-md-6 col-sm-12">
-                                        <label for="organization"> Hospital</label>
-                                        <select class="form-control" name="organization" id="organization">
-                                            <option value='' selected>Select Hospital</option>
+                                        <label for="department"> Departments</label>
+                                        <select class="form-control" name="department" id="department">
+                                            <option value='' selected>Select Department</option>
 
-                                            @if($organizations)
-                                            @foreach ($organizations as $organization)
-                                            <option value="{{$organization->uuid}}">{{$organization->displayname}}</option>
+                                            @if($departments)
+                                            @foreach ($departments as $department)
+                                            <option value="{{$department->uuid}}">{{$department->display_name}}</option>
                                             @endforeach
                                             @endif
                                         </select>
-                                        @if ($errors->has('organization'))
-                                        <span class="text-danger text-left">{{ $errors->first('organization') }}</span>
-                                        @endif
-                                    </div>
-
-                                    <div class="form-group col-lg-6 col-md-6 col-sm-12" id="depart_p">
-                                        <label for="departments">Departments</label>
-                                        <select class="form-control" name="department" id="departments">
-                                            <option value='' selected>Select Department</option>
-                                        </select>
-                                        @if ($errors->has('departments'))
-                                        <span class="text-danger text-left">{{ $errors->first('departments') }}</span>
+                                        @if ($errors->has('department'))
+                                        <span class="text-danger text-left">{{ $errors->first('department') }}</span>
                                         @endif
                                     </div>
 
@@ -112,27 +102,5 @@
 
 @endsection
 @section('foot_script')
-<script>
-    var base_url = `{{url('/')}}`;
-    $('#organization').change(function() {
-        var uuid = $(this).val();
-        var url = `${base_url}/api/getDepartments/${uuid}`;
-        $.ajax({
-            type: 'GET',
-            url: url
-        }).done(function(data) {
-            if (data) {
-                var option = "<option value='' selected>Select Department</option>";
-                data.forEach(function(row, index) {
-                    // console.log(row,index);
-                    option += `<option value='${row.uuid}'>${row.display_name}</option>`;
-                });
-                $('#departments').html(option);
-            }
-        }).fail(function(error) {
-            console.log(error);
-        });
-    });
-</script>
 
 @endsection

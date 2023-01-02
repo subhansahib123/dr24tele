@@ -36,18 +36,7 @@
                                         <input class="form-control" type="text" disabled value="{{$user->name}}">
                                         <input type="hidden" value="{{$user->uuid}}" name="user" id="user">
                                     </div>
-
-                                    <div class="form-group col-lg-6 col-md-6 col-sm-12  my-1">
-                                        <label for="organizations"> Hospital</label>
-                                        <select class="form-control" name="organizations" id="organization">
-                                        <option value='' selected>Select Hospital</option>
-                                            @if($organizations)
-                                            @foreach ($organizations as $organization)
-                                            <option value="{{$organization->uuid}}">{{$organization->displayname}}</option>
-                                            @endforeach
-                                            @endif
-                                        </select>
-                                    </div>
+                                    <input type="hidden" name="orgId" value="{{$orgId}}">
                                     <div class="form-group col-lg-6 col-md-6 col-sm-12  my-1">
                                         <label for="role">Roles</label>
                                         <select class="form-control" value="{{old('role')}}" name="role" id="role">
@@ -63,21 +52,6 @@
                                             @endif
                                         </select>
                                     </div>
-                                    <div class="form-group col-lg-6 col-md-6 col-sm-12  my-1" id="depart_p">
-                                        <label for="organizations">Departments</label>
-                                        <select class="form-control" name="department" id="departments">
-                                            <option value='' selected>Select Department</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group col-lg-12 col-md-12 col-sm-12 my-3">
-                                        <label for="organizations">Map In Hospital
-
-                                            <input type="checkbox" id="onlyinOrg" />
-                                        </label>
-
-                                    </div>
-
-
                                 </div>
 
                                 <div class="form-group text-end">
@@ -104,36 +78,3 @@
 
 @endsection
 
-@section('foot_script')
-<script>
-    $('#onlyinOrg').change(function() {
-        if ($(this).is(':checked')) {
-            $('#depart_p').hide();
-        } else {
-            $('#depart_p').show();
-        }
-    });
-    var base_url = `{{url('/')}}`;
-    $('#organization').change(function() {
-        var uuid = $(this).val();
-        var url = `${base_url}/api/getDepartments/${uuid}`;
-        $.ajax({
-            type: 'GET',
-            url: url
-        }).done(function(data) {
-            if (data) {
-                var option = "<option value='' selected>Select Department</option>";
-                data.forEach(function(row, index) {
-                    // console.log(row,index);
-                    option += `<option value='${row.uuid}'>${row.display_name}</option>`;
-                });
-                $('#departments').html(option);
-            }
-
-        }).fail(function(error) {
-            console.log(error);
-        });
-    });
-</script>
-
-@endsection

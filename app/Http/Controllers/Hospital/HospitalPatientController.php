@@ -120,8 +120,6 @@ class HospitalPatientController extends Controller
             $user = User::where('uuid', $uuid)->first();
             if ($user) {
                 UsersOrganization::where('user_id', $user->id)->delete();
-                Patient::where('user_id', $user->id)->delete();
-                $user->delete();
             }
             return redirect()->back()->withSuccess(__('Successfully Patient Deleted'));
         } catch (\Exception $e) {

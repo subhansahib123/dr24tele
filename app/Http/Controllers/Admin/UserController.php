@@ -207,15 +207,15 @@ class UserController extends Controller
         }
     }
 
-    public function create_user()
+    public function create_user($uuid)
     {
         if (!Auth::check())
             return redirect()->route('logout')->withErrors(['error' => 'Login Token Expired ! Please login Again']);
-        return view('admin_panel.all_patients.create');
+        return view('admin_panel.all_patients.create',['orgId'=>$uuid]);
     }
     public function store_user(Request $request)
     {
-
+        // dd($request->orgId);
         $request->validate([
             'username' => 'required|string',
             'name' => 'required|string',
@@ -254,8 +254,8 @@ class UserController extends Controller
 
             ]);
             // dd($user);
-
-            return $this->mapUser($user);
+            $orgId=$request->orgId;
+            return $this->mapUser($user,$orgId);
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => __($e->getMessage())]);
         }
@@ -403,11 +403,13 @@ class UserController extends Controller
             return redirect()->back()->withErrors(['error' => __($e->getMessage())]);
         }
     }
-    public function mapUser($user)
+    public function mapUser($user,$orgId)
     {
         $roles = Role::all();
-        $organizations = Organization::all();
-        return view('admin_panel.totalUsers.roleEdit', ['user' => $user, 'roles' => $roles, 'organizations' => $organizations]);
+        $orgId=Organization::where('uuid',$orgId)->first();
+        $orgId=$orgId->id;
+// dd($orgId);
+        return view('admin_panel.totalUsers.roleEdit', ['user' => $user, 'roles' => $roles, 'orgId'=>$orgId]);
     }
 
 
@@ -416,14 +418,8 @@ class UserController extends Controller
     {
 
 
-        // dd($request->all());
-        $uuid = '';
-        if ($request->department != '') {
-            $uuid = $request->department;
-        } else {
-            $uuid = $request->organizations;
-        }
-        $orgUuid = $request->organizations;
+        
+        
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
         if (is_null($userInfo)) {
@@ -434,8 +430,7 @@ class UserController extends Controller
         try {
             $user = User::where('uuid', $request->user)->first();
             $role = Role::where('name', $request->role)->first();
-            $department = Department::where('uuid', $request->department)->first();
-            $organization = Organization::where('uuid', $request->organizations)->first();
+            $organization = Organization::where('id', $request->orgId)->first();
             // dd($user->id, $role->id, $organization->id,$department->id);
             UsersOrganization::firstOrCreate([
 
@@ -450,7 +445,6 @@ class UserController extends Controller
             ]);
 
             // dd($user->id,$role->id,$organization->id);
-
 
             if($organization->uuid=='c6bc6265-e876-414a-9672-a85e09280059'){
             return redirect()->route('users.all.actual')->withSuccess(__('Successfully Created User'));
@@ -547,6 +541,7 @@ class UserController extends Controller
     }
     public function doctorsList($uuid)
     {
+        // dd($uuid);
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
         if (is_null($userInfo)) {
@@ -557,7 +552,7 @@ class UserController extends Controller
             $dep = Department::where('uuid', $uuid)->first();
             $doctors = Doctor::with('user')->where('department_id', $dep->id)->get();
             // dd($doctors);
-            return view('admin_panel.doctors.showDoctors', ['doctors' => $doctors]);
+            return view('admin_panel.doctors.showDoctors', ['doctors' => $doctors,'uuid'=>$uuid]);
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => __($e->getMessage())]);
             // return $e->getMessage();
@@ -575,14 +570,7 @@ class UserController extends Controller
 
             return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
-        try {
-
-            return view('admin_panel.organization.usersList', ['users' => $users]);
-        } catch (\Exception $e) {
-            // dd(__($e->getMessage()));
-            return redirect()->back()->withErrors(['error' => __($e->getMessage())]);
-            // return $e->getMessage();
-        }
+            return view('admin_panel.organization.usersList', ['users' => $users,'uuid'=>$uuid]);
     }
 
     public function updateUser($uuid, $username, $name)

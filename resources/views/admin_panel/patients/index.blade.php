@@ -27,7 +27,7 @@
                             </div>
 
                             <div class="col-3 text-end">
-                                <a href="{{route('create.patients')}}" class="btn btn-sm btn-success">Add <i class="fa fa-plus" data-toggle="tooltip" data-placement="top" title="Add New"></i></a>
+                                <a href="{{route('create.patients',['uuid'=>'c6bc6265-e876-414a-9672-a85e09280059']   )}}" class="btn btn-sm btn-success">Add <i class="fa fa-plus" data-toggle="tooltip" data-placement="top" title="Add New"></i></a>
                                 <a href="{{route('dashboard')}}" class="btn btn-sm btn-info" data-toggle="Go Back">Back <i class="fa fa-reply"></i></a>
                             </div>
                         </div>
@@ -46,15 +46,19 @@
 
                                         <table class="table table-striped" id="datatable">
                                             <thead>
+                                            <th scope="col" width="3%">Sr#</th>
                                                 <th scope="col" width="20%">Name</th>
                                                 <th class="text-end" scope="col" width="1%">Action</th>
                                             </thead>
                                             @if($all_patients)
                                             @foreach($all_patients as $all_patient)
+                                            @if(isset($all_patient->user->user_organization->id))
+                                            @if($all_patient->user->user_organization->organization->id == auth()->user()->user_organization->organization->id)
 
 
                                             <tr style="line-height:10px ;">
 
+                                            <td>{{$loop->index+1}}</td>
                                                 <td>
 
                                                     {{$all_patient->user->name}}
@@ -72,7 +76,8 @@
 
                                             </tr>
 
-
+                                            @endif
+                                            @endif
                                             @endforeach
                                             @else
                                             <tr>

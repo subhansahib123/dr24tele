@@ -5,6 +5,7 @@ namespace App\Http\Controllers\FrontEnd;
 use App\Http\Controllers\Controller;
 use App\Models\DepartmentSpecializations;
 use App\Models\DoctorSpecialization;
+use App\Models\Organization;
 use Illuminate\Http\Request;
 
 class TemplateController extends Controller
@@ -18,6 +19,22 @@ class TemplateController extends Controller
       return view('public_panel.template_pages.contactUs');
    }
 
+   public function howItWorks()
+   {
+      return view('public_panel.template_pages.howItWorks');
+   }public function hospitalsList(Request $request)
+   {
+      $organizations = Organization::has('department')->orderBy('displayname', 'asc')->where('status','Enabled')->paginate(6);
+        if ($request->ajax()) {
+            $search = $request->get('query');
+            $organizations = Organization::has('department')->orderBy('id', 'asc')->where(function ($q) use ($search) {
+                if (!empty($search)) {
+                    $q->where('displayname', 'like', '%' . $search . '%');
+                }
+            })->paginate(6);
+        }
+      return view('public_panel.template_pages.hospitalsList', compact('organizations'));
+   }
    public function blogGrid()
    {
       return view('public_panel.template_pages.blogLayout.blogGrid');

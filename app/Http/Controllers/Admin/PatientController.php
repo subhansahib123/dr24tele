@@ -14,9 +14,14 @@ use Illuminate\Support\Str;
 
 class PatientController extends Controller
 {
+    public function createPatients($uuid)
+    {
+        return view('admin_panel.patients.create',['orgId'=>$uuid]);
+    }
     public function patient(Request $request)
     {
         // dd($request->all());
+        $organization=Organization::where('uuid',$request->orgId)->first();
         $request->validate([
             'name' => 'required|string',
             'phoneNumber' => 'required|string',
@@ -37,9 +42,9 @@ class PatientController extends Controller
         } else {
             $image = '';
         }
-        // dd($image);
+        // dd($organization->id);
         try {
-            $UserData = User::firstOrCreate([
+            $user = User::firstOrCreate([
                 'username' => '',
                 'name' => $request->name.' '.$request->middlename,
                 'password' => '',
@@ -48,21 +53,30 @@ class PatientController extends Controller
                 'uuid' => Str::uuid(),
                 'PersonId' => Str::uuid(),
                 'status' => 1,
-                'image' => $image
-
+                'image' => $image,
+                'PersonUuid' => Str::uuid(),
+            ]);
+            Patient::firstOrCreate([
+                'user_id' => $user->id,
+                'organization_id' => $organization->id,
+                'status' => 1,
+                'image' => 1
             ]);
 
-            // dd($UserData);
-            return $this->storePatients($UserData);
+            UsersOrganization::firstOrCreate([
+
+                'status' => 1,
+                'registration_code' => '123ABC',
+                'user_id' => $user->id,
+                'organization_id' => $organization->id
+            ]);
+            return redirect()->route('patients.list', [$organization->uuid])->withSuccess(__('Patient Successfully Created'));
+
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => __($e->getMessage())]);
         }
     }
-    public function createPatients()
-    {
-        $users = User::all();
-        return view('admin_panel.patients.create', ['users' => $users]);
-    }
+    
     protected function storePatients($UserData)
     {
 
@@ -78,7 +92,7 @@ class PatientController extends Controller
             $user = User::where('uuid', $UserData->uuid)->first();
 
             $user->update([
-                'PersonUuid' => Str::uuid(),
+                
             ]);
 
             // dd($user);
@@ -88,12 +102,6 @@ class PatientController extends Controller
 
             return redirect()->back()->withErrors(['error' => __($e->getMessage())]);
         }
-    }
-    public function mapPatients($user)
-    {
-        // dd(1);
-        $organizations = Organization::all();
-        return view('admin_panel.patients.mapPatients', ['user' => $user, 'organizations' => $organizations]);
     }
     public function     patientMapped(Request $request)
     {
@@ -111,24 +119,7 @@ class PatientController extends Controller
 
             $org = Organization::where('uuid', $request->organisation)->first();
             // dd($request->userId,$org->id);
-            Patient::firstOrCreate([
-                'user_id' => $request->userId,
-                'organization_id' => $org->id,
-                'status' => 1,
-                'image' => 1
-            ]);
-
-            UsersOrganization::firstOrCreate([
-
-                'status' => 1,
-                'registration_code' => '123ABC',
-                'user_id' => $request->userId,
-                'organization_id' => $org->id
-            ]);
-            if ($org->uuid == 'c6bc6265-e876-414a-9672-a85e09280059') {
-                return redirect()->route('all.users')->withSuccess(__('Patient Successfully Created'));
-            }
-            return redirect()->route('patients.list', [$org->uuid])->withSuccess(__('Patient Successfully Created'));
+            
         } catch (\Exception $e) {
 
 
@@ -145,11 +136,10 @@ class PatientController extends Controller
             return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
         try {
-            $org = Organization::where('uuid', $uuid)->first();
-            $patients = Patient::with('user')->where('organization_id', $org->id)->get();
-
-            // dd ($patients->user->name );
-            return view('admin_panel.patients.showPatients', ['patients' => $patients]);
+            $organization = Organization::where('uuid', $uuid)->first();
+            $patients = Patient::with('user')->where('organization_id', $organization->id)->get();
+            // dd($org->id);
+            return view('admin_panel.patients.showPatients', ['patients' => $patients,'organization'=>$organization]);
         } catch (\Exception $e) {
 
 
@@ -174,8 +164,6 @@ class PatientController extends Controller
             $user = User::where('uuid', $uuid)->first();
             if ($user) {
                 UsersOrganization::where('user_id', $user->id)->delete();
-                Patient::where('user_id', $user->id)->delete();
-                $user->delete();
             }
             return redirect()->back()->withSuccess(__('Successfully Patient Deleted'));
         } catch (\Exception $e) {
