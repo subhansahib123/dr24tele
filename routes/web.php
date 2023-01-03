@@ -427,6 +427,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
 
     Route::get('/verify/number', [PatientDetails::class, 'verifyPhoneNumber'])->name('verify.phoneNumber');
+    Route::get('/appointment/details-page/{id}', [PatientDetails::class, 'appointmentDetails'])->name('appointmentDetails');
     Route::post('/Number/verified', [PatientDetails::class, 'phoneNumberVerified'])->name('phone.numberVerified');
     Route::post('/phoneNumber/updated', [PatientDetails::class, 'phoneNumberUpdated'])->name('phoneNumber.updated');
 
