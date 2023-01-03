@@ -12,6 +12,7 @@ use App\Models\UsersOrganization;
 use Illuminate\Support\Str;
 use App\Models\Appointment;
 use App\AgoraToken\Src\RtcTokenBuilder;
+use App\Models\Schedule;
 use Illuminate\Support\Facades\Session;
 
 class PatientAuthenticationController extends Controller
@@ -68,7 +69,12 @@ class PatientAuthenticationController extends Controller
     }
     public function login()
     {
+
+
         return view('patient_panel.login');
+        
+
+
     }
     public function performLogin(Request $request)
     {
@@ -83,6 +89,10 @@ class PatientAuthenticationController extends Controller
 
             Auth::login($user);
             session(['loggedInUser' => $user]);
+            if($request->url=='doctor')
+            return redirect($request->previousUrl)->withSuccess(__('Successfully Login'));
+
+
             return redirect()->route('patient.dashboard')->withSuccess(__('Successfully Login'));
         } else {
             return redirect()->route('patient.register')->withSuccess(__('To Login Get Registered First'));
