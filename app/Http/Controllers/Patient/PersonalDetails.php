@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Patient;
 
 use App\Http\Controllers\Controller;
+use App\Models\Appointment;
+use App\Models\Schedule;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
@@ -47,5 +49,11 @@ class PersonalDetails extends Controller
     {
 
         return view('patient_panel.personalInfo.updatingNumber');
+    }
+    public function appointmentDetails($id)
+    {
+        $appointment=Appointment::where('id',$id)->first();
+        $schedule=Schedule::where('id',$appointment->slot_id)->first();
+        return view('patient_panel.appointment.details',compact('appointment','schedule'));
     }
 }

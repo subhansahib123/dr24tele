@@ -179,7 +179,7 @@
                         <li class="nav-item">
                             <a href="{{ route('home.departmentSpecializations') }}" class="nav-link">Specializations</a>
                         </li>
-                        <li class="nav-item mt-4 gx-0">
+                        <li class="nav-item pt-4 gx-0">
                             <div class="input-group rounded">
                                 <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
                                 <span class=" border-0" id="search-addon">
