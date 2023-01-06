@@ -51,13 +51,12 @@ Route::get('/agoraToken',[PatientAuthenticationController::class,'generate_token
 Route::get('/convert-currency',[CurrencyController::class,'ConvertCurrency'])->name('convert.currency');
 //Front
 Route::get('/', [MainController::class, 'index']);
+Route::get('/hospitals-list', [MainController::class, 'hospitalsList'])->name('hospitalsList');
 Route::get('/hospital/{id}', [MainController::class, 'hospitalDetails']);
 Route::get('/department/{id}', [MainController::class, 'departmentDetails']);
-Route::get('/allDoctors/{id}', [MainController::class, 'allDoctors']);
+Route::get('/doctor-details/{id}', [MainController::class, 'doctorDetails']);
 Route::get('/department-specializations', [MainController::class, 'departmentSpecializations']);
 Route::get('/allDepartments/{id}', [MainController::class, 'allDepartments']);
-Route::get('/doctor-specializations', [MainController::class, 'doctorSpecializations']);
-Route::get('/getAllDoctors', [MainController::class, 'getAllDoctors']);
 //Patient
 Route::post('/patient/logined', [APIPatientAuthenticationController::class, 'performLogin']);
 Route::get('/patient/get-organizations', [APIPatientAuthenticationController::class, 'getOrganizations']);
