@@ -15,12 +15,30 @@ use Illuminate\Http\Request;
 class MainController extends Controller
 {
     public function index(Request $request){
-        $organizations = Organization::has('department')->orderBy('id', 'desc')->paginate(6);
+        $organizations = Organization::has('department')->where('status','Enabled')->where('featured_status',1)->orderBy('name', 'asc')->get();
+        return response()->json([
+            'status' => [
+                'status_code' => 200,
+                'message' => 'Ok'
+            ],
+            'data' => [
+                "organizations"=>$organizations,
+            ],
+            'message' => [
+                "status_code"=> 200,
+                'msg_status' => 'Fetch Organizations',
+            ]
+        ]);
+    }
+    //Hospital List
+    public function hospitalsList(Request $request)
+    {
+        $organizations = Organization::has('department')->orderBy('displayname', 'asc')->where('status','Enabled')->paginate(6);
         if ($request->ajax()) {
             $search = $request->get('query');
-            $organizations = Organization::has('department')->orderBy('id', 'desc')->where(function ($q) use ($search) {
+            $organizations = Organization::has('department')->where('status','Enabled')->orderBy('displayname', 'asc')->where(function ($q) use ($search) {
                 if (!empty($search)) {
-                    $q->where('name', 'like', '%' . $search . '%');
+                    $q->where('displayname', 'like', '%' . $search . '%');
                 }
             })->paginate(6);
         }
@@ -42,13 +60,10 @@ class MainController extends Controller
     public function hospitalDetails($id)
     {
         // \DB::enableQueryLog(); // Enable query log
-        $hospital = Organization::has('department')->where('id', $id)->first();
+        $hospital = Organization::has('department')->where('status','Enabled')->where('id', $id)->first();
         $departmentSpecializations = DepartmentSpecializations::has('Department')->get();
-        $doctorSpecializations = DoctorSpecialization::has('specializedDoctor')->get();
-
-
-        // $departments=Department::has('doctor')->orderBy('id','desc')->paginate(6);
         // dd(\DB::getQueryLog()); // Show results of log
+
         $state = State::where('id', $hospital->state)->first();
         $city = City::where('id', $hospital->city)->first();
         $stateName = $state->name;
@@ -63,7 +78,6 @@ class MainController extends Controller
                 "stateName"=>$stateName,
                 "cityName"=>$cityName,
                 "departmentSpecializations"=>$departmentSpecializations,
-                "doctorSpecializations"=>$doctorSpecializations,
             ],
             'message' => [
                 "status_code"=> 200,
@@ -74,9 +88,8 @@ class MainController extends Controller
     //Department Details
     public function departmentDetails($id)
     {
-        $department = Department::where('id', $id)->first();
+        $department = Department::has('doctor')->where('status','Enabled')->where('id', $id)->first();
         $departmentSpecializations = DepartmentSpecializations::has('Department')->get();
-        $doctorSpecializations = DoctorSpecialization::has('specializedDoctor')->get();
         $doctors = Doctor::with('user', 'specializedDoctor')->where('department_id', $id)->get();
         // dd( $department,$doctors);y
         $state = State::where('id', $department->organization->state)->first();
@@ -92,7 +105,6 @@ class MainController extends Controller
                 "department"=>$department,
                 "doctors"=>$doctors,
                 "departmentSpecializations"=>$departmentSpecializations,
-                "doctorSpecializations"=>$doctorSpecializations,
                 "stateName"=>$stateName,
                 "cityName"=>$cityName,
             ],
@@ -103,16 +115,16 @@ class MainController extends Controller
         ]);
     }
     //Doctor Specializations
-    public function allDoctors($id)
+    public function doctorDetails($id)
     {
-        $doctors = DoctorSpecialization::where('id', $id)->first();
+        $doctor = Doctor::where('id', $id)->first();
         return response()->json([
             'status' => [
                 'status_code' => 200,
                 'message' => 'Ok'
             ],
             'data' => [
-                "doctors"=>$doctors,
+                "doctor"=>$doctor,
             ],
             'message' => [
                 "status_code"=> 200,
@@ -149,7 +161,7 @@ class MainController extends Controller
     //All Departments
     public function allDepartments($id)
     {
-        $departments = DepartmentSpecializations::where('id', $id)->first();
+        $departments = DepartmentSpecializations::has('Department')->with('Department')->where('id', $id)->first();
         return response()->json([
             'status' => [
                 'status_code' => 200,
@@ -163,45 +175,5 @@ class MainController extends Controller
                 'msg_status' => 'Fetch Departments',
             ]
         ]);
-    }
-    //Get All Doctors
-    protected function getAllDoctors(Request $request)
-    {
-        try {
-            if ($request->ajax()) {
-                $search = $request->get('query');
-                $doctors = Doctor::has('department')->orderBy('id', 'desc')->whereHas('user', function ($query) use ($search) {
-                    $query->where('username', 'like', '%' . $search . '%');
-                })->paginate(6);
-                return response()->json([
-                    'status' => [
-                        'status_code' => 200,
-                        'message' => 'Ok'
-                    ],
-                    'data' => [
-                        "doctors"=>$doctors,
-                    ],
-                    'message' => [
-                        "status_code"=> 200,
-                        'msg_status' => 'Fetch doctors',
-                    ]
-                ]);
-            }
-        } catch (\Exception $e) {
-            return response()->json([
-                'status' => [
-                    'status_code' => 200,
-                    'message' => 'Ok'
-                ],
-                'data' => [
-                    "doctors"=> dd($e->getMessage()),
-                ],
-                'message' => [
-                    "status_code"=> 200,
-                    'msg_status' => 'Error',
-                ]
-            ]);
-
-        }
     }
 }
