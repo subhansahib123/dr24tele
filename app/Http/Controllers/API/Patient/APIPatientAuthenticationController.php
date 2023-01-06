@@ -20,6 +20,19 @@ class APIPatientAuthenticationController extends Controller
         $phoneNumber = '+'.$phoneNumber;
         $user = User::where('phone_number',  $phoneNumber)->first();
         if ($user) {
+            if (!$user->patient){
+                return response()->json([
+                    'status' => [
+                        'status_code' => 200,
+                        'message' => 'Ok'
+                    ],
+                    'data' => '',
+                    'message' => [
+                        "status_code"=> 200,
+                        'msg_status' => 'user is not associated with any hospital',
+                    ]
+                ]);
+            }
             Auth::login($user);
             return response()->json([
                 'status' => [
@@ -48,23 +61,6 @@ class APIPatientAuthenticationController extends Controller
                 ]
             ]);
         }
-    }
-//    Get Organizations
-    public function getOrganizations(){
-        $organizations = Organization::all();
-        return response()->json([
-            'status' => [
-                'status_code' => 200,
-                'message' => 'Ok'
-            ],
-            'data' => [
-                "organizations"=>$organizations,
-            ],
-            'message' => [
-                "status_code"=> 200,
-                'msg_status' => 'Family Member is Successfully Created',
-            ]
-        ]);
     }
 //    Register
     public function patientSignUp(Request $request)

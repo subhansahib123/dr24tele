@@ -3,12 +3,10 @@
 use App\Http\Controllers\Admin\PersonController;
 use App\Http\Controllers\API\Doctor\APIDoctorAuthenticationController;
 use App\Http\Controllers\API\Doctor\APIDoctorScheduleController;
-use App\Http\Controllers\API\Doctor\APIDoctorSpecializationController;
 use App\Http\Controllers\API\Front\MainController;
 use App\Http\Controllers\API\Patient\APIFamilyMembersController;
 use App\Http\Controllers\API\Patient\APIPatientAuthenticationController;
 use App\Http\Controllers\API\Patient\APIPersonalDetailsController;
-use App\Http\Controllers\API\Doctor\APIPersonalDetailsController as PersonDetails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\OrganizationController;
@@ -59,7 +57,6 @@ Route::get('/department-specializations', [MainController::class, 'departmentSpe
 Route::get('/allDepartments/{id}', [MainController::class, 'allDepartments']);
 //Patient
 Route::post('/patient/logined', [APIPatientAuthenticationController::class, 'performLogin']);
-Route::get('/patient/get-organizations', [APIPatientAuthenticationController::class, 'getOrganizations']);
 Route::post('/patient/registered', [APIPatientAuthenticationController::class, 'patientSignUp']);
 Route::group(['prefix' => 'patient','middleware' => ['auth:sanctum']], function () {
     Route::post('/member/created', [APIFamilyMembersController::class, 'create'])->name('api.membersCreated');
@@ -79,8 +76,6 @@ Route::group(['prefix' => 'doctor','middleware' => ['auth:sanctum']], function (
     Route::post('update/schedule/{id}', [APIDoctorScheduleController::class, 'update'])->name('api.update.schedule.doctor');
     Route::post('/delete/schedule/{id}', [APIDoctorScheduleController::class, 'delete'])->name('api.delete.schedule.doctor');
     Route::get('/appointments', [APIDoctorScheduleController::class, 'appointments'])->name('api.doctor.appointments');
-    Route::post('/displayName/updated', [PersonDetails::class, 'displayNameUpdated'])->name('api.displayNameUpdatedDoctor');
-    Route::get('/specialization', [APIDoctorSpecializationController::class, 'index'])->name('api.doctorSpecialization');
-    Route::post('/specialized', [APIDoctorSpecializationController::class, 'store'])->name('api.doctorSpecialized');
+    Route::post('/logout', [APIDoctorScheduleController::class, 'logout']);
 });
 
