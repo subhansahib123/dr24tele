@@ -18,7 +18,10 @@ class Schedule extends Model
         'comment',
         'doctor_id',
         'price',
-        'slot_id'
+        'slot_id',
+        'repeat',
+        'days'
+
 
     ];
     public function appointments()
