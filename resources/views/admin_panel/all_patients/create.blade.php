@@ -43,14 +43,14 @@
                                     <div class="col-lg-6 col-md-6 col-sm-12 my-0">
 
                                         <div class="form-group">
-                                            <label for="Name">First Name</label>
-                                            <input type="text" class="form-control" name="name" value="" id="Name" placeholder="Enter First Name">
+                                            <label for="Name">First Name *</label>
+                                            <input type="text" class="form-control" onkeydown="return /[a-z]/i.test(event.key)" name="name" value="" id="Name" placeholder="Enter First Name">
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-12 my-0">
                                         <div class="form-group">
                                             <label for="middleName">Last Name</label>
-                                            <input class="form-control" id="middleName" placeholder="Enter Last Name" name="middlename" value="">
+                                            <input class="form-control" id="middleName" onkeydown="return /[a-z]/i.test(event.key)" placeholder="Enter Last Name" name="middlename" value="">
                                         </div>
                                     </div>
 
@@ -58,21 +58,21 @@
 
                                         <div class="form-group">
 
-                                            <label for="Username">Username</label>
-                                            <input type="text" class="form-control" name="username" value="" id="Username" placeholder="Username">
+                                            <label for="Username">Username *</label>
+                                            <input type="text" class="form-control" onkeydown="return /[a-z\_]/i.test(event.key)" name="username" value="" id="Username" placeholder="Username">
                                         </div>
                                     </div>
 
                                     <div class="col-lg-6 col-md-6 col-sm-12 my-0">
 
                                         <div class="form-group">
-                                            <label for="Password">Password</label>
-                                            <input type="text" class="form-control" name="password" id="Password" placeholder="Password">
+                                            <label for="Password">Password *</label>
+                                            <input type="text" class="form-control"  onkeydown="return /[a-z,0-9\_\@\$\%\&]/i.test(event.key)" name="password" id="Password" placeholder="Password">
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-12 my-0">
                                         <div class="form-group">
-                                            <label for="exampleInputEmail1">Email address</label>
+                                            <label for="exampleInputEmail1">Email address *</label>
                                             <input type="email" class="form-control" name="email" value="" id="exampleInputEmail1" placeholder="Email address">
                                         </div>
                                     </div>
@@ -80,10 +80,10 @@
                                     <div class="col-lg-6 col-md-6 col-sm-12 my-0">
                                         <div class="form-group ">
                                             <div class="row mx-0">
-                                                <label for="exampleInputnumber"><strong> Contact Number</strong></label>
+                                                <label for="exampleInputnumber"><strong> Contact Number</strong> *</label>
                                             </div>
                                             <div class="row ">
-                                                <input type="text" id="txtPhone" name="" class="form-control" placeholder="+91 1234567890">
+                                                <input type="text" id="txtPhone" name=""  onkeydown="return /[0-9]/i.test(event.key)" class="form-control" placeholder="+91 1234567890">
                                                 <input type="hidden" class="form-control" id="phoneNumber">
                                             </div>
 
@@ -92,7 +92,7 @@
                                     <input type="hidden" name="orgId" value="{{$orgId}}">
                                     <div class="col-lg-6 col-md-6 col-sm-12 my-0">
                                         <div class="form-group">
-                                            <label class="form-label" for="Birth">Date of Birth</label>
+                                            <label class="form-label" for="Birth">Date of Birth </label>
                                             <input type="date" class="form-control" class="form-control" id="Birth" placeholder="Date of Birth" name="dateOfBirth" value="">
                                         </div>
                                     </div>
@@ -100,7 +100,7 @@
                                     <div class="col-lg-6 col-md-6 col-sm-12 my-0">
 
                                         <div class="form-group">
-                                            <label class="form-label" for="gender">Gender</label>
+                                            <label class="form-label" for="gender">Gender </label>
                                             <select class="form-select" name="gender_code" id="gender">
                                                 <option value="">
                                                     Select
@@ -126,7 +126,7 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-12 mt-0 mb-4 ">
-                                        <label for="Birth">Profile Image <strong> 300*350</strong></label>
+                                        <label for="Birth">Profile Image <strong> 300*350</strong> *</label>
                                         <input type="file" name="image" id="image" class="form-control">
                                     </div>
                                     <div class="card-footer text-end ">

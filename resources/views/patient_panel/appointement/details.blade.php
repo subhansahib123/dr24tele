@@ -30,100 +30,114 @@
                         </div>
 
                         <div class="card-body">
-                        <div class="list-group">
-                                    <div class="list-group-item" data-acc-step>
-                                        <div data-acc-content>
-                                            <div class="my-3 row">
-                                                <div class="form-group col-6">
+                            <div class="list-group">
+                                <div class="list-group-item">
+                                    <div>
+                                        <div class="my-3 row">
+                                            <div class="form-group col-6">
 
-                                                    <label for="start">Start Date</label>
-                                                    <input type="text" class="form-control" disabled value="{{$appointment->start}}" name="start" id="start" placeholder="Start Date">
-                                                    @if ($errors->has('start'))
-                                                    <span class="text-danger text-left">{{ $errors->first('start') }}</span>
-                                                    @endif
-
-                                                </div>
-                                                <div class="form-group col-6">
-
-
-                                                    <label for="end">End Date</label>
-
-                                                    <input type="text" class="form-control" name="end" id="end" disabled value="{{$appointment->end}}" placeholder="End Date"   >
-                                                    @if ($errors->has('end'))
-                                                    <span class="text-danger text-left">{{ $errors->first('end') }}</span>
-                                                    @endif
-                                                </div>
-                                                <div class="form-group col-6">
-                                                    <label for="price">Price</label>
-                                                    <input type="number" class="form-control" name="price" id="price" disabled value="{{$schedule->price}}" placeholder="Enter Price"   >
-                                                    @if ($errors->has('price'))
-                                                    <span class="text-danger text-left">{{ $errors->first('price') }}</span>
-                                                    @endif
-                                                </div>
-                                                <div class="form-group col-6">
-                                                    <label for="interval">Interval</label>
-                                                    <input type="number" class="form-control" name="interval" value="" id="interval" placeholder="Enter Interval" disabled value="{{$schedule->interval}}"  >
-                                                    @if ($errors->has('interval'))
-                                                    <span class="text-danger text-left">{{ $errors->first('interval') }}</span>
-                                                    @endif
-                                                </div>
-                                                <div class="form-group col-6">
-                                                    <label for="interval">Upload Records</label>
-                                                    <input type="checkbox" class="form-control" name="interval" id="records"   >
-                                                    @if ($errors->has('interval'))
-                                                    <span class="text-danger text-left">{{ $errors->first('interval') }}</span>
-                                                    @endif
-                                                </div>
-
+                                                <label for="start">Start Date</label>
+                                                <input type="text" class="form-control" disabled value="{{$appointment->start}}" name="start" id="start" placeholder="Start Date">
+                                                @if ($errors->has('start'))
+                                                <span class="text-danger text-left">{{ $errors->first('start') }}</span>
+                                                @endif
 
                                             </div>
+                                            <div class="form-group col-6">
+
+
+                                                <label for="end">End Date</label>
+
+                                                <input type="text" class="form-control" name="end" id="end" disabled value="{{$appointment->end}}" placeholder="End Date">
+                                                @if ($errors->has('end'))
+                                                <span class="text-danger text-left">{{ $errors->first('end') }}</span>
+                                                @endif
+                                            </div>
+                                            <div class="form-group col-6">
+                                                <label for="price">Price</label>
+                                                <input type="number" class="form-control" name="price" id="price" disabled value="{{$schedule->interval}}{{$schedule->price}}" placeholder="Enter Price">
+                                                @if ($errors->has('price'))
+                                                <span class="text-danger text-left">{{ $errors->first('price') }}</span>
+                                                @endif
+                                            </div>
+                                            <div class="form-group col-6">
+                                                <label for="interval">Interval</label>
+                                                <input type="number" class="form-control" name="interval" id="interval" disabled value="{{$schedule->interval}}" placeholder="Enter Price">
+
+                                            </div>
+
+                                            @if($patient->image != '')
+                                            <?php
+                                            $images = explode(",", $patient->image);
+                                            ?>
+                                            @if($images[1]!= '')
+                                            <div class="form-group col-6">
+                                                
+                                                <label for="interval">Reports</label>
+                                                <img src="{{asset('uploads/patient/previous_reports/'. $images[1])}}" alt="profile-user">
+                                            </div>
+                                            @endif
+
+                                            @endif
+                                            <div class="form-group col-12">
+                                                <label for="upload">Upload Records</label>
+                                                <input type="checkbox" name="upload" id="upload" onclick="ShowHideDiv(this)">
+                                            </div>
+
+
                                         </div>
-                                    </div>
+                                        <div id="dvPassport" style="display: none">
+                                            <form action="{{route('uploadRecords')}}" style="display: hidden;" method="post" class="form-horizontal" enctype="multipart/form-data">
+                                                @csrf
+                                                <input type="hidden" name="patientId" value="{{$appointment->patient_id}}">
+                                                <input type="hidden" name="appointmentId" value="{{$appointment->id}}">
+                                                <div class="list-group">
+                                                    <div class="list-group-item">
+                                                        <div>
+
+                                                            <div class="my-3 row">
+                                                                <div class="form-group col-6" style="display: none;">
+                                                                    <input type="file" class="form-control" name="xRay"  id="xRay">
+
+                                                                    <label for="xRay">X-Rays</label>
+                                                                    @if ($errors->has('start'))
+                                                                    <span class="text-danger text-left">{{ $errors->first('start') }}</span>
+                                                                    @endif
+
+                                                                </div>
+                                                                <div class="form-group col-6">
 
 
-                                </div>
-                            <form action="{{route('store.schedule.doctor')}}" style="display: hidden;" id="form" method="post" class="form-horizontal">
-                                @csrf
-                                <input type="hidden" class="form-control" name="doctor_id" id="doctor_id"   value="{{$doctor_id}}">
-                                <div class="list-group">
-                                    <div class="list-group-item" data-acc-step>
-                                        <div data-acc-content>
-                                            <div class="my-3 row">
-                                                <div class="form-group col-6">
+                                                                    <label for="reports">Previous Reports</label>
 
-                                                    <label for="xRay">X-Rays</label>
-                                                    <input type="file" class="form-control" name="xRay" id="xRay">
-                                                    @if ($errors->has('start'))
-                                                    <span class="text-danger text-left">{{ $errors->first('start') }}</span>
-                                                    @endif
+                                                                    <input type="file" class="form-control" name="reports" id="reports">
+                                                                    @if ($errors->has('end'))
+                                                                    <span class="text-danger text-left">{{ $errors->first('end') }}</span>
+                                                                    @endif
+                                                                </div>
+                                                                <div class="mb-0 mt-4 mx-0 row text-end">
+                                                                    <div class="col mx-0">
+                                                                        <button class="btn btn-primary" type="submit">Upload</button>
+                                                                        <span><a href="{{route('patient.dashboard')}}" class="btn btn-secondary  ">Cancel</a></span>
 
-                                                </div>
-                                                <div class="form-group col-6">
+                                                                    </div>
+                                                                </div>
 
 
-                                                    <label for="reports">Previous Reports</label>
-
-                                                    <input type="file" class="form-control" name="reports" id="reports">
-                                                    @if ($errors->has('end'))
-                                                    <span class="text-danger text-left">{{ $errors->first('end') }}</span>
-                                                    @endif
-                                                </div>
-                                                <div class="mb-0 mt-4 mx-0 row text-end">
-                                                    <div class="col mx-0">
-                                                        <button class="btn btn-primary" type="submit">Create</button>
-                                                        <span><a href="{{route('doctor.dashboard')}}" class="btn btn-secondary  ">Cancel</a></span>
-
+                                                            </div>
+                                                        </div>
                                                     </div>
+
+
                                                 </div>
-
-
-                                            </div>
+                                            </form>
                                         </div>
                                     </div>
-
-
                                 </div>
-                            </form>
+
+
+                            </div>
+
 
                         </div>
                     </div>
@@ -143,7 +157,10 @@
 
 @endsection
 @section('foot_script')
-<script>
-    
+<script type="text/javascript">
+    function ShowHideDiv(upload) {
+        var dvPassport = document.getElementById("dvPassport");
+        dvPassport.style.display = upload.checked ? "block" : "none";
+    }
 </script>
 @endsection

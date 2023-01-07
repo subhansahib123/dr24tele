@@ -31,19 +31,14 @@
                                     <span class="lang-name"></span>
                                 </button>
                                 <div class="dropdown-menu language-dropdown-menu">
-                                    <a class="dropdown-item" href="#">
+
+                                    
+                                    <a class="dropdown-item" href="{{route('convertCurrency','usd')}}"  >
                                         <img src="{{ asset('public_assets/img/uk.png') }}" alt="flag">
-                                        Eng
+                                        Usd
                                     </a>
-                                    {{-- <a class="dropdown-item" href="#">
-                                        <img src="{{asset('public_assets/img/china.png')}}" alt="flag">
-                                    简体中文
-                                    </a>
-                                    <a class="dropdown-item" href="#">
-                                        <img src="{{asset('public_assets/img/uae.png')}}" alt="flag">
-                                        العربيّة
-                                    </a> --}}
                                 </div>
+
                             </div>
                         </div>
                         <ul class="social-profile list-style style1">
@@ -112,7 +107,7 @@
 
                             </a></li>
 
-                        
+
                         {{--<li class="nav-item">
                             <a href="portfolio.html" class="nav-link">Our Portfolio</a>
                         </li>
@@ -179,6 +174,7 @@
                         <li class="nav-item">
                             <a href="{{ route('home.departmentSpecializations') }}" class="nav-link">Specializations</a>
                         </li>
+
                         <li class="nav-item pt-4 gx-0">
                             <div class="input-group rounded">
                                 <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search" aria-describedby="search-addon" />
@@ -191,7 +187,7 @@
                                     <a href="{{route('patient.login')}}" class="profile-button rounded my-3 py-3 px-3 mx-1">Login</a>
                         </li> --}}
                         @if(auth()->user())
-                        <li class="nav-item " >
+                        <li class="nav-item ">
                             @if(isset(auth()->user()->user_role))
                             @if(auth()->user()->username=='nissi' || auth()->user()->username=='akhil')
                             <a href="{{route('dashboard')}}" class="profile-button rounded  py-2 px-4  "> Profile</a>

@@ -17,8 +17,8 @@
                             <div class="card-header">
                                 <div class="col-5">
                                     <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a></li>
-                                        <li class="breadcrumb-item active" aria-current="page">Create  Hospital</li>
+                                        <li class="breadcrumb-item"><a href="javascript:void(0)">Home</a> </li>
+                                        <li class="breadcrumb-item active" aria-current="page">Create  Hospital </li>
                                     </ol>
                                 </div>
                                 <div class="col-4">
@@ -35,9 +35,9 @@
                                       action="{{route('store.organization')}}" method="POST">
                                     @csrf
                                     <div class=" row mb-1">
-                                        <label for="displayname" class="col-md-3 form-label"> Display Name</label>
+                                        <label for="displayname" class="col-md-3 form-label"> Display Name *</label>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control " value="{{old('displayname')}}"
+                                            <input type="text" class="form-control " onkeydown="return /[a-z]/i.test(event.key)" value="{{old('displayname')}}"
                                                    name="displayname" id="displayname" placeholder="Display Name"
                                                    autocomplete="displayname">
                                         </div>
@@ -47,9 +47,9 @@
                                         @endif
                                     </div>
                                     <div class=" row  mb-1">
-                                        <label for="username" class="col-md-3 form-label"> User Name</label>
+                                        <label for="username" class="col-md-3 form-label"> User Name *</label>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control" value="{{old('name')}}" name="name"
+                                            <input type="text" class="form-control" onkeydown="return /[a-z\_]/i.test(event.key)" value="{{old('name')}}" name="name"
                                                    id="username" placeholder="Username">
                                         </div>
                                         @if ($errors->has('name'))
@@ -59,13 +59,14 @@
 
                                     <div class=" row  mb-1 address">
                                         <label for="email" class="col-md-3 form-label"> Contact Person
-                                            Designation</label>
+                                            Designation </label>
                                         <div class="col-md-9">
                                             <input type="text" class="form-control"
                                                    value="{{old('contactperson_designation')}}"
                                                    name="contactperson_designation" id="contactperson_designation"
                                                    placeholder="Contact Person Designation"
-                                                   autocomplete="contactperson_designation">
+                                                   autocomplete="contactperson_designation" 
+                                                   onkeydown="return /[a-z]/i.test(event.key)">
                                         </div>
                                         @if ($errors->has('contactperson_designation'))
                                             <span
@@ -74,10 +75,10 @@
                                     </div>
                                     <div class="row  mb-1 address">
                                         <div class="col-3 my-0 pt-2">
-                                            <label for="exampleInputnumber"><Strong> Contact Number</Strong></label>
+                                            <label for="exampleInputnumber"><Strong> Contact Number</Strong> *</label>
                                         </div>
                                         <div class="col-9 my-0 form-group">
-                                            <input type="text" id="txtPhone" name="contactperson" class="form-control">
+                                            <input type="text" id="txtPhone" name="contactperson" onkeydown="return /[0-9]/i.test(event.key)" class="form-control">
                                             <input type="hidden" class="form-control" id="phoneNumber">
                                         </div>
                                         @if ($errors->has('contactperson'))
@@ -86,7 +87,7 @@
                                         @endif
                                     </div>
                                     <div class=" row  mb-1 address">
-                                        <label for="country" class="col-md-3 form-label"> Select Country </label>
+                                        <label for="country" class="col-md-3 form-label"> Select Country  *</label>
                                         <div class="col-md-9">
                                             <input type="hidden" value="" name="country" id="country_value"/>
                                             <select class="form-control" onchange="loadStates(this.value,this)"
@@ -103,7 +104,7 @@
                                         @endif
                                     </div>
                                     <div class=" row  mb-1 address">
-                                        <label for="country" class="col-md-3 form-label"> Select State </label>
+                                        <label for="country" class="col-md-3 form-label"> Select State  *</label>
                                         <input type="hidden" value="" name="state" id="state_value"/>
                                         <div class="col-md-9">
                                             <select class="form-control" onchange="loadCities(this.value,this)"
@@ -117,7 +118,7 @@
                                         @endif
                                     </div>
                                     <div class=" row  mb-1 address">
-                                        <label for="country" class="col-md-3 form-label"> Select City </label>
+                                        <label for="country" class="col-md-3 form-label"> Select City  *</label>
                                         <input type="hidden" value="" name="city" id="city_value"/>
                                         <div class="col-md-9">
                                             <select class="form-control" id="city" name="city">
@@ -130,7 +131,7 @@
                                         @endif
                                     </div>
                                     <div class=" row  mb-1">
-                                        <label for="inputEmail3" class="col-md-3 form-label">Email</label>
+                                        <label for="inputEmail3" class="col-md-3 form-label">Email *</label>
                                         <div class="col-md-9">
                                             <input type="email" class="form-control" value="{{old('email')}}"
                                                    name="email" placeholder="Email">
@@ -140,7 +141,7 @@
                                         @endif
                                     </div>
                                     <div class=" row  mb-1 address">
-                                        <label for="building" class="col-md-3 form-label">Building</label>
+                                        <label for="building" class="col-md-3 form-label">Building </label>
                                         <div class="col-md-9">
                                             <input type="text" class="form-control" value="{{old('building')}}"
                                                    id="building" name="building" placeholder="Building Address">
@@ -150,7 +151,7 @@
                                         @endif
                                     </div>
                                     <div class=" row  mb-1 address">
-                                        <label for="district" class="col-md-3 form-label">District</label>
+                                        <label for="district" class="col-md-3 form-label">District </label>
                                         <div class="col-md-9">
                                             <input type="text" class="form-control" value="{{old('district')}}"
                                                    id="district" name="district" placeholder="District">
@@ -160,9 +161,9 @@
                                         @endif
                                     </div>
                                     <div class=" row  mb-1 address">
-                                        <label for="postalCode" class="col-md-3 form-label">Postal Code</label>
+                                        <label for="postalCode" class="col-md-3 form-label">Postal Code </label>
                                         <div class="col-md-9">
-                                            <input type="number" class="form-control" value="{{old('postalCode')}}"
+                                            <input type="number" class="form-control" onkeydown="return /[a-z,0-9]/i.test(event.key)" value="{{old('postalCode')}}"
                                                    id="postalCode" name="postalCode" placeholder="Postal Code">
                                         </div>
                                         @if ($errors->has('postalCode'))
@@ -171,7 +172,7 @@
                                         @endif
                                     </div>
                                     <div class=" row  mb-1">
-                                        <label for="country" class="col-md-3 form-label"> Select Status </label>
+                                        <label for="country" class="col-md-3 form-label"> Select Status  *</label>
                                         <div class="col-md-9">
                                             <select class="form-control" name="status" id="state">
                                                 <option value="">Select</option>
@@ -188,7 +189,7 @@
                                         @endif
                                     </div>
                                     <div class=" row  mb-1">
-                                        <label for="image" class="col-md-3 form-label"> Picture <strong> 1140*650</strong> </label>
+                                        <label for="image" class="col-md-3 form-label"> Picture <strong> 1140*650</strong>  *</label>
                                         <div class="col-md-9">
                                             <input class="form-control" type="file" name="image" id="image">
                                         </div>
@@ -199,7 +200,7 @@
 
                                     <div class=" row  mb-1" id="no-need">
                                         <span id="add"></span>
-                                        <label for="level" class="col-md-3 form-label"> Select Level </label>
+                                        <label for="level" class="col-md-3 form-label"> Select Level  *</label>
                                         <div class="col-md-9">
                                             <select class="form-control" name="level" id="level">
                                                 <option value="Hospital" selected>Hospital</option>

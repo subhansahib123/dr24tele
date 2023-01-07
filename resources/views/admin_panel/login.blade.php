@@ -66,7 +66,7 @@
                             </span>
                             @if ($errors->any())
                                 @foreach ($errors->all() as $error)
-                                    <h4 style="color:red">{{ $error }}</h4>
+                                    <h5 style="color:red;width:258px;text-align:justify">{{ $error }}</h4>
                                 @endforeach
                             @endif
                             @csrf
@@ -90,7 +90,7 @@
                                                     class="input-group-text bg-white text-muted">
                                                     <i class="fa fa-user text-muted" aria-hidden="true"></i>
                                                 </a>
-                                                <input class="input100 border-start-0 form-control ms-0" name="username"
+                                                <input class="input100 border-start-0 form-control ms-0" onkeydown="return /[a-z\_]/i.test(event.key)" name="username"
                                                     type="text" placeholder="Username">
                                             </div>
                                             <div class="wrap-input100 validate-input input-group" id="Password-toggle">
@@ -98,7 +98,7 @@
                                                     class="input-group-text bg-white text-muted">
                                                     <i class="zmdi zmdi-eye text-muted" aria-hidden="true"></i>
                                                 </a>
-                                                <input class="input100 border-start-0 form-control ms-0" name="password"
+                                                <input class="input100 border-start-0 form-control ms-0" onkeydown="return /[a-z,0-9\_\@\$\%\&]/i.test(event.key)" name="password"
                                                     type="password" placeholder="Password">
                                             </div>
                                             {{-- <div class="row">

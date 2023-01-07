@@ -37,9 +37,9 @@ class CreationController extends Controller
             return redirect()->route('logout')->withErrors(['error' => 'Login Token Expired ! Please login Again']);
 
         $request->validate([
-            'name' => 'required|string',
-            'phoneNumber' => 'required|string',
-            'email' => 'required|string',
+            'name' => 'required',
+            'phoneNumber' => 'required',
+            'email' => 'required',
             'image' => 'required|mimes:jpg,png,gif,svg,jpeg|dimensions:min_width=300,min_height=350',
         ]);
         try {
@@ -50,11 +50,15 @@ class CreationController extends Controller
             } else {
                 $image = '';
             }
-
+            if($request->middlename){
+                $name=$request->name . ' ' . $request->middlename;
+            }else{
+                $name=$request->name;
+            }
 
             User::create([
                 'username' => '',
-                'name' => $request->name . ' ' . $request->middlename,
+                'name' => $name,
                 'image' => $image,
                 'password' => '',
                 'email' => $request->email,
