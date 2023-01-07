@@ -18,8 +18,28 @@
         </div>
         <div class="row justify-content-center">
             <div class="col-xl-12">
-                <div class="d-flex justify-content-end">
-                    <div class="mb-3 w-25">
+                <div class="row justify-content-end mb-3">
+                    <div class="col-md-2">
+                        <select class="form-control" onchange="loadStates(this.value,this)"
+                                id="country">
+                            <option value="">Select Country</option>
+                            @foreach ($countries as $country)
+                                <option value="{{$country->id}}">{{$country->name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-md-2 address">
+                        <select class="form-control" onchange="loadCities(this.value,this)"
+                                name="state" id="state">
+                            <option>Select State</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2 address">
+                        <select class="form-control" id="city" name="city">
+                            <option>Select City</option>
+                        </select>
+                    </div>
+                    <div class="col-md-2">
                         <input type="text" class="form-control" id="search-hospital" placeholder="Search ..." name="search" value="">
                     </div>
                 </div>
@@ -154,7 +174,7 @@
         </div>
     </section>
     <!-- Service Section Start -->
-    
+
     <section class="service-wrap style3 ptb-100 bg-athens">
         <div class="container">
             <div class="row">
@@ -234,6 +254,50 @@
 @endsection
 @push('js')
 <script type="text/javascript">
+ var baseUrl = `{{url('/')}}`;
+function loadStates(country_id, context) {
+            if (country_id == '')
+                return false;
+
+            // console.log($(this))
+            var country_name = $(context).find(':selected').text();
+            $('#country_value').val(country_name);
+            $.ajax({
+                url: `${baseUrl}/api/states/${country_id}`,
+                method: 'GET'
+            }).done(function (data) {
+                // console.log(data);
+                var option = "<option value=''>Select State</option>";
+                data.forEach(function (row, index) {
+                    console.log(row);
+                    option += `<option value='${row.id}'>${row.name}</option>`;
+                });
+                $('#state').html(option);
+            }).fail(function (error) {
+                console.log(error);
+            });
+            }
+
+            function loadCities(state_id, context) {
+            if (state_id == '')
+                return false;
+            var state = $(context).find(':selected').text();
+            $('#state_value').val(state);
+            $.ajax({
+                url: `${baseUrl}/api/cities/${state_id}`,
+                method: 'GET'
+            }).done(function (data) {
+                // console.log(data);
+                var option = "<option value=''>Select City</option>";
+                data.forEach(function (row, index) {
+                    // console.log(row);
+                    option += `<option value='${row.id}'>${row.name}</option>`;
+                });
+                $('#city').html(option);
+            }).fail(function (error) {
+                console.log(error);
+            });
+            }
     $(document).ready(function() {
         $(document).on('keypress', '#search-hospital', function(event) {
             if (event.which == 13) {
