@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\FrontEnd;
 
-use App\Http\Controllers\Controller;
-use App\Models\DepartmentSpecializations;
-use App\Models\DoctorSpecialization;
+use App\Models\Country;
 use App\Models\Organization;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Models\DoctorSpecialization;
+use App\Models\DepartmentSpecializations;
 
 class TemplateController extends Controller
 {
@@ -24,6 +25,7 @@ class TemplateController extends Controller
       return view('public_panel.template_pages.howItWorks');
    }public function hospitalsList(Request $request)
    {
+    $countries = Country::all();
       $organizations = Organization::has('department')->orderBy('displayname', 'asc')->where('status','Enabled')->paginate(6);
         if ($request->ajax()) {
             $search = $request->get('query');
@@ -33,7 +35,7 @@ class TemplateController extends Controller
                 }
             })->paginate(6);
         }
-      return view('public_panel.template_pages.hospitalsList', compact('organizations'));
+      return view('public_panel.template_pages.hospitalsList', compact('organizations','countries'));
    }
    public function blogGrid()
    {
@@ -45,7 +47,7 @@ class TemplateController extends Controller
    }
    public function blogLeftSidebar()
    {
-      
+
       $departmentSpecializations = DepartmentSpecializations::has('Department')->get();
       $doctorSpecializations = DoctorSpecialization::has('specializedDoctor')->get();
 
