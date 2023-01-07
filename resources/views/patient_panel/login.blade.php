@@ -44,23 +44,23 @@ $url=$uuid[3];
                             <div class="row">
                                 <div class="col-lg-12" id="numbercon">
                                     <div class="form-group">
-                                        {{-- <input id="text" name="fname" type="text" placeholder="Username Or Email Address" required=""> --}}
+{{--                                         <input id="text" name="fname" type="text" placeholder="Username Or Email Address" required=""> --}}
                                         <input type="text" id="txtPhone"  class="form-control" placeholder="+91 *** ******">
                                         <input type="hidden" class="form-control" id="phoneNumber">
                                     </div>
                                 </div>
-                                <!-- <div class="col-lg-12" style="display: none" id="verfiycon">
+                                 <div class="col-lg-12" style="display: none" id="verfiycon">
                                     <div class="form-group">
-                                        {{-- <input id="text" name="fname" type="text" placeholder="Username Or Email Address" required=""> --}}
+{{--                                         <input id="text" name="fname" type="text" placeholder="Username Or Email Address" required="">--}}
                                         <input type="text" id="verification" class="form-control" placeholder="Enter your code">
                                     </div>
                                 </div>
-                                {{-- <div class="col-lg-12">
-                                                <div class="form-group">
-                                                    <input id="pwd" name="pwd" placeholder="Password" type="password">
-                                                </div>
-                                            </div> --}}
-                                <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+{{--                                 <div class="col-lg-12">--}}
+{{--                                                <div class="form-group">--}}
+{{--                                                    <input id="pwd" name="pwd" placeholder="Password" type="password">--}}
+{{--                                                </div>--}}
+{{--                                            </div>--}}
+{{--                                <div class="col-lg-12 col-md-12 col-sm-12 col-12">--}}
 
 
                                     <div id="recaptcha-container"></div>
@@ -76,6 +76,11 @@ $url=$uuid[3];
 
                                     </div>
                                 </div>
+                                <div class="col-lg-1 offset-9" style="display: none" id="resend">
+                                    <button type="button" class="btn btn-link text-black" onclick="reSendOTP();">
+                                        Resend
+                                    </button>
+                                </div>
                                 <div class="col-lg-12" id="verifyoptbtn" style="display: none">
                                     <div class="form-group">
                                         <button type="button" class="btn style1 w-100 d-block" onclick="verify();">
@@ -86,11 +91,11 @@ $url=$uuid[3];
                                 </div>
                                 <div class="col-md-12">
                                     <p class="mb-0">Don't have an Account? <a class="link style1" href="{{route('patient.register')}}">Create One</a></p>
-                                </div> -->
-                                <div class="col-lg-12">
-                                    <div class="form-group"> <button type="submit" class="btn style1 w-100 d-block">Login </button>
+                                </div>
+{{--                                <div class="col-lg-12">--}}
+{{--                                    <div class="form-group"> <button type="submit" class="btn style1 w-100 d-block">Login </button>--}}
 
-                                    </div>
+{{--                                    </div>--}}
                                 </div>
                             </div>
                         </form>

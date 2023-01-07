@@ -48,6 +48,11 @@
                                         <input type="text" id="verification" class="form-control" placeholder="Enter your code">
                                     </div>
                                 </div>
+                                <div class="col-lg-1 offset-9" style="display: none" id="resend">
+                                    <button type="button" class="btn btn-link text-black" onclick="reSendOTP();">
+                                        Resend
+                                    </button>
+                                </div>
                                 <div class="col-lg-12 col-md-12 col-sm-12 col-12">
 
 
@@ -72,7 +77,7 @@
                                         </button>
 
                                     </div>
-                                </div> 
+                                </div>
                                 <!-- <div class="col-lg-12">
                                     <div class="form-group">
                                         <button type="submit" class="btn style1 w-100 d-block">
