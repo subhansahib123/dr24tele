@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\PatienDocument;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 
 class PatientDocumentController extends Controller
 {
@@ -109,6 +110,14 @@ class PatientDocumentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $doc = PatienDocument::where('id',$id)->first();
+        if(isset($doc)){
+            $file = public_path('uploads/patient/document/'. $doc->doc_file);
+            if(File::exists($file)){
+                File::delete($file);
+            }
+        }
+        $doc->delete();
+        return redirect()->back()->with('success','Record Deleted');
     }
 }

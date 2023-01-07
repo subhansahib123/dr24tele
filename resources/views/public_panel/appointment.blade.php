@@ -91,7 +91,7 @@
                                                         <div class="form-group">
                                                             <label>CARD NUMBER</label>
                                                             <div class="input-group">
-                                                                <input type="text" class="form-control card-num"
+                                                                <input type="text" id="card-number" class="form-control card-num"
                                                                        placeholder="Valid Card Number"/>
                                                                 <span class="input-group-addon"><span
                                                                         class="fa fa-credit-card "></span></span>
@@ -99,12 +99,12 @@
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="row">
+                                                <div class="row align-items-end">
                                                     <div class="col-xs-4 col-md-4 required">
                                                         <div class="form-group">
                                                             <label><span
                                                                     class="hidden-xs">EXPIRATION MONTH</span></label>
-                                                            <input type="text" class="form-control card-expiry-month"
+                                                            <input id="card-month" type="text" class="form-control card-expiry-month"
                                                                    placeholder="MM"/>
                                                         </div>
                                                     </div>
@@ -112,14 +112,14 @@
                                                         <div class="form-group">
                                                             <label><span
                                                                     class="hidden-xs">EXPIRATION YEAR</span></label>
-                                                            <input type="text" class="form-control card-expiry-year"
+                                                            <input id="card-year" type="text" class="form-control card-expiry-year"
                                                                    placeholder="YY"/>
                                                         </div>
                                                     </div>
                                                     <div class="col-xs-4 col-md-4 pull-right required">
                                                         <div class="form-group">
                                                             <label>CV CODE</label>
-                                                            <input type="text" class="form-control card-cvc"
+                                                            <input type="text" id="card-cvc" class="form-control card-cvc"
                                                                    placeholder="CVC"/>
                                                         </div>
                                                     </div>

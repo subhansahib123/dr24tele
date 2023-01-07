@@ -430,6 +430,9 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
     Route::get('/verify/number', [PatientDetails::class, 'verifyPhoneNumber'])->name('verify.phoneNumber');
     Route::get('/document', [PatientDocumentController::class, 'index'])->name('document.index');
     Route::get('/document/create', [PatientDocumentController::class, 'create'])->name('document.create');
+    Route::delete('/document/delete/{id}', [PatientDocumentController::class, 'destroy'])->name('document.delete');
+
+
     Route::post('/document/save', [PatientDocumentController::class, 'store'])->name('document.save');
     Route::get('/appointment/details-page/{id}', [PatientDetails::class, 'appointmentDetails'])->name('appointmentDetails');
     Route::post('/Number/verified', [PatientDetails::class, 'phoneNumberVerified'])->name('phone.numberVerified');

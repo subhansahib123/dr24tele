@@ -45,6 +45,13 @@
                                             <td>{{ $loop->index + 1 }}</td>
                                             <td>{{ $document->title }}</td>
                                             <td><a target="_blank" href="{{ asset('uploads/patient/document/'. $document->doc_file) }}"><i class="fa fa-eye"></i></a></td>
+                                            <td>
+                                                <form action="{{ route('document.delete', $document->id) }}" method="post">
+                                                    @csrf
+                                                    @method('delete')
+                                                   <button class="btn btn-danger" onclick="return confirm('Are You Sure')"><i class="fa fa-trash"></i></button>
+                                                </form>
+                                            </td>
                                         </tr>
                                         @endforeach
                                     </table>
