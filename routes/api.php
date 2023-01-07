@@ -49,7 +49,7 @@ Route::get('/agoraToken',[PatientAuthenticationController::class,'generate_token
 Route::get('/convert-currency',[CurrencyController::class,'ConvertCurrency'])->name('convert.currency');
 //Front
 Route::get('/', [MainController::class, 'index']);
-Route::get('/hospitals-list', [MainController::class, 'hospitalsList'])->name('hospitalsList');
+Route::get('/hospitals-list', [MainController::class, 'hospitalsList']);
 Route::get('/hospital/{id}', [MainController::class, 'hospitalDetails']);
 Route::get('/department/{id}', [MainController::class, 'departmentDetails']);
 Route::get('/doctor-details/{id}', [MainController::class, 'doctorDetails']);

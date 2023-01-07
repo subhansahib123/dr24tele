@@ -16,10 +16,14 @@ class CreateSchedulesTable extends Migration
         Schema::create('schedules', function (Blueprint $table) {
             $table->id();
             $table->string('status');
-            $table->string('slot_id')->nullable();
-            $table->dateTime('start');
-            $table->dateTime('end');
-            
+            // $table->string('slot_id')->nullable();
+            $table->time('start');
+            $table->time('end');
+             $table->boolean('repeat')->default(0);
+            $table->string('days')->default(null);
+             $table->integer('price')->nullable();
+             $table->integer('interval')->nullable();
+             $table->integer('number_of_people')->nullable();
             $table->string('comment');
             $table->timestamps();
             $table->unsignedBigInteger('doctor_id');

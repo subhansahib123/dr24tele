@@ -39,7 +39,7 @@
                                                 <div class="form-group col-6">
 
                                                     <label for="start">Start Date</label>
-                                                    <input type="text" class="form-control" name="start" id="start" placeholder="Start Date" required value="{{old('start')}}">
+                                                    <input type="time" class="form-control" name="start"  placeholder="Start Date" required value="{{old('start')}}">
                                                     @if ($errors->has('start'))
                                                     <span class="text-danger text-left">{{ $errors->first('start') }}</span>
                                                     @endif
@@ -50,7 +50,7 @@
 
                                                     <label for="end">End Date</label>
 
-                                                    <input type="text" class="form-control" name="end" id="end" placeholder="End Date" required value="{{old('end')}}">
+                                                    <input type="time" class="form-control" name="end" placeholder="End Date" required value="{{old('end')}}">
                                                     @if ($errors->has('end'))
                                                     <span class="text-danger text-left">{{ $errors->first('end') }}</span>
                                                     @endif
@@ -78,12 +78,40 @@
                                                 </div>
                                                 <div class="form-group col-6" id="belong_effect">
                                                     <label for="exampleInputEmail1">People Per Slot</label>
-                                                    <input type="number" class="form-control" name="number_of_people" value="" id="number_of_people" value="{{old('number_of_people')}}" placeholder="Enter People Per Slot">
+                                                    <input type="number" class="form-control" name="number_of_people" value="{{old('number_of_people')}}" id="number_of_people" value="{{old('number_of_people')}}" placeholder="Enter People Per Slot">
                                                     @if ($errors->has('number_of_people'))
                                                     <span class="text-danger text-left">{{ $errors->first('number_of_people') }}</span>
                                                     @endif
                                                 </div>
-                                                
+                                              
+                                                 <div class="form-group col-6">
+                                                    <label class="form-label" for="status">Days
+                                                        <select  class="form-select" id="days" name="days[]" multiple >
+                                                            <option {{old('days')=='M'?'selected':''}} value="M">Monday</option>
+                                                            <option {{old('days')=='T'?'selected':''}} value="T">Tuesday</option>
+                                                            <option {{old('days')=='W'?'selected':''}} value="W">Wednesday</option>
+                                                            <option {{old('days')=='TH'?'selected':''}} value="TH">Thursday</option>
+                                                            <option {{old('days')=='F'?'selected':''}} value="F">Friday</option>
+                                                            <option {{old('days')=='Sa'?'selected':''}} value="Sa">Saturday</option>
+                                                            <option {{old('days')=='S'?'selected':''}} value="S">Sunday</option>
+                                                        </select>
+                                                        @if ($errors->has('days'))
+                                                        <span class="text-danger text-left mt-4 ">{{ $errors->first('days') }}</span>
+                                                        @endif
+
+                                                    </label>
+
+                                                </div>
+                                                <div class="form-group col-6">
+                                                    <label class="form-label" for="repeat">Repeat
+                                                        <input type="checkbox" class="form-checkbox" id="repeat" name="repeat" value="{{old('repeat')}}">
+                                                        @if ($errors->has('repeat'))
+                                                        <span class="text-danger text-left mt-4 ">{{ $errors->first('repeat') }}</span>
+                                                        @endif
+
+                                                    </label>
+
+                                                </div>
                                                 <div class="form-group col-6">
                                                     <label class="form-label" for="status">Staus
                                                         <input type="checkbox" class="form-checkbox" id="status" name="status" value="{{old('status')}}">
@@ -94,7 +122,7 @@
                                                     </label>
 
                                                 </div>
-                                                
+
                                                 <div class="mb-0 mt-4 mx-0 row text-end">
                                                     <div class="col mx-0">
                                                         <button class="btn btn-primary" type="submit">Create</button>
@@ -128,4 +156,15 @@
 
 
 
+@endsection
+@section('foot_script')
+<script>
+$('#repeat').change(function(e){
+    if($(this).is(":checked"))
+        $('#days').find('option').attr("selected", "selected");
+    else
+       $('days').find('option').attr("selected", "");
+    return false;
+});
+</script>
 @endsection
