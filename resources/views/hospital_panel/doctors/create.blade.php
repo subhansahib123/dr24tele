@@ -38,29 +38,29 @@
 
                                     <div class="col-lg-6 col-md-6 col-sm-12">
                                         <div class="form-group">
-                                            <label for="Name">First Name</label>
-                                            <input type="text" class="form-control" name="name" value="" id="Name" placeholder="Enter First Name">
+                                            <label for="Name">First Name *</label>
+                                            <input type="text" class="form-control" onkeydown="return /[a-z]/i.test(event.key)" name="name" value="" id="Name" placeholder="Enter First Name">
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-12">
                                         <div class="form-group">
                                             <label for="middleName">Last Name</label>
-                                            <input class="form-control" id="middleName" placeholder="Enter Last Name" name="middlename" value="">
+                                            <input class="form-control" id="middleName" placeholder="Enter Last Name" onkeydown="return /[a-z]/i.test(event.key)" name="middlename" value="">
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-12">
                                         <div class="form-group">
-                                            <label for="exampleInputEmail1">Email address</label>
-                                            <input type="email" class="form-control" name="email" value="" id="exampleInputEmail1" placeholder="Email address">
+                                            <label for="exampleInputEmail1">Email address *</label>
+                                            <input type="email" class="form-control" name="email" value="" id="exampleInputEmail1"  placeholder="Email address">
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-12">
                                         <div class="form-group">
                                             <div class="row ">
-                                                <label for="exampleInputnumber">Contact Number</label>
+                                                <label for="exampleInputnumber">Contact Number *</label>
                                             </div>
                                             <div class="row ">
-                                                <input type="text" id="txtPhone" name="" class="form-control">
+                                                <input type="text" id="txtPhone" name="" onkeydown="return /[0-9]/i.test(event.key)" class="form-control">
                                                 <input type="hidden" class="form-control" id="phoneNumber">
                                             </div>
 
@@ -103,7 +103,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-6">
-                                        <label for="Birth">Profile Image <strong> 300*350</strong></label>
+                                        <label for="Birth">Profile Image <strong> 300*350</strong> *</label>
                                         <input type="file" name="image" class="form-control">
                                     </div>
                                 </div>

@@ -34,9 +34,9 @@
                                 @csrf
                                 <div class=" row mb-4">
                                     <input type="hidden" name="DepUuid" value="{{$depData->uuid}}">
-                                    <label for="displayname" class="col-md-3 form-label"> Display Name</label>
+                                    <label for="displayname" class="col-md-3 form-label"> Display Name *</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" value="{{ $depData->display_name }}" name="displayname" id="displayname"
+                                        <input type="text" class="form-control" value="{{ $depData->display_name }}" onkeydown="return /[a-z]/i.test(event.key)" name="displayname" id="displayname"
                                                placeholder="Display Name" autocomplete="displayname">
                                     </div>
                                     @if ($errors->has('displayname'))
@@ -48,7 +48,7 @@
 
 
                                 <div class=" row mb-4">
-                                    <label for="country" class="col-md-3 form-label"> Select Status </label>
+                                    <label for="country" class="col-md-3 form-label"> Select Status  *</label>
                                     <div class="col-md-9">
                                         <select class="form-control" name="status" id="state">
                                             <option value="">Select</option>

@@ -33,9 +33,9 @@
                                 @csrf
                                 <div class=" row mb-1">
 
-                                    <label for="displayname" class="col-md-3 form-label"> Display Name</label>
+                                    <label for="displayname" class="col-md-3 form-label"> Display Name *</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" value="{{$organization->displayname}}" name="displayname" id="displayname" placeholder="Display Name" autocomplete="displayname">
+                                        <input type="text" class="form-control" value="{{$organization->displayname}}" onkeydown="return /[a-z]/i.test(event.key)" name="displayname" id="displayname" placeholder="Display Name" autocomplete="displayname">
                                     </div>
                                     @if ($errors->has('displayname'))
                                     <span class="text-danger text-left">{{ $errors->first('displayname') }}</span>
@@ -43,20 +43,12 @@
                                 </div>
                                 <input type="hidden" class="form-control" value="{{$organization->uuid}}" name="OrgUuid" id="OrgUuid" placeholder="Display Name" autocomplete="OrgUuid">
 
-                                <div class=" row mb-1" style="display:none">
-                                    <label for="username" class="col-md-3 form-label"> User Name</label>
-                                    <div class="col-md-9">
-                                        <input type="text" class="form-control" value="{{$organization->name}}" name="name" id="username" placeholder="Username">
-                                    </div>
-                                    @if ($errors->has('name'))
-                                    <span class="text-danger text-left">{{ $errors->first('name') }}</span>
-                                    @endif
-                                </div>
+                        
 
                                 <div class=" row mb-1">
                                     <label for="email" class="col-md-3 form-label"> Contact Person Designation</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" value="{{$organization->contactperson_designation}}" name="contactperson_designation" id="contactperson_designation" placeholder="Contact Person Designation" autocomplete="contactperson_designation">
+                                        <input type="text" class="form-control" value="{{$organization->contactperson_designation}}"onkeydown="return /[a-z]/i.test(event.key)" name="contactperson_designation" id="contactperson_designation" placeholder="Enter  Designation" autocomplete="contactperson_designation">
                                     </div>
                                     @if ($errors->has('contactperson_designation'))
                                     <span class="text-danger text-left">{{ $errors->first('contactperson_designation') }}</span>
@@ -64,10 +56,10 @@
                                 </div>
                                 <div class="row my-0 addresss">
                                     <div class="col-3 my-0 pt-2">
-                                        <label for="exampleInputnumber"><Strong> Contact Number</Strong></label>
+                                        <label for="exampleInputnumber"><Strong> Contact Number</Strong> *</label>
                                     </div>
                                     <div class="col-9 my-0 form-group">
-                                        <input type="text" id="txtPhone" name="contactperson" class="form-control" value="{{$organization->contactperson}}">
+                                        <input type="text" id="txtPhone" name="contactperson" class="form-control" onkeydown="return /[0-9]/i.test(event.key)" value="{{$organization->contactperson}}">
                                         <input type="hidden" class="form-control" id="phoneNumber">
                                     </div>
                                     @if ($errors->has('contactperson'))
@@ -75,9 +67,9 @@
                                     @endif
                                 </div>
                                 <div class=" row mb-1">
-                                    <label for="inputEmail3" class="col-md-3 form-label">Email</label>
+                                    <label for="inputEmail3" class="col-md-3 form-label">Email *</label>
                                     <div class="col-md-9">
-                                        <input type="email" class="form-control" value="{{$organization->email}}" name="email" placeholder="Email" autocomplete="username">
+                                        <input type="email" class="form-control" value="{{$organization->email}}" name="email" placeholder="Email" >
                                     </div>
                                 </div>
 
@@ -100,7 +92,7 @@
                                     </div>
                                 </div>
                                 <div class=" row mb-1">
-                                    <label for="country" class="col-md-3 form-label"> Select Status </label>
+                                    <label for="country" class="col-md-3 form-label"> Select Status  *</label>
                                     <div class="col-md-9">
                                         <select class="form-control" name="status" id="state">
                                             <option value="">Select</option>

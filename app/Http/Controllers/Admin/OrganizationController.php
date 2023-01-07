@@ -45,18 +45,14 @@ class OrganizationController extends Controller
     public function createOrganization(Request $request)
     {
         $request->validate([
-            'name' => 'required|string',
-            'displayname' => 'required|string',
-            'contactperson_designation' => 'string',
-            'contactperson' => 'required|string',
+            'name' => 'required',
+            'displayname' => 'required ',
+            'contactperson' => 'required ',
             'country' => 'required',
             'state' => 'required',
             'city' => 'required',
             'email' => 'required',
-            'building' => 'string',
             'status' => 'required',
-            'district' => 'string',
-            'postalCode' => 'string',
             'image' => 'required|mimes:jpg,png,gif,svg,jpeg|dimensions:min_width=1140,min_height=650'
         ]);
         if ($request->hasFile('image')) {
@@ -75,6 +71,26 @@ class OrganizationController extends Controller
         $parent_org_uuid = $request->has('input_org') ? $request->input_org : $request->organization;
         $parent_org = Organization::where('uuid', $parent_org_uuid)->first();
         try {
+            if($request->contactperson_designation){
+                $designation=$request->contactperson_designation;
+            }else{
+                $designation='';
+            }
+            if($request->building){
+                $building=$request->building;
+            }else{
+                $building='';
+            }
+            if($request->district){
+                $district=$request->district;
+            }else{
+                $district='';
+            }
+            if($request->postalCode){
+                $postalCode=$request->postalCode;
+            }else{
+                $postalCode='';
+            }
             Organization::Create([
                 'name' => $request->name,
                 'uuid' => Str::uuid(),
@@ -84,15 +100,15 @@ class OrganizationController extends Controller
                 'image' => $image,
                 'organization_id' => $parent_org->id,
                 'displayname' => $request->displayname,
-                'contactperson_designation' => $request->contactperson_designation,
+                'contactperson_designation' => $designation,
                 'contactperson' => $request->phoneNumber,
                 'country' => $request->country,
                 'state' => $request->state,
                 'city' => $request->city,
                 'email' => $request->email,
-                'building' => $request->building,
-                'district' => $request->district,
-                'postalCode' => $request->postalCode
+                'building' => $building,
+                'district' => $district,
+                'postalCode' => $postalCode
             ]);
             return redirect()->route('organization')->withSuccess('Organization Successfully Created ');
         } catch (\Exception $e) {
@@ -195,19 +211,15 @@ class OrganizationController extends Controller
             return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
         $request->validate([
-            'displayname' => 'required|string',
-            'contactperson_designation' => 'string',
-            'contactperson' => 'required|string',
+            'displayname' => 'required',
+            'contactperson' => 'required',
             'email' => 'required',
-            'building' => 'string',
-            'status' => 'required|string',
-            'district' => 'string',
-            'postalCode' => 'string',
-            'image' => 'nullable|image|mimes:jpg,png,gif,svg,jpeg|dimensions:min_width=1140,min_height=650'
+            'status' => 'required',
         ]);
         try {
             $org = Organization::where('uuid', $request->uuid)->first();
             if ($request->hasFile('image')) {
+                $request->validate(['image' => 'image|mimes:jpg,png,gif,svg,jpeg|dimensions:min_width=1140,min_height=650']);
                 if (isset($org) && $org->image) {
                     $previous_img = public_path('uploads/organization/' . $org->image);
                     if (File::exists($previous_img)) {
@@ -222,17 +234,34 @@ class OrganizationController extends Controller
                 $image = $org->image;
             }
 
-
+            if($request->contactperson_designation){
+                $designation=$request->contactperson_designation;
+            }else{
+                $designation='';
+            }
+            if($request->building){
+                $building=$request->building;
+            }else{
+                $building='';
+            }if($request->district){
+                $district=$request->district;
+            }else{
+                $district='';
+            }if($request->postalCode){
+                $postalCode=$request->postalCode;
+            }else{
+                $postalCode='';
+            }
             $org->update([
                 'status' => $request->status,
                 'image' => $image,
                 'displayname' => $request->displayname,
-                'contactperson_designation' => $request->contactperson_designation,
+                'contactperson_designation' => $designation,
                 'contactperson' => $request->phoneNumber,
                 'email' => $request->email,
-                'building' => $request->building,
-                'district' => $request->district,
-                'postalCode' => $request->postalCode
+                'building' => $building,
+                'district' => $district,
+                'postalCode' => $postalCode
             ]);
             return redirect()->route('organization')->withSuccess(__('Organization Successfully Updated'));
         } catch (\Exception $e) {
