@@ -47,7 +47,7 @@
                                                     <select type="datetime-local" class="form-control" name="doctor_id" id="doctor_id" required>
                                                         <option value="">Select Doctor</option>
                                                         @foreach ($doctors as $doctor )
-                                                        <option {{old('doctor_id')==$doctor->id?'selected':''}}value="{{$doctor->id}}">{{$doctor->user->username}}</option>
+                                                        <option {{old('doctor_id')==$doctor->id?'selected':''}}value="{{$doctor->id}}">{{$doctor->user->name}}</option>
 
                                                         @endforeach
                                                     </select>
