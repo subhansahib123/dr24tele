@@ -18,7 +18,7 @@
                             </div>
                             <div class="col-4">
                                 <span class="card-title"><strong>
-                                        Send Coupon 
+                                        Send Coupon
                                     </strong></span>
                             </div>
 
@@ -50,7 +50,7 @@
                                     <div class="col-md-9">
                                         <select class="select-patient" name="patients[]" style="width: 100%" multiple="multiple">
                                             @foreach($patients as $patient)
-                                            <option value="{{ $patient->user_id }}">{{ $patient->user->username }}</option>
+                                            <option value="{{ $patient->user_id }}">{{ $patient->user->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
