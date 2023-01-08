@@ -29,9 +29,16 @@ class TemplateController extends Controller
       $organizations = Organization::has('department')->orderBy('displayname', 'asc')->where('status','Enabled')->paginate(6);
         if ($request->ajax()) {
             $search = $request->get('query');
-            $organizations = Organization::has('department')->orderBy('id', 'asc')->where(function ($q) use ($search) {
+            $country = $request->get('country');
+            $state = $request->get('state');
+            $city = $request->get('city');
+            $organizations = Organization::has('department')->orderBy('id', 'asc')->where(function ($q) use ($search,$country,$state,$city) {
                 if (!empty($search)) {
-                    $q->where('displayname', 'like', '%' . $search . '%');
+                    $q->where('displayname', 'like', '%' . $search . '%')
+                    ->orWhere('country', 'like', '%' . $country . '%')
+                    ->orWhere('state', 'like', '%' . $state . '%')
+                    ->orWhere('city', 'like', '%' . $city . '%');
+
                 }
             })->paginate(6);
         }
