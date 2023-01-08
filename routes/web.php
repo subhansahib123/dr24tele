@@ -25,7 +25,11 @@ use App\Http\Controllers\Patient\FamilyMembersController;
 use App\Http\Controllers\Patient\PatientsFeedbackController;
 use App\Http\Controllers\Patient\PersonalDetails as PatientDetails;
 use App\Http\Controllers\PatientAuthenticationController;
+
+use App\Http\Controllers\Patient\PatientDocumentController;
+
 use App\Http\Controllers\CurrencyController;
+
 
 use Illuminate\Support\Facades\Route;
 
@@ -430,6 +434,12 @@ Route::get('/convert-currency/{to}',[CurrencyController::class,'ConvertCurrency'
 
 
     Route::get('/verify/number', [PatientDetails::class, 'verifyPhoneNumber'])->name('verify.phoneNumber');
+    Route::get('/document', [PatientDocumentController::class, 'index'])->name('document.index');
+    Route::get('/document/create', [PatientDocumentController::class, 'create'])->name('document.create');
+    Route::delete('/document/delete/{id}', [PatientDocumentController::class, 'destroy'])->name('document.delete');
+
+
+    Route::post('/document/save', [PatientDocumentController::class, 'store'])->name('document.save');
     Route::get('/appointment/details-page/{id}', [PatientDetails::class, 'appointmentDetails'])->name('appointmentDetails');
     Route::post('/upload/records', [PatientDetails::class, 'uploadRecords'])->name('uploadRecords');
     Route::post('/Number/verified', [PatientDetails::class, 'phoneNumberVerified'])->name('phone.numberVerified');
