@@ -52,7 +52,10 @@
                         <div class="portfolio-info-item-wrap">
                             <div class="portfolio-info-item">
                                 <p><i class="ri-calendar-line"></i>Name:</p>
-                                <span class="text-capitalize">Dr.{{$doctor->user->name}}</span>
+                                <span class="text-capitalize">@if(isset($doctor->prefix))
+                                    {{$doctor->prefix}}.
+                                    @endif
+                                    {{$doctor->user->name}}</span>
                             </div>
                             @if(count($doctor->specialization)>0)
                             <div class="portfolio-info-item" style="font-size:14px ;">

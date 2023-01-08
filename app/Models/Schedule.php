@@ -9,6 +9,36 @@ class Schedule extends Model
 {
     use HasFactory;
     protected $table="schedules";
+    const  DAYS = [
+        [
+            'label' => 'Monday',
+            'value' => 'M',
+        ],
+        [
+            'label' => 'Tuesday',
+            'value' => 'T',
+        ],
+        [
+            'label' => 'Wednesday',
+            'value' => 'W',
+        ],
+        [
+            'label' => 'Thursday',
+            'value' => 'TH',
+        ],
+        [
+            'label' => 'Friday',
+            'value' => 'F',
+        ],
+        [
+            'label' => 'Saturday',
+            'value' => 'SA',
+        ],
+        [
+            'label' => 'Sunday',
+            'value' => 'S',
+        ],
+    ];
     protected $fillable =[
         'status',
         'start',
@@ -18,7 +48,10 @@ class Schedule extends Model
         'comment',
         'doctor_id',
         'price',
-        'slot_id'
+        'slot_id',
+        'repeat',
+        'days'
+
 
     ];
     public function appointments()
@@ -28,6 +61,10 @@ class Schedule extends Model
     public function doctor()
     {
         return $this->belongsTo(Doctor::class,'doctor_id');
+    }
+    public function getDAYSAttribute($value)
+    {
+        return collect(static::DAYS)->firstWhere('value', $this->days)['label'] ?? '';
     }
 
 }

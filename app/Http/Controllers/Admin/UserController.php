@@ -16,6 +16,7 @@ use App\Models\UsersOrganization;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -217,11 +218,11 @@ class UserController extends Controller
     {
         // dd($request->orgId);
         $request->validate([
-            'username' => 'required|string',
-            'name' => 'required|string',
-            'password' => 'required|string',
-            'phoneNumber' => 'required|string',
-            'email' => 'required|string',
+            'username' => 'required ',
+            'name' => 'required ',
+            'password' => 'required ',
+            'phoneNumber' => 'required ',
+            'email' => 'required ',
             'image' => 'required|mimes:jpg,png,gif,svg,jpeg|dimensions:min_width=300,min_height=350',
         ]);
         $userInfo = session('loggedInUser');
@@ -240,11 +241,15 @@ class UserController extends Controller
         // dd($image);
 
         try {
-
+            if($request->middlename){
+                $name=$request->name . ' ' . $request->middlename;
+            }else{
+                $name=$request->name;
+            }
             $user = User::firstOrCreate([
                 'username' => $request->username,
-                'name' => $request->name . ' ' . $request->middlename,
-                'password' => $request->password,
+                'name' => $name ,
+                'password' => Hash::make($request->password),
                 'email' => $request->email,
                 'phone_number' => $request->phoneNumber,
                 'uuid' => Str::uuid(),

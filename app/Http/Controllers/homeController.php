@@ -24,6 +24,7 @@ class homeController extends Controller
 {
     public function index(Request $request)
     {
+        // dd(session('currency_rate'));
         $organizations = Organization::where('featured_status',1)->where('status','Enabled')->get();
         // dd($organizations);
         return view('public_panel.index', compact('organizations'));

@@ -30,10 +30,10 @@ class DepartmentController extends Controller
         $organization = Organization::where('uuid', $request->orgId)->first();
         // dd( $orgName->id );
         $request->validate([
-            'displayname' => 'required|string',
-            'status' => 'required|string',
+            'displayname' => 'required',
+            'status' => 'required',
             'specialization_id.*' => 'required',
-            'image' => 'nullable|image|mimes:jpg,png,gif,svg,jpeg|dimensions:min_width=1140,min_height=650'
+            'image' => 'required|image|mimes:jpg,png,gif,svg,jpeg|dimensions:min_width=1140,min_height=650'
 
         ]);
         if ($request->hasFile('image')) {
@@ -143,13 +143,13 @@ class DepartmentController extends Controller
             return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
         $request->validate([
-            'name' => 'required|string',
-            'status' => 'required|string',
+            'name' => 'required',
+            'status' => 'required',
         ]);
         try {
             $dep = Department::where('uuid', $request->DepUuid)->first();
             if ($request->hasFile('image')) {
-            $request->validate(['image' => 'nullable|image|mimes:jpg,png,gif,svg,jpeg|dimensions:min_width=1140,min_height=650',]);
+            $request->validate(['image' => 'image|mimes:jpg,png,gif,svg,jpeg|dimensions:min_width=1140,min_height=650',]);
                 if (isset($dep) && $dep->image) {
                     $previous_img = public_path('uploads/organization/department/' . $dep->image);
                     // dd($previous_img);

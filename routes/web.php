@@ -25,8 +25,14 @@ use App\Http\Controllers\Patient\FamilyMembersController;
 use App\Http\Controllers\Patient\PatientsFeedbackController;
 use App\Http\Controllers\Patient\PersonalDetails as PatientDetails;
 use App\Http\Controllers\PatientAuthenticationController;
+
 use App\Http\Controllers\Patient\PatientDocumentController;
+
+use App\Http\Controllers\CurrencyController;
+
+
 use Illuminate\Support\Facades\Route;
+
 
 // Hospital Controller
 
@@ -95,7 +101,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
   Route::get('/how-it-works', [TemplateController::class, 'howItWorks'])->name('howItWorks');
   // How it Works
   Route::get('/hospitals-list', [TemplateController::class, 'hospitalsList'])->name('hospitalsList');
-
+Route::get('/convert-currency/{to}',[CurrencyController::class,'ConvertCurrency'])->name('convertCurrency');
   //Rating page
 
   Route::get('/rate-doctor', [PatientsFeedbackController::class, 'index'])->name('rateDoctor');
@@ -435,6 +441,7 @@ Route::group(['namespace' => 'App\Http\Controllers'], function () {
 
     Route::post('/document/save', [PatientDocumentController::class, 'store'])->name('document.save');
     Route::get('/appointment/details-page/{id}', [PatientDetails::class, 'appointmentDetails'])->name('appointmentDetails');
+    Route::post('/upload/records', [PatientDetails::class, 'uploadRecords'])->name('uploadRecords');
     Route::post('/Number/verified', [PatientDetails::class, 'phoneNumberVerified'])->name('phone.numberVerified');
     Route::post('/phoneNumber/updated', [PatientDetails::class, 'phoneNumberUpdated'])->name('phoneNumber.updated');
 
