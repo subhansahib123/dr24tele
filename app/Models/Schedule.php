@@ -50,7 +50,8 @@ class Schedule extends Model
         'price',
         'slot_id',
         'repeat',
-        'days'
+        'days',
+        'slot_belong'
 
 
     ];
