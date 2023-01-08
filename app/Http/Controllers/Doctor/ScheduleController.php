@@ -60,6 +60,7 @@ use App\Models\Appointment;
 
         $data['end'] = $end->format("H:I");
         $data['days']=implode($data['days'],',');
+        $data['slot_belong']=1;
 
         // dd($data);
         $schedule = Schedule::create($data);
