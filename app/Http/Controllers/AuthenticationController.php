@@ -32,6 +32,7 @@ class AuthenticationController extends Controller
                 return redirect()->back()->withErrors('User does not Exist');
             }
             $password = Hash::check($request->password, $user->password);
+
             if (!$password) {
                 return redirect()->back()->withErrors('Incorrect Password.');
             }

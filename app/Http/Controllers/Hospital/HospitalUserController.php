@@ -89,7 +89,6 @@ class HospitalUserController extends Controller
             'password' => 'required',
             'phoneNumber' => 'required',
             'email' => 'required',
-            'image' => 'required|mimes:jpg,png,gif,svg,jpeg|dimensions:min_width=300,min_height=350',
         ]);
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
@@ -97,11 +96,18 @@ class HospitalUserController extends Controller
             return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
         if ($request->hasFile('image')) {
+            $request->validate(['image' => 'required|mimes:jpg,png,gif,svg,jpeg|dimensions:min_width=300,min_height=350',]);
             $getImage = date('Y') . '/' . time() . '-' . rand(0, 999999) . '.' . $request->image->getClientOriginalExtension();
             $request->image->move(public_path('uploads/organization/management/') . date('Y'), $getImage);
             $image = $getImage;
         } else {
-            $image = '';
+            if($request->gender_code=='F'){
+                $image='female-patinet.webp' ;
+            }else if($request->gender_code=='M'){
+                $image='male-patinet.webp' ;
+            }else{
+                $image='patinet.webp' ;
+            };
         }
         if($request->middlename){
             $name=$request->name.' '.$request->middlename;

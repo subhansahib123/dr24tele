@@ -1,4 +1,4 @@
-<!-- app-Header -->
+P<!-- app-Header -->
 <div class="app-header header sticky">
     <div class="container-fluid main-container">
         <div class="d-flex">
@@ -333,7 +333,13 @@
                             <div class="dropdown d-flex profile-1">
                                 <a href="javascript:void(0)" data-bs-toggle="dropdown"
                                     class="nav-link leading-none d-flex">
-                                    <img  {{$image=Auth::user()->image}} src="{{($image)? asset('uploads/organization/management/'. $image):asset('assets/images/users/21.jpg')}}" alt="profile-user"
+                                    <?php
+                                    
+                                    $image=Auth::user()->image;
+                                    $file_path=asset('uploads/organization/management/'. $image);
+                                    ?>
+
+                                    <img  src="{{($file_path)? asset('uploads/organization/management/'. $image):asset('public_assets/img/patinetVectors/'.$image)}}" alt="profile-user"
                                         class="avatar  profile-user brround cover-image">
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">

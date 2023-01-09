@@ -40,7 +40,13 @@ class PatientController extends Controller
             $request->image->move(public_path('uploads/organization/patients/') . date('Y'), $getImage);
             $image = $getImage;
         } else {
-            $image = '';
+            if($request->gender_code=='F'){
+                $image='female-patinet.webp' ;
+            }else if($request->gender_code=='M'){
+                $image='male-patinet.webp' ;
+            }else{
+                $image='patinet.webp' ;
+            }
         }
         // dd($organization->id);
         try {

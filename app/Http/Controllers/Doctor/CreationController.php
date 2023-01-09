@@ -26,9 +26,9 @@ class CreationController extends Controller
         $url = url()->previous();
         $containsHospital = Str::contains($url, 'hospital');
         if ($containsHospital) {
-            return view('hospital_panel.doctors.create',['uuid'=>$uuid]);
+            return view('hospital_panel.doctors.create', ['uuid' => $uuid]);
         }
-        return view('admin_panel.doctors.create',['uuid'=>$uuid]);
+        return view('admin_panel.doctors.create', ['uuid' => $uuid]);
     }
 
     public function store(Request $request)
@@ -40,20 +40,29 @@ class CreationController extends Controller
             'name' => 'required',
             'phoneNumber' => 'required',
             'email' => 'required',
-            'image' => 'required|mimes:jpg,png,gif,svg,jpeg|dimensions:min_width=300,min_height=350',
         ]);
         try {
             if ($request->hasFile('image')) {
+                $request->validate([
+                    'image' => 'required|mimes:jpg,png,gif,svg,jpeg|dimensions:min_width=300,min_height=350',
+
+                ]);
                 $getImage = date('Y') . '/' . time() . '-' . rand(0, 999999) . '.' . $request->image->getClientOriginalExtension();
                 $request->image->move(public_path('uploads/organization/department/doctor/') . date('Y'), $getImage);
                 $image = $getImage;
             } else {
-                $image = '';
+                if ($request->gender_code == 'F') {
+                    $image = 'female-doctor.jpg';
+                } else if ($request->gender_code == 'M') {
+                    $image = 'male-doctor.webp';
+                } else {
+                    $image = 'doctor.jpg';
+                }
             }
-            if($request->middlename){
-                $name=$request->name . ' ' . $request->middlename;
-            }else{
-                $name=$request->name;
+            if ($request->middlename) {
+                $name = $request->name . ' ' . $request->middlename;
+            } else {
+                $name = $request->name;
             }
 
             User::create([
@@ -69,14 +78,14 @@ class CreationController extends Controller
             ]);
             $user = User::where('phone_number', $request->phoneNumber)->first();
             $userUuid = $user->uuid;
-            $depUuid=$request->uuid;
-        return $this->mapDoctor($userUuid,$depUuid);
+            $depUuid = $request->uuid;
+            return $this->mapDoctor($userUuid, $depUuid);
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => __($e->getMessage())]);
         }
     }
 
-    public function mapDoctor($userUuid,$depUuid)
+    public function mapDoctor($userUuid, $depUuid)
     {
 
         if (!Auth::check())
@@ -89,12 +98,12 @@ class CreationController extends Controller
         $specializations = DepartmentSpecializations::all();
 
         if ($containsHospital) {
-            
-            return view('hospital_panel.doctors.mapDoctor', ['depUuid' => $depUuid, 'userUuid' => $userUuid,'specializations' => $specializations]);
+
+            return view('hospital_panel.doctors.mapDoctor', ['depUuid' => $depUuid, 'userUuid' => $userUuid, 'specializations' => $specializations]);
         }
-        $dep = Department::where('uuid',$depUuid)->first();
+        $dep = Department::where('uuid', $depUuid)->first();
         $departments = Department::where('organization_id', $dep->organization_id)->get();
-        return view('admin_panel.doctors.mapDoctor', ['departments' => $departments, 'userUuid' => $userUuid,'specializations' => $specializations]);
+        return view('admin_panel.doctors.mapDoctor', ['departments' => $departments, 'userUuid' => $userUuid, 'specializations' => $specializations]);
     }
 
     public function doctorMapped(Request $request)

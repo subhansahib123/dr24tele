@@ -78,7 +78,7 @@
                                     <div class="col-lg-6 col-md-6 col-sm-12">
                                         <div class="form-group">
                                             <label for="gender">Gender</label>
-                                            <select class="form-select" name="gender_code" id="gender">
+                                            <select class="form-select" required name="gender_code" id="gender">
                                                 <option value="">
                                                     Select Gender
                                                 </option>
@@ -103,7 +103,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-6">
-                                        <label for="Birth">Profile Image <strong> 300*350</strong> *</label>
+                                        <label for="Birth">Profile Image <strong> 300*350</strong> </label>
                                         <input type="file" name="image" class="form-control">
                                     </div>
                                 </div>
