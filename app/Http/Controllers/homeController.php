@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Coupon;
+use App\Models\ReferancePatient;
 use Illuminate\Http\Request;
 use App\Models\Organization;
 use App\Models\Department;
@@ -246,6 +247,10 @@ class homeController extends Controller
         //     'patienet_id'=> $data->patient_id,
         //     'coupon_id' => $coupon->id,
         //     'used_date' => Carbon\Carbon::now()]);
+
+        if(isset($request->patient_name)){
+            ReferancePatient::create(['patient_name'=>$request->patient_name, 'patient_phone'=>$request->patient_phone,'appointment_id'=>$appointment->id]);
+        }
         return response()->json(["msg" => $appointment->id]);
     }
 

@@ -86,6 +86,21 @@
                                             <p>Please upload your registration card</p>
                                         </div>
                                     </div>
+
+                                    <div class="row ms-2 my-2" id="else-check-is">
+                                        <div class="mb-3 form-check">
+                                            <input type="checkbox" class="form-check-input me-2 p-0" name="else-check"
+                                                   id="else-check" value="1">
+                                            <label class="form-check-label" for="else-check">Are you booking form someone else?</label>
+                                        </div>
+                                    </div>
+                                    <div class="row" id="else-check-file" style="display: none">
+                                        <div class="col-md-6">
+                                            <p>Please Insert Patient Details</p>
+                                            <input type="text" name="patient_name" class="form-control mb-3" placeholder="Patient Name" >
+                                            <input type="text" name="patient_phone" class="form-control mb-3" placeholder="Patient Phone" >
+                                        </div>
+                                    </div>
                                 </div>
 
                                 <div class="tab">
@@ -396,6 +411,12 @@
             $('#hospital-check-file').toggle();
 
         });
+
+        $('#else-check').click(function(e) {
+            // $('#else-check-is').toggle();
+            $('#else-check-file').toggle();
+
+        });
         $("#coupon-btn").click(function(e) {
 
             coupon = $('#coupon').val();
@@ -466,10 +487,10 @@
                         "coupon": coupon,
                         "appointment_date": $('input[name="appointment_data"]').attr('date'),
                         "description": $('textarea[name="comments"]').val(),
+                        "patient_name": $('input[name="patient_name"]').val(),
+                        "patient_phone": $('input[name="patient_phone"]').val(),
                         'stripeToken': paymentToken,
                         'appointment_link': '123',
-
-
                     },
 
                     cache: false,
