@@ -84,11 +84,11 @@ class HospitalUserController extends Controller
     function storeHospitalUser(Request $request)
     {
         $request->validate([
-            'username' => 'required|string',
-            'name' => 'required|string',
-            'password' => 'required|string',
-            'phoneNumber' => 'required|string',
-            'email' => 'required|string',
+            'username' => 'required',
+            'name' => 'required',
+            'password' => 'required',
+            'phoneNumber' => 'required',
+            'email' => 'required',
             'image' => 'required|mimes:jpg,png,gif,svg,jpeg|dimensions:min_width=300,min_height=350',
         ]);
         $userInfo = session('loggedInUser');
@@ -103,13 +103,18 @@ class HospitalUserController extends Controller
         } else {
             $image = '';
         }
+        if($request->middlename){
+            $name=$request->name.' '.$request->middlename;
+        }else{
+            $name=$request->name;
+        }
         // dd($image);
         $organis_db = \auth()->user()->user_organization->organization;
         try {
             $user = User::firstOrCreate([
                 'username' => $request->username,
                 'password' => Hash::make($request->password),
-                'name' => $request->name,
+                'name' => $name,
                 'phone_number' => $request->phoneNumber,
                 'uuid' => Str::uuid(),
                 'email' => $request->email,

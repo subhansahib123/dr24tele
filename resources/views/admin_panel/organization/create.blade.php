@@ -37,7 +37,7 @@
                                     <div class=" row mb-1">
                                         <label for="displayname" class="col-md-3 form-label"> Display Name *</label>
                                         <div class="col-md-9">
-                                            <input type="text" class="form-control " onkeydown="return /[a-z]/i.test(event.key)" value="{{old('displayname')}}"
+                                            <input type="text" class="form-control " onkeydown="return /[a-z\ ]/i.test(event.key)" value="{{old('displayname')}}"
                                                    name="displayname" id="displayname" placeholder="Display Name"
                                                    autocomplete="displayname">
                                         </div>
@@ -66,7 +66,7 @@
                                                    name="contactperson_designation" id="contactperson_designation"
                                                    placeholder="Contact Person Designation"
                                                    autocomplete="contactperson_designation" 
-                                                   onkeydown="return /[a-z]/i.test(event.key)">
+                                                   onkeydown="return /[a-z\ ]/i.test(event.key)">
                                         </div>
                                         @if ($errors->has('contactperson_designation'))
                                             <span
@@ -78,7 +78,7 @@
                                             <label for="exampleInputnumber"><Strong> Contact Number</Strong> *</label>
                                         </div>
                                         <div class="col-9 my-0 form-group">
-                                            <input type="text" id="txtPhone" name="contactperson" onkeydown="return /[0-9]/i.test(event.key)" class="form-control">
+                                            <input type="text" id="txtPhone" name="contactperson"   maxlenght="10" class="form-control">
                                             <input type="hidden" class="form-control" id="phoneNumber">
                                         </div>
                                         @if ($errors->has('contactperson'))

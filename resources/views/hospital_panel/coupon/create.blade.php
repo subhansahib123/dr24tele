@@ -50,16 +50,16 @@
                             <form class="form-horizontal" action="{{route('hospital.coupon.store')}}" method="POST">
                                 @csrf
                                 <div class=" row mb-4">
-                                    <label for="displayname" class="col-md-3 form-label">Coupon</label>
+                                    <label for="displayname" class="col-md-3 form-label">Coupon *</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" value="{{old('title')}}" name="title" id="title" placeholder="Coupon" autocomplete="title">
+                                        <input type="text" class="form-control" value="{{old('title')}}" name="title" onkeydown="return /[a-z\ ]/i.test(event.key)" id="title" placeholder="Coupon" autocomplete="title">
                                     </div>
                                     @if ($errors->has('title'))
                                     <span class="text-danger text-left">{{ $errors->first('title') }}</span>
                                     @endif
                                 </div>
                                 <div class=" row mb-4">
-                                    <label for="start_date" class="col-md-3 form-label"> Start Date</label>
+                                    <label for="start_date" class="col-md-3 form-label"> Start Date *</label>
                                     <div class="col-md-9">
                                         <input type="date" class="form-control" value="{{old('start_date')}}" name="start_date" id="start_date" placeholder="Start Date">
                                     </div>
@@ -68,7 +68,7 @@
                                     @endif
                                 </div>
                                 <div class=" row mb-4">
-                                    <label for="end_date" class="col-md-3 form-label">End Date</label>
+                                    <label for="end_date" class="col-md-3 form-label">End Date *</label>
                                     <div class="col-md-9">
                                         <input type="date" class="form-control" value="{{old('end_date')}}" name="end_date" id="end_date" placeholder="End Date">
                                     </div>
@@ -77,9 +77,9 @@
                                     @endif
                                 </div>
                                 <div class=" row mb-4">
-                                    <label for="discount" class="col-md-3 form-label"> Discount</label>
+                                    <label for="discount" class="col-md-3 form-label"> Discount *</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" value="{{old('discount')}}" name="discount" id="discount" placeholder="Discount">
+                                        <input type="text" class="form-control" value="{{old('discount')}}"   maxlenght="10" name="discount" id="discount" placeholder="Discount">
                                     </div>
                                     @if ($errors->has('discount'))
                                     <span class="text-danger text-left">{{ $errors->first('discount') }}</span>
@@ -87,7 +87,7 @@
                                 </div>
 
                                 <div class=" row mb-4">
-                                    <label class="col-md-3 form-label" for="status">Status</label>
+                                    <label class="col-md-3 form-label" for="status">Status *</label>
                                     <div class="col-md-9">
 
                                         <select class="form-select" name="status" id="status">
@@ -106,7 +106,7 @@
                                 </div>
 
                                 <div class=" row mb-4">
-                                    <label class="col-md-3 form-label" for="hospital">Hospital</label>
+                                    <label class="col-md-3 form-label" for="hospital">Hospital *</label>
                                     <div class="col-md-9">
                                         <select class="form-select" name="hospital" id="hospital">
                                             @foreach($hospital as $hos)

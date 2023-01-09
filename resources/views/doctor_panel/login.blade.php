@@ -37,7 +37,7 @@
                                 <div class="col-lg-12" id="numbercon">
                                     <div class="form-group">
                                         {{-- <input id="text" name="fname" type="text" placeholder="Username Or Email Address" required=""> --}}
-                                        <input type="text" id="txtPhone" class="form-control" placeholder="+91 * **">
+                                        <input type="text" id="txtPhone" class="form-control"  maxlength="10" placeholder="+91 * **">
                                         <input type="hidden" class="form-control" id="phoneNumber">
 
                                     </div>
@@ -48,7 +48,7 @@
                                         <input type="text" id="verification" class="form-control" placeholder="Enter your code">
                                     </div>
                                 </div>
-                                <div class="col-lg-1 offset-9" style="display: none" id="resend">
+                                <div class="col-lg-1 offset-9" style="display: none ; text-decoration:none  " id="resend">
                                     <button type="button" class="btn btn-link text-black" onclick="reSendOTP();">
                                         Resend
                                     </button>

@@ -37,10 +37,15 @@ class HospitalPatientController extends Controller
             $image = '';
         }
         try {
+            if($request->middlename){
+                $name=$request->name.' '.$request->middlename;
+            }else{
+                $name=$request->name;
+            }
             // dd($request->all());
             $UserData = User::firstOrCreate([
                 'username' => '',
-                'name' => $request->name.' '.$request->middlename,
+                'name' => $name,
                 'password' => '',
                 'email' => $request->email,
                 'phone_number' => $request->phoneNumber,

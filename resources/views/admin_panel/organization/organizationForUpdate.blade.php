@@ -40,7 +40,7 @@
 
                                     <label for="displayname" class="col-md-3 form-label"> Display Name *</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" onkeydown="return /[a-z]/i.test(event.key)" value="{{ $orgData->displayname }}" name="displayname" id="displayname" placeholder="Display Name" autocomplete="displayname">
+                                        <input type="text" class="form-control" onkeydown="return /[a-z\ ]/i.test(event.key)" value="{{ $orgData->displayname }}" name="displayname" id="displayname" placeholder="Display Name" autocomplete="displayname">
 
                                     </div>
                                     @if ($errors->has('displayname'))
@@ -51,7 +51,7 @@
                                     <label for="email" class="col-md-3 form-label"> Contact Person Designation</label>
                                     <div class="col-md-9">
                                         <input type="text" class="form-control"  name="contactperson_designation" value="{{ $orgData->contactperson_designation }}"
-                                               id="contactperson_designation" onkeydown="return /[a-z]/i.test(event.key)" placeholder="Contact Person Designation"
+                                               id="contactperson_designation" onkeydown="return /[a-z\ ]/i.test(event.key)" placeholder="Contact Person Designation"
                                                autocomplete="contactperson_designation">
                                     </div>
                                     @if ($errors->has('contactperson_designation'))
@@ -63,7 +63,7 @@
                                         <label for="exampleInputnumber"><Strong> Contact Number</Strong> *</label>
                                     </div>
                                     <div class="col-9 form-group  my-0">
-                                        <input type="text" id="txtPhone" value="{{ $orgData->contactperson }}" onkeydown="return /[0-9]/i.test(event.key)" name="contactperson" class="form-control">
+                                        <input type="text" id="txtPhone" value="{{ $orgData->contactperson }}"   maxlenght="10" name="contactperson" class="form-control">
                                         <input type="hidden" class="form-control" id="phoneNumber">
                                     </div>
                                     @if ($errors->has('contactperson'))

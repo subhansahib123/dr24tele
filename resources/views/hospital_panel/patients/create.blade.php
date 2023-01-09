@@ -38,19 +38,19 @@
                                     <div class="col-lg-6 col-md-6 col-sm-12 my-0">
 
                                         <div class="form-group">
-                                            <label for="Name">First Name</label>
-                                            <input type="text" class="form-control" onkeydown="return /[a-z]/i.test(event.key)" name="name" value="" id="Name" placeholder="Enter First Name">
+                                            <label for="Name">First Name *</label>
+                                            <input type="text" class="form-control" onkeydown="return /[a-z\ ]/i.test(event.key)" name="name" value="" id="Name" placeholder="Enter First Name">
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-12 my-0">
                                         <div class="form-group">
                                             <label class="form-label" for="middleName">Last Name</label>
-                                            <input class="form-control" id="middleName" onkeydown="return /[a-z]/i.test(event.key)" placeholder="Enter Last Name" name="middlename" value="">
+                                            <input class="form-control" id="middleName" onkeydown="return /[a-z\ ]/i.test(event.key)" placeholder="Enter Last Name" name="middlename" value="">
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-12 my-0">
                                         <div class="form-group">
-                                            <label for="exampleInputEmail1">Email address</label>
+                                            <label for="exampleInputEmail1">Email address *</label>
                                             <input type="email" class="form-control" name="email" value="" id="exampleInputEmail1" placeholder="Email address">
                                         </div>
                                     </div>
@@ -58,11 +58,11 @@
                                         <div class="form-group">
 
                                             <div class="row mx-0">
-                                                <label for="exampleInputnumber"><strong> Contact Number</strong></label>
+                                                <label for="exampleInputnumber"><strong> Contact Number *</strong></label>
                                             </div>
                                             <div class="row ">
 
-                                                <input type="text" id="txtPhone" name="" onkeydown="return /[0-9]/i.test(event.key)" class="form-control">
+                                                <input type="text" id="txtPhone" name=""   maxlenght="10" class="form-control">
                                                 <input type="hidden" class="form-control" id="phoneNumber">
                                             </div>
 

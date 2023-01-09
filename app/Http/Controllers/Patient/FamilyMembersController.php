@@ -17,13 +17,7 @@ class FamilyMembersController extends Controller
     }
     public function create(Request $request)
     {
-        // dd($request->phoneNumber);
-        $request->validate([
-            'memberName' => 'required|string',
-            'email' => 'required|string',
-            'phoneNumber' => 'required|string',
-            'relation' => 'required|string',
-        ]);
+        
 
         $userInfo = Auth::user()->patient->id;
         // dd(Auth::user()->patient->id);
@@ -55,13 +49,7 @@ class FamilyMembersController extends Controller
     }
     public function update(Request $request)
     {
-        // dd($request->all());
-        $request->validate([
-            'memberName' => 'required|string',
-            'email' => 'required|string',
-            'phoneNumber' => 'required|string',
-            'relation' => 'required|string',
-        ]);
+        
 
         $member = FamilyMembers::find($request->id);
         // dd($member);
