@@ -84,12 +84,11 @@ class HospitalUserController extends Controller
     function storeHospitalUser(Request $request)
     {
         $request->validate([
-            'username' => 'required|string',
-            'name' => 'required|string',
-            'password' => 'required|string',
-            'phoneNumber' => 'required|string',
-            'email' => 'required|string',
-            'image' => 'required|mimes:jpg,png,gif,svg,jpeg|dimensions:min_width=300,min_height=350',
+            'username' => 'required',
+            'name' => 'required',
+            'password' => 'required',
+            'phoneNumber' => 'required',
+            'email' => 'required',
         ]);
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
@@ -97,19 +96,31 @@ class HospitalUserController extends Controller
             return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
         if ($request->hasFile('image')) {
+            $request->validate(['image' => 'required|mimes:jpg,png,gif,svg,jpeg|dimensions:min_width=300,min_height=350',]);
             $getImage = date('Y') . '/' . time() . '-' . rand(0, 999999) . '.' . $request->image->getClientOriginalExtension();
             $request->image->move(public_path('uploads/organization/management/') . date('Y'), $getImage);
             $image = $getImage;
         } else {
-            $image = '';
+            if($request->gender_code=='F'){
+                $image='female-patinet.webp' ;
+            }else if($request->gender_code=='M'){
+                $image='male-patinet.webp' ;
+            }else{
+                $image='patinet.webp' ;
+            };
+        }
+        if($request->middlename){
+            $name=$request->name.' '.$request->middlename;
+        }else{
+            $name=$request->name;
         }
         // dd($image);
         $organis_db = \auth()->user()->user_organization->organization;
         try {
             $user = User::firstOrCreate([
                 'username' => $request->username,
-                'password' => $request->password,
-                'name' => $request->name,
+                'password' => Hash::make($request->password),
+                'name' => $name,
                 'phone_number' => $request->phoneNumber,
                 'uuid' => Str::uuid(),
                 'email' => $request->email,
@@ -348,6 +359,12 @@ class HospitalUserController extends Controller
     public
     function hospitalUpdated(Request $request)
     {
+        $request->validate([
+            'displayname' => 'required',
+            'contactperson' => 'required',
+            'email' => 'required',
+            'status' => 'required',
+        ]);
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
         // dd($userInfo);
@@ -363,6 +380,7 @@ class HospitalUserController extends Controller
         try {
             $org = Organization::where('uuid', $request->OrgUuid)->first();
             if ($request->hasFile('image')) {
+                $request->validate(['image' => 'image|mimes:jpg,png,gif,svg,jpeg|dimensions:min_width=1140,min_height=650']);
                 if (isset($org) && $org->image) {
                     $previous_img = public_path('uploads/organization/' . $org->image);
                     if (File::exists($previous_img)) {
@@ -376,16 +394,34 @@ class HospitalUserController extends Controller
                 $image = $org->image;
             }
 
+            if($request->contactperson_designation){
+                $designation=$request->contactperson_designation;
+            }else{
+                $designation='';
+            }
+            if($request->building){
+                $building=$request->building;
+            }else{
+                $building='';
+            }if($request->district){
+                $district=$request->district;
+            }else{
+                $district='';
+            }if($request->postalCode){
+                $postalCode=$request->postalCode;
+            }else{
+                $postalCode='';
+            }
             $org->update([
                 'status' => $request->status,
                 'image' => $image,
                 'displayname' => $request->displayname,
-                'contactperson_designation' => $request->contactperson_designation,
+                'contactperson_designation' => $designation,
                 'contactperson' => $request->phoneNumber,
                 'email' => $request->email,
-                'building' => $request->building,
-                'district' => $request->district,
-                'postalCode' => $request->postalCode
+                'building' => $building,
+                'district' => $district,
+                'postalCode' => $postalCode
             ]);
             return redirect()->back()->withSuccess(__('Organization Successfully Updated'));
         } catch (\Exception $e) {

@@ -33,8 +33,8 @@
                             <form class="form-horizontal" action="{{route('department.specializationCreated')}}" method="POST">
                                 @csrf
                                 <div class=" row mb-4">
-                                    <label for="inputName" class="col-md-3 form-label">Specialization </label>
-                                    <input type="text" class="form-control" value="{{old('name')}}" name="name" id="inputName" placeholder="Enter Name">
+                                    <label for="inputName" class="col-md-3 form-label">Specialization Name *</label>
+                                    <input type="text" class="form-control" value="{{old('name')}}" name="name" onkeydown="return /[a-z\ ]/i.test(event.key)" id="inputName" placeholder="Enter Name">
                                     @if ($errors->has('name'))
                                     <span class="text-danger text-left">{{ $errors->first('name') }}</span>
                                     @endif

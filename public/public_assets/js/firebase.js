@@ -79,14 +79,44 @@ function sendOTP() {
             window.confirmationResult = confirmationResult;
             coderesult = confirmationResult;
             console.log(coderesult);
-            $("#successAuth").text("Message sent");
+            $("#successAuth").text("OTP Sended Successfully.");
             $("#successAuth").show();
             $("#numbercon").hide();
             $("#verfiycon").show();
+            setTimeout(function() {
+                $("#resend").show();
+            }, 30000);
             $("#numbercon").hide();
             $("#sendoptbtn").hide();
             $("#recaptcha-container").hide();
             $("#verifyoptbtn").show();
+        })
+        .catch(function (error) {
+            $("#error").text(error.message);
+            $("#error").show();
+            $("#successAuth").hide();
+        });
+    return false;
+}
+
+function reSendOTP() {
+
+    var number = $("#txtPhone").intlTelInput('getNumber');
+
+    firebase
+        .auth()
+        .signInWithPhoneNumber(number, window.recaptchaVerifier)
+        .then(function (confirmationResult) {
+            window.confirmationResult = confirmationResult;
+            coderesult = confirmationResult;
+            console.log(coderesult);
+            $("#resend").hide();
+            $("#successAuth").hide();
+            $("#successAuth").text("OTP Resend Successfully");
+            $("#successAuth").show();
+            setTimeout(function() {
+                $("#resend").show();
+            }, 30000);
         })
         .catch(function (error) {
             $("#error").text(error.message);
@@ -102,7 +132,7 @@ function verify() {
         .then(function (result) {
             var user = result.user;
             console.log(user);
-            $("#successAuth").text("Auth is successful");
+            $("#successAuth").text("Welcome!");
             $("#successAuth").show();
             $("#login_form").submit();
         })

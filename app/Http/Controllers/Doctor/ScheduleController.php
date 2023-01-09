@@ -10,11 +10,11 @@ use Carbon\CarbonPeriod;
 use App\Models\Schedule;
 use App\Models\Doctor;
 use App\Models\Appointment;
-
+// use Illuminate\Support\Arr;
  class ScheduleController extends Controller
 {
     //load doctors schedule create
-    public function createSchedule()
+    public function createSchedule(Schedule $schedule)
     {
         if (!Auth::check())
             return redirect()->route('logout')->withErrors(['error' => 'Login Token Expired ! Please login Again']);
@@ -23,8 +23,8 @@ use App\Models\Appointment;
         $doctor_id = Doctor::where('user_id', $user_id)->first()->id;
 
 
-
-        return view('doctor_panel.schedule.create', compact('doctor_id'));
+        $days=$schedule::DAYS;
+        return view('doctor_panel.schedule.create', compact('doctor_id','days'));
     }
     //store schedule
     public function insert(Request $request)
@@ -35,24 +35,25 @@ use App\Models\Appointment;
         } else {
             $data['status'] = 0;
         }
+        if ($request->has('repeat')) {
+            $data['repeat'] = 1;
+        } else {
+            $data['repeat'] = 0;
+        }
         // dd($request->all());
         $request->validate([
-            'start' => 'required',
-            'end' => 'required',
-            'price' => 'required',
-            'interval' => 'required',
-            'number_of_people' => 'required',
-            'comment' => 'required',
-            // 'status'=>'required',
+            
+            'days'=>'required',
 
         ]);
 
         $start = new Carbon($data['start']);
         $end = new Carbon($data['end']);
-        $data['start'] = $start;
+        $data['start'] = $start->format("H:I");
 
-        $data['end'] = $end;
-
+        $data['end'] = $end->format("H:I");
+        $data['days']=implode($data['days'],',');
+        $data['slot_belong']=1;
 
         // dd($data);
         $schedule = Schedule::create($data);

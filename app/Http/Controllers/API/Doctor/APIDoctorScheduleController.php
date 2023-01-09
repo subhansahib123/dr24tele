@@ -257,4 +257,21 @@ class APIDoctorScheduleController extends Controller
             ]
         ]);
     }
+
+    public function logout()
+    {
+        $user = request()->user();
+        $user->tokens()->where('id', $user->currentAccessToken()->id)->delete();
+        return response()->json([
+            'status' => [
+                'status_code' => 200,
+                'message' => 'Ok'
+            ],
+            'data' => '',
+            'message' => [
+                "status_code"=> 200,
+                'msg_status' => 'Logout Successfully',
+            ]
+        ]);
+    }
 }

@@ -49,8 +49,8 @@
 
                                             <td >{{ $loop->index + 1 }}</td>
                                             <td>{{ $schedule->status ? 'Enabled' : 'Disabled' }}</td>
-                                            <td>{{ date('d-m-Y H:i A', strtotime($schedule->start)) }}</td>
-                                            <td>{{ date('d-m-Y H:i A', strtotime($schedule->end)) }}</td>
+                                            <td>{{ date('h:i A', strtotime($schedule->start)) }}</td>
+                                            <td>{{ date('h:i A', strtotime($schedule->end)) }}</td>
                                             <td class="text-end">
                                                 <a href="{{route('edit.schedule.doctor', $schedule->id)}}"><button class="btn btn-info"><i class="fa fa-edit"></i></button></a>
                                                 <a href="{{route('delete.schedule.doctor', $schedule->id)}}"><button class="btn btn-danger"><i class="fa fa-trash"></i></button></a>

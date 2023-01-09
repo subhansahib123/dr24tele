@@ -32,18 +32,18 @@
                             <form class="form-horizontal" action="{{route('membersCreated')}}" method="POST">
                                 @csrf
                                 <div class=" row mb-1">
-                                    <label for="memberName" class="col-md-3 form-label">Members Name</label>
+                                    <label for="memberName" class="col-md-3 form-label">Members Name *</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" value="{{old('memberName')}}" name="memberName" id="memberName" placeholder="Name">
+                                        <input type="text" required class="form-control" value="{{old('memberName')}}" name="memberName" id="memberName" placeholder="Name">
                                     </div>
                                     @if ($errors->has('name'))
                                     <span class="text-danger text-left">{{ $errors->first('name') }}</span>
                                     @endif
                                 </div>
                                 <div class=" row mb-1">
-                                    <label for="email" class="col-md-3 form-label">Members E-mail</label>
+                                    <label for="email" class="col-md-3 form-label">Members E-mail *</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" value="{{old('email')}}" name="email" id="email" placeholder="email@gmail.com">
+                                        <input type="email" required class="form-control" value="{{old('email')}}" name="email" id="email" placeholder="email@gmail.com">
                                     </div>
                                     @if ($errors->has('email'))
                                     <span class="text-danger text-left">{{ $errors->first('email') }}</span>
@@ -53,9 +53,9 @@
 
 
                                 <div class=" row mb-1">
-                                    <label for="relation" class="col-md-3 form-label">Relation with Members</label>
+                                    <label for="relation" class="col-md-3 form-label">Relation with Members *</label>
                                     <div class="col-md-9">
-                                        <select name="relation" id="relation" class="form-control">
+                                        <select name="relation" required id="relation" class="form-control">
                                             <option value="">Select</option>
                                             <option value="spouse">Spouse/Wife</option>
                                             <option value="husband">Husband</option>
@@ -76,11 +76,11 @@
                                 <div class=" mb-4">
                                     <div class=" row">
                                         <div class="col-3">
-                                            <label for="currentPhoneNumber"> Phone Number </label>
+                                            <label for="currentPhoneNumber"> Phone Number  *</label>
 
                                         </div>
                                         <div class="col">
-                                            <input type="text" id="txtPhone" name="" class="form-control" placeholder="+91 *** ******">
+                                            <input type="text" id="txtPhone" name="" required maxlength="10" class="form-control" placeholder="+91 *** ******">
                                             <input type="hidden" class="form-control" id="  ">
                                         </div>
 
@@ -88,7 +88,7 @@
                                 </div>
 
                                 <div class="form-group card-footer text-end mx-0 px-0">
-                                    <!-- <label for="role">Roles</label> -->
+                                    <!-- <label for="role">Roles *</label> -->
                                     <button type="submit" class="btn btn-primary ">Create</button>
 
 

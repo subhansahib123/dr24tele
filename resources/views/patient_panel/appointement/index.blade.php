@@ -34,12 +34,13 @@
 
                                     <table class="table table-striped" id="datatable">
                                         <thead>
-                                            <th scope="col">Name</th>
+                                            <th scope="col">Sr</th>
                                             <th scope="col">Start</th>
                                             <th scope="col">End</th>
                                             <th scope="col">Doctor</th>
-                                            <th scope="col">Call Status</th>
-                                            <th class="text-end"></th>
+                                             <th class="text-end">Call Status</th>
+                                            <th scope="col">Details</th>
+
                                         </thead>
 
 
@@ -51,7 +52,10 @@
                                             <td>{{ $schedule->doctor->user->name }}</td>
                                             @if($schedule->Call_Status == 1)
                                             <td><a href="{{$schedule->appointment_link}}" class="btn btn-primary">Call</a></td>
+                                            @else
+                                            <td><a href="#" class="btn btn-danger">Wait</a></td>
                                             @endif
+                                            <td><a href="{{route('appointmentDetails',[$schedule->id])}}" class="btn btn-info">Check</a></td>
                                         </tr>
                                         @endforeach
                                     </table>

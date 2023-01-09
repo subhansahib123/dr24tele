@@ -33,16 +33,16 @@
                             <form class="form-horizontal" action="{{route('hospitalDepartment.created')}}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class=" row mb-1">
-                                    <label for="displayname" class="col-md-3 form-label"> Display Name</label>
+                                    <label for="displayname" class="col-md-3 form-label"> Display Name *</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" value="{{old('displayname')}}" name="displayname" id="displayname" placeholder="Display Name" autocomplete="displayname">
+                                        <input type="text" class="form-control" value="{{old('displayname')}}"onkeydown="return /[a-z\ ]/i.test(event.key)" name="displayname" id="displayname" placeholder="Display Name" autocomplete="displayname">
                                     </div>
                                     @if ($errors->has('displayname'))
                                     <span class="text-danger text-left">{{ $errors->first('displayname') }}</span>
                                     @endif
                                 </div>
                                 <div class=" row mb-1">
-                                    <label for="specialization" class="col-md-3 form-label"> Select Specialization</label>
+                                    <label for="specialization" class="col-md-3 form-label"> Select Specialization *</label>
                                     <div class="col-md-9">
                                         <select class="form-control js-example-basic-multiple" name="specialization_id[]" multiple="multiple" id="specialization">
                                             @if($specializations)
@@ -57,7 +57,7 @@
                                     @endif
                                 </div>
                                 <div class=" row mb-1">
-                                    <label for="country" class="col-md-3 form-label"> Select Status </label>
+                                    <label for="country" class="col-md-3 form-label"> Select Status  *</label>
                                     <div class="col-md-9">
                                         <select class="form-control" name="status" id="state">
                                             <option value="">Select</option>
@@ -68,7 +68,7 @@
                                     </div>
                                 </div>
                                 <div class=" row  mb-1">
-                                    <label for="image" class="col-md-3 form-label"> Picture <strong> 1140*650</strong></label>
+                                    <label for="image" class="col-md-3 form-label"> Picture <strong> 1140*650</strong> *</label>
                                     <div class="col-md-9">
                                         <input type="file" class="form-control" name="image" id="image">
                                     </div>

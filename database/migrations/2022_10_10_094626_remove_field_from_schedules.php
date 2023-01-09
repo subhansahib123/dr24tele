@@ -14,7 +14,7 @@ class RemoveFieldFromSchedules extends Migration
     public function up()
     {
         Schema::table('schedules', function (Blueprint $table) {
-            $table->dropColumn('slot_belong')->nullable();
+            $table->boolean('slot_belong');
         });
     }
 
@@ -26,7 +26,7 @@ class RemoveFieldFromSchedules extends Migration
     public function down()
     {
         Schema::table('schedules', function (Blueprint $table) {
-            $table->boolean('slot_belong');
+            $table->dropColumn('slot_belong')->nullable();
         });
     }
 }

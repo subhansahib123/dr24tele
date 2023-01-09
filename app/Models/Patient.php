@@ -35,4 +35,9 @@ class Patient extends Model
     {
         return $this->hasMany(Eprescription::class, 'eprescription_id');
     }
+
+    public function patient_document()
+    {
+        return $this->hasMany(PatienDocument::class, 'patinet_document_id');
+    }
 }

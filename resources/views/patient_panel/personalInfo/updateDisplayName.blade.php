@@ -39,7 +39,7 @@
                                         <div class="form-group">
 
                                             <label for="currentPassword"> Name</label>
-                                            <input type="text" name="name" class="form-control" value="{{$name}}" id="currentPassword">
+                                            <input type="text" name="name" onkeydown="return /[a-z\ ]/i.test(event.key)" required class="form-control" value="{{$name}}" id="currentPassword">
                                         </div>
                                     </div>
 

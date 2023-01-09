@@ -34,19 +34,30 @@ class PatientController extends Controller
             return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
         if ($request->hasFile('image')) {
-            $request->validate(['image' => 'required|mimes:jpg,png,gif,svg,jpeg|dimensions:min_width=300,min_height=350']);
+            $request->validate(['image' => 'mimes:jpg,png,gif,svg,jpeg|dimensions:min_width=300,min_height=350']);
 
             $getImage = date('Y') . '/' . time() . '-' . rand(0, 999999) . '.' . $request->image->getClientOriginalExtension();
             $request->image->move(public_path('uploads/organization/patients/') . date('Y'), $getImage);
             $image = $getImage;
         } else {
-            $image = '';
+            if($request->gender_code=='F'){
+                $image='female-patinet.webp' ;
+            }else if($request->gender_code=='M'){
+                $image='male-patinet.webp' ;
+            }else{
+                $image='patinet.webp' ;
+            }
         }
         // dd($organization->id);
         try {
+            if($request->middlename){
+                $name=$request->name . ' ' . $request->middlename;
+            }else{
+                $name=$request->name;
+            }
             $user = User::firstOrCreate([
                 'username' => '',
-                'name' => $request->name.' '.$request->middlename,
+                'name' => $name,
                 'password' => '',
                 'email' => $request->email,
                 'phone_number' => $request->phoneNumber,
@@ -60,7 +71,6 @@ class PatientController extends Controller
                 'user_id' => $user->id,
                 'organization_id' => $organization->id,
                 'status' => 1,
-                'image' => 1
             ]);
 
             UsersOrganization::firstOrCreate([

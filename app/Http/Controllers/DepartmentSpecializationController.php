@@ -24,7 +24,7 @@ class DepartmentSpecializationController extends Controller
     }
     public function create(Request $request)
     {
-        $request->validate(['name' => 'required|string']);
+        $request->validate(['name' => 'required']);
         if (!Auth::check())
             return redirect()->route('logout')->withErrors(['error' => 'Login Token Expired ! Please login Again']);
 

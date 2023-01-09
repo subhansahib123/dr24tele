@@ -28,9 +28,13 @@ class AuthenticationController extends Controller
         ]);
         try {
             $user = User::where('username', $request->username)->first();
+            if (!$user) {
+                return redirect()->back()->withErrors('User does not Exist');
+            }
             $password = Hash::check($request->password, $user->password);
+
             if (!$password) {
-                return redirect("admin/login")->withErrors('Could not log you in, please recheck your password.');
+                return redirect()->back()->withErrors('Incorrect Password.');
             }
             Auth::login($user);
             session(['loggedInUser' => $user]);
@@ -89,10 +93,13 @@ class AuthenticationController extends Controller
 
         try {
             $user = User::where('username', $request->username)->first();
-            $password = $request->password;
-//            $password = Hash::check($request->password, $user->password);
+            if (!$user) {
+                return redirect()->back()->withErrors('User does not Exist');
+            }
+            // $password = $request->password;
+           $password = Hash::check($request->password, $user->password);
             if ($password != $user->password) {
-                return redirect()->back()->withErrors('Could not log you in, please recheck your password.');
+                return redirect()->back()->withErrors('Incorrect Password.');
             }
             Auth::login($user);
             session(['loggedInUser' => $user]);

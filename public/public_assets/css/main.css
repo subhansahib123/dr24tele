@@ -1492,4 +1492,7 @@ A VERTICAL event
 .fc-theme-bootstrap5-shaded {
   background-color: var(--bs-gray-200);
 }
-
+.datepicker-days .table-condensed{
+    min-width: 300px;
+    border: 1px solid #ddd;
+}

@@ -104,17 +104,7 @@ class ScheduleController extends Controller
         }else {
             $data['status']=0;
         }
-        // dd($request->all());
-        $request->validate([
-            'start'=>'required',
-            'end'=>'required',
-            'price'=>'required',
-            'interval'=>'required',
-            'number_of_people'=>'required',
-            'comment'=>'required',
-            // 'status'=>'required',
 
-        ]);
 
         $start=new Carbon($data['start']);
         $end=new Carbon($data['end']);

@@ -33,10 +33,10 @@ class HospitalDepartmentController extends Controller
     public function hospitalDepartmentCreated(Request $request)
     {
         $request->validate([
-            'displayname' => 'required|string',
-            'status' => 'required|string',
-            'specialization_id.*' => 'required|string',
-            'image' => 'nullable|image|mimes:jpg,png,gif,svg,jpeg|dimensions:min_width=1140,min_height=650'
+            'displayname' => 'required',
+            'status' => 'required',
+            'specialization_id.*' => 'required',
+            'image' => 'required|image|mimes:jpg,png,gif,svg,jpeg|dimensions:min_width=1140,min_height=650'
         ]);
 
         $userInfo = session('loggedInUser');
@@ -121,8 +121,8 @@ class HospitalDepartmentController extends Controller
     {
         // dd($request->all());
         $request->validate([
-            'displayname' => 'required|string',
-            'status' => 'required|string',
+            'displayname' => 'required',
+            'status' => 'required',
         ]);
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);

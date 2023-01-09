@@ -16,6 +16,7 @@ use App\Models\UsersOrganization;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -213,16 +214,16 @@ class UserController extends Controller
             return redirect()->route('logout')->withErrors(['error' => 'Login Token Expired ! Please login Again']);
         return view('admin_panel.all_patients.create',['orgId'=>$uuid]);
     }
-    public function store_user(Request $request)
+    public function  store_user(Request $request)
     {
         // dd($request->orgId);
         $request->validate([
-            'username' => 'required|string',
-            'name' => 'required|string',
-            'password' => 'required|string',
-            'phoneNumber' => 'required|string',
-            'email' => 'required|string',
-            'image' => 'required|mimes:jpg,png,gif,svg,jpeg|dimensions:min_width=300,min_height=350',
+            'username' => 'required ',
+            'name' => 'required ',
+            'password' => 'required ',
+            'phoneNumber' => 'required ',
+            'email' => 'required ',
+            
         ]);
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);
@@ -231,20 +232,32 @@ class UserController extends Controller
             return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
         if ($request->hasFile('image')) {
+            $request->validate(['image' => 'required|mimes:jpg,png,gif,svg,jpeg|dimensions:min_width=300,min_height=350',]);
             $getImage = date('Y') . '/' . time() . '-' . rand(0, 999999) . '.' . $request->image->getClientOriginalExtension();
             $request->image->move(public_path('uploads/organization/management/') . date('Y'), $getImage);
             $image = $getImage;
         } else {
-            $image = '';
+            if($request->gender_code=='F'){
+                $image='female-patinet.webp' ;
+            }else if($request->gender_code=='M'){
+                $image='male-patinet.webp' ;
+            }else{
+                $image='patinet.webp' ;
+            }
+        //  dd($image);   
         }
         // dd($image);
 
         try {
-
+            if($request->middlename){
+                $name=$request->name . ' ' . $request->middlename;
+            }else{
+                $name=$request->name;
+            }
             $user = User::firstOrCreate([
                 'username' => $request->username,
-                'name' => $request->name . ' ' . $request->middlename,
-                'password' => $request->password,
+                'name' => $name ,
+                'password' => Hash::make($request->password),
                 'email' => $request->email,
                 'phone_number' => $request->phoneNumber,
                 'uuid' => Str::uuid(),
