@@ -33,8 +33,8 @@ class AdmunUserSeeder extends Seeder
             Role::create(['name' => $role['0'],'slug'=>$role[1]]);
         }
         $users = [
-            ['nissi','nissi@drtele.co','9715555555',bcrypt('nissi@drtele'),1,1,now(),Str::uuid(),'Nissi'],
-            ['akhil','akhil@drtele.co','97155555525',bcrypt('akhil@drtele'),1,1,now(),Str::uuid(),'Akhil'],
+            ['nissi','nissi@drtele.co','9715555555',bcrypt('nissi#drtele'),1,1,now(),Str::uuid(),'Nissi'],
+            ['akhil','akhil@drtele.co','97155555525',bcrypt('akhil#drtele'),1,1,now(),Str::uuid(),'Akhil'],
         ];
         foreach ($users as $user) {
             $details = User::create([

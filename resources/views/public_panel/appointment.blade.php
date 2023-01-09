@@ -37,7 +37,7 @@
                             </form>
 
                             <form id="appointmentForm" class="container">
-                                <div class="tab row d-flex flex-row">
+                                <div class="tab">
 
                                     <div id='calendar' class="p-2 d-flex">
 
