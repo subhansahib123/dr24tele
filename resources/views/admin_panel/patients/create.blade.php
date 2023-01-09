@@ -41,13 +41,13 @@
 
                                         <div class="form-group">
                                             <label for="Name">First Name *</label>
-                                            <input type="text" class="form-control" onkeydown="return /[a-z]/i.test(event.key)" name="name" value="" id="Name" placeholder="Enter First Name">
+                                            <input type="text" class="form-control" onkeydown="return /[a-z\ ]/i.test(event.key)" name="name" value="" id="Name" placeholder="Enter First Name">
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-12 my-0">
                                         <div class="form-group">
                                             <label class="form-label" for="middleName">Last Name</label>
-                                            <input class="form-control" id="middleName" placeholder="Enter Last Name" onkeydown="return /[a-z]/i.test(event.key)" name="middlename" value="">
+                                            <input class="form-control" id="middleName" placeholder="Enter Last Name" onkeydown="return /[a-z\ ]/i.test(event.key)" name="middlename" value="">
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-12 my-0">
@@ -64,7 +64,7 @@
                                             </div>
                                             <div class="row ">
 
-                                                <input type="text" id="txtPhone" name="" onkeydown="return /[0-9]/i.test(event.key)" class="form-control">
+                                                <input type="text" id="txtPhone" name=""   maxlenght="10" class="form-control">
                                                 <input type="hidden" class="form-control" id="phoneNumber">
                                             </div>
 

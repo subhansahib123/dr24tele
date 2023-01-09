@@ -60,7 +60,7 @@
                                                 <option value="">select</option>
                                                 @if($departments)
                                                 @foreach ($departments as $department)
-                                                <option value="{{$department->uuid}}">{{$department->name}}</option>
+                                                <option value="{{$department->uuid}}">{{$department->display_name}}</option>
                                                 @endforeach
                                                 @endif
                                             </select>

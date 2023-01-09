@@ -32,18 +32,18 @@
                             <form class="form-horizontal" action="{{route('membersUpdated')}}" method="POST">
                                 @csrf
                                 <div class=" row mb-1">
-                                    <label for="memberName" class="col-md-3 form-label">Members Name</label>
+                                    <label for="memberName" class="col-md-3 form-label">Members Name *</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" value="{{$member->name}}" name="memberName" id="memberName" placeholder="Name">
+                                        <input type="text" class="form-control" onkeydown="return /[a-z\ ]/i.test(event.key)" value="{{$member->name}}" required name="memberName" id="memberName" placeholder="Name">
                                     </div>
                                     @if ($errors->has('name'))
                                     <span class="text-danger text-left">{{ $errors->first('name') }}</span>
                                     @endif
                                 </div>
                                 <div class=" row mb-1">
-                                    <label for="email" class="col-md-3 form-label">Members E-mail</label>
+                                    <label for="email" class="col-md-3 form-label">Members E-mail *</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" value="{{$member->email}}" name="email" id="email" placeholder="email@gmail.com">
+                                        <input type="email" class="form-control" value="{{$member->email}}" required name="email" id="email" placeholder="email@gmail.com">
                                     </div>
                                     @if ($errors->has('email'))
                                     <span class="text-danger text-left">{{ $errors->first('email') }}</span>
@@ -53,9 +53,9 @@
 
 
                                 <div class=" row mb-1">
-                                    <label for="relation" class="col-md-3 form-label">Relation with Members</label>
+                                    <label for="relation" class="col-md-3 form-label">Relation with Members *</label>
                                     <div class="col-md-9">
-                                        <select name="relation" id="relation" class="form-control">
+                                        <select name="relation" id="relation" required class="form-control">
                                             <option value="">Select</option>
                                             <option value="spouse" {{($member->relation=='spouse')?'selected':''}}>Spouse/Wife</option>
                                             <option value="husband" {{($member->relation=='husband')?'selected':''}}>Husband</option>
@@ -77,17 +77,17 @@
                                 <div class=" mb-4">
                                     <div class="row">
                                         <div class="col-3">
-                                            <label for="currentPhoneNumber"> Phone Number </label>
+                                            <label for="currentPhoneNumber"> Phone Number  *</label>
                                         </div>
                                         <div class="col">
-                                            <input type="text" id="txtPhone" class="form-control" value="{{$member->phone_number}}" placeholder="+91 *** ******">
+                                            <input type="text" id="txtPhone" required maxlength="10" class="form-control" value="{{$member->phone_number}}" placeholder="+91 *** ******">
                                             <input type="hidden" class="form-control" id="phoneNumber">
                                         </div>
                                     </div>
                                 </div>
 
                                 <div class="form-group card-footer mx-0 px-0 text-end">
-                                    <!-- <label for="role">Roles</label> -->
+                                    <!-- <label for="role">Roles *</label> -->
                                     <button type="submit" class="btn btn-success">Update</button>
 
 

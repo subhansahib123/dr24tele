@@ -36,13 +36,13 @@
                                     <input type="hidden" name="parentOrgId" value="{{$organization->uuid}}">
                                     <label for="displayname" class="col-md-3 form-label"> Display Name *</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" value="{{$depData->display_name}}" onkeydown="return /[a-z]/i.test(event.key)" name="displayname" id="displayname" placeholder="Display Name" autocomplete="displayname">
+                                        <input type="text" class="form-control" value="{{$depData->display_name}}" onkeydown="return /[a-z\ ]/i.test(event.key)" name="displayname" id="displayname" placeholder="Display Name" autocomplete="displayname">
                                     </div>
                                     @if ($errors->has('displayname'))
                                     <span class="text-danger text-left">{{ $errors->first('displayname') }}</span>
                                     @endif
                                 </div>
-                                <input type="hidden" class="form-control" value="{{$depData->uuid}}" name="DepUuid" id="OrgUuid" onkeydown="return /[a-z]/i.test(event.key)" placeholder="Display Name" autocomplete="OrgUuid">
+                                <input type="hidden" class="form-control" value="{{$depData->uuid}}" name="DepUuid" id="OrgUuid" onkeydown="return /[a-z\ ]/i.test(event.key)" placeholder="Display Name" autocomplete="OrgUuid">
 
                                 <input type="hidden" class="form-control" value="{{$depData->name}}" name="name">
 

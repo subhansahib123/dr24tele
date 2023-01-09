@@ -42,15 +42,8 @@ use App\Models\Appointment;
         }
         // dd($request->all());
         $request->validate([
-            'start' => 'required',
-            'end' => 'required',
-            'price' => 'required',
-            'interval' => 'required',
-            'number_of_people' => 'required',
-            'comment' => 'required',
+            
             'days'=>'required',
-            // 'repeat'=>'required'
-            // 'status'=>'required',
 
         ]);
 

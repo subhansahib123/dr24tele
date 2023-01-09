@@ -45,7 +45,7 @@ $url=$uuid[3];
                                 <div class="col-lg-12" id="numbercon">
                                     <div class="form-group">
 {{--                                         <input id="text" name="fname" type="text" placeholder="Username Or Email Address" required=""> --}}
-                                        <input type="text" id="txtPhone"  class="form-control" placeholder="+91 *** ******">
+                                        <input type="text" id="txtPhone"  class="form-control"  maxlength="10" placeholder="+91 *** ******">
                                         <input type="hidden" class="form-control" id="phoneNumber">
                                     </div>
                                 </div>
