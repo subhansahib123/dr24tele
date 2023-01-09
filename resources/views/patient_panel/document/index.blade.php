@@ -20,11 +20,12 @@
                                     <li class="breadcrumb-item active" aria-current="page">Your Documents</li>
                                 </ol>
                             </div>
-                            <div class="col-6">
+                            <div class="col-4">
                                 <span class="card-title"><strong> Documents List</strong></span>
                             </div>
 
-                            <div class="col-1">
+                            <div class="col-3 mx-0 px-0 text-end">
+                            <a href="{{route('document.create')}}" class="btn btn-sm btn-success">Add <i class="fa fa-plus" data-toggle="tooltip" data-placement="top" title="Add New"></i></a>
                                 <a href="{{route('patient.dashboard')}}" class="btn btn-sm btn-info" data-toggle="Go Back">Back <i class="fa fa-reply"></i></a>
                             </div>
                         </div>
