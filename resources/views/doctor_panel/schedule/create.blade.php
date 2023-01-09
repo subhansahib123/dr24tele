@@ -38,8 +38,8 @@
                                             <div class="my-3 row">
                                                 <div class="form-group col-6">
 
-                                                    <label for="start">Start Date</label>
-                                                    <input type="time" class="form-control" name="start"  placeholder="Start Date" required value="{{old('start')}}">
+                                                    <label for="start">Start Date *</label>
+                                                    <input type="time" class="form-control" required name="start"  placeholder="Start Date" required value="{{old('start')}}">
                                                     @if ($errors->has('start'))
                                                     <span class="text-danger text-left">{{ $errors->first('start') }}</span>
                                                     @endif
@@ -56,29 +56,29 @@
                                                     @endif
                                                 </div>
                                                 <div class="form-group col-6">
-                                                    <label for="price">Price</label>
-                                                    <input type="number" class="form-control" name="price" id="price" placeholder="Enter Price" value="{{old('price')}}" required>
+                                                    <label for="price">Price *</label>
+                                                    <input type="number" class="form-control" required name="price" id="price" placeholder="Enter Price" value="{{old('price')}}" required>
                                                     @if ($errors->has('price'))
                                                     <span class="text-danger text-left">{{ $errors->first('price') }}</span>
                                                     @endif
                                                 </div>
                                                 <div class="form-group col-6">
-                                                    <label for="interval">Interval</label>
-                                                    <input type="number" class="form-control" name="interval" value="" id="interval" placeholder="Enter Interval" value="{{old('interval')}}" required>
+                                                    <label for="interval">Interval *</label>
+                                                    <input type="number" class="form-control" required name="interval" value="" id="interval" placeholder="Enter Interval" value="{{old('interval')}}" required>
                                                     @if ($errors->has('interval'))
                                                     <span class="text-danger text-left">{{ $errors->first('interval') }}</span>
                                                     @endif
                                                 </div>
                                                 <div class="form-group col-6">
-                                                    <label for="comment">Comments</label>
-                                                    <textarea class="form-control" rows="2" placeholder="Enter Comments About Schedule" value="{{old('comment')}}" name="comment" id="comment"></textarea>
+                                                    <label for="comment">Comments *</label>
+                                                    <textarea class="form-control" rows="2"  required placeholder="Enter Comments About Schedule" value="{{old('comment')}}" name="comment" id="comment"></textarea>
                                                     @if ($errors->has('comment'))
                                                     <span class="text-danger text-left">{{ $errors->first('comment') }}</span>
                                                     @endif
                                                 </div>
                                                 <div class="form-group col-6" id="belong_effect">
-                                                    <label for="exampleInputEmail1">People Per Slot</label>
-                                                    <input type="number" class="form-control" name="number_of_people" value="{{old('number_of_people')}}" id="number_of_people" value="{{old('number_of_people')}}" placeholder="Enter People Per Slot">
+                                                    <label for="exampleInputEmail1">People Per Slot *</label>
+                                                    <input type="number" class="form-control" required name="number_of_people" value="{{old('number_of_people')}}" id="number_of_people" value="{{old('number_of_people')}}" placeholder="Enter People Per Slot">
                                                     @if ($errors->has('number_of_people'))
                                                     <span class="text-danger text-left">{{ $errors->first('number_of_people') }}</span>
                                                     @endif
@@ -104,7 +104,7 @@
                                                 </div>
                                                 <div class="form-group col-6">
                                                     <label class="form-label" for="repeat">Repeat
-                                                        <input type="checkbox" class="form-checkbox" id="repeat" name="repeat" value="{{old('repeat')}}">
+                                                        <input type="checkbox"  class="form-checkbox" id="repeat" name="repeat" value="{{old('repeat')}}">
                                                         @if ($errors->has('repeat'))
                                                         <span class="text-danger text-left mt-4 ">{{ $errors->first('repeat') }}</span>
                                                         @endif
@@ -114,7 +114,7 @@
                                                 </div>
                                                 <div class="form-group col-6">
                                                     <label class="form-label" for="status">Staus
-                                                        <input type="checkbox" class="form-checkbox" id="status" name="status" value="{{old('status')}}">
+                                                        <input type="checkbox" class="form-checkbox" required id="status" name="status" value="{{old('status')}}">
                                                         @if ($errors->has('status'))
                                                         <span class="text-danger text-left mt-4 ">{{ $errors->first('status') }}</span>
                                                         @endif

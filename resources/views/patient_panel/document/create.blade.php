@@ -34,7 +34,7 @@
                                 <div class=" row mb-1">
                                     <label for="memberName" class="col-md-3 form-label">Title</label>
                                     <div class="col-md-9">
-                                        <input type="text" class="form-control" value="{{old('title')}}" name="title" id="title" placeholder="Document Name">
+                                        <input type="text" class="form-control" onkeydown="return /[a-z\ ]/i.test(event.key)" value="{{old('title')}}" name="title" id="title" placeholder="Document Name">
                                     </div>
                                     @if ($errors->has('title'))
                                     <span class="text-danger text-left">{{ $errors->first('title') }}</span>

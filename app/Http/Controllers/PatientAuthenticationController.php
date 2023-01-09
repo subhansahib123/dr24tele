@@ -85,7 +85,7 @@ class PatientAuthenticationController extends Controller
         if ($user) {
 
             if (!isset($user->patient))
-            return redirect()->back()->withErrors(['error' => 'Please register as Patient to Login']);
+            return redirect()->route('patient.register')->withErrors(['error' => 'Please register as Patient to Login']);
 
             Auth::login($user);
             session(['loggedInUser' => $user]);
@@ -174,13 +174,6 @@ class PatientAuthenticationController extends Controller
     }
     public function patientSignUp(Request $request)
     {
-        $request->validate([
-            'givenName' => 'required|string',
-            'email' => 'required',
-            'gender_code' => 'required|string',
-            'phoneNumber' => 'required|string',
-            'dateOfBirth' => 'required',
-        ]);
         if ($request->hasFile('image')) {
             $request->validate(['image' => 'required|mimes:jpg,png,gif,svg,jpeg|dimensions:min_width=300,min_height=350']);
             $getImage = date('Y') . '/' . time() . '-' . rand(0, 999999) . '.' . $request->image->getClientOriginalExtension();
@@ -188,13 +181,6 @@ class PatientAuthenticationController extends Controller
             $image = $getImage;
         } else {
             $image = '';
-        }
-        if ($request->hasFile('reg_img')) {
-            $getImage = date('Y') . '/' . time() . '-' . rand(0, 999999) . '.' . $request->reg_img->getClientOriginalExtension();
-            $request->reg_img->move(public_path('uploads/patient/registrationCard') . date('Y'), $getImage);
-            $reg_img = $getImage;
-        } else {
-            $reg_img = '';
         }
         // dd($image,$reg_img);
         $user = User::firstOrCreate([
@@ -209,9 +195,13 @@ class PatientAuthenticationController extends Controller
             'image' => $image
 
         ]);
-        $orgUuid = $request->orguuid;
-        // dd($user, $orgUuid);
-        return $this->patientMapped($user, $orgUuid);
+        Patient::firstOrCreate([
+            'user_id' => $user->id,
+            'organization_id' => 1,
+            'status' => 1,
+            'image' => 'null',
+        ]);
+        return redirect()->route('patient.login')->withSuccess(__('Patient Successfully Created'));
     }
     public function store_user(Request $request)
     {
@@ -428,32 +418,6 @@ class PatientAuthenticationController extends Controller
                     return ['error' => $patients->message];
                 }
             }
-        } catch (\Exception $e) {
-
-
-            return ['error' => __($e->getMessage())];
-        }
-    }
-    protected function patientMapped($user, $orgUuid)
-    {
-
-        try {
-
-            $user = User::where('PersonUuid', $user->PersonUuid)->first();
-            $org = Organization::where('uuid', $orgUuid)->first();
-            $patient = Patient::firstOrCreate([
-                'user_id' => $user->id,
-                'organization_id' => $org->id,
-                'status' => 1,
-            ]);
-            $patientOrg = UsersOrganization::firstOrCreate([
-
-                'status' => 1,
-                'registration_code' => '123ABC',
-                'user_id' => $user->id,
-                'organization_id' => $org->id
-            ]);
-            return redirect()->route('patient.login')->withSuccess(__('Patient is Successfully created'));
         } catch (\Exception $e) {
 
 

@@ -79,7 +79,7 @@ function sendOTP() {
             window.confirmationResult = confirmationResult;
             coderesult = confirmationResult;
             console.log(coderesult);
-            $("#successAuth").text("Message sent");
+            $("#successAuth").text("OTP Sended Successfully.");
             $("#successAuth").show();
             $("#numbercon").hide();
             $("#verfiycon").show();
@@ -132,7 +132,7 @@ function verify() {
         .then(function (result) {
             var user = result.user;
             console.log(user);
-            $("#successAuth").text("Auth is successful");
+            $("#successAuth").text("Welcome!");
             $("#successAuth").show();
             $("#login_form").submit();
         })

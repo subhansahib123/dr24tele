@@ -34,9 +34,9 @@
                             <div class="row">
                                 <div class="col-lg-6   col-md-6 col-sm-12">
                                     <div class="form-group">
-                                        <label> Name</label>
+                                        <label> Name *</label>
 
-                                        <input type="text" value="{{old('givenName')}}" name="givenName" class="form-control" placeholder="Enter Name">
+                                        <input type="text" value="{{old('givenName')}}" required name="givenName" name="username" onkeydown="return /[a-z\ ]/i.test(event.key)" class="form-control" placeholder="Enter Name">
                                         @if ($errors->has('givenName'))
                                         <span class="text-danger text-left">{{ $errors->first('givenName') }}</span>
                                         @endif
@@ -44,9 +44,9 @@
                                 </div>
                                 <div class="col-lg-6   col-md-6 col-sm-12">
                                     <div class="form-group">
-                                        <label>Email</label>
+                                        <label>Email *</label>
 
-                                        <input type="text" value="{{old('email')}}" name="email" class="form-control" placeholder="Enter Email">
+                                        <input type="email" value="{{old('email')}}" required  onkeydown="return /[a-z,0-9\@\.]/i.test(event.key)" name="email" class="form-control" placeholder="Enter Email">
                                         @if ($errors->has('email'))
                                         <span class="text-danger text-left">{{ $errors->first('email') }}</span>
                                         @endif
@@ -55,9 +55,9 @@
 
                                 <div class="col-lg-6   col-md-6 col-sm-12">
                                     <div class="form-group">
-                                        <label>Gender</label>
+                                        <label>Gender *</label>
 
-                                        <select name="gender_code" class="form-select form-select-lg mb-3"">
+                                        <select name="gender_code" required class="form-select form-select-lg mb-3">
                                                 <option  value="">Select </option>
                                                  <option {{old('gender_code')=='F'?'selected':''}} value=" F">Female</option>
                                             <option {{old('gender_code')=='M'?'selected':''}} value="M">Male</option>
@@ -73,7 +73,7 @@
                                 </div>
                                 <div class="col-lg-6   col-md-6 col-sm-12">
                                     <div class="form-group">
-                                        <label>Date of Birth</label>
+                                        <label>Date of Birth </label>
 
                                         <input type="date" id="number" value="{{old('dateOfBirth')}}" name="dateOfBirth" class="form-control" placeholder="Enter Date of Birth*">
                                         @if ($errors->has('dateOfBirth'))
@@ -83,9 +83,9 @@
                                 </div>
                                 <div class="col-lg-6   col-md-6 col-sm-12">
                                     <div class="form-group">
-                                        <label>Phone Number</label>
+                                        <label>Phone Number *</label>
 
-                                        <input type="text" id="txtPhone" class="form-control" placeholder="+91 *** ******">
+                                        <input type="text" id="txtPhone" required maxlength="10" class="form-control" placeholder="+91 *** ******">
                                         <input type="hidden" class="form-control" id="phoneNumber">
                                         @if ($errors->has('phoneNumber'))
                                         <span class="text-danger text-left">{{ $errors->first('phoneNumber') }}</span>
@@ -93,14 +93,14 @@
                                     </div>
                                 </div>
                                 <div class=" col-lg-6 col-md-8 col-sm-12 mb-3">
-                                    <label for="image" class="col-md-3 form-label">Picture</label>
+                                    <label for="image" class="col-md-3 form-label">Picture </label>
                                     <div class="col-md-9">
                                         <input class="form-control  mt-3" type="file" name="image" id="image">
                                     </div>
                                 </div>
-                                <div class="col-lg-6   col-md-6 col-sm-12">
+                                <!-- <div class="col-lg-6   col-md-6 col-sm-12">
                                     <div class="form-group">
-                                        <label> Organisation</label>
+                                        <label> Organisation *</label>
 
                                         <select name="orguuid" class="form-select form-select-lg mb-3">
                                             <option value="">Select </option>
@@ -113,7 +113,7 @@
                                         <span class="text-danger text-left">{{ $errors->first('orguuid') }}</span>
                                         @endif
                                     </div>
-                                </div>
+                                </div> -->
 
                                 <!-- <div class="col-lg-12 col-12 col-md-12 col-sm-12" id="organization">
                                     <div class="form-group row">
@@ -130,7 +130,7 @@
 
                                 <div class="col-lg-6 col-6 col-md-6 col-sm-12" style="display:none" id="reg_img">
                                     <div class="form-group">
-                                        <label>Reg. Card</label>
+                                        <label>Reg. Card *</label>
 
                                         <input type="file" name="reg_img" class="form-control">
                                         @if ($errors->has('reg_img'))
@@ -151,7 +151,7 @@
                                 </div>
                                 <div class="col-lg-12 col-12 col-md-12 col-sm-12" style="display:none" id="atm_card">
                                     <div class="form-group">
-                                        <label>Pay Fee by your Atm Card</label>
+                                        <label>Pay Fee by your Atm Card *</label>
 
                                         <input type="number" name="atm_card" placeholder="Card Number" class="form-control">
 
@@ -171,7 +171,7 @@
                                             <input type="checkbox" id="test_1">
                                             <label for="test_1">
                                                 Remember Me
-                                            </label>
+                                             *</label>
                                         </div>
                                     </div> --}}
                                 {{-- <div class="col-lg-6 col-md-6 col-sm-6 col-6 text-end mb-20">

@@ -40,7 +40,7 @@
                                             <div class="my-3 row">
                                                 <div class="form-group col-6">
 
-                                                    <label for="start">Start Date</label>
+                                                    <label for="start">Start Date *</label>
                                                     <input type="text" class="form-control" name="start" id="start" placeholder="Start Date" required value="{{$schedule->start}}">
                                                     @if ($errors->has('start'))
                                                     <span class="text-danger text-left">{{ $errors->first('start') }}</span>
@@ -50,44 +50,44 @@
                                                 <div class="form-group col-6">
 
 
-                                                    <label for="end">End Date</label>
+                                                    <label for="end">End Date *</label>
 
-                                                    <input type="text" class="form-control" name="end" id="end" placeholder="End Date" required value="{{$schedule->end}}">
+                                                    <input type="text" class="form-control" name="end" id="end" placeholder="End Date"  value="{{$schedule->end}}">
                                                     @if ($errors->has('end'))
                                                     <span class="text-danger text-left">{{ $errors->first('end') }}</span>
                                                     @endif
                                                 </div>
                                                 <div class="form-group col-6">
-                                                    <label for="price">Price</label>
+                                                    <label for="price">Price *</label>
                                                     <input type="number" class="form-control" name="price" id="price" placeholder="Enter Price" value="{{$schedule->price}}" required>
                                                     @if ($errors->has('price'))
                                                     <span class="text-danger text-left">{{ $errors->first('price') }}</span>
                                                     @endif
                                                 </div>
                                                 <div class="form-group col-6">
-                                                    <label for="interval">Interval</label>
+                                                    <label for="interval">Interval *</label>
                                                     <input type="number" class="form-control" name="interval" id="interval" placeholder="Enter Interval" value="{{$schedule->interval}}" required>
                                                     @if ($errors->has('interval'))
                                                     <span class="text-danger text-left">{{ $errors->first('interval') }}</span>
                                                     @endif
                                                 </div>
                                                 <div class="form-group col-6">
-                                                    <label for="comment">Comments</label>
-                                                    <textarea class="form-control" value="{{old('comment')}}" name="comment" id="comment">{{$schedule->comment}}</textarea>
+                                                    <label for="comment">Comments *</label>
+                                                    <textarea class="form-control" value="{{old('comment')}}" name="comment"  required id="comment">{{$schedule->comment}}</textarea>
                                                     @if ($errors->has('comment'))
                                                     <span class="text-danger text-left">{{ $errors->first('comment') }}</span>
                                                     @endif
                                                 </div>
                                                 <div class="form-group col-6" id="belong_effect">
-                                                    <label for="exampleInputEmail1">People Per Slot</label>
-                                                    <input type="number" class="form-control" name="number_of_people" id="number_of_people" value="{{$schedule->number_of_people}}" placeholder="Enter People Per Slot">
+                                                    <label for="exampleInputEmail1">People Per Slot *</label>
+                                                    <input type="number" class="form-control" name="number_of_people" id="number_of_people" value="{{$schedule->number_of_people}}" required placeholder="Enter People Per Slot">
                                                     @if ($errors->has('number_of_people'))
                                                     <span class="text-danger text-left">{{ $errors->first('number_of_people') }}</span>
                                                     @endif
                                                 </div>
                                                 <div class="form-group col-4">
-                                                    <label class="form-label" for="status">Staus
-                                                        <input type="checkbox" class="form-checkbox" id="status" name="status" {{$schedule->status==1?'checked':''}}>
+                                                    <label class="form-label" for="status">Status
+                                                        <input type="checkbox" class="form-checkbox" required id="status" name="status" {{$schedule->status==1?'checked':''}}>
                                                         @if ($errors->has('status'))
                                                         <span class="text-danger text-left">{{ $errors->first('status') }}</span>
                                                         @endif

@@ -3,7 +3,11 @@
 <?php
 $pre_url=url()->previous();
 $uuid= explode("/",$pre_url);
-$url=$uuid[3];
+if($url=$uuid[3]){
+    $url=$uuid[3];
+}else{
+    $url='Not Coming from Appointment page';
+}
 ?>
 <div class="content-wrapper">
 

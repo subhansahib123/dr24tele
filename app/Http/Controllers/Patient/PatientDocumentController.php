@@ -61,7 +61,7 @@ class PatientDocumentController extends Controller
                 'doc_file' => $image,
                 'patient_id' => Auth::user()->patient->id
             ]);
-            return redirect()->back()->with('success', 'File Upload Success');
+            return redirect()->route('document.index')->with('success', 'File Upload Success');
 
         } catch (\Exception $e) {
             return redirect()->back()->withErrors(['error' => __($e->getMessage())]);
