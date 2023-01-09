@@ -1,4 +1,4 @@
-@extends('doctor_panel.layout.master');
+@extends('patient_panel.layout.master');
 
 @section('content')
 

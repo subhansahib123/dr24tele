@@ -78,7 +78,7 @@
                                     <div class="col-lg-6 col-md-6 col-sm-12">
                                         <div class="form-group">
                                             <label class="form-label" for="gender">Gender</label>
-                                            <select class="form-select" name="gender_code" id="gender">
+                                            <select class="form-select" name="gender_code" required id="gender">
                                                 <option value="">
                                                     Select
                                                 </option>
@@ -102,7 +102,7 @@
                                         </div>
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-12 mt-2">
-                                        <label for="Birth">Profile Image <strong> 300*350</strong> *</label>
+                                        <label for="Birth">Profile Image <strong> 300*350</strong> </label>
                                         <input type="file" name="image" id="image" class="form-control">
                                     </div>
                                     <input type="hidden" name="uuid" value="{{$uuid}}">

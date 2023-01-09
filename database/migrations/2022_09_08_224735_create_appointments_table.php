@@ -20,7 +20,7 @@ class CreateAppointmentsTable extends Migration
             $table->time('start');
             $table->time('end');
             $table->string('interval');
-            $table->string('coupon');
+            $table->string('coupon')->nullable();
             $table->integer('price');
             $table->unsignedBigInteger('doctor_id');
             $table->unsignedBigInteger('patient_id');

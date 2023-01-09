@@ -82,7 +82,7 @@
 
                                         <div class="form-group">
                                             <label class="form-label" for="gender">Gender</label>
-                                            <select class="form-select" name="gender_code" id="gender">
+                                            <select class="form-select" required name="gender_code" id="gender">
                                                 <option value="">
                                                     Select
                                                 </option>

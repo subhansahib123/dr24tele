@@ -64,7 +64,7 @@
                         </div>
                     </div>
                     <div class="sidebar-widget categories">
-                        <h4>Department Specialization</h4>
+                        <h4> Specializations </h4>
                         <div class="category-box">
                             <ul class="list-style">
                                 @foreach($departmentSpecializations as $departmentSpecialization)
