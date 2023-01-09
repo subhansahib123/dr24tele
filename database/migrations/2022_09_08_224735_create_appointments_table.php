@@ -9,7 +9,7 @@ class CreateAppointmentsTable extends Migration
     /**
      * Run the migrations.
      *
-     * 
+     *
      * @return void
      */
     public function up()
@@ -17,14 +17,20 @@ class CreateAppointmentsTable extends Migration
         Schema::create('appointments', function (Blueprint $table) {
             $table->id();
             $table->string('description')->nullable();
-            $table->dateTime('start');
-            $table->dateTime('end');
+            $table->time('start');
+            $table->time('end');
+            $table->string('interval');
+            $table->string('coupon');
+            $table->integer('price');
             $table->unsignedBigInteger('doctor_id');
             $table->unsignedBigInteger('patient_id');
-            $table->unsignedBigInteger('slot_id');
+            $table->unsignedBigInteger('schedule_id');
             $table->foreign('doctor_id')->references('id')->on('doctors')->onDelete('cascade');
             $table->foreign('patient_id')->references('id')->on('patients')->onDelete('cascade');
-            $table->foreign('slot_id')->references('id')->on('schedules')->onDelete('cascade');
+            $table->foreign('schedule_id')->references('id')->on('schedules')->onDelete('cascade');
+             $table->boolean('Call_Status')->default(0);
+            $table->string('appointment_link')->default(null);
+            $table->date('appointment_date');
         });
     }
 

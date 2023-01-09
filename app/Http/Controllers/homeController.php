@@ -19,7 +19,7 @@ use App\Models\DepartmentSpecializations;
 use App\Models\DoctorSpecialization;
 use App\Models\SpecializedDepartment;
 use App\Models\State;
-
+use Carbon\Carbon;
 class homeController extends Controller
 {
     public function index(Request $request)
@@ -199,11 +199,15 @@ class homeController extends Controller
     }
     public function scheduleOfDoctor($doctor_id, $date)
     {
-        $date = $date . " 00:00:00";
-        $user_id = Doctor::find($doctor_id);
-        $schdeules = Schedule::whereDate('start', '>=', $date . " 00:00:00")
 
-            ->where('doctor_id', $doctor_id)->get();
+
+        $timeZone=implode('/',explode('-',$date));
+        $user_id = Doctor::find($doctor_id);
+        $schdeules = Schedule::where('doctor_id', $doctor_id)->get();
+        foreach($schdeules as $schdeule){
+           $schdeule->start= Carbon::parse($schdeule->start)->timezone($timeZone)->format('h:i A');
+           $schdeule->end= Carbon::parse($schdeule->end)->timezone($timeZone)->format('h:i A');
+        }
         return response()->json(['schedules' => $schdeules, 'user_id' => $user_id->user_id]);
     }
     public function daySchedule($id)
@@ -233,6 +237,9 @@ class homeController extends Controller
         //         "source" => $request->stripeToken,
         //         "description" => "Making test payment."
         // ]);
+        Schedule::where('id',$data['schedule_id'])->decrement('number_of_people', 1);
+        $data['start']=Carbon::createFromTimeString($data['start'],'Asia/Calcutta')->format('H:i');
+        $data['end']=Carbon::createFromTimeString($data['end'],'Asia/Calcutta')->format('H:i');
         $appointment = Appointment::create($data);
         // $coupon = Coupon::where('title', '=', $data->coupon)->first();
         // PatientCoupon::create(['organization_id' => $data->hospital,

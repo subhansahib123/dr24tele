@@ -434,57 +434,57 @@ $(function(e) {
     });
 
     // WORLD MAP MARKER
-    $('#world-map-markers1').vectorMap({
-        map: 'world_mill_en',
-        scaleColors: ['#6c5ffc', '#e82646', '#05c3fb'],
+    // $('#world-map-markers1').vectorMap({
+    //     map: 'world_mill_en',
+    //     scaleColors: ['#6c5ffc', '#e82646', '#05c3fb'],
 
-        normalizeFunction: 'polynomial',
+    //     normalizeFunction: 'polynomial',
 
-        hoverOpacity: 0.7,
+    //     hoverOpacity: 0.7,
 
-        hoverColor: false,
+    //     hoverColor: false,
 
-        regionStyle: {
+    //     regionStyle: {
 
-            initial: {
+    //         initial: {
 
-                fill: '#edf0f5'
-            }
-        },
-        markerStyle: {
-            initial: {
-                r: 6,
-                'fill': '#6c5ffc',
-                'fill-opacity': 0.9,
-                'stroke': '#fff',
-                'stroke-width': 9,
-                'stroke-opacity': 0.2
-            },
+    //             fill: '#edf0f5'
+    //         }
+    //     },
+    //     markerStyle: {
+    //         initial: {
+    //             r: 6,
+    //             'fill': '#6c5ffc',
+    //             'fill-opacity': 0.9,
+    //             'stroke': '#fff',
+    //             'stroke-width': 9,
+    //             'stroke-opacity': 0.2
+    //         },
 
-            hover: {
-                'stroke': '#fff',
-                'fill-opacity': 1,
-                'stroke-width': 1.5
-            }
-        },
-        backgroundColor: 'transparent',
-        markers: [{
-            latLng: [40.3, -101.38],
-            name: 'USA',
-        }, {
-            latLng: [22.5, 1.51],
-            name: 'India'
-        }, {
-            latLng: [50.02, 80.55],
-            name: 'Bahrain'
-        }, {
-            latLng: [3.2, 73.22],
-            name: 'Maldives'
-        }, {
-            latLng: [35.88, 14.5],
-            name: 'Malta'
-        }, ]
-    });
+    //         hover: {
+    //             'stroke': '#fff',
+    //             'fill-opacity': 1,
+    //             'stroke-width': 1.5
+    //         }
+    //     },
+    //     backgroundColor: 'transparent',
+    //     markers: [{
+    //         latLng: [40.3, -101.38],
+    //         name: 'USA',
+    //     }, {
+    //         latLng: [22.5, 1.51],
+    //         name: 'India'
+    //     }, {
+    //         latLng: [50.02, 80.55],
+    //         name: 'Bahrain'
+    //     }, {
+    //         latLng: [3.2, 73.22],
+    //         name: 'Maldives'
+    //     }, {
+    //         latLng: [35.88, 14.5],
+    //         name: 'Malta'
+    //     }, ]
+    // });
 
 });
 

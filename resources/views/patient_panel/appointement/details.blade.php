@@ -72,7 +72,7 @@
                                             ?>
                                             @if($images[1]!= '')
                                             <div class="form-group col-6">
-                                                
+
                                                 <label for="interval">Reports</label>
                                                 <img src="{{asset('uploads/patient/previous_reports/'. $images[1])}}" alt="profile-user">
                                             </div>

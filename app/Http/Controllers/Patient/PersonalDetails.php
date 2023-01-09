@@ -35,7 +35,7 @@ class PersonalDetails extends Controller
     public function phoneNumberUpdated(Request $request)
     {
         $user = User::with('doctor')->where('phone_number', auth()->user()->phone_number)->first();
-        // dd($request->all(),$user);   
+        // dd($request->all(),$user);
         if (!Auth::check())
             return redirect()->route('logout')->withErrors(['error' => 'Login Token Expired ! Please login Again']);
 
@@ -54,9 +54,9 @@ class PersonalDetails extends Controller
     public function appointmentDetails($id)
     {
         $appointment=Appointment::where('id',$id)->first();
-        $schedule=Schedule::where('id',$appointment->slot_id)->first();
+        $schedule=Schedule::where('id',$appointment->schedule_id)->first();
         $patient=Patient::where('id',$appointment->patient_id)->first();
-        // dd($appointment->patient_id);
+        // dd($schedule);
         return view('patient_panel.appointement.details',compact('appointment','schedule','patient'));
     }
     public function uploadRecords(Request $request)

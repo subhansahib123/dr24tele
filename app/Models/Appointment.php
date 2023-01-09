@@ -17,7 +17,11 @@ class Appointment extends Model
         'patient_id',
         'Call_Status',
         'appointment_link',
-        'slot_id'
+        'schedule_id',
+        'appointment_date',
+        'interval',
+        'price',
+        'coupon'
 
     ];
     public $timestamps = false;

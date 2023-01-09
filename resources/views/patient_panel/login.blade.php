@@ -70,7 +70,9 @@ $url=$uuid[3];
 
                                 <div class="col-lg-12" id="sendoptbtn">
                                     <div class="form-group">
-                                        <button type="button" class="btn style1 w-100 d-block" onclick="sendOTP();">
+                                        <button type="button" class="btn style1 w-100 d-block"
+                                        onclick="sendOTP();"
+                                        >
                                             Send OTP
                                         </button>
 
