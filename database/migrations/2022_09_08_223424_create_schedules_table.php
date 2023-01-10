@@ -17,6 +17,8 @@ class CreateSchedulesTable extends Migration
             $table->id();
             $table->string('status');
             // $table->string('slot_id')->nullable();
+            $table->date('start_date')->default(null);
+            $table->date('end_date')->default(null);
             $table->time('start');
             $table->time('end');
              $table->boolean('repeat')->default(0);
