@@ -108,9 +108,13 @@ class ScheduleController extends Controller
 
         $start=new Carbon($data['start']);
         $end=new Carbon($data['end']);
+
         $data['start']=$start;
 
         $data['end']=$end;
+        $data['start_date']=$request->start_date;
+        // if($request->start_date)
+        // $data['end']=$end;
 
 
         // dd($data);

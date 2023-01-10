@@ -29,6 +29,7 @@ use App\Models\Appointment;
     //store schedule
     public function insert(Request $request)
     {
+        // dd($request->all());
         $data = $request->all();
         if ($request->has('status')) {
             $data['status'] = 1;
@@ -46,15 +47,18 @@ use App\Models\Appointment;
             'days'=>'required',
 
         ]);
-
+// dd($data);
+        $start_date = new Carbon($data['start_date']);
+        $end_date = new Carbon($data['end_date']);
         $start = new Carbon($data['start']);
         $end = new Carbon($data['end']);
         $data['start'] = $start->format("H:I");
+        $data['start_date']=$start_date;
 
         $data['end'] = $end->format("H:I");
+        if($request->end_date)
         $data['days']=implode($data['days'],',');
-        $data['slot_belong']=1;
-
+        $data['end_date']=$end_date;
         // dd($data);
         $schedule = Schedule::create($data);
 

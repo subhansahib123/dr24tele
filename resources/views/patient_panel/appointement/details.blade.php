@@ -65,26 +65,6 @@
                                                 <input type="number" class="form-control" name="interval" id="interval" disabled value="{{$appointment->interval}}" placeholder="Enter Price">
 
                                             </div>
-
-                                            @if($patient->image != '')
-                                            <?php
-                                            $images = explode(",", $patient->image);
-                                            ?>
-                                            @if($images[1]!= '')
-                                            <div class="form-group col-6">
-
-                                                <label for="interval">Reports</label>
-                                                <img src="{{asset('uploads/patient/previous_reports/'. $images[1])}}" alt="profile-user">
-                                            </div>
-                                            @endif
-
-                                            @endif
-                                            <div class="form-group col-12">
-                                                <label for="upload">Upload Records</label>
-                                                <input type="checkbox" name="upload" id="upload" onclick="ShowHideDiv(this)">
-                                            </div>
-
-
                                         </div>
                                         <div id="dvPassport" style="display: none">
                                             <form action="{{route('uploadRecords')}}" style="display: hidden;" method="post" class="form-horizontal" enctype="multipart/form-data">
