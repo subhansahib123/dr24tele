@@ -58,7 +58,16 @@
                                                 </div>
                                                 <div class="form-group col-6">
 
-                                                    <label for="start">Start Date * required</label>
+                                                    <label for="start_date">Start Date * </label>
+                                                    <input type="date" class="form-control" name="start_date" id="start_date" placeholder="Start Date" required value="{{old('start_date')}}">
+                                                    @if ($errors->has('start'))
+                                                    <span class="text-danger text-left">{{ $errors->first('start') }}</span>
+                                                    @endif
+
+                                                </div>
+                                                <div class="form-group col-6">
+
+                                                    <label for="start">Start time * </label>
                                                     <input type="text" class="form-control" name="start" id="start" placeholder="Start Date" required value="{{old('start')}}">
                                                     @if ($errors->has('start'))
                                                     <span class="text-danger text-left">{{ $errors->first('start') }}</span>
@@ -68,7 +77,7 @@
                                                 <div class="form-group col-6">
 
 
-                                                    <label for="end">End Date *</label>
+                                                    <label for="end">End Time *</label>
 
                                                     <input type="text" class="form-control" required name="end" id="end" placeholder="End Date" required value="{{old('end')}}">
                                                     @if ($errors->has('end'))
@@ -77,7 +86,7 @@
                                                 </div>
                                                 <div class="form-group col-6">
                                                     <label for="price">Price *</label>
-                                                    <input type="number" class="form-control" required name="price" id="price"  maxlenght="10" placeholder="Enter Price" value="{{old('price')}}" required>
+                                                    <input type="number" class="form-control" required name="price" id="price" maxlenght="10" placeholder="Enter Price" value="{{old('price')}}" required>
                                                     @if ($errors->has('price'))
                                                     <span class="text-danger text-left">{{ $errors->first('price') }}</span>
                                                     @endif
@@ -105,13 +114,13 @@
                                                     @endif
                                                 </div>
                                                 <div class="form-group col-4">
-                                                    <label class="form-label" for="status">Status 
-                                                        <input type="checkbox" class="form-checkbox pt-3 mx-2" required id="status"  name="status" value="{{old('status')}}">
+                                                    <label class="form-label" for="status">Status
+                                                        <input type="checkbox" class="form-checkbox pt-3 mx-2" required id="status" name="status" value="{{old('status')}}">
                                                         @if ($errors->has('status'))
                                                         <span class="text-danger text-left">{{ $errors->first('status') }}</span>
                                                         @endif
 
-                                                     </label>
+                                                    </label>
 
                                                 </div>
                                                 <div class=" px-0 mt-4  card-footer text-end">

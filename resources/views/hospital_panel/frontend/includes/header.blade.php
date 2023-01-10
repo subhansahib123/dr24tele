@@ -336,10 +336,15 @@ P<!-- app-Header -->
                                     <?php
                                     
                                     $image=Auth::user()->image;
-                                    $file_path=asset('uploads/organization/management/'. $image);
+                                    $pic=explode('/',$image);
+                                    if(isset($pic[1])){
+                                        $file_path=asset('uploads/organization/management/'.$image);
+                                    }else{
+                                        $file_path=asset('public_assets\img\patinetVectors/'.$image);
+                                    }
                                     ?>
 
-                                    <img  src="{{($file_path)? asset('uploads/organization/management/'. $image):asset('public_assets/img/patinetVectors/'.$image)}}" alt="profile-user"
+                                    <img  src="{{$file_path}}" alt="profile-user"
                                         class="avatar  profile-user brround cover-image">
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
