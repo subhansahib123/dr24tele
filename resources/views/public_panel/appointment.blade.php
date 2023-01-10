@@ -19,7 +19,8 @@
                 <div class="col-md-9 mx-auto">
                     <div class="row appointment-form-ma">
                         <div class="col-md-12 mb-5" id="book_appointment_submit">
-                            <h3 class="title text-center">Booking an Appointment <i class="icofont icofont-thin-right"></i></h3>
+                            <h3 class="title text-center">Booking an Appointment <i class="icofont icofont-thin-right"></i>
+                            </h3>
                         </div>
                         <div class="col-md-7">
                             <div class="row">
@@ -35,12 +36,13 @@
                             </form>
                             <form id="appointmentForm" class="container">
                                 <div class="tab">
+                                    <h3>Select Date</h3>
                                     <div id='calendar' class="p-2 d-flex"></div>
-                                    <div class="schedules p-2 d-flex" style="display: none"
-                                         id="scheduleDoctor">
+                                    <div class="schedules p-2 d-flex" style="display: none" id="scheduleDoctor">
                                     </div>
                                 </div>
                                 <div class="tab">
+                                    <h3 id="selected_date">Selected Date</h3>
                                     <p><label>Comments</label></p>
                                     <p>
                                         <textarea rows="5" cols="5" class="form-control" name="comments" required></textarea>
@@ -48,7 +50,7 @@
                                     <div class="row ms-2 my-2" id="hospital-check-is">
                                         <div class="mb-3 form-check">
                                             <input type="checkbox" class="form-check-input me-2 p-0" name="hospital-check"
-                                                   id="hospital-check" value="1">
+                                                id="hospital-check" value="1">
                                             <label class="form-check-label" for="hospital-check">Are you already
                                                 registered with this hospital?</label>
                                         </div>
@@ -68,7 +70,7 @@
                                                 <label>Coupon</label>
                                                 <div class="input-group">
                                                     <input type="text" id="coupon" name="coupon"
-                                                           class="form-control mb-3" placeholder="Coupon Code" />
+                                                        class="form-control mb-3" placeholder="Coupon Code" />
                                                     <button type="button" id="coupon-btn" class="btn btn-apfm">Apply
                                                     </button>
                                                 </div>
@@ -86,8 +88,8 @@
                                                             <label>CARD NUMBER</label>
                                                             <div class="input-group">
                                                                 <input type="text" id="card-number"
-                                                                       class="form-control card-num"
-                                                                       placeholder="Valid Card Number" />
+                                                                    class="form-control card-num"
+                                                                    placeholder="Valid Card Number" />
                                                                 <span class="input-group-addon"><span
                                                                         class="fa fa-credit-card "></span></span>
                                                             </div>
@@ -99,21 +101,21 @@
                                                         <div class="form-group">
                                                             <label><span class="hidden-xs">EXPIRATION MONTH</span></label>
                                                             <input id="card-month" type="text"
-                                                                   class="form-control card-expiry-month" placeholder="MM" />
+                                                                class="form-control card-expiry-month" placeholder="MM" />
                                                         </div>
                                                     </div>
                                                     <div class="col-xs-4 col-md-4 required">
                                                         <div class="form-group">
                                                             <label><span class="hidden-xs">EXPIRATION YEAR</span></label>
                                                             <input id="card-year" type="text"
-                                                                   class="form-control card-expiry-year" placeholder="YY" />
+                                                                class="form-control card-expiry-year" placeholder="YY" />
                                                         </div>
                                                     </div>
                                                     <div class="col-xs-4 col-md-4 pull-right required">
                                                         <div class="form-group">
                                                             <label>CV CODE</label>
                                                             <input type="text" id="card-cvc"
-                                                                   class="form-control card-cvc" placeholder="CVC" />
+                                                                class="form-control card-cvc" placeholder="CVC" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -122,7 +124,7 @@
                                                         <div class="form-group">
                                                             <label>CARD OWNER</label>
                                                             <input type="text" class="form-control"
-                                                                   placeholder="Card Owner Names" />
+                                                                placeholder="Card Owner Names" />
                                                         </div>
                                                     </div>
                                                 </div>
@@ -137,10 +139,11 @@
                                 <div class="dr-details">
                                     <div class="dr-image">
                                         <img src="{{ $doctor->user->image ? asset('uploads/organization/department/doctor/' . $doctor->user->image) : asset('public_assets/img/services/service-9.jpg') }}"
-                                             alt="Image">
+                                            alt="Image">
                                     </div>
                                     <div class="dr-info text-capitalize">
                                         <h6>{{ $doctor->user->name }}</h6>
+                                        <h2 id="fee"></h2>
                                         @foreach ($doctor->specialization as $specialization)
                                             <p>{{ $specialization->name }}</p>
                                         @endforeach
@@ -150,7 +153,8 @@
                         </div>
                         <div style="overflow:auto;" class="mt-5">
                             <div style="text-align:right;">
-                                <button type="button" class="btn btn-primary" id="prevBtn" onclick="nextPrev(-1)">Previous
+                                <button type="button" class="btn btn-primary" id="prevBtn"
+                                    onclick="nextPrev(-1)">Previous
                                 </button>
                                 <button type="button" class="btn btn-primary" id="nextBtn" onclick="nextPrev(1)">Next
                                 </button>
@@ -353,6 +357,7 @@
         }).on('changeDate',
             function(selected) {
                 console.log("startDate..." + selected.dates[0]);
+                $('#selected_date').html(selected.dates[0]);
                 getSchedule(selected.dates[0]);
             });
         var BASE_URL = `{{ url('') }}`;
@@ -368,6 +373,9 @@
         var public_date;
         var coupon;
         var hospital;
+        var currency_code =
+            `{{ session('currency_code') ? session('currency_code') : 'INR' }}`;
+        var currency_rate = `{{ session('currency_rate') ? session('currency_rate') : 1 }}`;
 
 
         // document.addEventListener('DOMContentLoaded', function()
@@ -437,28 +445,28 @@
             validateAndPay(e);
             paymentToken = $form.find('input[name="stripeToken"]').val();
             $.ajax({
-                url: BASE_URL + "/api/book/appointment",
-                type: "POST",
-                data: {
-                    'doctor_id': doctor_id,
-                    'patient_id': patient_id,
-                    "schedule_id": $('input[name="appointment_data"]').attr('id'),
-                    "start": $('input[name="appointment_data"]').attr('start'),
-                    "end": $('input[name="appointment_data"]').attr('end'),
-                    "price": $('input[name="appointment_data"]').attr('fee'),
-                    "interval": $('input[name="appointment_data"]').attr('interval'),
-                    "coupon": coupon,
-                    "appointment_date": $('input[name="appointment_data"]').attr('date'),
-                    "description": $('textarea[name="comments"]').val(),
-                    'stripeToken': paymentToken,
-                    'appointment_link': '123',
+                    url: BASE_URL + "/api/book/appointment",
+                    type: "POST",
+                    data: {
+                        'doctor_id': doctor_id,
+                        'patient_id': patient_id,
+                        "schedule_id": $('input[name="appointment_data"]').attr('id'),
+                        "start": $('input[name="appointment_data"]').attr('start'),
+                        "end": $('input[name="appointment_data"]').attr('end'),
+                        "price": $('input[name="appointment_data"]').attr('fee'),
+                        "interval": $('input[name="appointment_data"]').attr('interval'),
+                        "coupon": coupon,
+                        "appointment_date": $('input[name="appointment_data"]').attr('date'),
+                        "description": $('textarea[name="comments"]').val(),
+                        'stripeToken': paymentToken,
+                        'appointment_link': '123',
 
 
-                },
+                    },
 
-                cache: false,
-                timeout: 800000,
-            })
+                    cache: false,
+                    timeout: 800000,
+                })
                 .done(function(data) {
                     send_notification(user_id, 'Appointment No.' + data.msg,
                         'You have a new appointment');
@@ -479,6 +487,8 @@
             fee = $(this).find("span.amount-converted").html()
             $('#comments').show();
             $('#calenderwrapper').hide();
+            let fee = $('input[name="appointment_data"]').attr('fee');
+            $('#fee').html(${fee*currency_rate} +" "+currency_code)
         });
         $('#next-comment').on("click", function() {
             $('#membership').show();
@@ -528,9 +538,6 @@
                         //     .timeZone;
                         // let startDate = moment(schedule[start]).tz(userDatetimeZone).format('hh:mm:ss');
                         // let endDate = moment(schedule[end]).tz(userDatetimeZone).format('hh:mm:ss');
-                        var currency_code =
-                            `{{ session('currency_code') ? session('currency_code') : 'INR' }}`;
-                        var currency_rate = `{{ session('currency_rate') ? session('currency_rate') : 1 }}`;
 
 
 
@@ -610,10 +617,10 @@
                 //         'Y-M-D HH:mm:ss');
                 //     var dbDateEnd = moment(element.end).format('Y-M-D HH:mm:ss');
                 //     htmlSchedules += ` <div class="form-group col-lg-5 schedule_wrapper">
-                //         <label>Appointments Left <span>${element.number_of_people}</span> / <span class="amount-converted">${element.price*currency_rate}</span> <span class="currency-code">${currency_code}</span></label>
-                //         <input class="form-control" type="text" start="${dbDateStart}" end="${dbDateEnd}" readonly value="${startDate} To ${endDate}" />
-                //         <input type="hidden" value="${element.id}" />
-                //     </div>`;
+            //         <label>Appointments Left <span>${element.number_of_people}</span> / <span class="amount-converted">${element.price*currency_rate}</span> <span class="currency-code">${currency_code}</span></label>
+            //         <input class="form-control" type="text" start="${dbDateStart}" end="${dbDateEnd}" readonly value="${startDate} To ${endDate}" />
+            //         <input type="hidden" value="${element.id}" />
+            //     </div>`;
                 //     doc_fee += `<p class="text">${element.price} INR</p>`
 
                 //     $('#scheduleDoctor').html(htmlSchedules);

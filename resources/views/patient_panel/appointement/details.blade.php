@@ -55,14 +55,14 @@
                                             </div>
                                             <div class="form-group col-6">
                                                 <label for="price">Price</label>
-                                                <input type="number" class="form-control" name="price" id="price" disabled value="{{$schedule->interval}}{{$schedule->price}}" placeholder="Enter Price">
+                                                <input type="number" class="form-control" name="price" id="price" disabled value="{{$appointment->price}}" placeholder="Enter Price">
                                                 @if ($errors->has('price'))
                                                 <span class="text-danger text-left">{{ $errors->first('price') }}</span>
                                                 @endif
                                             </div>
                                             <div class="form-group col-6">
                                                 <label for="interval">Interval</label>
-                                                <input type="number" class="form-control" name="interval" id="interval" disabled value="{{$schedule->interval}}" placeholder="Enter Price">
+                                                <input type="number" class="form-control" name="interval" id="interval" disabled value="{{$appointment->interval}}" placeholder="Enter Price">
 
                                             </div>
 
