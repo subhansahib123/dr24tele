@@ -17,8 +17,13 @@ class APIDoctorScheduleController extends Controller
     public function insert(Request $request)
     {
         $rules = array(
+            'status' => 'required',
+            'start_date' => 'required',
+//            'end_date' => 'required',
             'start' => 'required',
             'end' => 'required',
+//            'repeat' => 'required',
+//            'days' => 'required',
             'price' => 'required',
             'interval' => 'required',
             'number_of_people' => 'required',
@@ -43,21 +48,36 @@ class APIDoctorScheduleController extends Controller
             } else {
                 $status = 0;
             }
+            $start_date = new Carbon($request->get('start_date'));
+            $end_date = new Carbon($request->get('end_date'));
             $start = new Carbon($request->get('start'));
+            $start_time = $start->format("H:I");
             $end = new Carbon($request->get('end'));
+            $end_time = $start->format("H:I");
+            if ($request->has('repeat')) {
+                $repeat = 1;
+            } else {
+                $repeat = 0;
+            }
+            $days = $request->get('days');
             $price = $request->get('price');
             $interval = $request->get('interval');
             $number_of_people = $request->get('number_of_people');
             $comment = $request->get('comment');
             $doctorId = Auth::user()->doctor->id;
             $schedule = Schedule::create([
-                'start' => $start,
-                'end' => $end,
                 'status' => $status,
+                'start_date' => $start_date,
+                'end_date' => $end_date,
+                'start' => $start_time,
+                'end' => $end_time,
+                'repeat' => $repeat,
+                'days' => $days,
                 'price' => $price,
                 'interval' => $interval,
                 'number_of_people' => $number_of_people,
                 'comment' => $comment,
+                'slot_belong' => 1,
                 'doctor_id' => $doctorId,
             ]);
             if ($schedule){
@@ -116,8 +136,13 @@ class APIDoctorScheduleController extends Controller
     public function update(Request $request,$id)
     {
         $rules = array(
+            'status' => 'required',
+            'start_date' => 'required',
+//            'end_date' => 'required',
             'start' => 'required',
             'end' => 'required',
+//            'repeat' => 'required',
+//            'days' => 'required',
             'price' => 'required',
             'interval' => 'required',
             'number_of_people' => 'required',
@@ -137,9 +162,23 @@ class APIDoctorScheduleController extends Controller
                 ]
             ]);
         } else {
+            if ($request->has('status')) {
+                $status = 1;
+            } else {
+                $status = 0;
+            }
+            $start_date = new Carbon($request->get('start_date'));
+            $end_date = new Carbon($request->get('end_date'));
             $start = new Carbon($request->get('start'));
+            $start_time = $start->format("H:I");
             $end = new Carbon($request->get('end'));
-            $status = $request->get('status');
+            $end_time = $start->format("H:I");
+            if ($request->has('repeat')) {
+                $repeat = 1;
+            } else {
+                $repeat = 0;
+            }
+            $days = $request->get('days');
             $price = $request->get('price');
             $interval = $request->get('interval');
             $number_of_people = $request->get('number_of_people');
@@ -147,13 +186,18 @@ class APIDoctorScheduleController extends Controller
             $doctorId = Auth::user()->doctor->id;
             $schedule = Schedule::find($id);
             $schedule->update([
-                'start' => $start,
-                'end' => $end,
                 'status' => $status,
+                'start_date' => $start_date,
+                'end_date' => $end_date,
+                'start' => $start_time,
+                'end' => $end_time,
+                'repeat' => $repeat,
+                'days' => $days,
                 'price' => $price,
                 'interval' => $interval,
                 'number_of_people' => $number_of_people,
                 'comment' => $comment,
+                'slot_belong' => 1,
                 'doctor_id' => $doctorId,
             ]);
             if ($schedule){
