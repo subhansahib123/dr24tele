@@ -27,14 +27,15 @@
                                 <div class="col-12 error">
                                 </div>
                             </div>
-                            <form id="appointmentForms">
+
                                 <div class="col-12 error">
                                 </div>
                                 <div class="row">
                                     <input type="hidden" name="date" id="doc-calender" />
                                 </div>
-                            </form>
+
                             <form id="appointmentForm" class="container">
+                                <input type="hidden" name="stripeToken" />
                                 <div class="tab">
                                     <h3>Select Date</h3>
                                     <div id='calendar' class="p-2 d-flex"></div>
@@ -42,17 +43,26 @@
                                     </div>
                                 </div>
                                 <div class="tab">
+                                    <div class="row ms-2 my-2" id="hospital-check-is">
+                                        <div class="mb-3 form-check">
                                     <h3 id="selected_date">Selected Date</h3>
                                     <p><label>Comments</label></p>
                                     <p>
                                         <textarea rows="5" cols="5" class="form-control" name="comments" required></textarea>
                                     </p>
-                                    <div class="row ms-2 my-2" id="hospital-check-is">
+                                        </div>
+
                                         <div class="mb-3 form-check">
                                             <input type="checkbox" class="form-check-input me-2 p-0" name="hospital-check"
                                                 id="hospital-check" value="1">
                                             <label class="form-check-label" for="hospital-check">Are you already
                                                 registered with this hospital?</label>
+                                        </div>
+                                         <div class="mb-3 form-check">
+                                            <input type="checkbox" class="form-check-input me-2 p-0" name="hospital-check"
+                                                id="book-for-third" value="1">
+                                            <label class="form-check-label" for="hospital-check">Are you want to
+                                                book for third person?</label>
                                         </div>
                                     </div>
                                     <div class="row" id="hospital-check-file" style="display: none">
@@ -62,21 +72,30 @@
                                             <p>Please upload your registration card</p>
                                         </div>
                                     </div>
+
                                 </div>
                                 <div class="tab">
-                                    <form role="form">
-                                        <div class="col-12">
-                                            <div class="form-group">
-                                                <label>Coupon</label>
-                                                <div class="input-group">
-                                                    <input type="text" id="coupon" name="coupon"
-                                                        class="form-control mb-3" placeholder="Coupon Code" />
-                                                    <button type="button" id="coupon-btn" class="btn btn-apfm">Apply
-                                                    </button>
-                                                </div>
-                                            </div>
+
+                                        <div class="row" id="third_person_form" style="display: none">
+                                        <div class="col-md-12">
+                                            {{-- <label for="hospital-register-id">Patient Name</label> --}}
+                                            <input type="text" name="patient_name" placeholder="Patient Name" class="form-control mb-3">
+
+
                                         </div>
-                                    </form>
+                                        <div class="col-md-12">
+                                            {{-- <label for="hospital-register-id">Patient Email</label> --}}
+                                            <input type="text" name="patient_email"  placeholder="Patient Email"  class="form-control mb-3">
+
+                                        </div>
+                                        <div class="col-md-12">
+                                            {{-- <label for="hospital-register-id">Patient Phone</label> --}}
+                                            <input type="text" name="patient_phone" placeholder="Patient Phone" class="form-control mb-3">
+
+                                        </div>
+                                    </div>
+
+
                                 </div>
                                 <div class="tab">
                                     <div class="panel panel-default">
@@ -132,6 +151,19 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="tab">
+                                    <div class="col-12">
+                                            <div class="form-group">
+                                                <label>Coupon</label>
+                                                <div class="input-group">
+                                                    <input type="text" id="coupon" name="coupon"
+                                                        class="form-control mb-3" placeholder="Coupon Code" />
+                                                    <button type="button" id="coupon-btn" class="btn btn-apfm">Apply
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                </div>
                             </form>
                         </div>
                         <div class="offset-1 col-md-4">
@@ -143,10 +175,11 @@
                                     </div>
                                     <div class="dr-info text-capitalize">
                                         <h6>{{ $doctor->user->name }}</h6>
-                                        <h2 id="fee"></h2>
+
                                         @foreach ($doctor->specialization as $specialization)
                                             <p>{{ $specialization->name }}</p>
                                         @endforeach
+                                        <span id="fee"></span>
                                     </div>
                                 </div>
                             </div>
@@ -357,7 +390,7 @@
         }).on('changeDate',
             function(selected) {
                 console.log("startDate..." + selected.dates[0]);
-                $('#selected_date').html(selected.dates[0]);
+                $('#selected_date').html("Selected Date: "+moment(selected.dates[0]).format('YYYY-MM-DD'));
                 getSchedule(selected.dates[0]);
             });
         var BASE_URL = `{{ url('') }}`;
@@ -380,7 +413,10 @@
 
         // document.addEventListener('DOMContentLoaded', function()
         // {
-
+        $('#book-for-third').change(function(){
+            $('#third_person_form').toggle();
+            // $('#hospital-check-is').toggle();
+        });
         var $form = $("#appointmentForm");
 
         $('#hospital-check').click(function(e) {
@@ -484,11 +520,12 @@
             schedule_id = $(this).find('input[type="hidden"]').val();
             start = $(this).find('input[type="text"]').attr('start');
             end = $(this).find('input[type="text"]').attr('end');
-            fee = $(this).find("span.amount-converted").html()
+            let fee = $(this).find('input[type="text"]').attr('fee')
             $('#comments').show();
             $('#calenderwrapper').hide();
-            let fee = $('input[name="appointment_data"]').attr('fee');
-            $('#fee').html(${fee*currency_rate} +" "+currency_code)
+            // let fee = $('input[name="appointment_data"]').attr('fee');
+            let price=fee*currency_rate
+            $('#fee').html("Doctor Fee"+price +" "+currency_code)
         });
         $('#next-comment').on("click", function() {
             $('#membership').show();
@@ -507,16 +544,16 @@
 
         // ------------------------------------------------------
         function getSchedule(date) {
-            let yourDate = new Date(date)
+            let yourDate = moment(date).format('YYYY-MM-DD');
             // const offset = yourDate.getTimezoneOffset()
             // yourDate = new Date(yourDate.getTime() - (offset * 60 * 1000))
             // var userDatetimeZone = yourDate.toISOString().split("T")[0];
             // public_date = userDatetimeZone;
-            let userTimeZone = Intl.DateTimeFormat().resolvedOptions()
-                .timeZone;
-            let timezoneStr = userTimeZone.split("/").join('-');
+            // let userTimeZone = Intl.DateTimeFormat().resolvedOptions()
+                // .timeZone;
+            // let timezoneStr = userTimeZone.split("/").join('-');
             $.ajax({
-                url: `/api/get/schedules/${doctor_id}/${timezoneStr}`,
+                url: `/api/get/schedules/${doctor_id}/${yourDate}`,
                 type: "GET",
                 processData: false,
                 contentType: false,

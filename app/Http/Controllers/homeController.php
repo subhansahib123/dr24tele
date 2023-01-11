@@ -21,6 +21,7 @@ use App\Models\DoctorSpecialization;
 use App\Models\SpecializedDepartment;
 use App\Models\State;
 use Carbon\Carbon;
+use \LaravelTimezone\Timezone;
 class homeController extends Controller
 {
     public function index(Request $request)
@@ -202,13 +203,19 @@ class homeController extends Controller
     {
 
 
-        $timeZone=implode('/',explode('-',$date));
+        // $timeZone=implode('/',explode('-',$date));
         $user_id = Doctor::find($doctor_id);
-        $schdeules = Schedule::where('doctor_id', $doctor_id)->get();
-        foreach($schdeules as $schdeule){
-           $schdeule->start= Carbon::parse($schdeule->start)->timezone($timeZone)->format('h:i A');
-           $schdeule->end= Carbon::parse($schdeule->end)->timezone($timeZone)->format('h:i A');
-        }
+        $schdeules =Schedule::
+        //   where('start_date','>=',$date )
+        // ->orWhere('end_date','<=',$date)
+        where('doctor_id', $doctor_id)
+
+        ->get();
+        // $timeZone=Auth::user()->id;
+        // foreach($schdeules as $schdeule){
+        //    $schdeule->start= Timezone::convertToLocal($schdeule->start)->timezone($timeZone)->format('h:i A');
+        //    $schdeule->end= Carbon::parse($schdeule->end)->timezone($timeZone)->format('h:i A');
+        // }
         return response()->json(['schedules' => $schdeules, 'user_id' => $user_id->user_id]);
     }
     public function daySchedule($id)
