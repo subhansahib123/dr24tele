@@ -76,7 +76,7 @@
                                             </div>
                                             <div class="form-group col-6">
                                                 <label for="letter">E-letter</label>
-                                                <input type="file" class="form-control" name="letter" id="letter"  value="" >
+                                                <input type="file" class="form-control" name="letter" id="letter" value="">
 
                                             </div>
                                             @if(isset($records))
@@ -93,8 +93,20 @@
                                                     @endforeach
                                                     if(!is_null($appointment->e_letter))
                                                     <div class="col-6">
+                                                    <form action="{{ route('doctor.eLetter') }}" method="POST">
+                                                        @csrf
+                                                        <input type="hidden" name="appointment_id" value="{{ $appointment->id }}">
                                                         <label class="text-capitalize" for="e_letter">E-Letter</label>
                                                         <img src="{{asset('uploads/organization/patients/e_letter/'.$appointment->e_letter)}}" height="300px" alt="">
+                                                        <div class="container">
+                                                        <div class="row">
+                                                            <div class="col-1 offset-11">
+                                                                <button type="submit" class="btn btn-primary">Save</button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                    
+                                                       
                                                     </div>
                                                     @endif
                                                 </div>
