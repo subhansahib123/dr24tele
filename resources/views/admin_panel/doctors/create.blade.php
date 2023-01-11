@@ -77,7 +77,7 @@
                                     </div>
                                     <div class="col-lg-6 col-md-6 col-sm-12">
                                         <div class="form-group">
-                                            <label class="form-label" for="gender">Gender</label>
+                                            <label class="form-label" for="gender">Gender *</label>
                                             <select class="form-select" name="gender_code" required id="gender">
                                                 <option value="">
                                                     Select

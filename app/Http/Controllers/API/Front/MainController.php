@@ -66,6 +66,7 @@ class MainController extends Controller
 
         $state = State::where('id', $hospital->state)->first();
         $city = City::where('id', $hospital->city)->first();
+        $departments=Department::where('organization_id',$hospital)->get();
         $stateName = $state->name;
         $cityName = $city->name;
         return response()->json([
@@ -77,6 +78,7 @@ class MainController extends Controller
                 "hospital"=>$hospital,
                 "stateName"=>$stateName,
                 "cityName"=>$cityName,
+                "departments"=>$departments,
                 "departmentSpecializations"=>$departmentSpecializations,
             ],
             'message' => [

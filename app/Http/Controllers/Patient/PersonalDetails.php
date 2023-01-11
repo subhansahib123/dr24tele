@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Patient;
 
 use App\Http\Controllers\Controller;
 use App\Models\Appointment;
+use App\Models\PatienDocument;
 use App\Models\Patient;
 use App\Models\Schedule;
 use Illuminate\Http\Request;
@@ -56,8 +57,10 @@ class PersonalDetails extends Controller
         $appointment=Appointment::where('id',$id)->first();
         $schedule=Schedule::where('id',$appointment->schedule_id)->first();
         $patient=Patient::where('id',$appointment->patient_id)->first();
-        // dd($schedule);
-        return view('patient_panel.appointement.details',compact('appointment','schedule','patient'));
+        $records=PatienDocument::where('patient_id',$patient->id)->get();
+        // dd($records     );
+
+        return view('patient_panel.appointement.details',compact('appointment','schedule','records','patient'));
     }
     public function uploadRecords(Request $request)
     {

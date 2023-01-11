@@ -10,6 +10,9 @@ use Carbon\CarbonPeriod;
 use App\Models\Schedule;
 use App\Models\Doctor;
 use App\Models\Appointment;
+use App\Models\PatienDocument;
+use App\Models\Patient;
+
 // use Illuminate\Support\Arr;
  class ScheduleController extends Controller
 {
@@ -150,6 +153,17 @@ use App\Models\Appointment;
         $doctor_id = auth()->user()->doctor->id;
         $appointements = Appointment::where('doctor_id', $doctor_id)->get();
         return view('doctor_panel.appointement.index', compact('appointements'));
+    }
+    public function appointmentDetails($id)
+    {
+        $appointment=Appointment::where('id',$id)->first();
+        $schedule=Schedule::where('id',$appointment->schedule_id)->first();
+        $patient=Patient::where('id',$appointment->patient_id)->first();
+        $records=PatienDocument::where('patient_id',$patient->id)->get();
+        // dd($records     );
+
+        return view('doctor_panel.appointement.details',compact('appointment','schedule','records','patient'));
+    
     }
 
     public function appointmentList(){
