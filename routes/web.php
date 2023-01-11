@@ -408,6 +408,7 @@ Route::get('/convert-currency/{to}',[CurrencyController::class,'ConvertCurrency'
     Route::get('/schedule/edit/{id}', [DoctorSchedule::class, 'edit'])->name('edit.schedule.doctor');
     Route::post('update/schedule', [DoctorSchedule::class, 'update'])->name('update.schedule.doctor');
     Route::get('/appointments', [DoctorSchedule::class, 'appointments'])->name('doctor.appointments');
+    Route::get('/appointment/details-page/{id}', [DoctorSchedule::class, 'appointmentDetails'])->name('appointment.Details');
     Route::get('/appointments/list', [DoctorSchedule::class, 'appointmentList'])->name('doctor.appointments.list');
     Route::get('/eprescription/create', [EprescriptionController::class, 'create'])->name('doctor.eprescription.create');
     Route::post('/eprescription/store', [EprescriptionController::class, 'store'])->name('doctor.eprescription.store');

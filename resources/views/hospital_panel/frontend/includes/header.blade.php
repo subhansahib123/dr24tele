@@ -2,8 +2,7 @@ P<!-- app-Header -->
 <div class="app-header header sticky">
     <div class="container-fluid main-container">
         <div class="d-flex">
-            <a aria-label="Hide Sidebar" class="app-sidebar__toggle" data-bs-toggle="sidebar"
-                href="javascript:void(0)"></a>
+            <a aria-label="Hide Sidebar" class="app-sidebar__toggle" data-bs-toggle="sidebar" href="javascript:void(0)"></a>
             <!-- sidebar-toggle-->
             <a class="logo-horizontal " href="index.html">
                 <img src="{{asset('assets/images/brand/logo.png')}}" class="header-brand-img desktop-logo" alt="logo">
@@ -16,9 +15,7 @@ P<!-- app-Header -->
             </div> --}}
             <div class="d-flex order-lg-2 ms-auto header-right-icons">
                 <!-- SEARCH -->
-                <button class="navbar-toggler navresponsive-toggler d-lg-none ms-auto" type="button"
-                    data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent-4"
-                    aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler navresponsive-toggler d-lg-none ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent-4" aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon fe fe-more-vertical"></span>
                 </button>
                 <div class="navbar navbar-collapse responsive-navbar p-0">
@@ -38,8 +35,7 @@ P<!-- app-Header -->
                                 </div>
                             </div>
                             <div class="d-flex country">
-                                <a class="nav-link icon text-center" data-bs-target="#country-selector"
-                                    data-bs-toggle="modal">
+                                <a class="nav-link icon text-center" data-bs-target="#country-selector" data-bs-toggle="modal">
                                     <i class="fe fe-globe"></i><span class="fs-16 ms-2 d-none d-xl-block">English</span>
                                 </a>
                             </div>
@@ -331,32 +327,31 @@ P<!-- app-Header -->
                             </div> --}}
                             <!-- SIDE-MENU -->
                             <div class="dropdown d-flex profile-1">
-                                <a href="javascript:void(0)" data-bs-toggle="dropdown"
-                                    class="nav-link leading-none d-flex">
+                                <a href="javascript:void(0)" data-bs-toggle="dropdown" class="nav-link leading-none d-flex">
                                     <?php
-                                    
-                                    $image=Auth::user()->image;
-                                    $pic=explode('/',$image);
-                                    if(isset($pic[1])){
-                                        $file_path=asset('uploads/organization/management/'.$image);
-                                    }else{
-                                        $file_path=asset('public_assets\img\patinetVectors/'.$image);
+
+                                    $image = Auth::user()->image;
+                                    $pic = explode('/', $image);
+                                    if (isset($pic[1])) {
+                                        $file_path = asset('uploads/organization/management/' . $image);
+                                    } else {
+                                        $file_path = asset('public_assets/img/patinetVectors/' . $image);
                                     }
                                     ?>
 
-                                    <img  src="{{$file_path}}" alt="profile-user"
-                                        class="avatar  profile-user brround cover-image">
+                                    <img src="{{$file_path}}" alt="profile-user" class="avatar  profile-user brround cover-image">
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
                                     <div class="dropdown-divider m-0"></div>
-                                     <a class="dropdown-item" href="{{route('updatePassword')}}">
+                                    <a class="dropdown-item" href="{{route('updatePassword')}}">
                                         <i class="dropdown-icon fe fe-user"></i> Update Password
                                     </a>
                                     <div class="drop-heading">
                                         <div class="text-center">
                                             <h5 class="text-dark mb-0 fs-14 fw-semibold">@auth
                                                 {{auth()->user()->name}}&nbsp;
-                                                @endauth</h5>
+                                                @endauth
+                                            </h5>
                                             <small class="text-muted">Senior Admin</small>
                                             <a href="{{route('logout')}}">Logout</a>
 
@@ -364,7 +359,7 @@ P<!-- app-Header -->
                                     </div>
 
                                     {{--<a class="dropdown-item" href="{{route('admin-home-page')}}">
-                                        <i class="dropdown-icon  fe fe-home"></i> Dashboard
+                                    <i class="dropdown-icon  fe fe-home"></i> Dashboard
                                     </a> --}}
                                     {{-- <a class="dropdown-item" href="email-inbox.html">
                                         <i class="dropdown-icon fe fe-mail"></i> Inbox
@@ -377,7 +372,7 @@ P<!-- app-Header -->
 
                                     @auth
                                     {{-- <a class="dropdown-item" href="{{route('logout')}}">
-                                        <i class="dropdown-icon fe fe-alert-circle"></i> Sign Out
+                                    <i class="dropdown-icon fe fe-alert-circle"></i> Sign Out
                                     </a> --}}
                                     @endauth
                                 </div>

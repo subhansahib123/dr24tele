@@ -50,7 +50,7 @@ class PatientDocumentController extends Controller
         try {
             if ($request->hasFile('doc_file')) {
                 $getImage = date('Y') . '/' . time() . '-' . rand(0, 999999) . '.' . $request->doc_file->getClientOriginalExtension();
-                $request->doc_file->move(public_path('uploads/patient/document/') . date('Y'), $getImage);
+                $request->doc_file->move(public_path('uploads/organization/patients/records/') . date('Y'), $getImage);
                 $image = $getImage;
             } else {
                 $image = '';

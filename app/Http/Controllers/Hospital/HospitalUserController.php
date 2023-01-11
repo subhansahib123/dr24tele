@@ -76,7 +76,6 @@ class HospitalUserController extends Controller
 
             return redirect()->route('logout')->withErrors(['error' => 'Token Expired Please Login Again !']);
         }
-
         return view('hospital_panel.user.create');
     }
 
@@ -89,6 +88,7 @@ class HospitalUserController extends Controller
             'password' => 'required',
             'phoneNumber' => 'required',
             'email' => 'required',
+            'gender_code' => 'required',
         ]);
         $userInfo = session('loggedInUser');
         $userInfo = json_decode(json_encode($userInfo), true);

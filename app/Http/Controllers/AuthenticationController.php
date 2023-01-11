@@ -48,7 +48,19 @@ class AuthenticationController extends Controller
         if (Auth::check()) {
             Auth::logout();
         }
-        return redirect('/');
+        $url = url()->previous();
+        $containsHospital = Str::contains($url, 'hospital');
+        $containsDoctor = Str::contains($url, 'doctor');
+        $containsAdmin = Str::contains($url, 'admin');
+        if ($containsHospital) {
+            return redirect('hospital/login/page');
+        }else if ($containsDoctor) {
+            return redirect('doctor/login');
+        }else if ($containsAdmin) {
+            return redirect('admin/login');
+        }else  {
+            return redirect('patient/login  ');
+        }
     }
     public function dashboard()
     {
