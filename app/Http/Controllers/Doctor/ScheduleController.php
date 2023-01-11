@@ -41,12 +41,7 @@ use App\Models\Appointment;
         } else {
             $data['repeat'] = 0;
         }
-        // dd($request->all());
-        $request->validate([
-            
-            'days'=>'required',
-
-        ]);
+        
 // dd($data);
         $start_date = new Carbon($data['start_date']);
         $end_date = new Carbon($data['end_date']);

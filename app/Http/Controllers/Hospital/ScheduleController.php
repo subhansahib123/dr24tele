@@ -98,27 +98,33 @@ class ScheduleController extends Controller
          }
     }
      public function insert(Request $request){
-         $data=$request->all();
-        if($request->has('status')){
-            $data['status']=1;
-        }else {
-            $data['status']=0;
+dd($request->all());
+        $data = $request->all();
+        if ($request->has('status')) {
+            $data['status'] = 1;
+        } else {
+            $data['status'] = 0;
         }
+        if ($request->has('repeat')) {
+            $data['repeat'] = 1;
+        } else {
+            $data['repeat'] = 0;
+        }
+        
+// dd($data);
+        $start_date = new Carbon($data['start_date']);
+        $end_date = new Carbon($data['end_date']);
+        $start = new Carbon($data['start']);
+        $end = new Carbon($data['end']);
+        $data['start'] = $start->format("H:I");
+        $data['start_date']=$start_date;
 
-
-        $start=new Carbon($data['start']);
-        $end=new Carbon($data['end']);
-
-        $data['start']=$start;
-
-        $data['end']=$end;
-        $data['start_date']=$request->start_date;
-        // if($request->start_date)
-        // $data['end']=$end;
-
-
+        $data['end'] = $end->format("H:I");
+        if($request->end_date)
+        $data['days']=implode($data['days'],',');
+        $data['end_date']=$end_date;
         // dd($data);
-        $schedule=Schedule::create($data);
+        $schedule = Schedule::create($data);
 
         return redirect()->route('list.schedules')->withSuccess(__('Schedule Successfully Created'));
         // $interval=$data['interval']." minutes";
