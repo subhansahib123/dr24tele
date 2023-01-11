@@ -21,7 +21,7 @@ use App\Models\DoctorSpecialization;
 use App\Models\SpecializedDepartment;
 use App\Models\State;
 use Carbon\Carbon;
-use \LaravelTimezone\Timezone;
+
 class homeController extends Controller
 {
     public function index(Request $request)
@@ -199,19 +199,22 @@ class homeController extends Controller
             return redirect()->route('patient.login')->withErrors(['error' => 'Please login!']);
         }
     }
-    public function scheduleOfDoctor($doctor_id, $date)
+    public function scheduleOfDoctor($doctor_id, $date,$patient_id)
     {
         // $timeZone=implode('/',explode('-',$date));
         $user_id = Doctor::find($doctor_id);
         $schdeules =Schedule::
-        where('start_date','>=',$date )
-            ->where('doctor_id', $doctor_id)
+        // where('start_date','>=',$date )
+            // ->
+            where('doctor_id', $doctor_id)
             ->get();
-        // $timeZone=Auth::user()->id;
-        // foreach($schdeules as $schdeule){
-        //    $schdeule->start= Timezone::convertToLocal($schdeule->start)->timezone($timeZone)->format('h:i A');
-        //    $schdeule->end= Carbon::parse($schdeule->end)->timezone($timeZone)->format('h:i A');
-        // }
+        // $user_id=Auth::user();
+        // return response()->json( $schdeules);
+      $timeZone=  User::find($patient_id)->timezone;
+        foreach($schdeules as $schdeule){
+           $schdeule->start= Carbon::parse($schdeule->start)->timezone($timeZone)->format('h:i A');
+           $schdeule->end= Carbon::parse($schdeule->end)->timezone($timeZone)->format('h:i A');
+        }
         return response()->json(['schedules' => $schdeules, 'user_id' => $user_id->user_id]);
     }
     public function daySchedule($id)

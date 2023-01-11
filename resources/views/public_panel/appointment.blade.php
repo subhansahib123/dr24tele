@@ -12,6 +12,7 @@
                         <span class="step"></span>
                         <span class="step"></span>
                         <span class="step"></span>
+                        <span class="step"></span>
                     </div>
                 </div>
             </div>
@@ -28,11 +29,11 @@
                                 </div>
                             </div>
 
-                                <div class="col-12 error">
-                                </div>
-                                <div class="row">
-                                    <input type="hidden" name="date" id="doc-calender" />
-                                </div>
+                            <div class="col-12 error">
+                            </div>
+                            <div class="row">
+                                <input type="hidden" name="date" id="doc-calender" />
+                            </div>
 
                             <form id="appointmentForm" class="container">
                                 <input type="hidden" name="stripeToken" />
@@ -45,11 +46,11 @@
                                 <div class="tab">
                                     <div class="row ms-2 my-2" id="hospital-check-is">
                                         <div class="mb-3 form-check">
-                                    <h3 id="selected_date">Selected Date</h3>
-                                    <p><label>Comments</label></p>
-                                    <p>
-                                        <textarea rows="5" cols="5" class="form-control" name="comments" required></textarea>
-                                    </p>
+
+                                            <p><label>Comments</label></p>
+                                            <p>
+                                                <textarea rows="5" cols="5" class="form-control" name="comments" required></textarea>
+                                            </p>
                                         </div>
 
                                         <div class="mb-3 form-check">
@@ -58,7 +59,7 @@
                                             <label class="form-check-label" for="hospital-check">Are you already
                                                 registered with this hospital?</label>
                                         </div>
-                                         <div class="mb-3 form-check">
+                                        <div class="mb-3 form-check">
                                             <input type="checkbox" class="form-check-input me-2 p-0" name="hospital-check"
                                                 id="book-for-third" value="1">
                                             <label class="form-check-label" for="hospital-check">Are you want to
@@ -76,23 +77,52 @@
                                 </div>
                                 <div class="tab">
 
-                                        <div class="row" id="third_person_form" style="display: none">
+                                    <div class="row" id="third_person_form" style="display: none">
                                         <div class="col-md-12">
                                             {{-- <label for="hospital-register-id">Patient Name</label> --}}
-                                            <input type="text" name="patient_name" placeholder="Patient Name" class="form-control mb-3">
+                                            <input type="text" name="patient_name" value="null" placeholder="Patient Name"
+                                                class="form-control mb-3">
 
 
                                         </div>
                                         <div class="col-md-12">
                                             {{-- <label for="hospital-register-id">Patient Email</label> --}}
-                                            <input type="text" name="patient_email"  placeholder="Patient Email"  class="form-control mb-3">
+                                            <input type="text" name="patient_email" value="null" placeholder="Patient Email"
+                                                class="form-control mb-3">
 
                                         </div>
                                         <div class="col-md-12">
                                             {{-- <label for="hospital-register-id">Patient Phone</label> --}}
-                                            <input type="text" name="patient_phone" placeholder="Patient Phone" class="form-control mb-3">
+                                            <input type="text" name="patient_phone" value="null" placeholder="Patient Phone"
+                                                class="form-control mb-3">
 
                                         </div>
+                                    </div>
+                                     <div class="row" id="booking_details" >
+                                        <div class="col-md-12">
+                                            <label for="detail_start">Start Time :<p id="detail_start"></p></label>
+
+
+
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label for="detail_end">End Time :<p id="detail_end"></p></label>
+
+
+
+                                        </div>
+                                        <div class="col-md-12">
+                                            <label for="detail_interval">Interval :<p id="detail_interval"></p></label>
+
+
+
+                                        </div><div class="col-md-12">
+                                            <label for="detail_fee">Fee :<p id="detail_fee"></p></label>
+
+
+
+                                        </div>
+
                                     </div>
 
 
@@ -152,23 +182,33 @@
                                     </div>
                                 </div>
                                 <div class="tab">
-                                    <div class="col-12">
-                                            <div class="form-group">
-                                                <label>Coupon</label>
-                                                <div class="input-group">
-                                                    <input type="text" id="coupon" name="coupon"
-                                                        class="form-control mb-3" placeholder="Coupon Code" />
-                                                    <button type="button" id="coupon-btn" class="btn btn-apfm">Apply
-                                                    </button>
-                                                </div>
+                                    <div class="col-12" id="Coupon-container">
+                                        <div class="form-group">
+                                            <label>Coupon</label>
+                                            <div class="input-group">
+                                                <input type="text" id="coupon" name="coupon"
+                                                    class="form-control mb-3" placeholder="Coupon Code" />
+                                                <button type="button" id="coupon-btn" class="btn btn-apfm">Apply
+                                                </button>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="col-12" id="booking-id" style='display:none'>
+                                        <div class="form-group">
+                                            <label>Booking ID</label>
+                                            <div class="input-group">
+                                                <h1 id="booked-id"></h1>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </form>
                         </div>
                         <div class="offset-1 col-md-4">
+                            <h3 id="selected_date" style="display: none">Selected Date</h3>
                             <div class="p-2 d-flex">
                                 <div class="dr-details">
+
                                     <div class="dr-image">
                                         <img src="{{ $doctor->user->image ? asset('uploads/organization/department/doctor/' . $doctor->user->image) : asset('public_assets/img/services/service-9.jpg') }}"
                                             alt="Image">
@@ -390,7 +430,8 @@
         }).on('changeDate',
             function(selected) {
                 console.log("startDate..." + selected.dates[0]);
-                $('#selected_date').html("Selected Date: "+moment(selected.dates[0]).format('YYYY-MM-DD'));
+                $('#selected_date').show();
+                $('#selected_date').html("Selected Date: " + moment(selected.dates[0]).format('YYYY-MM-DD'));
                 getSchedule(selected.dates[0]);
             });
         var BASE_URL = `{{ url('') }}`;
@@ -413,8 +454,9 @@
 
         // document.addEventListener('DOMContentLoaded', function()
         // {
-        $('#book-for-third').change(function(){
+        $('#book-for-third').change(function() {
             $('#third_person_form').toggle();
+            $('#booking_details').hide();
             // $('#hospital-check-is').toggle();
         });
         var $form = $("#appointmentForm");
@@ -507,11 +549,17 @@
                     send_notification(user_id, 'Appointment No.' + data.msg,
                         'You have a new appointment');
                     document.getElementById("appointmentForm").reset();
+                    $('#Coupon-container').hide();
+                    $('#booking-id').show();
+                    $('#booked-id').html('#0000'+data.msg);
+                    $('#book_appointment_submit').attr('disabled','disabled');
+
                     window.location = BASE_URL + '/patient/appointments'
                 })
                 .fail(function(error) {
                     console.log(error);
                 });
+            return false;
         });
 
         $('.schedules').on("click", '.schedule_wrapper', function() {
@@ -521,11 +569,18 @@
             start = $(this).find('input[type="text"]').attr('start');
             end = $(this).find('input[type="text"]').attr('end');
             let fee = $(this).find('input[type="text"]').attr('fee')
+            let interval = $(this).find('input[type="text"]').attr('interval')
             $('#comments').show();
             $('#calenderwrapper').hide();
             // let fee = $('input[name="appointment_data"]').attr('fee');
-            let price=fee*currency_rate
-            $('#fee').html("Doctor Fee"+price +" "+currency_code)
+            let price = fee * currency_rate;
+
+            $('#fee').html("Doctor Fee: " + price + " " + currency_code)
+            $('#detail_start').html(start);
+            $('#detail_end').html(end);
+            $('#detail_fee').html(price + " " + currency_code);
+            $('#detail_interval').html(interval);
+
         });
         $('#next-comment').on("click", function() {
             $('#membership').show();
@@ -550,10 +605,10 @@
             // var userDatetimeZone = yourDate.toISOString().split("T")[0];
             // public_date = userDatetimeZone;
             // let userTimeZone = Intl.DateTimeFormat().resolvedOptions()
-                // .timeZone;
+            // .timeZone;
             // let timezoneStr = userTimeZone.split("/").join('-');
             $.ajax({
-                url: `/api/get/schedules/${doctor_id}/${yourDate}`,
+                url: `/api/get/schedules/${doctor_id}/${yourDate}/${patient_id}`,
                 type: "GET",
                 processData: false,
                 contentType: false,
@@ -742,7 +797,8 @@
         function nextPrev(n) {
             var x = document.getElementsByClassName("tab");
             if (n == 1 && !validateForm()) return false;
-            x[currentTab].style.display = "none";
+            if (currentTab != 5)
+                x[currentTab].style.display = "none";
             currentTab = currentTab + n;
             if (currentTab >= x.length) {
                 var buttonforclick = document.getElementById("book_appointment_submit");
@@ -756,9 +812,9 @@
         function validateForm() {
             var x, y, i, valid = true;
             x = document.getElementsByClassName("tab");
-            if (currentTab != 4)
+            if (currentTab != 5)
                 y = x[currentTab].getElementsByTagName("input");
-            else if (currentTab == 4) {
+            else if (currentTab == 5) {
                 y = 0;
                 document.getElementsByClassName("step")[currentTab - 1].className += " finish";
                 return valid;
