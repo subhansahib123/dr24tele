@@ -98,7 +98,6 @@ class ScheduleController extends Controller
          }
     }
      public function insert(Request $request){
-dd($request->all());
         $data = $request->all();
         if ($request->has('status')) {
             $data['status'] = 1;
@@ -110,7 +109,7 @@ dd($request->all());
         } else {
             $data['repeat'] = 0;
         }
-        
+
 // dd($data);
         $start_date = new Carbon($data['start_date']);
         $end_date = new Carbon($data['end_date']);
@@ -123,6 +122,7 @@ dd($request->all());
         if($request->end_date)
         $data['days']=implode($data['days'],',');
         $data['end_date']=$end_date;
+        $data['slot_belong']=1;
         // dd($data);
         $schedule = Schedule::create($data);
 
