@@ -54,13 +54,12 @@
                                         <tr>
                                             <td>{{ $loop->index + 1 }}</td>
                                             <td>{{ $schedule->status ? 'Enabled' : 'Disabled' }}</td>
-                                            <td>{{ date('d-m-Y H:i A', strtotime($schedule->start)) }}</td>
-                                            <td>{{ date('d-m-Y H:i A', strtotime($schedule->end)) }}</td>
+                                            <td>{{ date('h:i A', strtotime($schedule->start)) }}</td>
+                                            <td>{{ date('h:i A', strtotime($schedule->end)) }}</td>
                                             <td>{{ $schedule->comment }}</td>
-                                            <td>{{ $schedule->doctor->user->username }}</td>
+                                            <td>{{ $schedule->doctor->user->name }}</td>
                                             {{-- <td>{{$schedule->doctor->department->name}}</td> --}}
                                             <td>
-                                                <a href="{{ route('edit.schedule', $schedule->id) }}" class="btn btn-primary btn-sm" data-toggle="Edit"><i class="fa fa-edit"></i></a>
                                                 <a href="{{ route('delete.schedule', $schedule->id) }}" class="btn btn-danger btn-sm" data-toggle="Delete"><i class="fa fa-trash"></i></a>
 
                                             </td>

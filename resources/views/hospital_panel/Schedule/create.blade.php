@@ -1,4 +1,4 @@
-@extends('hospital_panel.layout.master');
+@extends('hospital_panel.layout.master')
 
 @section('content')
 
@@ -58,8 +58,17 @@
                                                 </div>
                                                 <div class="form-group col-6">
 
-                                                    <label for="start">Start Date * required</label>
-                                                    <input type="text" class="form-control" name="start" id="start" placeholder="Start Date" required value="{{old('start')}}">
+                                                    <label for="start_date">Start Date * </label>
+                                                    <input type="date" class="form-control" name="start_date" id="start_date" placeholder="Start Date" required value="{{old('start_date')}}">
+                                                    @if ($errors->has('start'))
+                                                    <span class="text-danger text-left">{{ $errors->first('start') }}</span>
+                                                    @endif
+
+                                                </div>
+                                                <div class="form-group col-6">
+
+                                                    <label for="start">Start Time *</label>
+                                                    <input type="time" class="form-control" required name="start" placeholder="Start Date" required value="{{old('start')}}">
                                                     @if ($errors->has('start'))
                                                     <span class="text-danger text-left">{{ $errors->first('start') }}</span>
                                                     @endif
@@ -68,16 +77,17 @@
                                                 <div class="form-group col-6">
 
 
-                                                    <label for="end">End Date *</label>
+                                                    <label for="end">End Time *</label>
 
-                                                    <input type="text" class="form-control" required name="end" id="end" placeholder="End Date" required value="{{old('end')}}">
+                                                    <input type="time" class="form-control" name="end" placeholder="End Date" required value="{{old('end')}}">
                                                     @if ($errors->has('end'))
                                                     <span class="text-danger text-left">{{ $errors->first('end') }}</span>
                                                     @endif
                                                 </div>
+                                                
                                                 <div class="form-group col-6">
                                                     <label for="price">Price *</label>
-                                                    <input type="number" class="form-control" required name="price" id="price"  maxlenght="10" placeholder="Enter Price" value="{{old('price')}}" required>
+                                                    <input type="number" class="form-control" required name="price" id="price" maxlenght="10" placeholder="Enter Price" value="{{old('price')}}" required>
                                                     @if ($errors->has('price'))
                                                     <span class="text-danger text-left">{{ $errors->first('price') }}</span>
                                                     @endif
@@ -97,21 +107,66 @@
                                                     <span class="text-danger text-left">{{ $errors->first('number_of_people') }}</span>
                                                     @endif
                                                 </div>
-                                                <div class="form-group col-12">
+                                                <div class="form-group col-6">
                                                     <label for="comment">Comments *</label>
                                                     <textarea class="form-control" value="{{old('comment')}}" required name="comment" onkeydown="return /[a-z\ ]/i.test(event.key)" placeholder="Enter Comments About Schedule" id="comment"></textarea>
                                                     @if ($errors->has('comment'))
                                                     <span class="text-danger text-left">{{ $errors->first('comment') }}</span>
                                                     @endif
                                                 </div>
-                                                <div class="form-group col-4">
-                                                    <label class="form-label" for="status">Status 
-                                                        <input type="checkbox" class="form-checkbox pt-3 mx-2" required id="status"  name="status" value="{{old('status')}}">
-                                                        @if ($errors->has('status'))
-                                                        <span class="text-danger text-left">{{ $errors->first('status') }}</span>
-                                                        @endif
 
-                                                     </label>
+                                                <div class="form-group col-6 mt-5">
+                                                    <div class="row">
+                                                        <div class="col-3 offset-1">
+                                                            <label class="form-label" for="status">Status
+                                                                <input type="checkbox" class="form-checkbox" required id="status" name="status" value="{{old('status')}}">
+                                                                @if ($errors->has('status'))
+                                                                <span class="text-danger text-left mt-4 ">{{ $errors->first('status') }}</span>
+                                                                @endif
+
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-3 offset-1">
+                                                            <label class="form-label" for="repeat">Repeat
+                                                                <input type="checkbox" class="form-checkbox" id="repeat" name="repeat" value="{{old('repeat')}}">
+                                                                @if ($errors->has('repeat'))
+                                                                <span class="text-danger text-left mt-4 ">{{ $errors->first('repeat') }}</span>
+                                                                @endif
+
+                                                            </label>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="form-group col-12 " id="recursion">
+                                                    <div class="row">
+                                                        <div class="col-6">
+                                                            <label class="form-label" for="status">Days
+                                                                <select class="form-select" id="days" name="days[]" multiple>
+                                                                    <option {{old('days')=='M'?'selected':''}} value="M">Monday</option>
+                                                                    <option {{old('days')=='T'?'selected':''}} value="T">Tuesday</option>
+                                                                    <option {{old('days')=='W'?'selected':''}} value="W">Wednesday</option>
+                                                                    <option {{old('days')=='TH'?'selected':''}} value="TH">Thursday</option>
+                                                                    <option {{old('days')=='F'?'selected':''}} value="F">Friday</option>
+                                                                    <option {{old('days')=='Sa'?'selected':''}} value="Sa">Saturday</option>
+                                                                    <option {{old('days')=='S'?'selected':''}} value="S">Sunday</option>
+                                                                </select>
+                                                                @if ($errors->has('days'))
+                                                                <span class="text-danger text-left mt-4 ">{{ $errors->first('days') }}</span>
+                                                                @endif
+
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            <label for="end_date">End Date * </label>
+                                                            <input type="date" class="form-control" name="end_date" id="end_date" placeholder="Start Date" required value="{{old('end_date')}}">
+                                                            @if ($errors->has('start'))
+                                                            <span class="text-danger text-left">{{ $errors->first('start') }}</span>
+                                                            @endif
+
+                                                        </div>
+                                                    </div>
 
                                                 </div>
                                                 <div class=" px-0 mt-4  card-footer text-end">
@@ -146,5 +201,28 @@
 
 
 
+
+@endsection
+
+@section('foot_script')
+<script>
+    $('#recursion').hide();
+    $('#weekDays').hide();
+    let date=document.getElementsByName("end_date")
+    $('#repeat').change(function(e) {
+        if ($(this).is(":checked")) {
+            $('#recursion').show();
+
+            $('#days').find('option').attr("selected", "selected");
+
+        } else
+            $('#recursion').hide();
+
+        $('#days').find('option').attr("selected", "");
+
+
+        return false;
+    });
+</script>
 
 @endsection

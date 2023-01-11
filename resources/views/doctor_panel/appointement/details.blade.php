@@ -1,4 +1,4 @@
-@extends('patient_panel.layout.master');
+@extends('doctor_panel.layout.master');
 
 @section('content')
 
@@ -74,18 +74,41 @@
                                                 <input type="number" class="form-control" name="interval" id="interval" disabled value="{{$appointment->interval}}" placeholder="Enter Price">
 
                                             </div>
+                                            <div class="form-group col-6">
+                                                <label for="letter">E-letter</label>
+                                                <input type="file" class="form-control" name="letter" id="letter" value="">
+
+                                            </div>
                                             @if(isset($records))
                                             <hr class="mt-2">
                                             <div class="form-group col-12">
                                                 <div class="row">
                                                     <h3 class="text-center fw-400">Records</h3>
-                                                    <hr class="mt-2">  
+                                                    <hr class="mt-2">
                                                     @foreach($records as $record)
                                                     <div class="col-6">
                                                         <label class="text-capitalize" for="">{{$record->title}}</label>
                                                         <img src="{{asset('uploads/organization/patients/records/'.$record->doc_file)}}" height="300px" alt="">
                                                     </div>
                                                     @endforeach
+                                                    if(!is_null($appointment->e_letter))
+                                                    <div class="col-6">
+                                                    <form action="{{ route('doctor.eLetter') }}" method="POST">
+                                                        @csrf
+                                                        <input type="hidden" name="appointment_id" value="{{ $appointment->id }}">
+                                                        <label class="text-capitalize" for="e_letter">E-Letter</label>
+                                                        <img src="{{asset('uploads/organization/patients/e_letter/'.$appointment->e_letter)}}" height="300px" alt="">
+                                                        <div class="container">
+                                                        <div class="row">
+                                                            <div class="col-1 offset-11">
+                                                                <button type="submit" class="btn btn-primary">Save</button>
+                                                            </div>
+                                                        </div>
+                                                    </form>
+                                                    
+                                                       
+                                                    </div>
+                                                    @endif
                                                 </div>
                                             </div>
                                             @endif

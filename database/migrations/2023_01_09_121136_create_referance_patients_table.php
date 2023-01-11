@@ -13,9 +13,10 @@ class CreateReferancePatientsTable extends Migration
      */
     public function up()
     {
-        Schema::create('referance_patients', function (Blueprint $table) {
+        Schema::create('third_person', function (Blueprint $table) {
             $table->id();
             $table->string('patient_name')->nullable();
+            $table->string('patient_email')->nullable();
             $table->string('patient_phone')->nullable();
             $table->unsignedBigInteger('appointment_id');
             $table->foreign('appointment_id')->references('id')->on('appointments')->onDelete('cascade');

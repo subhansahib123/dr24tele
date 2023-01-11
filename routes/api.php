@@ -36,7 +36,7 @@ Route::get('/getDepartments/{orgUuid}',[OrganizationController::class,'getDepart
 //create schedule and get storeHospitalPatients
 // Route::post('/store/schedule',[ScheduleController::class,'insert'])->name('store.schedule');
 // Route::post('/update/slots',[ScheduleController::class,'updateSlots'])->name('update.slot');
-Route::get('/get/schedules/{doctor_id}/{date}',[homeController::class,'scheduleOfDoctor']);
+Route::get('/get/schedules/{doctor_id}/{date}/{patient_id}',[homeController::class,'scheduleOfDoctor']);
 Route::get('/get/schedules/{id}',[homeController::class,'daySchedule']);
 Route::get('/get/schedules/{schedule_id}/{coupon}/coupon',[homeController::class,'scheduleOfDoctorCoupon']);
 Route::post('/book/appointment',[homeController::class,'bookApppointment']);

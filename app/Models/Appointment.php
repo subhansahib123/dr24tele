@@ -21,6 +21,7 @@ class Appointment extends Model
         'appointment_date',
         'interval',
         'price',
+        'e_letter',
         'coupon'
 
     ];

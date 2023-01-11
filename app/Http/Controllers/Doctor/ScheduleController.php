@@ -10,6 +10,9 @@ use Carbon\CarbonPeriod;
 use App\Models\Schedule;
 use App\Models\Doctor;
 use App\Models\Appointment;
+use App\Models\PatienDocument;
+use App\Models\Patient;
+
 // use Illuminate\Support\Arr;
  class ScheduleController extends Controller
 {
@@ -29,6 +32,7 @@ use App\Models\Appointment;
     //store schedule
     public function insert(Request $request)
     {
+        // dd($request->all());
         $data = $request->all();
         if ($request->has('status')) {
             $data['status'] = 1;
@@ -40,21 +44,19 @@ use App\Models\Appointment;
         } else {
             $data['repeat'] = 0;
         }
-        // dd($request->all());
-        $request->validate([
-            
-            'days'=>'required',
-
-        ]);
-
+        
+// dd($data);
+        $start_date = new Carbon($data['start_date']);
+        $end_date = new Carbon($data['end_date']);
         $start = new Carbon($data['start']);
         $end = new Carbon($data['end']);
         $data['start'] = $start->format("H:I");
+        $data['start_date']=$start_date;
 
         $data['end'] = $end->format("H:I");
+        if($request->end_date)
         $data['days']=implode($data['days'],',');
-        $data['slot_belong']=1;
-
+        $data['end_date']=$end_date;
         // dd($data);
         $schedule = Schedule::create($data);
 
@@ -151,6 +153,17 @@ use App\Models\Appointment;
         $doctor_id = auth()->user()->doctor->id;
         $appointements = Appointment::where('doctor_id', $doctor_id)->get();
         return view('doctor_panel.appointement.index', compact('appointements'));
+    }
+    public function appointmentDetails($id)
+    {
+        $appointment=Appointment::where('id',$id)->first();
+        $schedule=Schedule::where('id',$appointment->schedule_id)->first();
+        $patient=Patient::where('id',$appointment->patient_id)->first();
+        $records=PatienDocument::where('patient_id',$patient->id)->get();
+        // dd($records     );
+
+        return view('doctor_panel.appointement.details',compact('appointment','schedule','records','patient'));
+    
     }
 
     public function appointmentList(){

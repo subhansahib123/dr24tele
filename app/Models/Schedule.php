@@ -51,7 +51,9 @@ class Schedule extends Model
         'slot_id',
         'repeat',
         'days',
-        'slot_belong'
+        'slot_belong',
+        'start_date',
+        'end_date'
 
 
     ];
