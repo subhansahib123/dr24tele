@@ -201,16 +201,12 @@ class homeController extends Controller
     }
     public function scheduleOfDoctor($doctor_id, $date)
     {
-
-
         // $timeZone=implode('/',explode('-',$date));
         $user_id = Doctor::find($doctor_id);
         $schdeules =Schedule::
-        //   where('start_date','>=',$date )
-        // ->orWhere('end_date','<=',$date)
-        where('doctor_id', $doctor_id)
-
-        ->get();
+        where('start_date','>=',$date )
+            ->where('doctor_id', $doctor_id)
+            ->get();
         // $timeZone=Auth::user()->id;
         // foreach($schdeules as $schdeule){
         //    $schdeule->start= Timezone::convertToLocal($schdeule->start)->timezone($timeZone)->format('h:i A');
